@@ -16,9 +16,9 @@ Notes and assignements of Self-Driving Cars Specialization course by Coursera fr
 4. Demonstrate skills in CARLA and build programs with Python
 
 # How long it will take ? 
-- Tortoise (Recommended pace) : 7 months => 5h/week => 7m x (1x4wx5h) = 140h
-- Hare  : if 7h/day  => 35h/week => (140h/35h) => 4 weeks => `1 month` !
-- `GENIUS`  : if 10h/day => 70h/week => (140h/70h) => `2 weeks` !
+- `Tortoise` (Recommended pace) : **7 months** => 5h/week => 7m x (1x4wx5h) = 140h
+- `Hare`   : if 7h/day  => 35h/week => (140h/35h) => 4 weeks => **1 month**
+- `GENIUS`  : if 10h/day => 70h/week => (140h/70h) => 2 weeks => **1/2 month**
 
 
 # About this [Specialization](https://www.coursera.org/specializations/self-driving-cars#courses)
