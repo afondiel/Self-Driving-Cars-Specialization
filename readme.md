@@ -5,7 +5,7 @@ Notes and assignements of Self-Driving Cars Specialization coursera course by [U
 ![Autonomy solutions](https://www.rd.com/wp-content/uploads/2022/08/self-driving-cars-GettyImages-1292394282-JVedit.jpg?resize=768,512) 
 
 
-# What's you'll learn ? 
+# What you will learn ? 
 
 1. Understand the detailed architecture and components of a self-driving car software stack
 
@@ -15,7 +15,7 @@ Notes and assignements of Self-Driving Cars Specialization coursera course by [U
 
 4. Demonstrate skills in CARLA and build programs with Python
 
-# How long it takes ? 
+# How long it will take ? 
 - Tortoise (Recommended pace) : 7 months => 5h/week => 7m x (1x4wx5h) = 140h
 - Hare  : if 7h/day  => 35h/week => (140h/35h) => 4 weeks => `1 month` !
 - `GENIUS`  : if 10h/day => 70h/week => (140h/70h) => `2 weeks` !
