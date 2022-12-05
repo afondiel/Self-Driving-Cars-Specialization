@@ -4,9 +4,17 @@
 
 ### MODULE-0 : Welcome to Self-Driving Specialization
 
+  This module will introduce you to the main concepts and advances in safety and performance metrics in the field of autonomous vehicles over the past two decades. It will highlight the major players and their contributions to the field.
+      
+  **Learning Objectives :**
+  - Review the layout of the courses in the Specialization
+  - Review the main projects offered in this course
+  - Examine the state of the self-driving industry
+  
+
 #### Introduction to Self-Driving Cars
 
-- Welcome to the Sekf-Driving Cars Specialization
+- Welcome to the Self-Driving Cars Specialization
 
 Teacher presentation
 - Steve Waslander
