@@ -1,12 +1,21 @@
 # Course-1 : INTRODUCTION TO SELF-DRIVING CARS
 
+## Overview 
+This course will introduce you to the terminology, design considerations and safety assessment of self-driving cars
+
+  **Course Objectives :**
+- Understand commonly used hardware used for self-driving cars
+- Identify the main components of the self-driving software stack
+- Program vehicle modelling and control  
+- Analyze the safety frameworks and current industry practices for vehicle development
+
 `W1 : Welcome to the Self-Driving Cars Specialization!`
 
 ## MODULE-0 : Welcome to Self-Driving Specialization
 
   This module will introduce you to the main concepts and advances in safety and performance metrics in the field of autonomous vehicles over the past two decades. It will highlight the major players and their contributions to the field.
       
-  **Learning Objectives :**
+  **Module Objectives :**
   - Review the layout of the courses in the Specialization
   - Review the main projects offered in this course
   - Examine the state of the self-driving industry
@@ -17,7 +26,7 @@
 - **Welcome to the Self-Driving Cars Specialization**
 
 
-Instructors : `Steve Waslander` and `Jonathan Kelly` both Associate professor on Aerospace studies at [University of Toronto](https://www.utoronto.ca/).
+Instructors : `Steve Waslander` and `Jonathan Kelly` both Associate professor in Aerospace studies at [University of Toronto](https://www.utoronto.ca/).
 
 `Self-driving cars` is a sleeping geant which can change everything
   - road safety
