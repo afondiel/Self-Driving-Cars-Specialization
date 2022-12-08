@@ -1,4 +1,8 @@
-# Carla Simulator Easy Installation on **Windows**
+# Carla Simulator Easy Installation on Windows
+
+
+<img src="carla-simulator-install/render-carla-simulator.png" alt="Carla Simulator" width="600" height="340">
+
 
 ## Requirements
 
