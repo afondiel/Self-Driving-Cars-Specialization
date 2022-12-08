@@ -8,7 +8,7 @@
 
 - [Download anaconda distribution for wondows](https://www.anaconda.com/products/distribution)
 
-- download CarlaSimulator essential from my google drive : 
+- download CarlaSimulator essential files from my google drive : 
   - [![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1b2ad2KKJLMg_3XJvMWAavsX9IS56XWt7/view?usp=share_link)
 
 - install visual studio 2019 or more recent version
@@ -21,7 +21,7 @@
 1. add Carla path env variable
 
 ```
-set Path = < yout path\CarlaSimulator>
+set Path = < your path\CarlaSimulator>
 ```
 
 2. create a python 3.6 environment on conda
