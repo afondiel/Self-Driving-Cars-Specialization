@@ -58,17 +58,35 @@ Instructors : `Steve Waslander` and `Jonathan Kelly` both Associate professor in
 ---
 - **How to Use Supplementary Readings in This Course**
 
----
 
 ### Meeting the Self-Driving Car Experts
+---
 
-- Meet the Instructor, Steven Waslander
-- Meet the Instructor, Jonathan Kelly
-- Meet Diana, Firmware Engineer
-- Meet Winston, Software Engineer
-- Meet Andy, Autonomous Systems Architect
-- Meet Paul Newman, Founder, Oxbotica & Professor at University of Oxford
-- Why Should You Take This Course?
+- **Meet the Instructor, Steven Waslander**
+
+---
+
+- **Meet the Instructor, Jonathan Kelly**
+---
+
+- **Meet Diana, Firmware Engineer**
+
+---
+
+- **Meet Winston, Software Engineer**
+
+---
+
+- **Meet Andy, Autonomous Systems Architect**
+
+---
+
+- **Meet Paul Newman, Founder, Oxbotica & Professor at University of Oxford**
+
+---
+- **Why Should You Take This Course?**
+
+---
 
 - Quiz
 - Assignment
