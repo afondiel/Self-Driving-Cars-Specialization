@@ -34,14 +34,27 @@ Instructors : `Steve Waslander` and `Jonathan Kelly` both Associate professor in
   - reduce the cost of driving 
   - Steve and Jonathan built a self-driving car for research porpose :
     `Autonomoose`
+Global overview and requirements for each of four courses which are already described in the introduction section of each course.
 
-
+Autonomous driving is a constantly and changing field : 
+- Self-driving
+- Robotics
+- AI and ML
 ---
 
 - **Welcome to the Course**
 
+By the end of this course : 
+- Learn about the elements of drving : perception, prediction, decision making
+- Understand how to design the software(sw) and hardware(hw) stack to do autonomous driving 
+- Understand common safety pratices for autonomous driving
+- Learn the basics of vehicle modeling and control, and controllers to do speed regulation, path following(finding)
+- State of the art of the model predictive trajectory controllers for precisely executing challenging maneuvers
+- Use these concepts to help navigate a self driving car in CARLA(test the limits of the vehicles performances...)
 ---
 - **Course Prerequisites: Knowledge, Hardware & Software**
+
+  - [Prerequisites notes](https://github.com/afondiel/Self-Driving-Cars-Specialization-Coursera/blob/main/Course1-Introduction-to-Self-Driving-Cars/resources/Course-Prerequisites-Knowledge-Hardware-Software.md)
 
 ---
 - **The Story of Autonomous Vehicles**
