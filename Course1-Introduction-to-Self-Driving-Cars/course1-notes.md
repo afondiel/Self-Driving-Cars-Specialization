@@ -58,6 +58,15 @@ By the end of this course :
 
 ---
 - **The Story of Autonomous Vehicles**
+  
+  - More than 94% of road accidents are caused by some kind of human error
+  - The Ambition/dream/motivation behind the self-driving cars technology is to minimize or reduce human errors and deaths `out of the picture` through the **automation**. 
+  - Other advantages : 
+    - replace the driving tasks/controls and focus on the eat, relax. Make the morning more productive : send emails for instance.
+  
+- `1925` : Francis Udina(A Mechanic Engineer) demostrated a remote control car `The American Wonder` drove in the street of Manhattan with an empty drivers seat
+- `1956` : GM promoted a campaign of self-driving car to be arrived by 1976
+
 
 ---
 - **How to Use Discussion Forums**
@@ -71,6 +80,7 @@ By the end of this course :
 ---
 - **How to Use Supplementary Readings in This Course**
 
+---
 
 ### Meeting the Self-Driving Car Experts
 ---
