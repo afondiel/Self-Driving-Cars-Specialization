@@ -110,7 +110,6 @@ By the end of this course :
 -  The cost of self-driving car still high but prices will fall quicly as economies of scale takeover.
 - There still so much to be done and as the Industry will to continue to grow, Outstanding Engineers will be needed to **produce innovative solution for driving**.
 
-
 ---
 - **How to Use Discussion Forums**
   - OK
@@ -121,39 +120,36 @@ By the end of this course :
 
 ---
 - **Glossary of Terms**
-
+  - [here](./resources/glossary.md) ! 
 ---
 - **How to Use Supplementary Readings in This Course**
-
+  - OK 
 ---
 
 ### Meeting the Self-Driving Car Experts
+
 ---
-
 - **Meet the Instructor, Steven Waslander**
-
+  - OK
 ---
 
 - **Meet the Instructor, Jonathan Kelly**
+  - OK
 ---
-
 - **Meet Diana, Firmware Engineer**
-
+  - OK
 ---
-
 - **Meet Winston, Software Engineer**
-
+  - OK
 ---
-
 - **Meet Andy, Autonomous Systems Architect**
-
+  - OK
 ---
-
 - **Meet Paul Newman, Founder, Oxbotica & Professor at University of Oxford**
-
+  - OK 
 ---
 - **Why Should You Take This Course?**
-
+  - OK
 ---
 
 - Quiz
