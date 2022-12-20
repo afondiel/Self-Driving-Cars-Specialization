@@ -130,9 +130,25 @@ By the end of this course :
 
 ---
 - **Meet the Instructor, Steven Waslander**
-  - OK
----
+  - Background : 
+    - Actual job : 
+      - Associate professor, Aerospace studies
+    - Before : 
+      - Aerospace Engineer, worked in safety & testing
+        - passionate about : problem solving, sw dev, robots, drones, **disturbance rejection**, **motion planning**  
+  - research work : 
+    - building self-driving features at University of Toronto **Lab**
+    - where the focus on testing safety features to be applied to real self-driving products
+  - Self-driving building prototyping approach: 
+    - start by turning the  automobile into a Drive-by-wire vehicule 
+    - send commands to control steering, brakes, throttle ...
+    - add sensors and computation devices
 
+  - study requisites : fundamentals of robotics, computer vision, neural nets & machine learning
+    - these knowledges can also be applied into another area or industries : 
+      - cellphone cameras systems
+      - improve features for taking videos, drones flights and object tracking...
+---
 - **Meet the Instructor, Jonathan Kelly**
   - OK
 ---
