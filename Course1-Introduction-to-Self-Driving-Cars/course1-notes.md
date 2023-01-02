@@ -203,9 +203,14 @@ By the end of this course :
     - trigger : SLAM problem : cars has to find its location without a given map
     - build and find Engineer solutions
     - save lives
+    - we shouldn't be dependent on infrastructures (city, traffic light ... ) to build an efficient self-driving cars
 ---
 - **Why Should You Take This Course?**
-  - OK
+  - exciting career to be in 
+  - we're at the start of it and it'll last quite time
+  - what's to learn : 
+    - flexible, knowlegdble about this field
+    - anyone wants to work in this industry
 ---
 
 - Quiz
