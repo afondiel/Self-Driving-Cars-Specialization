@@ -151,19 +151,58 @@ By the end of this course :
       - improve features for taking videos, drones flights and object tracking...
 ---
 - **Meet the Instructor, Jonathan Kelly**
-  - OK
+  - Background : 
+    - Passionate about space, engineering and technology
+    - problem solving driven
+  - Work : 
+    - Assistant professor, at the Institute for Aerospace Studies at the UTC
+  - Motivation  : 
+    - Improve technologies to serve people
 ---
-- **Meet Diana, Firmware Engineer**
-  - OK
+- **Meet Diana, Firmware Engineer at Zoox**
+  -  Background : 
+     - Bachelor's of **mechatronics** engineering at University of Waterloo
+     - worked on Robotics at Peloton Technology (semi-autonomous trucks)
+  - Work : 
+    - Now : Firmware Engineer at Zoox
+        - main motion control units : controls vehicle function such as breaking, steering commands
+        - build drivers for high level interfaces
+        - testing on HIL systems (Hardware-In-Loop) : simulation & validation
+  - Motivation : Robotics
 ---
 - **Meet Winston, Software Engineer**
-  - OK
+  - Background: 
+    - Worked at GM and SAE (Society of Automotive Engineer) program called "Auto Drive"
+      - project spec : build a level 4, self-driving car
+  - work : 
+    - Now : Software Engineer and localization and mapping 
+  - Motivation : 
+    - From building computer vision systems for drones to trajectory planning algorithm for level 4, self-driving car 
+    - working on cutting edge technologies
 ---
 - **Meet Andy, Autonomous Systems Architect**
-  - OK
+  - Background : 
+    - studied robotics since high schools
+    - vehicle controls in Dynamics at university 
+  - Work :  
+    - co-founded robotic team
+    - currently systems level engineer for new generation of self-driving platform
+    - works w/ differents team : sw during perception and motion control sw
+      - hw engineers designing sensors and vehicle platforms
+  - Motivation : 
+    - robotics
+    - create impact on the quality of human lives: improving safety, save human lives, re-shape how we think about transportation
 ---
 - **Meet Paul Newman, Founder, Oxbotica & Professor at University of Oxford**
-  - OK 
+  - Background : 
+    - CTO and founder of **Oxbotica** & Professor at University of Oxford
+  - Work : 
+    - build sw for autonomous vehicles from sensors to all stacks (perception, mapping, planning and control)
+    - working on hard problem of autonomy & robotics
+  - Motivation :
+    - trigger : SLAM problem : cars has to find its location without a given map
+    - build and find Engineer solutions
+    - save lives
 ---
 - **Why Should You Take This Course?**
   - OK
