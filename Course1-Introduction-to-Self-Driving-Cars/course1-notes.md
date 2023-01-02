@@ -138,9 +138,10 @@ By the end of this course :
         - passionate about : problem solving, sw dev, robots, drones, **disturbance rejection**, **motion planning**  
   - research work : 
     - building self-driving features at University of Toronto **Lab**
-    - where the focus on testing safety features to be applied to real self-driving products
+    - where the focus on testing safety features to be applied to real self-driving products and many other problems
+    - working in the lab allows to explore lots of solutions scenarios of a specific problems `faster` than in the industry
   - Self-driving building prototyping approach: 
-    - start by turning the  automobile into a Drive-by-wire vehicule 
+    - start by turning the automobile into a Drive-by-wire vehicule 
     - send commands to control steering, brakes, throttle ...
     - add sensors and computation devices
 
