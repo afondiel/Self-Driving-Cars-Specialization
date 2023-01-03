@@ -11,7 +11,7 @@ This course will introduce you to the terminology, design considerations and saf
 
 `W1 : Welcome to the Self-Driving Cars Specialization!`
 
-## MODULE-0 : Welcome to Self-Driving Specialization
+## MODULE 0 : Welcome to Self-Driving Specialization
 
   This module will introduce you to the main concepts and advances in safety and performance metrics in the field of autonomous vehicles over the past two decades. It will highlight the major players and their contributions to the field.
       
@@ -206,20 +206,19 @@ By the end of this course :
     - we shouldn't be dependent on infrastructures (city, traffic light ... ) to build an efficient self-driving cars
 ---
 - **Why Should You Take This Course?**
-  - exciting career to be in 
-  - we're at the start of it and it'll last quite time
+  - self-driving general statement: the moral, safety, efficiency, transportation
+  - very complex problem to solve
+  - exciting career to be in, we're at the start of it and it'll last quite time
   - what's to learn : 
-    - flexible, knowlegdble about this field
+    - flexible, knowledgeable about this field
     - anyone wants to work in this industry
 ---
 
-- Quiz
-- Assignment
 
+## MODULE 1 : The requirements for Autonomy 
 
-## MODULE-1 : The requirements for Autonomy 
-
-Self-driving cars present an extremely rich and inter-disciplinary problem. This module introduces the language and structure of the problem definition, defining the most salient elements of the driving task and the driving environment.
+Self-driving cars present an extremely rich and inter-disciplinary problem. 
+This module introduces the language and structure of the problem definition, defining the most salient elements of the driving task and the driving environment.
 
 > Learning Objectives : 
 > - Identify perception, prediction and planning requirements for driving
@@ -228,17 +227,90 @@ Self-driving cars present an extremely rich and inter-disciplinary problem. This
 > - Assess the effects of driving conditions on the driving task
 ---
 ### Driving Taxonomy, Perception and Driving Decisions
+#### Lesson 1: Taxonomy of Driving 
 
-- Lesson 1: Taxonomy of Driving
-- Lesson 1 Supplementary Reading: Taxonomy of Driving
-- Lesson 1: Practice Quiz
-- Practice Quiz•5 questions
-- Lesson 2: Requirements for Perception
-- Lesson 2 Supplementary Reading: Requirements for Perception
-- Lesson 2: Practice Quiz
-- Practice Quiz•5 questions
-- Lesson 3: Driving Decisions and Actions
-- Lesson 3 Supplementary Reading: Driving Decisions and Actions
+- The driving task : tasks that are performed constantly while driving a vehicle
+  - `Perception` : perceiving the environment that we're driving in 
+    - tracking car motion
+    - identifying the various elements around the car (road surface, roads signs, vehicles, pedestrians ...)
+    - track all the objects and predicts the future motions, in order to drive safely and accurately
+  - `Motion Planning`: planning how to reach from point A to B
+  - `Controlling the vehicle` : allows to take the appropriate streering, break and acceleration decisions, to control the vehicle's position and velocity on the road
+- Operation Design Domain (ODD) : operating conditions under which a given system is designed to function : environmental, time of day, roadways and other characteristics under which the car will perform *reliably*
+  - It might designed clearly to ensuring the safety of the system
+  - The ODD shall be planned out carefully in advance
+  
+- How to classify driving system automation ? 
+  - Driver attention requirements when driving the car : 
+    - watching a movie while driving to work?
+    - keep the attention in the steering wheel all times?
+  - Driver Action requirements : 
+    - Do the driver need to steer ?
+    - does the car take care of the speed and the driver controls it as well ?
+    - can the drive controls lanes or the car stay in the current lane w/out any intervention? 
+  - What exactly makes up a driving task (for automation) ? 
+    - we use [SAE J3016](https://www.sae.org/blog/sae-j3016-update) created in 2014
+      - **Lateral control** : Steer 
+        - steering and navigating laterally on the road : turning left, right, going straight or tracking a curve and so on
+      - **Longitudinal control** : braking, accelerating
+        - control of the position or velocity of the car along the roadway
+      - **Object and Event Detection and Response** (OEDR) : detection, reaction ...
+        - hability to detect objects and events that immediately affect the driving task and to react to them appropriately
+        - encompasses a large portion of autonomous driving
+        - used together with the ODD to categorize current self-driving systems
+      - **Planning** : part of OEDR, intedend to travel to a destination or execute maneuvers such as : *lean changes* and *intersection crossings*
+        - Long term
+        - Short term 
+      - **Miscellaneous** : tasks that people do while driving
+        - signaling with indicators, hand-waving, interacting with other drivers and so on
+  - Autonomous Capabilities
+    - Automated lateral control : can the system handle steering tasks or lateral control ?
+    - Automated longitudinal control : can perform the vehicle perform accelaration, braking and velocity manipulation tasks or longitudinal control 
+    - OEDR : can the system perform object and event detection and response and to what degree ?
+      - crutially, can the system hadnle emergency situations by it-self or does it always need a driver to be attentive during emergencies?
+    - Complete vs Restricted ODD : 
+      - can the system perftom in all scenarios and all conditions ? 
+      - does it have a limited ODD or set of operating conditions that it can handle **safety** ? 
+- The level of automation based on [SAE J3016](https://www.sae.org/blog/sae-j3016-update)
+  - **Level 0 - No automation** : everything is done by the driver
+    - Regular vehicles, no automation
+  - **Level 1 - Driving Assitance** : system assists the driver on Longitudinal Control or Lateral Control tasks(either, but not both)
+    - Ex1: Adaptive Cruise Control (ACC) : the system can control the speed of the car but is the driver that performs the steering 
+    - Ex2 : Lane keeping assist systems : the system helps the driver to stay in the lane and warns when the car is drifting towards the boundaries
+      - visual detection of lanes boundaries + lane centering lateral control
+  - **Level 2 - Partial Driving Automation** : the system perform both Longitudinal Control and Lateral Control tasks in a specific driving scenarios, but the driver monitoring assistance is always required
+    - ex1 : GM Super Cruise
+    - ex2 : Nissan's Pro Pilot Assist
+    - ex3 : OEM offering L2 : Audi, tesla, and Huyndai
+
+  - **Level 3 - Conditional Driving Automation** : Longitudinal and Lateral control + OEDR
+    - Includes automated objects and event detection and response
+    - In case of failure the control must be taken by the driver
+    - the driver does not need to pay attention in specific situation as the vehicule shall alert the driver in time to intervene
+    - sometimes the sytems doesnot know when it is experiencing a failure
+    - ex1 : Audi A8 Luxuary Sedan
+    - 
+  - **Level 4 - high Driving Automation** : L3 + Fallback - handles emergencies autonomously, driver can entirely focus on other tasks.
+    - may ask to take over to avoid pulling over to the side of the road unnecessarily
+    - the driver can watch a movie, check his phone
+    - still permits self-driving systems with a limited ODD
+    - ex1 : Only [Waymo](https://waymo.com/) has depoyed vehicles for public transport with this level of autonomy
+  
+  - **Level 5 - Full autonomation**: L4 + Unlimited ODD
+    - the systems can operate under any condition necessary
+    - infrastructure, society transformation : driveless taxis or robotaxis ...
+  
+  - Limitations of this taxonomy
+  - ODD and safety record are more important 
+
+
+#### Lesson 1 Supplementary Reading: Taxonomy of Driving
+#### Practice Quiz
+#### Lesson 2: Requirements for Perception
+#### Lesson 2 Supplementary Reading: Requirements for Perception
+#### Practice Quiz
+#### Lesson 3: Driving Decisions and Actions
+#### Lesson 3 Supplementary Reading: Driving Decisions and Actions
 
 ### Learn from Industry Expert 
 
