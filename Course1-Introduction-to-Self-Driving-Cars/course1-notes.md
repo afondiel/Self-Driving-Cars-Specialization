@@ -303,9 +303,10 @@ This module introduces the language and structure of the problem definition, def
   - Limitations of this taxonomy
   - ODD and safety record are more important 
 
-
 #### Lesson 1 Supplementary Reading: Taxonomy of Driving
+- [Taxonomy and Definitions for Terms Related to Driving Automation Systems for On-Road Motor Vehicles J3016_201806](https://www.sae.org/standards/content/j3016_201806/)
 #### Practice Quiz
+- OK 
 #### Lesson 2: Requirements for Perception
 #### Lesson 2 Supplementary Reading: Requirements for Perception
 #### Practice Quiz
