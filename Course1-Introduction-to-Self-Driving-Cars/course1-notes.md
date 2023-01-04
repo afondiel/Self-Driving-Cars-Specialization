@@ -227,7 +227,7 @@ This module introduces the language and structure of the problem definition, def
 > - Assess the effects of driving conditions on the driving task
 ---
 ### Driving Taxonomy, Perception and Driving Decisions
-#### Lesson 1: Taxonomy of Driving 
+#### **Lesson 1**: Taxonomy of Driving 
 
 - The driving task : tasks that are performed constantly while driving a vehicle
   - `Perception` : perceiving the environment that we're driving in 
@@ -236,7 +236,7 @@ This module introduces the language and structure of the problem definition, def
     - track all the objects and predicts the future motions, in order to drive safely and accurately
   - `Motion Planning`: planning how to reach from point A to B
   - `Controlling the vehicle` : allows to take the appropriate streering, break and acceleration decisions, to control the vehicle's position and velocity on the road
-- Operation Design Domain (ODD) : operating conditions under which a given system is designed to function : environmental, time of day, roadways and other characteristics under which the car will perform *reliably*
+- **Operation Design Domain (ODD)** : operating conditions under which a given system is designed to function : environmental, time of day, roadways and other characteristics under which the car will perform *reliably*
   - It might designed clearly to ensuring the safety of the system
   - The ODD shall be planned out carefully in advance
   
@@ -307,12 +307,74 @@ This module introduces the language and structure of the problem definition, def
 - [Taxonomy and Definitions for Terms Related to Driving Automation Systems for On-Road Motor Vehicles J3016_201806](https://www.sae.org/standards/content/j3016_201806/)
 #### Practice Quiz
 - OK 
-#### Lesson 2: Requirements for Perception
-#### Lesson 2 Supplementary Reading: Requirements for Perception
-#### Practice Quiz
-#### Lesson 3: Driving Decisions and Actions
-#### Lesson 3 Supplementary Reading: Driving Decisions and Actions
+  
+#### **Lesson 2**: Requirements for Perception
+- Any task can be broken down into two components : 
+  
+```mermaid
+graph LR;
+    I-->|Input|B[Analyse ego motion & environment <br> **perception**]
+    B-->C[Decide on and plan a maneuver <br> **planning**]
+    C-->|Drive|D
+```
+- Understand the environment 
+- make a driving decision
+  
+Any driving task requires some kind of OEDR : 
+- identify the objects around us
+- recognizes events happening near us
+- respond to it
 
+To build a self-driving car, we neeed to be able to perform OEDR
+
+- What is perception ?
+  - We want to make sens of the environment and ourselves
+  - two ways : 
+    - identification (what it is?) : a car, cyclist and bus ...
+    - understanding the motion (the way it moves and what il will do next )
+  - Why ?
+    - recognize the same patterns as we do as humans, as quickly possible
+    - to inform our driving decisions
+
+- Goals for perception
+  - identify **statitc** objects : 
+    - road and lane markings (on-road)
+    - curbs(off-road)
+    - traffic lights(off-road)
+    - Road signs (off-road)
+    - contruction signs, obstructions, and more(on-road)
+  - identify **Dynamic** objects(on-road)
+    - vehicles : 
+      - 4 wheelers (cars, bus, trucks)
+      - 2 wheelers (motorbikes, bicycles...)
+    - Pedestrians
+  - Ego localization : where we are and how we're moving at any point in time
+    - Position
+    - Velocity, acceleration
+    - Orientation, angular motion 
+    - Data come from sensors : GPS,IMU, Odometry and are combined together to generate a coherent picture of our position
+
+- Challenges to perception
+  - Robust detection and segmentation : 
+    - through moderne ML methods, but the reliability and performance shall be improve to achieve human level capability
+      - more **training data** is one of key of improvements, but it's very challenging to label all the datas
+  - Sensor uncertainty
+    - visibility, GPS, LiDAR measurement corrupted
+  - Occlusion, reflection on cameras 
+  - Illumination, lens flare
+  - Weather, precipitation (can correlate input data)
+
+
+#### Lesson 2 Supplementary Reading: Requirements for Perception
+- [Welcome to the KITTI Vision Benchmark Suite!](https://www.cvlibs.net/datasets/kitti/)
+
+#### Practice Quiz
+- OK
+
+
+
+#### **Lesson 3**: Driving Decisions and Actions
+#### Lesson 3 Supplementary Reading: Driving Decisions and Actions
 ### Learn from Industry Expert 
 
 - Advice for Breaking into the Self-Driving Cars Industry
