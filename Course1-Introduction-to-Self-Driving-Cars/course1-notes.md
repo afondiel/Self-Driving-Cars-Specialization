@@ -376,16 +376,42 @@ To build a self-driving car, we neeed to be able to perform OEDR
   - `Long term` : 
     - question  : How to navigate from New York to Los Angeles ? 
     - answer : we have a mission plan => A high level plan for the entire driving task.
-      - Mapping the application used today : type of road to take, lane to be in so on
+      - Mapping the application used today : **type of road to take, lane** to be in so on
   - `Short term` 
-    - Question : Is it safe to change lane now? or when sjould I execute a left turn at an interssection ?  
+    - Question : Is it safe to change lane now? or when sjould I execute a left turn at an intersection ?  
     - answer : ?
   - `Immediate` (reactions) : involves control and trajectory planning
     - Question : 
       - Can I stay on track on this curved road ? what's steering input should I apply?
       - Can I accelerate or brake, by how much ?
-    - answer ?   
+    - answer ? 
+    
+  - Example case : turning left at an intersection 
+    - alot of complex scenarios to deal with
+    - A simple maneuver, yet it takes 3-4 levels of decision and control to execute
+    - consider how many rules would it take to drive : 
+      - safety
+      - efficiently
+      - following all listed traffic rules
+      - Only follow those rules everyone else is following ...  
+    - **Driving Decision making is complicated** 
+- Rule Based Planning (from software prespective)
+  - One method to address the challenge of multilevel decision-making is **reactive planning**
+    - It takes into account `the current state` of ego and other objects and give decisions
+    - Examples : 
+      - If there is a pedestrian on the road, stop!
+      - If speed limit changes, adjust speed to match it.
 
+What other types of planning are there ? 
+- Predictive planning : 
+  - we make predictions on how other **agents** in the **environment** (other vehicle and pedestrians), then use these predictions to inform our decisions
+  - Example: 
+    - That car has been stopped for the last 10 seconds. It is going to be stopped for the next few seconds
+    - Pedestrian is jaywalking. She will enter our lane by the time we reach her.
+  - More natural way to think and closed to how humans operate vehicles
+  - Predicts where other objects will be in the `future` before we make our decisions
+    - depends on the accurate predictions of the actions of the other actors in the environment (more complexity layer for preception tasks)
+    - more used in self-driving cars
 #### Lesson 3 Supplementary Reading: Driving Decisions and Actions
 
 - [Motion planning and other high-level behaviour](https://ieeexplore.ieee.org/abstract/document/7490340)
