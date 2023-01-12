@@ -352,14 +352,14 @@ To build a self-driving car, we neeed to be able to perform OEDR
     - Position
     - Velocity, acceleration
     - Orientation, angular motion 
-    - Data come from sensors : GPS,IMU, Odometry and are combined together to generate a coherent picture of our position
+    - Data come from sensors : **GPS**, **IMU** (Inertial Measurement Unit), **Odometry** and are combined together to generate a coherent picture of our position
 
 - Challenges to perception
   - Robust detection and segmentation : 
     - through moderne ML methods, but the reliability and performance shall be improve to achieve human level capability
       - more **training data** is one of key of improvements, but it's very challenging to label all the datas
   - Sensor uncertainty
-    - visibility, GPS, LiDAR measurement corrupted
+    - visibility, **GPS**, **LiDAR** measurement corrupted
   - Occlusion, reflection on cameras 
   - Illumination, lens flare
   - Weather, precipitation (can correlate input data)
@@ -371,14 +371,29 @@ To build a self-driving car, we neeed to be able to perform OEDR
 #### Practice Quiz
 - OK
 
-
-
 #### **Lesson 3**: Driving Decisions and Actions
+- Making `decisions` : 
+  - `Long term` : 
+    - question  : How to navigate from New York to Los Angeles ? 
+    - answer : we have a mission plan => A high level plan for the entire driving task.
+      - Mapping the application used today : type of road to take, lane to be in so on
+  - `Short term` 
+    - Question : Is it safe to change lane now? or when sjould I execute a left turn at an interssection ?  
+    - answer : ?
+  - `Immediate` (reactions) : involves control and trajectory planning
+    - Question : 
+      - Can I stay on track on this curved road ? what's steering input should I apply?
+      - Can I accelerate or brake, by how much ?
+    - answer ?   
+
 #### Lesson 3 Supplementary Reading: Driving Decisions and Actions
+
+- [Motion planning and other high-level behaviour](https://ieeexplore.ieee.org/abstract/document/7490340)
+- [Mixed planning systems- winner of the DARPA Urban Challenge](https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.20255)
 ### Learn from Industry Expert 
 
-- Advice for Breaking into the Self-Driving Cars Industry
-
+#### Advice for Breaking into the Self-Driving Cars Industry
+-  ??
 ### Weekly Assignment
 
 Module 1: Graded Quiz
