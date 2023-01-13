@@ -84,7 +84,7 @@ By the end of this course :
   - `1992`: four of their vehicles drove a convoy at highway speed relying on magnetic markers for precise relative positioning saving on fuels costs and reduces wing drag ? 
   - `1997`: the project continues with alot of sucessful tests with use of new technologies like : RADAR station and V2V communication
     - Leading to advances such as : Adaptive cruise control and emergency braking systems
-- `2002` : DARPA (The Defene Advanced Research Projects Agency) created the DARPA challenge for self-driving cars for universities
+- `2002` : DARPA (The Defense Advanced Research Projects Agency) created the DARPA challenge for self-driving cars for universities
 - `2004`: The event was a competition to build an autonomous vehicle capable to navigate 142miles(228,527Km) through the Mojave Desert(Stanford win the next year followed by Carnegie Mellon)
 - `2007`: DARPA Urban Challenge took place on busy roads. The vehicles were much more equiped with GPS and other adavanced sensors. 
   - This was a jumping point in the tech industry that a new market was openning and race was on 
@@ -395,7 +395,7 @@ To build a self-driving car, we neeed to be able to perform OEDR
       - following all listed traffic rules
       - Only follow those rules everyone else is following ...  
     - **Driving Decision making is complicated** 
-- Rule Based Planning (from software prespective)
+- **Rule Based Planning or reactive planning** (from software prespective)
   - One method to address the challenge of multilevel decision-making is **reactive planning**
     - It takes into account `the current state` of ego and other objects and give decisions
     - Examples : 
@@ -403,7 +403,7 @@ To build a self-driving car, we neeed to be able to perform OEDR
       - If speed limit changes, adjust speed to match it.
 
 What other types of planning are there ? 
-- Predictive planning : 
+- **Predictive planning** : 
   - we make predictions on how other **agents** in the **environment** (other vehicle and pedestrians), then use these predictions to inform our decisions
   - Example: 
     - That car has been stopped for the last 10 seconds. It is going to be stopped for the next few seconds
@@ -421,9 +421,11 @@ What other types of planning are there ?
 #### Advice for Breaking into the Self-Driving Cars Industry
 -  ??
 ### Weekly Assignment
-
-Module 1: Graded Quiz
-Quiz
-Grade
+- Quiz
 
 
+
+# References
+
+- [DARPA Grand Challenge](https://en.wikipedia.org/wiki/DARPA_Grand_Challenge)
+- [DARPA Grand Challenge - 2007 edition](https://en.wikipedia.org/wiki/DARPA_Grand_Challenge_(2007))
