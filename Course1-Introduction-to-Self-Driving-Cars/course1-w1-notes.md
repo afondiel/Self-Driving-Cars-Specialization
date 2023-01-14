@@ -242,14 +242,14 @@ This module introduces the language and structure of the problem definition, def
 - How to classify driving system automation ? 
   - Driver attention requirements when driving the car : 
     - watching a movie while driving to work?
-    - keep the attention in the steering wheel all times?
+    - keep the attention in the steering wheel all the time?
   - Driver Action requirements : 
     - Do the driver need to steer ?
     - does the car take care of the speed and the driver controls it as well ?
-    - can the drive controls lanes or the car stay in the current lane w/out any intervention? 
+    - can the driver controls lanes or the car stays in the current lane w/out any intervention? 
   - What exactly makes up a driving task (for automation) ? 
     - we use [SAE J3016](https://www.sae.org/blog/sae-j3016-update) created in 2014
-      - **Lateral control** : Steer 
+      - **Lateral control** : Steering
         - steering and navigating laterally on the road : turning left, right, going straight or tracking a curve and so on
       - **Longitudinal control** : braking, accelerating
         - control of the position or velocity of the car along the roadway
@@ -257,7 +257,7 @@ This module introduces the language and structure of the problem definition, def
         - hability to detect objects and events that immediately affect the driving task and to react to them appropriately
         - encompasses a large portion of autonomous driving
         - used together with the ODD to categorize current self-driving systems
-      - **Planning** : part of OEDR, intedend to travel to a destination or execute maneuvers such as : *lean changes* and *intersection crossings*
+      - **Planning** : part of OEDR, intedend to travel to a destination or execute maneuvers such as : *lane changes* and *intersection crossings*
         - Long term
         - Short term 
       - **Miscellaneous** : tasks that people do while driving
@@ -266,18 +266,18 @@ This module introduces the language and structure of the problem definition, def
     - Automated lateral control : can the system handle steering tasks or lateral control ?
     - Automated longitudinal control : can perform the vehicle perform accelaration, braking and velocity manipulation tasks or longitudinal control 
     - OEDR : can the system perform object and event detection and response and to what degree ?
-      - crutially, can the system hadnle emergency situations by it-self or does it always need a driver to be attentive during emergencies?
+      - crutially, can the system handle emergency situations by itself or does it always need a driver to be attentive during emergencies?
     - Complete vs Restricted ODD : 
       - can the system perftom in all scenarios and all conditions ? 
       - does it have a limited ODD or set of operating conditions that it can handle **safety** ? 
 - The level of automation based on [SAE J3016](https://www.sae.org/blog/sae-j3016-update)
   - **Level 0 - No automation** : everything is done by the driver
     - Regular vehicles, no automation
-  - **Level 1 - Driving Assitance** : system assists the driver on Longitudinal Control or Lateral Control tasks(either, but not both)
+  - **Level 1 - Driving Assistance** : system that assists the driver on Longitudinal Control or Lateral Control tasks(either, but not both)
     - Ex1: Adaptive Cruise Control (ACC) : the system can control the speed of the car but is the driver that performs the steering 
     - Ex2 : Lane keeping assist systems : the system helps the driver to stay in the lane and warns when the car is drifting towards the boundaries
       - visual detection of lanes boundaries + lane centering lateral control
-  - **Level 2 - Partial Driving Automation** : the system perform both Longitudinal Control and Lateral Control tasks in a specific driving scenarios, but the driver monitoring assistance is always required
+  - **Level 2 - Partial Driving Automation** : the system performs both Longitudinal and Lateral Control tasks in a specific driving scenarios, but the driver monitoring assistance is always required
     - ex1 : GM Super Cruise
     - ex2 : Nissan's Pro Pilot Assist
     - ex3 : OEM offering L2 : Audi, tesla, and Huyndai
@@ -288,7 +288,7 @@ This module introduces the language and structure of the problem definition, def
     - the driver does not need to pay attention in specific situation as the vehicule shall alert the driver in time to intervene
     - sometimes the sytems doesnot know when it is experiencing a failure
     - ex1 : Audi A8 Luxuary Sedan
-    - 
+  
   - **Level 4 - high Driving Automation** : L3 + Fallback - handles emergencies autonomously, driver can entirely focus on other tasks.
     - may ask to take over to avoid pulling over to the side of the road unnecessarily
     - the driver can watch a movie, check his phone
@@ -330,7 +330,7 @@ To build a self-driving car, we neeed to be able to perform OEDR
   - We want to make sens of the environment and ourselves
   - two ways : 
     - identification (what it is?) : a car, cyclist and bus ...
-    - understanding the motion (the way it moves and what il will do next )
+    - understanding the motion (the way it moves and what he will do next )
   - Why ?
     - recognize the same patterns as we do as humans, as quickly possible
     - to inform our driving decisions
@@ -355,7 +355,7 @@ To build a self-driving car, we neeed to be able to perform OEDR
 
 - Challenges to perception
   - Robust detection and segmentation : 
-    - through moderne ML methods, but the reliability and performance shall be improve to achieve human level capability
+    - through modern ML methods, but the reliability and performance shall be improve to achieve human level capability
       - more **training data** is one of key of improvements, but it's very challenging to label all the datas
   - Sensor uncertainty
     - visibility, **GPS**, **LiDAR** measurement corrupted
@@ -389,7 +389,7 @@ To build a self-driving car, we neeed to be able to perform OEDR
     - alot of complex scenarios to deal with
     - A simple maneuver, yet it takes 3-4 levels of decision and control to execute
     - consider how many rules would it take to drive : 
-      - safety
+      - safely
       - efficiently
       - following all listed traffic rules
       - Only follow those rules everyone else is following ...  
@@ -410,7 +410,7 @@ What other types of planning are there ?
   - More natural way to think and closed to how humans operate vehicles
   - Predicts where other objects will be in the `future` before we make our decisions
     - depends on the accurate predictions of the actions of the other actors in the environment (more complexity layer for preception tasks)
-    - more used in self-driving cars
+    - more used in self-driving cars in nowadays
 #### Lesson 3 Supplementary Reading: Driving Decisions and Actions
 
 - [Motion planning and other high-level behaviour](https://ieeexplore.ieee.org/abstract/document/7490340)
