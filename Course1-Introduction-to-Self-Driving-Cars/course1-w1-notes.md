@@ -1,4 +1,5 @@
-# Course-1 : INTRODUCTION TO SELF-DRIVING CARS
+# Course 1 - W1 : Welcome to the Self-Driving Cars Specialization
+
 
 ## Overview 
 This course will introduce you to the terminology, design considerations and safety assessment of self-driving cars
@@ -8,9 +9,7 @@ This course will introduce you to the terminology, design considerations and saf
 - Identify the main components of the self-driving software stack
 - Program vehicle modelling and control  
 - Analyze the safety frameworks and current industry practices for vehicle development
-
-`W1 : Welcome to the Self-Driving Cars Specialization!`
-
+  
 ## MODULE 0 : Welcome to Self-Driving Specialization
 
   This module will introduce you to the main concepts and advances in safety and performance metrics in the field of autonomous vehicles over the past two decades. It will highlight the major players and their contributions to the field.
@@ -434,7 +433,6 @@ What other types of planning are there ?
   
 ### Weekly Assignment
 - Quiz
-
 
 # References
 
