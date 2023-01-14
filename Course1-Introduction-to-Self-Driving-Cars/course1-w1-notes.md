@@ -419,10 +419,21 @@ What other types of planning are there ?
 ### Learn from Industry Expert 
 
 #### Advice for Breaking into the Self-Driving Cars Industry
--  ??
+-  Engineering Degree
+-  CS degree 
+   -  C++, Python...
+   -  ML
+-  Get familar w/ Hardware systems, mechanics and programming and robotics
+-  Communication skills
+   - Problem solving w/ [First principle](https://en.wikipedia.org/wiki/First_principle)
+   - Debbuging skills
+- Build pratical projects : Test first on `simulators` to get the first results ...
+- See Self-driving problem similar to robotics ? 
+  - Practice alot
+  - Fail and try new approaches
+  
 ### Weekly Assignment
 - Quiz
-
 
 
 # References
