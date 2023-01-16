@@ -377,7 +377,7 @@ To build a self-driving car, we neeed to be able to perform OEDR
     - answer : we have a mission plan => A high level plan for the entire driving task.
       - Mapping the application used today : **type of road to take, lane** to be in so on
   - `Short term` 
-    - Question : Is it safe to change lane now? or when sjould I execute a left turn at an intersection ?  
+    - Question : Is it safe to change lane now? or when should I execute a left turn at an intersection ?  
     - answer : ?
   - `Immediate` (reactions) : involves control and trajectory planning
     - Question : 
