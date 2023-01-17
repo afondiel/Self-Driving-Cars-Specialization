@@ -93,6 +93,21 @@ Sensors for perception :
       - position drift (heading rate)
       - tracks the mileage on the vehicle
 
+**Computing Hardware** : the most crucial part is the **computing brain** and the main decision making unit of the car
+- Takes in all sensor data
+- computes actions
+- Already existing advanced systems that do self driving car processing
+  - Eg : NVIDIA Drive Px/AGX, Intel & Mobileye EyeQ
+- computer brain needs both serial and parallel compute modules 
+  - Image LiDAR processing: to do segmentation, Object detection, Mapping
+    - GPUs : Graphic Processing Unit 
+    - FPGAs : Field Programmable Gate Array
+    - ASICs: Application Specific Integrated Chip
+- HW synchronization : 
+  - To synchronize different modules and provide **common clock**
+  - sensor measurements must be timestamped with consitent times for `Sensor Fusion` to function correctly
+  - GPS relies on extremely accurate timing and act as an appropriate reference clock when available
+
 ### Lesson 1 Supplementary Reading: Sensors and Computing Hardware
 
 
