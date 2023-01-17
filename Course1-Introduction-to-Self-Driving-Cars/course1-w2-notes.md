@@ -17,11 +17,11 @@
 ![self-driving-cars-sensors](./resources/w2/self-driving-cars-sensors.png)
 
 - categorization : 
-  - **exteroceptiive** : extero=surroundings => they record the property of the environment
+  - **exteroceptive** : extero=surroundings => they record the property of the environment
   - **proprioceptive** : proprio=internal => they record the property of the `ego-vehicule`
 
 Sensors for perception : 
-- **Exteroceptiive**
+- `Exteroceptive`
   - **Cameras** : essential for correctly perceiving.
     - *Passive* & light-collecting sensors that are used for capturing rich detailed infromation about a scene
     - Comparison metrics:
@@ -72,7 +72,7 @@ Sensors for perception :
       - FOV :
       - Cost
   
-- **Proprioceptive** : 
+- `Proprioceptive` : 
   - **GNSS (Global Navigation Satellite Systems)** : 
     - GPS (Global Positioning System) with variable Range  : 5 to 10m
     - Galileo : more accurated than GPS
@@ -91,7 +91,7 @@ Sensors for perception :
     - Uses these to calculate overall speed and orientation of car
       - Speed accuracy
       - position drift (heading rate)
-
+      - tracks the mileage on the vehicle
 
 ### Lesson 1 Supplementary Reading: Sensors and Computing Hardware
 
