@@ -3,8 +3,7 @@
 ## Overview 
 - System architectures for self-driving vehicles are extremely diverse, as no standardized solution has yet emerged. 
 - This module describes both the hardware and software architectures commonly used and some of the tradeoffs in terms of **cost**, **reliability**, **performance** and **complexity** that constrain autonomous vehicle design.
-
-  **Course Objectives :**
+**Course Objectives :**
 - Design an omni-directional multi-sensor system for an autonomous vehicle
 - Describe the basic architecture of a typical self-driving software system
 - Break down the mapping requirements for self-driving cars based on their intended uses.
@@ -156,7 +155,7 @@ Sensors for perception :
   
   2. Maintain Speed : relative speeds are typically less than 30kmph
   - Longitudinal Coverage :
-    - `2s`i the reaction time in Nominal conditions for human drivers: 2s (it can be accessible in aggressive deceleration of vehicle in front and the our ego-vehicle behind)
+    - `2s`is the reaction time in Nominal conditions for human drivers: 2s (it can be accessible in aggressive deceleration of vehicle in front and the our ego-vehicle behind)
     - At 120kph ==> 165m are needed to have at least 100m in front
     - Both vehicles are moving, so don't need to look as far as emergency-stop case
 
@@ -214,6 +213,8 @@ The final choice of configuration also depends on :
 - sensor redundacy due to failure and budgets
 
 ### Lesson 2 Supplementary Reading: Hardware Configuration Design
+
+- [K.J. Bussemaker's master's thesis: Sensing requirements for an automated vehicle for highway and rural environments](https://repository.tudelft.nl/islandora/object/uuid:2ae44ea2-e5e9-455c-8481-8284f8494e4e)
 
 
 ### Lesson 3: Software Architecture
