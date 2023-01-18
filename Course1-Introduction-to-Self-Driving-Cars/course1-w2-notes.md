@@ -110,8 +110,109 @@ Sensors for perception :
 
 ### Lesson 1 Supplementary Reading: Sensors and Computing Hardware
 
+[The ME597 - Autonomous Mobile Robotics Course at the University of Waterloo](http://wavelab.uwaterloo.ca/sharedata/ME597/ME597_Lecture_Slides/ME597-4-Measurement.pdf)
 
 ### Lesson 2: Hardware Configuration Design
+
+    - Sensor coverage requirement for different scenarios : 
+      - Highway driving
+      - Urban driving
+    - Overall coverage, blind spots
+**Assumptions** : we define the deceleration driving which will drive the detection ranges need for the sensors
+
+- Aggressive deceleration  = 5 m/s^2 
+  - when breaking hard in case of emergency
+- Comfortable deceleration = 2 m/s^2
+  - This is the norm, unless otherwise stated 
+>-  ## Stopping distance: **$\frac{v^2 }{2a}$**
+
+    where : d - the distance
+            v - the vehicle velocity
+            a - the rate of of deceleration
+
+**Where to place sensors ?**
+- Need sensors to support maneuvers within ODD 
+  - ODD our system can produce decision for
+  - We shall be able to provide all of the decision with suffient input
+- Broadly, we have two driving environments
+  - Highway driving
+  - Urban driving
+
+|--| Highway | Urban/Residential|
+|--|--|--|
+|Traffic Speed |High|Low - Medium|
+|Traffic Volume |High|Medium - High|
+|# of lanes|More |2-4 typically|
+|Other features|Fewer, gradual curves; merges|Many turns and intersections|
+
+`Highway Analysis` : 
+- Broadly, 3 kinds of maneuvers : 
+  1. Emergency Stop : 
+  - Longitudinal Coverage : If there is a blockage ahead, we want to stop in time 
+   - Applying the stopping distance eq : `v  = 120 kmph => d = 110 m` (aggressive deceleration)
+   - Most self-driving cars aim for a stopping distance btw `150 - 200m`in front of vehicle as result
+  - Lateral Coverage : To avoid collision, either we stop or change lanes
+    - At least adjacent lanes (3.7 meterss wide in North America), since we may change lanes to avoid a **hard stop**
+  
+  2. Maintain Speed : relative speeds are typically less than 30kmph
+  - Longitudinal Coverage :
+    - `2s`i the reaction time in Nominal conditions for human drivers: 2s (it can be accessible in aggressive deceleration of vehicle in front and the our ego-vehicle behind)
+    - At 120kph ==> 165m are needed to have at least 100m in front
+    - Both vehicles are moving, so don't need to look as far as emergency-stop case
+
+  - Lateral Coverage : Maintain speed with merge 
+    - Usually current lane (ego-vehicle)
+    - Adjacent lanes would be preferred for merging vehicle detection 
+    - A wide 160 to 180 degree FOV is required to track adjacent lanes and a range of 40 to 60m is needed to find space btw vehicles
+    - 
+  3. Lane Change
+   - We want to move safely to an adjacent lane (left or rigth)
+   - Logitudinal coverage : Need to look forward to maintain a safe distance from the leading vehicle
+     - But also needs to look behind to look what others vehicles are doing
+     - We need to look not just in the adjacent lanes, but probably further
+   - Lateral Coverage : Need wider sensing 
+     - What if ? Other vehicle attemps to maneuver lane at the same time as we do?
+       -  We'll need to coordinate our lane changes room maneuvers so we don't crash
+    -  The requirements are equivalent to those in the maintain speed scenario : front, behind and side of ego-vehicle
+- Overall Coverage highway
+
+![sensor overall coverage](./resources/w2/overallcoverage-sensors.png)
+
+`Urban Aanalysis`
+- Broadly, 6 kinds of maneuveres: 
+  1. Emergency Stop
+  2. Maintain Speed
+  3. Lane Change
+    - same as the highway, but since we're not moving as quickly we don't need the same extent for our long-range sensing
+
+  4. Overtaking 
+    - Longitudinal converage : 
+      - If overtaking a parked or moving the vehicle (wide short-range), need to detect oncoming traffic (narrow long-range) beyond point of return to own lane
+    - Lateral coverage : 
+      - Always need to observe adjacent lanes
+        - Need to observe additianl lanes if other vehicles can move into adjacent lanes
+
+
+  5. Turning, crossing at intersections
+     - Intersections : 
+       - Observe behoyond intersection for approaching vehicles, pedestrian crossings, clear exit lanes
+       - Requires near omnidirectional sensing for arbitrary intersection angles
+
+  6. Passing roundabouts(rondpoints)
+    - Longitudinal coverage :
+      -  Due to the shape of the roundabout, need a wider FOV
+    - Lateral coverage : 
+      - Vehicles are slower than usual, limited range requirement 
+
+- Overall Coverage urban
+  
+![overallcoverage-sensors-urban](resources/w2/overallcoverage-sensors-urban.png)
+
+Cost and blind spots : 
+The final choice of configuration also depends on : 
+- requiremnt of operating conditions
+- sensor redundacy due to failure and budgets
+
 ### Lesson 2 Supplementary Reading: Hardware Configuration Design
 
 
