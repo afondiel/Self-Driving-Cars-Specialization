@@ -222,6 +222,7 @@ The final choice of configuration also depends on :
 ![Software Architecture](./resources/w2/sw-stack.png)
 
 Software stack for self-driving cars :
+
 **Environment Perception**
 - Localization : localizing the ego-vehicle in space
   - inputs : 
@@ -314,37 +315,36 @@ Local Planner : defines a specific path and velocity profile to drive
 
 **Controller**: takes a trajectory plan turns it into a set of precise actuation commands for vehicle to apply 
 
-Velocity Controller (Longitudinal) : 
-- inputs : 
-  - planned trajectory 
-  - vehicle position 
-- outputs :
-  - regulated the Throttles, gears, braking system to achieve a correct velocity
-  - Error of tracking  performance of local plan and adjust the current actuation cmds to minimize errors going forward 
- 
-Steering Controller (Lateral)
-- inputs :
-  - planned trajectory 
-  - vehicle position 
-- outputs: 
-  - Steering Angle
-  - Error of tracking performance of local plan and adjust angles
+- Velocity Controller (Longitudinal) : 
+  - inputs : 
+    - planned trajectory 
+    - vehicle position 
+  - outputs :
+    - regulated the Throttles, gears, braking system to achieve a correct velocity
+    - Error of tracking  performance of local plan and adjust the current actuation cmds to minimize errors going forward 
+
+- Steering Controller (Lateral)
+  - inputs :
+    - planned trajectory 
+    - vehicle position 
+  - outputs:
+    - Steering Angle
+    - Error of tracking performance of local plan and adjust angles
 
 **System Supervisor**: continuously moritoring of all aspect of the ego-vehicle gives the appropriate warning in the event of the subsystem failure 
 
-HW supervisor : 
-- monitors all hw components to check for any fault : sensors failure, missing measurements.
-- analyse hw output : camera or lidar failure 
+- HW supervisor : 
+  - monitors all hw components to check for any fault : sensors failure, missing measurements.
+  - analyse hw output : camera or lidar failure 
 
-SW supervisor : 
-- responsible for SW stack validation 
-- output inconsistency results of all modules
+- SW supervisor : 
+  - responsible for SW stack validation 
+  - output inconsistency results of all modules
 
 
 ### Lesson 3 Supplementary Reading: Software Architecture
 
 - [Software architecture from the Team VictorTango - DARPA Urban Challenge Technical Paper](https://www.romela.org/wp-content/uploads/2015/05/Odin-Team-VictorTango%e2%80%99s-Entry-in-the-DARPA-Urban-Challenge.pdf)
-- 
 
 ### Lesson 4: Environment Representation
 ### Lesson 4 Supplementary Reading: Environment Representation
