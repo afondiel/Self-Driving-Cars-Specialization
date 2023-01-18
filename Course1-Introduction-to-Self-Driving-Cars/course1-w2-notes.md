@@ -15,7 +15,7 @@
 
 ![self-driving-cars-sensors](./resources/w2/self-driving-cars-sensors.png)
 
-- categorization : 
+- Categorization : 
   - **exteroceptive** : extero=surroundings => they record the property of the environment
   - **proprioceptive** : proprio=internal => they record the property of the `ego-vehicule`
 
@@ -218,6 +218,18 @@ The final choice of configuration also depends on :
 
 
 ### Lesson 3: Software Architecture
+
+![Software Architecture](./resources/w2/sw-stack.png)
+
+Software stack for self-driving cars :
+- Environment Perception
+- Environment Mapping
+- Motion Planning
+- Controller
+- System Supervisor
+
+
+
 ### Lesson 3 Supplementary Reading: Software Architecture
 
 
