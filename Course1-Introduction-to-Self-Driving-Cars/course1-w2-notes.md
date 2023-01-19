@@ -13,7 +13,7 @@
 ### Lesson 1: Sensors and Computing Hardware
 **Sensors** : device that measures or detects a property of the environment, or changes to a/another property overtime.
 
-![self-driving-cars-sensors](./resources/w2/self-driving-cars-sensors.png)
+<img src="./resources/w2/self-driving-cars-sensors.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Categorization : 
   - **exteroceptive** : extero=surroundings => they record the property of the environment
@@ -175,7 +175,7 @@ Sensors for perception :
     -  The requirements are equivalent to those in the maintain speed scenario : front, behind and side of ego-vehicle
 - Overall Coverage highway
 
-![sensor overall coverage](./resources/w2/overallcoverage-sensors.png)
+<img src="./resources/w2/overallcoverage-sensors.png" width="540" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 `Urban Aanalysis`
 - Broadly, 6 kinds of maneuveres: 
@@ -205,7 +205,7 @@ Sensors for perception :
 
 - Overall Coverage urban
   
-![overallcoverage-sensors-urban](resources/w2/overallcoverage-sensors-urban.png)
+<img src="resources/w2/overallcoverage-sensors-urban.png" width="540" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 Cost and blind spots : 
 The final choice of configuration also depends on : 
@@ -219,7 +219,7 @@ The final choice of configuration also depends on :
 
 ### Lesson 3: Software Architecture
 
-![Software Architecture](./resources/w2/sw-stack.png)
+<img src="./resources/w2/sw-stack.png" width="540" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 Software stack for self-driving cars :
 
@@ -347,7 +347,79 @@ Local Planner : defines a specific path and velocity profile to drive
 - [Software architecture from the Team VictorTango - DARPA Urban Challenge Technical Paper](https://www.romela.org/wp-content/uploads/2015/05/Odin-Team-VictorTango%e2%80%99s-Entry-in-the-DARPA-Urban-Challenge.pdf)
 
 ### Lesson 4: Environment Representation
+
+Environment Map Types : 
+1. Localization of vehicle in the environment
+
+    - Localization point cloud or feature map
+    - data comes from Lidar or camera features
+    - usage : 
+      - In combination of GPS/IMU/Wheel Odometry by the localization module to estimate the vehicle location
+  
+2. Collision avoidance with static objects
+     - Occupancy grid map
+     - Uses Lidar points to build map for static/stationary objects
+     - used to plan safe collision-free paths for self-driving cars
+
+3. Path planning
+   - Detailed road map
+   - contains all regulatory elements, attributes and lane markings
+
+#### **Localization Map**
+
+<img src="./resources/w2/localization-map.png" width="540" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Collects continuous sets if LIDAR
+- The different btw LIDAR maps is used to calculate the movement of the autonomous vehicle
+- The movement of the vehicle is based on the evolution of the LIDAR points
+  
+#### **Occupancy grid map**
+
+<img src="./resources/w2/grid-map-final.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+The gray rectangle is the grip map
+
+- Discretized fine grain grid map
+  - Can be 2D or 3D
+- uses LIDAR points
+- Occupancy by static object
+  - Tree, buildings, curbs and so on
+- Curbs and other non drivable surfaces
+  - Dynamic objects are removed (by removing all lidar points that are found within the bounding boxes od DOD in the **perception** module)
+
+- each grid cell is represented by a probability value (100%: occupied or 0% : free)
+  
+<img src="./resources/w2/grid-map.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- only the relevant writer points from statics objects remain
+
+<img src="./resources/w2/grid-map-covered-occupied-free.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- the filtering process is not perfect 
+
+#### **Detailed Roadmap**
+
+- Used to plan a safe and efficient path to be taken by the self-driving car
+
+<img src="./resources/w2/detailed-map.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- 3 Methods of creation : 
+  - `Fully Online`
+    - uses statics objects of the perception stack to accuretely label and localize all relevant static objects to create the map such as : lane boundaries, traffic regulation(signs and lights), regulations attributes on the lanes (right turns marking or crosswalks)
+    - rarely used due the complexity
+  - `Fully Offline`
+    - created from collectiong data of given road several times
+    - specialized vehicles with high accuracy sensors are driven along roadways regularly to construct offline maps
+    - after the collection is complete the information is then labelled with the use of automatic labelling from static object perception and human annotation and correction
+
+  - `Created Offline and Update Online`
+    - Created Offline and Update Online with new relevant information
+    - creating a highly accurate roadmap which can be updated while driving 
+    - better than offline and online methods 
+
 ### Lesson 4 Supplementary Reading: Environment Representation
+
+- ["Lanelets: Efficient map representation for autonomous driving paper by P. Bender, J. Ziegler and C. Stiller"](https://ieeexplore.ieee.org/abstract/document/6856487) 
 
 
 ### The Future of Autonomous Vehicles
