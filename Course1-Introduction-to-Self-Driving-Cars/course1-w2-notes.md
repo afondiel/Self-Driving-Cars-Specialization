@@ -3,10 +3,11 @@
 ## Overview 
 - System architectures for self-driving vehicles are extremely diverse, as no standardized solution has yet emerged. 
 - This module describes both the hardware and software architectures commonly used and some of the tradeoffs in terms of **cost**, **reliability**, **performance** and **complexity** that constrain autonomous vehicle design.
+  
 **Course Objectives :**
-- Design an omni-directional multi-sensor system for an autonomous vehicle
-- Describe the basic architecture of a typical self-driving software system
-- Break down the mapping requirements for self-driving cars based on their intended uses.
+- Design an omnidirectional **multi-sensor system** for an autonomous vehicle
+- Describe the basic architecture of a typical self-driving **software system**
+- Break down the **mapping requirements** for self-driving cars based on their intended uses.
 
 ## MODULE 2: Self-Driving Hardware and Software Architectures
 
@@ -22,7 +23,7 @@
 Sensors for perception : 
 - `Exteroceptive`
   - **Cameras** : essential for correctly perceiving.
-    - *Passive* & light-collecting sensors that are used for capturing rich detailed infromation about a scene
+    - *Passive* & light-collecting sensors that are used for capturing rich detailed information about a scene
     - Comparison metrics:
       - `Resolution` (quality of the image) : number of pixels that create the image (l x w)
       - `Field of view (FOV)` : the horizontal and vertical angular extent that is *visible* to the camera (depending lens selection and zoom)
@@ -149,13 +150,13 @@ Sensors for perception :
   1. Emergency Stop : 
   - Longitudinal Coverage : If there is a blockage ahead, we want to stop in time 
    - Applying the stopping distance eq : `v  = 120 kmph => d = 110 m` (aggressive deceleration)
-   - Most self-driving cars aim for a stopping distance btw `150 - 200m`in front of vehicle as result
+   - Most self-driving cars aim for a stopping distance btw `150 - 200m` in front of vehicle as result
   - Lateral Coverage : To avoid collision, either we stop or change lanes
     - At least adjacent lanes (3.7 meterss wide in North America), since we may change lanes to avoid a **hard stop**
   
   2. Maintain Speed : relative speeds are typically less than 30kmph
   - Longitudinal Coverage :
-    - `2s`is the reaction time in Nominal conditions for human drivers: 2s (it can be accessible in aggressive deceleration of vehicle in front and the our ego-vehicle behind)
+    - `2s` is the reaction time in Nominal conditions for human drivers: 2s (it can be accessible in aggressive deceleration of vehicle in front and the our ego-vehicle behind)
     - At 120kph ==> 165m are needed to have at least 100m in front
     - Both vehicles are moving, so don't need to look as far as emergency-stop case
 
@@ -423,7 +424,7 @@ The gray rectangle is the grip map
 
 
 ### The Future of Autonomous Vehicles
-
+- OK
 # References
 
 - [Self-driving papers](https://www.semanticscholar.org/paper/DARPA-Urban-Challenge-Technical-Paper-Reinholtz-Alberi/c10acd8c64790f7d040ea6f01d7b26b1d9a442db?p2df#related-papers)
