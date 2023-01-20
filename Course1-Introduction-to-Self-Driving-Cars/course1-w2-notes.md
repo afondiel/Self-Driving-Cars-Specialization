@@ -1,4 +1,4 @@
-# Course 1 - W2 : Self-Driving Hardware and Software Architectures
+# Course 1 - W2 - MODULE 2 : Self-Driving Hardware and Software Architectures
 
 ## Overview 
 - System architectures for self-driving vehicles are extremely diverse, as no standardized solution has yet emerged. 
@@ -9,7 +9,7 @@
 - Describe the basic architecture of a typical self-driving **software system**
 - Break down the **mapping requirements** for self-driving cars based on their intended uses.
 
-## MODULE 2: Self-Driving Hardware and Software Architectures
+## Autonomous Vehicle Hardware, Software and Environment Representation
 
 ### Lesson 1: Sensors and Computing Hardware
 **Sensors** : device that measures or detects a property of the environment, or changes to a/another property overtime.
