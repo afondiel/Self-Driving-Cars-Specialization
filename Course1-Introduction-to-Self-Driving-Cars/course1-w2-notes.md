@@ -120,9 +120,9 @@ Sensors for perception :
     - Overall coverage, blind spots
 **Assumptions** : we define the deceleration driving which will drive the detection ranges need for the sensors
 
-- Aggressive deceleration  = 5 m/s^2 
+- **Aggressive deceleration**  = `5 m/s^2` 
   - when breaking hard in case of emergency
-- Comfortable deceleration = 2 m/s^2
+- **Comfortable deceleration** = `2 m/s^2`
   - This is the norm, unless otherwise stated 
 >-  ## Stopping distance: **$\frac{v^2 }{2a}$**
 
@@ -148,32 +148,32 @@ Sensors for perception :
 `Highway Analysis` : 
 - Broadly, 3 kinds of maneuvers : 
   1. Emergency Stop : 
-  - Longitudinal Coverage : If there is a blockage ahead, we want to stop in time 
-   - Applying the stopping distance eq : `v  = 120 kmph => d = 110 m` (aggressive deceleration)
-   - Most self-driving cars aim for a stopping distance btw `150 - 200m` in front of vehicle as result
-  - Lateral Coverage : To avoid collision, either we stop or change lanes
-    - At least adjacent lanes (3.7 meterss wide in North America), since we may change lanes to avoid a **hard stop**
-  
+     - Longitudinal Coverage : If there is a blockage ahead, we want to stop in time 
+      - Applying the stopping distance eq : `v  = 120 kmph => d = 110 m` (aggressive deceleration)
+      - Most self-driving cars aim for a stopping distance btw `150 - 200m` in front of vehicle as result
+     - Lateral Coverage : To avoid collision, either we stop or change lanes
+       - At least adjacent lanes (3.7 meterss wide in North America), since we may change lanes to avoid a **hard stop**
+     
   2. Maintain Speed : relative speeds are typically less than 30kmph
-  - Longitudinal Coverage :
-    - `2s` is the reaction time in Nominal conditions for human drivers: 2s (it can be accessible in aggressive deceleration of vehicle in front and the our ego-vehicle behind)
-    - At 120kph ==> 165m are needed to have at least 100m in front
-    - Both vehicles are moving, so don't need to look as far as emergency-stop case
+     - Longitudinal Coverage :
+       - `2s` is the reaction time in Nominal conditions for human drivers: 2s (it can be accessible in aggressive deceleration of vehicle in front and the our ego-vehicle behind)
+       - At 120kph ==> 165m are needed to have at least 100m in front
+       - Both vehicles are moving, so don't need to look as far as emergency-stop case
 
-  - Lateral Coverage : Maintain speed with merge 
-    - Usually current lane (ego-vehicle)
-    - Adjacent lanes would be preferred for merging vehicle detection 
-    - A wide 160 to 180 degree FOV is required to track adjacent lanes and a range of 40 to 60m is needed to find space btw vehicles
-    - 
+     - Lateral Coverage : Maintain speed with merge 
+       - Usually current lane (ego-vehicle)
+       - Adjacent lanes would be preferred for merging vehicle detection 
+       - A wide 160 to 180 degree FOV is required to track adjacent lanes and a range of 40 to 60m is needed to find space btw vehicles
+  
   3. Lane Change
-   - We want to move safely to an adjacent lane (left or rigth)
-   - Logitudinal coverage : Need to look forward to maintain a safe distance from the leading vehicle
-     - But also needs to look behind to look what others vehicles are doing
-     - We need to look not just in the adjacent lanes, but probably further
-   - Lateral Coverage : Need wider sensing 
-     - What if ? Other vehicle attemps to maneuver lane at the same time as we do?
-       -  We'll need to coordinate our lane changes room maneuvers so we don't crash
-    -  The requirements are equivalent to those in the maintain speed scenario : front, behind and side of ego-vehicle
+      - We want to move safely to an adjacent lane (left or rigth)
+      - Logitudinal coverage : Need to look forward to maintain a safe distance from the leading vehicle
+        - But also needs to look behind to look what others vehicles are doing
+        - We need to look not just in the adjacent lanes, but probably further
+      - Lateral Coverage : Need wider sensing 
+        - What if ? Other vehicle attemps to maneuver lane at the same time as we do?
+          -  We'll need to coordinate our lane changes room maneuvers so we don't crash
+       -  The requirements are equivalent to those in the maintain speed scenario : front, behind and side of ego-vehicle
 - Overall Coverage highway
 
 <img src="./resources/w2/overallcoverage-sensors.png" width="540" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
