@@ -95,11 +95,11 @@ Major Hazard Sources :
 
 ### Lesson 1 - Supplementary Reading: Safety Assurance for Self-Driving Vehicles
 
-- Here's a link for [NTSB's Report on the 2018 Uber Crash](https://www.ntsb.gov/investigations/AccidentReports/Reports/HAR1903.pdf).
+- [NTSB's Report on the 2018 Uber Crash](https://www.ntsb.gov/investigations/AccidentReports/Reports/HAR1903.pdf).
 
-- Check out Dr. Krzysztof Czarnecki's paper on [WISE Drive: Requirements Analysis Framework for Automated Driving Systems](https://uwaterloo.ca/waterloo-intelligent-systems-engineering-lab/projects/wise-drive-requirements-analysis-framework-automated-driving). You will watch an interview with Dr. Czarnecki's later in this Module. 
+- [paper on WISE Drive: Requirements Analysis Framework for Automated Driving Systems by Dr. Krzysztof Czarnecki ](https://uwaterloo.ca/waterloo-intelligent-systems-engineering-lab/projects/wise-drive-requirements-analysis-framework-automated-driving) 
 
-- Learn more about the non-mandatory safety guidelines for autonomous cars in [the NHTSA - Automated Driving Systems: A Vision for Safety 2.0 report](https://www.nhtsa.gov/sites/nhtsa.gov/files/documents/13069a-ads2.0_090617_v9a_tag.pdf) 
+- [The NHTSA - Automated Driving Systems: A Vision for Safety 2.0 report](https://www.nhtsa.gov/sites/nhtsa.gov/files/documents/13069a-ads2.0_090617_v9a_tag.pdf) 
 
 
 ### Lesson 2: Industry Methods for Safety Assurance and Testing
