@@ -103,17 +103,149 @@ Major Hazard Sources :
 
 
 ### Lesson 2: Industry Methods for Safety Assurance and Testing
+
+**Waymo safety Perpective (released in 2017**
+- Waymo coverage all 12 part of NHTSA but organizes them into 5 level safety approach
+  - `Behavioral Safety` : wide range of scanarios within the ODD and maintain vehicle safety through it.
+  - `Functional Safety` : the systems have backups and redundancies allowing the car to switch into a secondary component or a backup process to minimize the severity of failures and return the vehicle to a safe state
+  - `Crash Safety` : to ensure minimum damage to people inside the car during a crash
+  - `Operational Safety` : interfaces are usable and convenient and intuitive. Allowing the passengers to have some level of control over the vehicle but in ways that maintain system safety
+  - `Non collision safety` : minime the danger to people that may interact with the systemin some ways : first responders, mechanics, Engineers and so on 
+
+**Waymo: Safety Processes**
+- Identify hazard scenarions & potential mitigations (attenuations)
+- Use Hazard assessment methods to define safety requirements
+  - Preliminary analysis
+  - Fault tree
+  - Design Failure Modes & Effects Analyses
+- Conduct extensive testing to make sure safety requirement are met 
+
+**Waymo: Level of testing to ensure safety**
+- Simulation testing : more than 10 million miles of simulation per day
+  - high & continuous computational cost
+  - to be complianced to safety requirements for the system
+  - Actions : 
+    - Test rigorously with simulation, thousands of variations, fuzzing of neighbouring vehicles 
+      - change the position and velocity parameters of the other vehicles and pedestrians ramdomly to test if the ego-vehicle behaves safely throughout all of them
+      - defined to find hard edge cases
+      - hard to resolve time gaps for merging or crossing intersections
+- Closed-course testing : test on private tracks
+  -  Follow 28 core by UC Berkeley + 19 additional scenario competencies on private test tracks
+  -  Focus on four most common crashes : 
+     - Rear-end, intersection, road departure, lane change
+     - This covers over 84% of all crashes
+
+- Real world driving
+  - street driving test in place like : Mountain View California (near Google campus)
+  - Start with small fleet, expand steadily
+  - Already testing thousands of vehicle, with more on the way
+
+
+**GM - Cruise : Safey strategy**
+
+- GM acquired Cruise Automation in 2016
+- Address all 12 elements of NHTSA Safety Framework
+  - Iterative Design model
+  
+```mermaid
+graph TD
+  A[Analyze]-->B[Build]
+  B-->C[Simulate]
+  C-->D[Drive]
+  D-->|Improve|A
+```
+  - Control car production 
+    >- Unlike [Waymo](https://waymo.com/) who relies on OEMs (car manufacturer) to design its vehicles and only discusses mechanical and electrical hazards related to its autonomy HW, [GM](https://www.gm.com/) manufactures their cars entirely themselves. Therefore GM can enforece and control their design better
+  
+- Safety through Comprehensive Risk Management and Deep Integration
+  - Identify and address risks, validate solutions
+  - prioritize elimination of risks, not just mitigation
+- All hardware, software systems meet
+  - self-set standards for performance, crash protection, reliability, serviceability, security, safety
+
+**GM : Safety Process**
+- Deductive Analysis
+  - fault tree analysis
+- Inductive Analysis
+  - Design & Process FMEA(Failure, Mode and Effect Analyis)
+- Exploratory Analysis
+  - HAZOP : Hazard & Operability Study
+  
+**GM: Safety Thresholds**
+All GM vehicles are equipped with two key safety thresholds
+- **Fail safes** - There is redundant functionality (second controllers, backup systems etc) such that even if primary systems fail, the vehicle can stop normally
+- **SOTIF** - All critical functionalities are evaluated for unpredictable scenarios
+
+**GM : Testing**
+- **Performance testing** at different levels
+- **Requirements validation** of components, levels
+- **Fault injection testing** of safety critical functionality
+- **Intrusive testing** such as electromagnetic interference, etc
+- **Durability testing** and **simulation based testing**
+
+> Is it truly precisely assess whether and autonomous car is safe Or at least safer than a human driver?
+- Two approaches tries to answer this question : 
+  - `Analytical Safety`
+  - `Data-driven`
+
+**Analytical vs Data-driven : Definitions**
+- Analytical Safety : ensuring the systems work in the theory and meets safety requirements found by hazard assessment
+  - Ex: Space shuffle : where analytical failures were pegged at 1/100k flights
+  - Analytical Safety : can only provide guidance on safety performance of the self-driving systems due to the their complexity and variety situations/scenarios 
+
+- Data-driven safety (through experiences): guarantee due to the fact that the system has performed autonomously without fail on the roads for a very larger numbers of kms
+  - based on human lvel driven performance aiming to reduce accidents by 10x or 100x onver the performance of today's drivers
+
+**Are Autonomous cars safer ?**
+- Driving is still Dangerous ! 
+- Car accidents are mostly caused due to human errors (NHTSA, 2015)
+- Humans are also good at driving : 
+  - In US, on average
+    - 1 fatal collion per 146 million km
+    - 1 injury collision per 2.1 million km
+    - ~ 1 collision per 400k km
+  - **Src** : [NMVCSS 2005-2007](https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/811366)
+
+- Consider California disengagement rates: 
+  - In 2017, Waymo had:
+    - Driven 563k km autonomously in California
+    - 63 disengagements
+      - Causes : unwanted vehicle manoeuvres, perception discrepancies, hw issues, a single case of a reckless road user.
+    - 1 disengagement every 9000 km
+
+  - In 2017, GM had:
+    - Driven 210k km autonomously in California
+    - 105 disengagements
+    - 1 disengagement every 2000 km
+  
+  - The numbers has improved sinced then
+  - In conclusion : these are hard numbers to relate to in the terms of human performance but roughly mean that a computer driving will only intervene `once a year` for failure of the autonomy system.
+  - Enormous progress but still away further from a 400k km btw crashes that humans achieve on trillions of miles every year
+
+**Dilemma**
+- **Question** : How amny miles(years) would autonomous vehicles have to be driven to demonstrate with 95% confidence their failure rate to within 20% of the true rate of 1 fatality per 4 milion km ? 
+- **Answer** : ~400 years, with a fleet of 100 vehicles travelling all the time (toatl ~8 billion miles)
+
+
 ### Lesson 2 Supplementary Reading: Industry Methods for Safety Assurance and Testing
+
+- [Waymo Safety Report](https://waymo.com/safety/)
+- [GM Safety Report, 2018](https://www.gm.com/content/dam/company/docs/us/en/gmcom/gmsafetyreport.pdf)
+- [Ford Safety Report, 2018](https://media.ford.com/content/dam/fordmedia/pdf/Ford_AV_LLC_FINAL_HR_2.pdf)
+- [Uber Safety Report, 2018](https://uber.app.box.com/v/UberATGSafetyReport)
+- [NHTSA Crash Statistics, 2015](https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/812115)
+
+- [Autonomoose: Towards All Weather Driving in Canada, Steven’s presentation, University of Toronto & University of Waterloo (June 15, 2018)](https://d3c33hcgiwev3.cloudfront.net/JZA8XCfuEemm8wp4g3TKTg_25dd4a7027ee11e98ed3dfcfdba7c72b_2018_06-Autonomoose-Driving-in-Canada.pdf?Expires=1674604800&Signature=PP9jH6RkRT~QMxPUfWPHr2RJTnv4sf8hAQ8oKvedaEQJEzLIxkeYwdRWrZBxa2HxdgmvkmNBlUa-QotF49akRx443hONAI8azX6dKC2HuWavluMJAPQSh61IRQGGZqrkz9oPeCV5E-iOyOWz4ap-h-RkivCB3TUsdFrOOL401EU_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
+  
+- [How Many Miles of Driving Would It Take to Demonstrate Autonomous Vehicle Reliability?](https://www.rand.org/pubs/research_reports/RR1478.html); Rand Corporation Report, 2016
+
+
 ### Lesson 3: Safety Frameworks for Self-Driving
 ### Lesson 3 Supplementary Reading: 
   - Safety Frameworks for Self-Driving
   - How Many Miles of Driving Would It Take to Demonstrate Autonomous Vehicle Reliability?
 
 ## Learning from Industry Expert
-
-- OK
-
-
 ### Meet Professor Krzysztof Czarnecki, Safety Assurance Expert
 ### Prof. Krzysztof Czarnecki on Assessing and Validating Autonomous Safety: An Impossible Task?
 ### Prof. Krzysztof Czarnecki's Lessons from Aerospace: Can the AV Industry Collaborate on Safety?
@@ -123,3 +255,14 @@ Major Hazard Sources :
 
 ## Assignment 
 @TODO
+
+## References
+
+- [Waymo Safety Report](https://storage.googleapis.com/waymo-uploads/files/documents/safety/2021-12-waymo-safety-report.pdf)
+- [Waymo Safety in numbers](https://waymo.com/safety/)
+- [GM 2018 SELF-DRIVING SAFETY REPORT](https://www.gm.com/content/dam/company/docs/us/en/gmcom/gmsafetyreport.pdf)
+- [Cruise : 2018 Self-Driving Safety Report PDF](https://www.gm.com/content/dam/company/docs/us/en/gmcom/2018%20Self-Driving%20Safety%20Report%20Appendix%20A_DIGITAL_180614b.pdf)
+
+- Glossary : 
+  - SW : SoftWare
+  - HW : HardWare
