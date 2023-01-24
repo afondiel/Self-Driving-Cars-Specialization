@@ -241,9 +241,133 @@ All GM vehicles are equipped with two key safety thresholds
 
 
 ### Lesson 3: Safety Frameworks for Self-Driving
-### Lesson 3 Supplementary Reading: 
-  - Safety Frameworks for Self-Driving
-  - How Many Miles of Driving Would It Take to Demonstrate Autonomous Vehicle Reliability?
+
+**Generic Safety Frameworks**
+- Fault Tree Analysis : identifies all ways in which it can occur(probability) from events and failures at lower levels of the system
+  - Top down deductive failure analysis
+  - The top node in a fault tree is the root or top event
+  - The intermediate nodes in the fault tree are logic gates
+  - combination of the probabilities using the **laws of Boolean logic**
+
+```mermaid
+graph TD
+  A(Car crash)-->B(SW failure)
+  A-->C(HW failure)
+  B-->D(Hacked or <br>Bad Code)
+  C-->D(Manufacturing <br>defects)
+```
+
+**Probabilistic Fault Tree Analysis**
+- Assign probabilities to fault "leaves"
+- Use logic gates to construct failure tree
+  - P(A) +/or P(B)
+  - P(A) ./and P(B)
+    - where : the OR and AND probas will be the sum or product of children node probabilities
+  - the probabilities are includes at the leaf nodes
+- Ex in industries : 
+  - Aerospace and nuclear industries 
+  - Can also be applied in Self-Driving vehicles
+    - The challenge will be in building a comprehensive tree and incorrectly identifying the **probabilities of the leaf nodes events**
+  
+**Failure Mode and Effects Analyses (FMEA)**
+- Bottom up process to identify all the effects of faults in a system
+- FTA and FMEA are used together to assess safety critical systems
+- **Failure Mode** : Modes or ways in which a component of the system may fail
+- **Effects Analyses** : Analyzing effects of the future modes on the operation of the system
+
+- FMEA : Idea
+  - Categorize failure modes by priority
+    - How serious are their effects ? 
+    - How frequency do they happen ? 
+    - How easily can they be detected ? 
+  - Eliminate or reduce failures, starting with top priority 
+
+- FMEA : Steps
+  1. Discuss with field experts : Create FMEA table
+  2. List failure modes/probabilities
+  3. For each failure mode => identify effects => **Severity?** (S), from 1 to 10(most severe)
+  4. For each root cause => **Occurence?** (O), from 1 and 10
+  5. For each prevention method => **Detection?** (D), from 1 and 10
+  6. Get Risk Priority Number : $RPN = S.O.D$
+      - **The high RPN, the high the priority is**
+- We modify our implementation of the system until we reduce the risks to an acceptable level
+- the FMEA can also be performed by the failure probabilities as in fault tree analysis
+  - the method doesnot change but the number and the complexity of completing the entire analysis
+
+- FMEA example :
+  - Consider following failure mode
+      - System encounters gravel, controller failure
+      - **Severity** : physical crash (S = 10)
+      - **Occurrence** : whenever construction encountered, out of ODD, so somewhat likely (O = 4)
+      - **Detection** : can check status monitor to identify if this happens with certainty (D =10)
+      - RPN = 10x4x10 = 400
+  - Other Similar failure modes  : 
+    - sign perception failure (RPN = 100)
+    - GPS synchronization failure (RPN = 300)
+    - Incorrect motion prediction (RPN=150)
+  - Final RPN List : 
+    - Control failure
+    - GPS failure
+    - Motion prediction
+    - sign perception  
+
+FMEA a quantitave process
+
+**HAZOP - a variation on FMEA**
+- Hazard and operability study (HAZOP)
+- Qualitative brainstorming process, needs "imagination"
+- Uses guide words to trigger brainstorming (not, more, less etc.)
+- used earlier in the design process to guide the conceptual design phase .
+  - Applied to complex 'processes'
+    - Sufficient design information is available, and not likely to change significantly
+- Simplified ongoing FMEA brainstorming approach
+
+**Automotive Safety Frameworks**
+- ISO 26262 - Functional Safety Standard
+- ISO/PAR 21448.1 - Safety of Intended Functionality
+- Functional Safety is defined as  : 
+  - safety due to absence of unreasonable risk
+  - only concerned about malfunctioning systems
+  - addresses only the hardware and software hazards that can affect autonomous vehicle safety
+- ISO26262 defines (four) Automotive Safety Integrity Levels (ASIL)
+  - ASIL-D most stringent, ASIL-A least stringent 
+
+Functional Safety Process :  
+- Follows a **V-shaped** flow
+  - The final step is a **Summary Functional Safety assessment** 
+    - evaluate residual risk and determine if our system has reached an acceptable level of safety
+  - At the start of the functional V : 
+    - Hazard And Risk Assessment (HARA): identifies and categorize hazardous events and specify requirements to avoid unreasonable risk.
+    - Identify faults
+      - This is where FMEA or HAZOP are used in the framework and leads to a specific set of hazards to our system
+    - Identify scenarios 
+      - the system must operate in drawing on our ODD to create this list
+    - Assess risks
+      - combines hazards and situations into hazards events, describe expected damages to calculate numerical values of potential risk for each combination of situation and hazard
+    - Define worst-case scenarios 
+  - You focus on worst-case requirements and the implement HW & SW that can handle these worst-case requirements
+
+**Safety of the Intended Functionality (SOTIF)**
+- ISO/PAS 21448.1
+- Failures due to performance limitations and misuse
+  - sensor limitations
+  - Algorithm failures/insufficiencies
+  - User misuse - overload, confusion 
+- Designed for level 0-2 autonomy
+- Extension of FuSa
+  - V-shaped process
+  - Employs HARA  
+
+### Lesson 3 Supplementary Reading
+
+- [Failure Modes and Effects Analyses - asq.org](https://asq.org/quality-resources/fmea)
+- [ISO 26262-1:2018 - Functional Safety for Road Vehicles](https://www.iso.org/standard/68383.html)
+- [Keeping safe on the roads: series of standards for vehicle electronics functional safety just updated](https://www.iso.org/news/ref2358.html)
+- [ISO/PAS 21448 - Safety of the intended functionality for Road Vehicles](https://www.iso.org/standard/70939.html)
+
+### **Reading: How Many Miles of Driving Would It Take to Demonstrate Autonomous Vehicle Reliability?**
+
+- [RAND Corporation Report on Driving to Safety](https://www.rand.org/pubs/research_reports/RR1478.html)
 
 ## Learning from Industry Expert
 ### Meet Professor Krzysztof Czarnecki, Safety Assurance Expert
