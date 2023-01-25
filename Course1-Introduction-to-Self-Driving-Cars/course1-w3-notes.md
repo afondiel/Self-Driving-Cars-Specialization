@@ -16,25 +16,24 @@
 
 ### Lesson 1: Safety Assurance for Self-Driving Vehicles
 **Examples of Automated Vehicle Crashes** 
--  March 2016 : A Google Self-Driving Car (now Waymo) ran into side of the bus
-    - Causes : lateral distance btw the bus and the self-driving car lane was too narrow (bad estimation/computing by the self(driving sw))
-    - Due of that, the self-driving car thought the bus wouldn't pass/overtake
-    - By the time the car computes a new measuremnt was too late to react
+-  `March 2016` : A Google Self-Driving Car (now Waymo) ran into side of the bus
+    - Causes : lateral distance btw the bus and the self-driving car lane was too narrow (bad estimation/computing by the self-driving sw)
+    - Due to that, the self-driving car thought the bus wouldn't pass/overtake
+    - By the time the car computes a new measuremnt but was too late to react
 
-
-- In 2017 : Uber self-driving vehicle overreacted during a minor collision caused by the another car and ended up overturning
+- `In 2017` : Uber self-driving vehicle overreacted during a minor collision caused by the another car and ended up overturning
   - Causes : The dynamic models don't assume disturbance forces from other vehicles acting on the car 
   - Integration of robustness into the control system
   - More exploratory testing that covers as many foreseeable events as possible
 
 
-- Late 2017 (Law Suit Case) : A GM Cruise Chevy Bolt knocked over a motorcyclist afer it aborted a lane change maneuver
+- `Late 2017` (Law Suit Case) : A GM Cruise Chevy Bolt knocked over a motorcyclist afer it aborted a lane change maneuver
   - Causes : gap in adjacent lane closed rapidly and vehicle aborted the maneuver and knocked over the motorcyclist
   - During the abort the motorcyclist was alrealy forward alongside the vehicle and the vehicle was stuck in a dilemma to colide w/ the motorcyclist or to crash into both cars in the adjacent lane
   - The vehicle didn't anticipate this scenario and knocked over the motorcyclist 
   - Unexpected/Future events still a big decision-making challenge in self-driving cars
 
-- March 2018 : Uber self-driving Taxi fatal accident in Arizona. As consequence of that Uber suspended his self-driving cars testing for a while
+- `March 2018` : Uber self-driving Taxi fatal accident in Arizona. As consequence of that Uber suspended his self-driving cars testing for a while
   - Causes : the incident occured on a wide multilane divided road at night where a pedestrian was walk her bicycle across the street in an unmarked area
   - Multiple Thing Gones Wrong : 
     - No real time checks on safety drivers (no real-time monitoring system)
