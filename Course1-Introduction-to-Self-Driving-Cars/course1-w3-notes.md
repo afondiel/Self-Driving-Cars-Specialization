@@ -322,16 +322,16 @@ FMEA a quantitave process
 - Simplified ongoing FMEA brainstorming approach
 
 **Automotive Safety Frameworks**
-- ISO 26262 - Functional Safety Standard
+- ISO 26262 - Functional Safety(FuSa) Standard
 - ISO/PAR 21448.1 - Safety of Intended Functionality
-- Functional Safety is defined as  : 
+- Functional Safety (FuSa) is defined as  : 
   - safety due to absence of unreasonable risk
   - only concerned about malfunctioning systems
   - addresses only the hardware and software hazards that can affect autonomous vehicle safety
 - ISO26262 defines (four) Automotive Safety Integrity Levels (ASIL)
   - ASIL-D most stringent, ASIL-A least stringent 
 
-Functional Safety Process :  
+Functional Safety (FuSa) Process :  
 - Follows a **V-shaped** flow
   - The final step is a **Summary Functional Safety assessment** 
     - evaluate residual risk and determine if our system has reached an acceptable level of safety
