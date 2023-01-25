@@ -71,9 +71,10 @@ Major Hazard Sources :
 1. How do we ensure our self-driving car is truly safe? 
 2. How do we take the complex task of driving and the many hazards that can occur, and define a **safety assessment framework** for a complete self-driving system ?
 
-**NHTSA : Safety Framework**
-- In US, the National Highway Transportation Safety Administration(NHTSA) : suggested 12 - part safety framework to structure safety assessment for autonomous driving (Not mandatory in the industry) 
-
+**National Highway Transportation Safety Administration (NHTSA) : Safety Framework**
+- In US, the NHTSA : suggested 12 - part safety framework to structure safety assessment for autonomous driving (Not mandatory in the industry) 
+  - They are subdivided into 3 parts/classes : 
+  ```
       1. System engineering approach to safety 
       2. Autonomy Design
          1. ODD
@@ -90,7 +91,6 @@ Major Hazard Sources :
          5. Consummer education & training 
       
       Src : A vision for safety 2.0 (2017)
-
 
 ### Lesson 1 - Supplementary Reading: Safety Assurance for Self-Driving Vehicles
 
