@@ -16,7 +16,7 @@
 
 ### Lesson 1: Safety Assurance for Self-Driving Vehicles
 **Examples of Automated Vehicle Crashes** 
--  March 2016 : A Self-Driving Car (now Waymo) ran into side of the bus
+-  March 2016 : A Google Self-Driving Car (now Waymo) ran into side of the bus
     - Causes : lateral distance btw the bus and the self-driving car lane was too narrow (bad estimation/computing by the self(driving sw))
     - Due of that, the self-driving car thought the bus wouldn't pass/overtake
     - By the time the car computes a new measuremnt was too late to react
@@ -440,3 +440,5 @@ Functional Safety Process :
 - Glossary : 
   - SW : SoftWare
   - HW : HardWare
+
+
