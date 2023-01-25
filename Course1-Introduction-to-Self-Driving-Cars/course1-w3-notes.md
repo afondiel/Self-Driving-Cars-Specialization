@@ -19,16 +19,17 @@
 -  `March 2016` : A Google Self-Driving Car (now Waymo) ran into side of the bus
     - Causes : lateral distance btw the bus and the self-driving car lane was too narrow (bad estimation/computing by the self-driving sw)
     - Due to that, the self-driving car thought the bus wouldn't pass/overtake
-    - By the time the car computes a new measuremnt but was too late to react
+    - By the time the car computes a new measuremnt it was too late to react
 
 - `In 2017` : Uber self-driving vehicle overreacted during a minor collision caused by the another car and ended up overturning
   - Causes : The dynamic models don't assume disturbance forces from other vehicles acting on the car 
-  - Integration of robustness into the control system
-  - More exploratory testing that covers as many foreseeable events as possible
+  - Future actions/solutions : 
+    - Integration of robustness into the control system
+    - More exploratory testing (out of range/impossible scenarios) that covers as many foreseeable events as possible
 
 
 - `Late 2017` (Law Suit Case) : A GM Cruise Chevy Bolt knocked over a motorcyclist afer it aborted a lane change maneuver
-  - Causes : gap in adjacent lane closed rapidly and vehicle aborted the maneuver and knocked over the motorcyclist
+  - Causes : the gap in adjacent lane closed rapidly and the vehicle aborted the maneuver and knocked over the motorcyclist
   - During the abort the motorcyclist was alrealy forward alongside the vehicle and the vehicle was stuck in a dilemma to colide w/ the motorcyclist or to crash into both cars in the adjacent lane
   - The vehicle didn't anticipate this scenario and knocked over the motorcyclist 
   - Unexpected/Future events still a big decision-making challenge in self-driving cars
@@ -43,17 +44,16 @@
       - then a bicycle
     - Possible assumption : the vehicle aborted the detection because too unreliable
     - 1.3 sec before, Volvo system tried to do emergency braking maneuver
-      - The Volvo system wa disable by Uber when in autonomous mode because not possible to have multiple collision avoidance systems operating simultaneouly during the testing
+      - The Volvo system was disable by Uber when in autonomous mode because not possible to have multiple collision avoidance systems operating simultaneouly during the testing
     
     - In Summary :  `Perception system failure` & `planning system` to avoid the detective object even though its class was uncertain & lack of human or emergency braking backup
  
 **Basic Safety Terms**
-- Harm : refer to the physical harm to a living thing
-- Risk (Probability + Severity) : describes the probability than an event occurs combined with the severity of the harm that the event can cause
-- safety : **absence of unreasonable** risk of harm to a living thing
+- `Harm` : refer to the physical harm to a living thing
+- `Risk` (Probability + Severity) : describes the probability than an event occurs combined with the severity of the harm that the event can cause
+- `safety` : **absence of unreasonable** risk of harm to a living thing
   - Ex: Driving into an intersection when the traffic signal is red would be unsafe as it leads to unreasonable risk to harm of the occupant of the vehicles and other vehicles
-
-- Hazard : potential source of unreasonale risk of harm (treat to safety)
+- `Hazard` : potential source of unreasonale risk of harm (treat to safety)
   - Ex : software bug that could potentially cause an accident
 
 Major Hazard Sources :
