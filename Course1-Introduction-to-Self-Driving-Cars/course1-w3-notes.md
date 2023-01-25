@@ -73,7 +73,7 @@ Major Hazard Sources :
 
 **National Highway Transportation Safety Administration (NHTSA) : Safety Framework**
 - In US, the NHTSA : suggested 12 - part safety framework to structure safety assessment for autonomous driving (`Not mandatory` in the industry) 
-  - They are subdivided into 3 parts/classes : 
+  - They are subdivided into 3 categories : 
   ```
       1. System engineering approach to safety 
       2. Autonomy Design
