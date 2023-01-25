@@ -254,7 +254,7 @@ graph TD
   A(Car crash)-->B(SW failure)
   A-->C(HW failure)
   B-->D(Hacked or <br>Bad Code)
-  C-->D(Manufacturing <br>defects)
+  C-->E(Manufacturing <br>defects)
 ```
 
 **Probabilistic Fault Tree Analysis**
@@ -371,15 +371,65 @@ Functional Safety Process :
 
 ## Learning from Industry Expert
 ### Meet Professor Krzysztof Czarnecki, Safety Assurance Expert
+- Self-driving garage at University of Walerloo
+- Background : 
+  - Worked for DAIMLER Reasearch for abour 16 years
+  - worked on automotive software and safety topics at Walerloo
+- Now : 
+  - Working on safety : Architecture, the design methodologies, ML and vehicle behavior in traffic
 ### Prof. Krzysztof Czarnecki on Assessing and Validating Autonomous Safety: An Impossible Task?
+
+- Identify the hazard :
+  - Design
+  - Implementation
+  - operation of a system 
+- Identify the mechanism (the way these hazard can occur) 
+  - address : 
+    - design
+    - implementation
+    - operation
+- Testing and Validation is important
+  - collect a large number of miles is a tough task => but having a large enough fleet can solve the problem => but you'll so need to solve/build the system before ?  
+    - That's why testing has to be done in a incremental fashion
+    - in a feedback loop to get to learn about the system in pratic: the risks and make improvement them
+  - **Validation testing & Verification testing**
+  - In verification testing, when a system is changed we don't need to collect all the kms and retest every single part part of the system
+    - the kms are there defined in the requirements and can be used to verify which part of the system can be retested in the road or in a simulation or in a closed-circuit
+    - 
 ### Prof. Krzysztof Czarnecki's Lessons from Aerospace: Can the AV Industry Collaborate on Safety?
+-  `Zero fatality` it's what safety is aimed for ? 
+   -  but still have a long way to go
+   -  Automotive industry can learn from aerospace industry
 ### Paul Newman on the Trolley Problem
+- Safety is a society problem NOT only Engineering problem
+- Society has to engage in and lawmakers have to decide how the vehicle has to behave in a `No win situation` ?
+  - Ethical issues ? 
+  - How should the vehicle act ? 
+  - Are there laws which cover these scenarios? 
+- After we solve/define these questions then Engineer can start to address the problem
+
 ### How Companies Approach Autonomous Vehicle Safety
-
-
+- Benefits of self-driving cars :
+  - better safety
+  - congestion goes down
+  - improve mobity expercience (ppl who can driver and dont reason to do so...)
+- Before deployment, multiple stages of testing are :
+    - In **simulation**
+    - cover edge cases
+    - Private track  
+    - the public road
+  - SAFETY is the main advantage of self-driving (reduce 94% of crash and accident statistic number by human drivers)
+- Real world testing and computer testing
+  - Simulation 
+  - miles accumulation (learn from it) 
+  - day time :
+    - Camera
+  - night time : 
+    - Radar
+    - Lidar
+- We can re-learn how to be a better driver from accumulated/recording data from previous driving 
 ## Assignment 
-@TODO
-
+- OK 
 ## References
 
 - [Waymo Safety Report](https://storage.googleapis.com/waymo-uploads/files/documents/safety/2021-12-waymo-safety-report.pdf)
