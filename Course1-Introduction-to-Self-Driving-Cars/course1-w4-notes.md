@@ -131,7 +131,11 @@ P'e = [Ceb(theta) | Oeb]P'b
 > ## $\dot{y} = vcos \theta$ 
 > ## $\dot{x} = vsin \theta$
 
-
+```mermaid
+  graph LR
+    A[Inputs]-->B[Simple Model]
+    C-->C[Outputs / States]
+```
 ### Supplementary Readings for Module 4
 
 Read more about 2D plan motion and coordinate frames in the PDF below:
