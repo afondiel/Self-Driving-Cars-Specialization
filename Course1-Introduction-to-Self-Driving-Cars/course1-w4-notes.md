@@ -142,6 +142,76 @@ P'e = [Ceb(theta) | Oeb]P'b
 > ## $\dot{x} = vsin \theta$
 > ## $\dot{\theta} = \omega$
 
+```
+where :
+- Inputs : [v, w] , the velocity and rotation rate
+- Output : [theta, x, y], theta, x and y, the orientation, position of the robot and its heading 
+``` 
+
+> **State** is a set of variables often arranged in the form of vectors that fully describe the system at the current time
+
+**Two-Wheeled Robot Kinematic Model**
+- Assume control inputs are wheel speeds : 
+
+<img src="./resources/w4/two-wheeled-robot-k-modeling-2D.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+```
+where : 
+  - p : center of the robot
+  - l : wheel to center
+  - r : wheel radius
+  - w1, w2 : wheel rotation rates
+```
+- Kinematic constraint 
+
+<img src="./resources/w4/robot-wheel.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+> $vi = rwi$
+
+assuming no slip btw the wheel and the surface
+
+<img src="./resources/w4/robot-icr.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+> **$v = \frac{v1 + v2}{2} = \frac{rw1 + rw2}{2}$**
+
+The robot moves in a curved path about some Instantaneous Center of Rotation (ICR)
+- ICR == robot kinematic model 
+
+<img src="./resources/w4/robot-icr-w.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Use the instantaneous center of rotation (ICR)
+- Equivalent triangle give the angular rate of rotation
+
+> **$w = \frac{-v2}{\rho} = \frac{-(v2 -v1)}{2*l}$**
+
+then
+
+> **$w = \frac{(rw1 - rw2)}{2*l}$**
+
+**Kinematic Model of a Simple 2D Robot**
+
+- Continuous time model : 
+
+> **$\dot{x} = [(\frac{rw1 + rw2}{2})cos \theta]$**
+
+  - 
+   
+> **$\dot{y} = [(\frac{rw1 + rw2}{2})sin \theta]$**
+
+  -  
+
+> **$\dot{\theta} = (\frac{rw1 - rw2}{2*l})$**
+
+- Discrete time model
+
+> ## $x_{k+1}= x_{k} + [(\frac{rw_{1,k} + rw_{2,k}}{2})cos \theta] \Delta t$
+
+> ##  $y_{k+1} = y_{k} + [(\frac{rw_{1,k} + rw_{2,k}}{2})sin \theta] \Delta t$
+
+> ## $\theta_{k+1} = \theta_{k} + (\frac{rw_{1,k} - rw_{2,k}}{2*l}) \Delta t$
+
+
+
 ### Supplementary Readings for Module 4
 
 Read more about 2D plan motion and coordinate frames in the PDF below:
