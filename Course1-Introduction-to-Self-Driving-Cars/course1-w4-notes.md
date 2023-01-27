@@ -131,11 +131,17 @@ P'e = [Ceb(theta) | Oeb]P'b
 > ## $\dot{y} = vcos \theta$ 
 > ## $\dot{x} = vsin \theta$
 
+**Simple Robot Motion Kinematics**
+
 ```mermaid
   graph LR
     A[Inputs]-->B[Simple Model]
     B-->C[Outputs / States]
 ```
+> ## $\dot{y} = vcos \theta$ 
+> ## $\dot{x} = vsin \theta$
+> ## $\dot{\theta} = \omega$
+
 ### Supplementary Readings for Module 4
 
 Read more about 2D plan motion and coordinate frames in the PDF below:
