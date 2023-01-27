@@ -134,7 +134,7 @@ P'e = [Ceb(theta) | Oeb]P'b
 ```mermaid
   graph LR
     A[Inputs]-->B[Simple Model]
-    C-->C[Outputs / States]
+    B-->C[Outputs / States]
 ```
 ### Supplementary Readings for Module 4
 
