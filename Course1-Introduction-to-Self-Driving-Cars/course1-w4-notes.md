@@ -188,7 +188,7 @@ The robot moves in a curved path about some Instantaneous Center of Rotation (IC
 
 **Kinematic Model of a Simple 2D Robot**
 
-- Continuous time model : 
+- **Continuous time model** : 
 
 > ## $\dot{x} = [(\frac{rw1 + rw2}{2})cos \theta]$ 
    
@@ -196,7 +196,7 @@ The robot moves in a curved path about some Instantaneous Center of Rotation (IC
 
 > ## $\dot{\theta} = (\frac{rw1 - rw2}{2*l})$
 
-- Discrete time model
+- **Discrete time model** : enable to convert the model from differentiel to finite difference form (FDF) for control design & simulation
 
 > ## $x_{k+1}= x_{k} + [(\frac{rw_{1,k} + rw_{2,k}}{2})cos \theta] \Delta t$
 
@@ -204,6 +204,11 @@ The robot moves in a curved path about some Instantaneous Center of Rotation (IC
 
 > ## $\theta_{k+1} = \theta_{k} + (\frac{rw_{1,k} - rw_{2,k}}{2*l}) \Delta t$
 
+```
+where : 
+  - k :  value of the variable in the current time step
+  - k + 1 : value of the variable in the next time step
+```
 
 
 ### Supplementary Readings for Module 4
