@@ -166,13 +166,13 @@ where :
 
 <img src="./resources/w4/robot-wheel.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-> $vi = rwi$
+> ## $vi = rwi$
 
 assuming no slip btw the wheel and the surface
 
 <img src="./resources/w4/robot-icr.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-> **$v = \frac{v1 + v2}{2} = \frac{rw1 + rw2}{2}$**
+> ## $v = \frac{v1 + v2}{2} = \frac{rw1 + rw2}{2}$
 
 The robot moves in a curved path about some Instantaneous Center of Rotation (ICR)
 - ICR == robot kinematic model 
@@ -182,25 +182,19 @@ The robot moves in a curved path about some Instantaneous Center of Rotation (IC
 - Use the instantaneous center of rotation (ICR)
 - Equivalent triangle give the angular rate of rotation
 
-> **$w = \frac{-v2}{\rho} = \frac{-(v2 -v1)}{2*l}$**
+> ## $w = \frac{-v2}{\rho} = \frac{-(v2 -v1)}{2*l}$
 
-then
-
-> **$w = \frac{(rw1 - rw2)}{2*l}$**
+> ## $w = \frac{(rw1 - rw2)}{2*l}$
 
 **Kinematic Model of a Simple 2D Robot**
 
 - Continuous time model : 
 
-> **$\dot{x} = [(\frac{rw1 + rw2}{2})cos \theta]$**
-
-  - 
+> ## $\dot{x} = [(\frac{rw1 + rw2}{2})cos \theta]$ 
    
-> **$\dot{y} = [(\frac{rw1 + rw2}{2})sin \theta]$**
+> ## $\dot{y} = [(\frac{rw1 + rw2}{2})sin \theta]$
 
-  -  
-
-> **$\dot{\theta} = (\frac{rw1 - rw2}{2*l})$**
+> ## $\dot{\theta} = (\frac{rw1 - rw2}{2*l})$
 
 - Discrete time model
 
