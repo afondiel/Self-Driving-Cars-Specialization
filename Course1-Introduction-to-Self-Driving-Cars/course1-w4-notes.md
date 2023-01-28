@@ -182,7 +182,8 @@ The robot moves in a curved path about some Instantaneous Center of Rotation (IC
 - Use the instantaneous center of rotation (ICR)
 - Equivalent triangle give the angular rate of rotation
 
-> ## $w = \frac{-v2}{\rho} = \frac{-(v2 -v1)}{2*l} = \frac{(rw1 - rw2)}{2*l}$
+> ## $w = \frac{-v2}{\rho} = \frac{-(v2 -v1)}{2l} = \frac{(rw1-rw2)}{2l}$
+
 
 **Kinematic Model of a Simple 2D Robot**
 
