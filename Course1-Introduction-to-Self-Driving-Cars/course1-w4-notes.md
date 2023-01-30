@@ -53,12 +53,12 @@ A two wheeled robot with a single sensor has 3 frames
   
 <img src="./resources/w4/vector.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- *v* is a vector, in a 2D plane, it can be projected both in a body frame and inertial frame
-- The vectors {b1, b2}, {e1, e2} define two different coordinate frames, Fb and Fe 
+- $v$ is a vector, in a 2D plane, it can be projected both in a body frame and inertial frame
+- The vectors {$b1$, $b2$}, {$e1$, $e2$} define two different coordinate frames, $Fb$ and $Fe$ 
 
 **Rotation Matrices in 2D**
 
-frame e and b have the same origin, but b is rotated by angle $\theta$ relative to frame e
+frame $e$ and $b$ have the same origin, but $b$ is rotated by angle $\theta$ relative to frame $e$
 
 ```
           [cos(theta) sin(theta)]
@@ -77,13 +77,13 @@ where :
 <img src="./resources/w4/two-wheeled-robot.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 Problem : 
-- Represent the position of the `point P` observed by the robot body frame b w/ respect to the inertial frame e
+- Represent the position of the `point P` observed by the robot body frame $b$ w/ respect to the inertial frame $e$
 - the **position** of the robot w/ respect to the inertial frame is x and y
 - the **orientation** of the robot is $\theta$
 
 Solution : 
 - Conversion between Inertial frame and Body cordinates is done with a translation vector and a rotation matrix
-  - Location of the point P in Body Frame (B)
+  - Location of the point $P$ in Body Frame (B)
   
 ```
 Pb = Ceb(Theta)Pe + Oeb
@@ -212,13 +212,28 @@ where :
 
 ### Supplementary Readings for Module 4
 
-Read more about 2D plan motion and coordinate frames in the PDF below:
+Read more about **2D plan motion and coordinate frames** in the PDF below:
  
-[Chapter 2 - "Models of Mobile Robots in the Plane" B.A. Francis and M. Maggiore, Flocking and Rendezvous in Distributed Robotics, SpringerBriefs in Control, Automation and Robotics (2016),](https://d3c33hcgiwev3.cloudfront.net/csKJTCDXEemj-RKX93anOA_72d8f77020d711e9ace9b31057616ac0_Models-of-Mobile-Robots-in-the-Plane.pdf?Expires=1674864000&Signature=KFVMAXxr8u3qJUTn100JMblpu3Wkgs6mWDKfiV8AhbgEHtAPmD~lk2bmUNJie1U57nWepebGd55tFTub23AxLfNj798fReusTlPpTGeRVKuoOY0J1ghjcgESGGEsMMX79zwbyr84ORxycJKML4WTMK3DAydubVFgHqALPDb1Png_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
+[Chapter 2 - "Models of Mobile Robots in the Plane" B.A. Francis and M. Maggiore, Flocking and Rendezvous in Distributed Robotics, SpringerBriefs in Control, Automation and Robotics (2016)](https://edisciplinas.usp.br/pluginfile.php/5679996/mod_resource/content/5/Models-of-Mobile-Robots-in-the-Plane.pdf)
 
 
 ### Lesson 2: The Kinematic Bicycle Model
+
+**Bicycle Kinematic Model**
+- 2D bicycle model (simplified car model)
+- Front wheel steering
+
 ### Lesson 2 Supplementary Reading: The Kinematic Bicycle Model
+
+Read more about **the Kinematic Bicycle Model (pages 15-26)** in the PDF below: 
+
+[Chapter 2 - "Models of Mobile Robots in the Plane" B.A. Francis and M. Maggiore, Flocking and Rendezvous in Distributed Robotics, SpringerBriefs in Control, Automation and Robotics (2016)](https://edisciplinas.usp.br/pluginfile.php/5679996/mod_resource/content/5/Models-of-Mobile-Robots-in-the-Plane.pdf)
+
+
+
+
+
+
 ### Lesson 3: Dynamic Modeling in 2D
 ### Lesson 3 Supplementary Reading: Dynamic Modeling in 3D
 ### Lesson 4: Longitudinal Vehicle Modeling
