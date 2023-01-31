@@ -301,7 +301,7 @@ $\displaystyle lr$ - the distance from rear wheel to the cg
 
 **State - Space Representation**
 
-It is 'hard' to instantaneously change the steering angle ($\delta$) of the vehicle from one extreme of its range to another but it's possible with our kinematic model. If we assume we can only control the `rate of change` of the new steering angle ($\phi$)
+It is 'hard' to instantaneously change the steering angle ( $\delta$ ) of the vehicle from one extreme of its range to another but it's possible with our kinematic model. If we assume we can only control the `rate of change` of the new steering angle ( $\phi$ )
 - Modify CG kinematic bicycle model to use steering rate input
   - Inputs : $[v, \phi]^T$ (steering rate phi as our modified input)
   - State: $[x, y, \theta, \delta]^T$ (extended version with delta as a state)
