@@ -219,9 +219,104 @@ Read more about **2D plan motion and coordinate frames** in the PDF below:
 
 ### Lesson 2: The Kinematic Bicycle Model
 
-**Bicycle Kinematic Model**
+**Bicycle Kinematic Model** : has been used as suitable `control-oriented model` for representing vehicles.
 - 2D bicycle model (simplified car model)
-- Front wheel steering
+- Nonholonomic constraints of a car
+- Front wheel steering model (similar to cars in 2D plane inertial frame (FI))
+
+<img src="./resources/w4/front-wheel-steering-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Rear Wheel Reference Point**
+
+<img src="./resources/w4/rear-wheel-ref.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Apply Instantaneous Center of Rotation (ICR)
+  
+  $\displaystyle \dot{\theta} = \omega = \frac{v}{R}$
+
+- Similar triangles
+  
+  $\displaystyle \tan \delta = \frac{L}{R}$
+  
+- Rotation rate equation
+
+  $\displaystyle \dot{\theta} = \omega = \frac{v.tan \delta}{L}$
+
+where : 
+
+- $\displaystyle v$ : the velocity
+- $\displaystyle R$ : the radius
+- $\displaystyle \theta$ : the heading of bicycle
+- $\displaystyle \delta$ : the steering angle  
+- $\displaystyle \omega$  : the angular/rotation rate of the bicycle
+- $\displaystyle L$ : the gap/length between the two wheels
+- $\displaystyle x, y$ : the front/rear axle reference point
+
+**Rear Axle bicycle Model**
+
+- If the desired point is at the center of the rear axle : 
+
+<img src="./resources/w4/RearAxleBicycleModel.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+$\displaystyle \dot{x}_{r} = v cos \theta$ 
+   
+$\displaystyle \dot{y}_{r}  = vsin \theta$
+
+$\displaystyle \dot{\theta} = \frac{v.tan \delta}{L}$
+
+**Front Axle bicycle Model**
+
+- If the desired point is at the center of the front axle : 
+
+<img src="./resources/w4/FrontAxleBicycleModel.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+$\displaystyle \dot{x}_{f} = v cos(\theta + \delta)$ 
+   
+$\displaystyle \dot{y}_{f}  = vsin(\theta + \delta)$
+
+$\displaystyle \dot{\theta} = \frac{v.sin \delta}{L}$
+
+**Center of the Gravity (CG) Model**
+
+- If the desired point is at the center of the front axle : 
+
+<img src="./resources/w4/cg-BicycleModel.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+---
+$\displaystyle \dot{x}_{c} = v cos(\theta + \beta)$ 
+   
+$\displaystyle \dot{y}_{c}  = vsin(\theta + \beta)$
+
+$\displaystyle \dot{\theta} = \frac{v.cos \beta .tan \delta}{L}$
+
+$\displaystyle \beta = tan^-1 (\frac{v.cos \beta .tan \delta}{L})$
+
+---
+
+where :  
+
+$\displaystyle \beta$ - is the side slip angle
+
+$\displaystyle lr$ - the distance from rear wheel to the cg
+
+**State - Space Representation**
+
+It is 'hard' to instantaneously change the steering angle ($\delta$) of the vehicle from one extreme of its range to another but it's possible with our kinematic model. If we assume we can only control the `rate of change` of the new steering angle ($\phi$)
+- Modify CG kinematic bicycle model to use steering rate input
+  - Inputs : $[v, \phi]^T$ (steering rate phi as our modified input)
+  - State: $[x, y, \theta, \delta]^T$ (extended version with delta as a state)
+---
+$\displaystyle \dot{x}_{c} = v cos(\theta + \beta)$ 
+   
+$\displaystyle \dot{y}_{c}  = vsin(\theta + \beta)$
+
+$\displaystyle \dot{\theta} = \frac{v.cos \beta .tan \delta}{L}$
+
+
+$\displaystyle \dot{\delta} = \phi$
+
+---
+where : $\phi$ - is the modified Input: **rate of change** of steering angle
 
 ### Lesson 2 Supplementary Reading: The Kinematic Bicycle Model
 
