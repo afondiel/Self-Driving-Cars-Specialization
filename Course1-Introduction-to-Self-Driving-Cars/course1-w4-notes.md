@@ -324,13 +324,88 @@ Read more about **the Kinematic Bicycle Model (pages 15-26)** in the PDF below:
 
 [Chapter 2 - "Models of Mobile Robots in the Plane" B.A. Francis and M. Maggiore, Flocking and Rendezvous in Distributed Robotics, SpringerBriefs in Control, Automation and Robotics (2016)](https://edisciplinas.usp.br/pluginfile.php/5679996/mod_resource/content/5/Models-of-Mobile-Robots-in-the-Plane.pdf)
 
-
-
-
-
-
 ### Lesson 3: Dynamic Modeling in 2D
+
+**Dynamic Modeling**
+
+- Why Dynamic Modeling is important ?
+  - At higher speed and slippery roads, vehicles do not satisfy no slip condition
+  - Forces such as drag, road friction govern required throttle inputs
+- Steps to build a typical dynamic model  : 
+```
+1. Coordinate frames
+2. Lumped dynamic elements
+3. Free Body Diagram
+4. Dynamic Equations
+```
+**Dynamic Modeling - Translation Systems**
+- Deals with forces and torques
+- Roughly, need to equate all forces
+- Governed by **Newton's Second Law** ( $\displaystyle \Sigma \overrightarrow{F} {i} = M\overrightarrow{a}$ )
+
+<img src="./resources/w4/translation-system.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Example: Vehicle Shock Absorver (Suspension)
+**Dynamic Modeling - Translation Systems**
+
+**Dynamic Modeling - Rotation Systems**
+- Very common in the automobile : 
+  - Ex : Internal combustion engine chap, gear boxes, converters and tires etc
+  
+<img src="./resources/w4/rotational-system.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+```
+- Inertia, J
+- Torsion force, T
+- Forces resisting that torsionanl force
+  - Spring force
+  - Damping force
+  - Inertia force
+```
+
+**Full Vehicle Modeling**
+
+- All components, forces and moments in 3D
+  - Pitch, roll, normal forces
+  - Suspension, drivetrain, components models
+
+<img src="./resources/w4/project-chrono.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Dynamic models of vehicles are useful for multiple applications : 
+  - Improvement of state estimation methods in **sensor fusion** to track motion
+  - trajectory path tracking
+  - help define the limits of vehicle performance : unsafe trajectories that car cannot track
+
+- A Full 3D vehicle modeling is very complex due to all components, forces and moments ... 
+- One of the 'easiest' way is to split the model into two 2D models : 
+  - steering control
+  - Throttle and brake control problem
+
+**2D Dynamics - Vehicle Longitudinal Motion**
+
+<img src="./resources/w4/2D-longitudinal-motion.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**2D Dynamics - Vehicle Lateral Motion**
+
+<img src="./resources/w4/2D-lateral-motion.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In both model There are several forces acting in the vehicles
+
 ### Lesson 3 Supplementary Reading: Dynamic Modeling in 3D
+
+**General Dynamics**:
+
+- Ardema, Mark D. Newton-Euler Dynamics, Springer: Santa Clara University, Santa Clara (2005).
+
+- [Tong,  David. Classical Dynamics University of Cambridge Course Notes (2004)](http://www.damtp.cam.ac.uk/user/tong/dynamics/clas.pdf)  
+
+**Vehicle Modeling**:
+
+- Rajamani, Rajesh. Vehicle dynamics and control, Springer Science & Business Media (2011).
+
+- [Jacobson, Bengt, et al. Vehicle Dynamics, Vehicle Dynamics Group, Division of Vehicle and Autonomous Systems, Department of Applied Mechanics, Chalmers University of Technology (2016)](https://publications.lib.chalmers.se/records/fulltext/244369/244369.pdf)
+
+
 ### Lesson 4: Longitudinal Vehicle Modeling
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
 ### Lesson 5: Lateral Dynamics of Bicycle Model
