@@ -519,10 +519,43 @@ where  :
 
 - Wheel
 
-$\displaystyle \ddot{x} = r_{eff} GR \dot{\omega}_{e} + X  + Y +\Tau$
+  - $I_{w}\dot{\omega}_{w}  = T_{wheel} - r_{eff} F_{x}$
+  - $T_{wheel}  = I_{w}\dot{\omega}_{w} + r_{eff} F_{x}$
 
-- test
+- Transmission
+  - $I_{t} \dot{\omega}_{t} = T_{t} - (GR)T_{wheel}$
 
+  - $I_{t} \dot{\omega}_{t} = T_{t} - GR(I_{w} \dot{\omega}_{w} + r_{eff} F_{x})$
+
+- Torque Converter
+  - $\omega_{t} = \omega_{e}$
+  
+  - $T_{t}  = (I_{t} + I_{w}GR^2) \dot{\omega}_{e} + GRr_{eff} F_{x}$
+
+- Engine 
+  - $I_{e} \dot{\omega}_{e} = T_{Engine} - T_{t}$
+  
+  - $I_{e} \dot{\omega}_{e} = T_{Engine} - I_{t} + I_{w}GR^2 \dot{\omega}_{e} + GRr_{eff} F_{x}$
+
+**Engine Dynamics**
+- Tire force in terms of inertial and load force
+  - $F_{x} = m\ddot{x} + F_{load} = mGRr_{eff}\dot{\omega}_{e} + F_{load}$ 
+
+- Combining with our engine dynamics model yields : 
+  - $[I_{e} + I_{t} + I_{w}(GR^2) + m(GR^2)r^2_{eff}] \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
+
+- Finally, the engine dynamic model simplifies to
+
+---
+$J_{e} \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
+
+---
+
+where 
+```
+- Je : Powertrain Inertia which is the sum of all inertial
+- GRr_effF_load : total Load Torque (T_load)
+```
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
 
 To learn more about longitudinal dynamics and vehicle drivetrain, read **Chapter 4**  in the textbook below:
