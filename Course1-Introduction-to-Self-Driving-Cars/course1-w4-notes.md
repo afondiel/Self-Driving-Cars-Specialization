@@ -518,7 +518,7 @@ where  :
 <img src="./resources/w4/powerflow.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Wheel
-  - $\displaystyle I_w \dot{\omega}_w = T_wheel - r_eff F_x$
+  - $\displaystyle I_w \dot{\omega}_w = T_{wheel} - r_eff F_x$
   
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
 
