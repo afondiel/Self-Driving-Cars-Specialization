@@ -515,41 +515,15 @@ where  :
 
 **Power flow in the PowerTrain**
 
-<img src="./resources/w4/powerflow.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/powerflow-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Wheel
+where 
 
-  - $I_{w}\dot{\omega}_{w}  = T_{wheel} - r_{eff} F_{x}$
-  - $T_{wheel}  = I_{w}\dot{\omega}_{w} + r_{eff} F_{x}$
+```
+- Ie, Iw, It : are the Inertia for each component
+```
 
-- Transmission
-  - $I_{t} \dot{\omega}_{t} = T_{t} - (GR)T_{wheel}$
-
-  - $I_{t} \dot{\omega}_{t} = T_{t} - GR(I_{w} \dot{\omega}_{w} + r_{eff} F_{x})$
-
-- Torque Converter
-  - $\omega_{t} = \omega_{e}$
-  
-  - $T_{t}  = (I_{t} + I_{w}GR^2) \dot{\omega}_{e} + GRr_{eff} F_{x}$
-
-- Engine 
-  - $I_{e} \dot{\omega}_{e} = T_{Engine} - T_{t}$
-  
-  - $I_{e} \dot{\omega}_{e} = T_{Engine} - I_{t} + I_{w}GR^2 \dot{\omega}_{e} + GRr_{eff} F_{x}$
-
-**Engine Dynamics**
-- Tire force in terms of inertial and load force
-  - $F_{x} = m\ddot{x} + F_{load} = mGRr_{eff}\dot{\omega}_{e} + F_{load}$ 
-
-- Combining with our engine dynamics model yields : 
-  - $[I_{e} + I_{t} + I_{w}(GR^2) + m(GR^2)r^2_{eff}] \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
-
-- Finally, the engine dynamic model simplifies to
-
----
-$J_{e} \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
-
----
+<img src="./resources/w4/engine-dynamics-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 where 
 ```
