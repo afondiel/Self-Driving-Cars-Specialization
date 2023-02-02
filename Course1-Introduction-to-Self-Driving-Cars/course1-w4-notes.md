@@ -519,7 +519,7 @@ where  :
 
 - Wheel
 
-$\displaystyle \ddot{x} = r_{eff} GR \dot{\omega}_{e} + T_{wheel}$
+$\displaystyle \ddot{x} = (r_{eff} GR \dot{\omega}_{e} + T)$
 
 
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
