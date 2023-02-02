@@ -517,32 +517,39 @@ where  :
 
 <img src="./resources/w4/powerflow.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Wheel 
-  - $\displaystyle I_{w} \dot{\omega}_{w} = T_{wheel}  - r_{eff} F_{x}$
-  - $\displaystyle T_{wheel}  = I_{w} \dot{\omega}_{w} + r_{eff} F_{x}$
+- Wheel
+  - $\displaystyle I_{w}\dot{\omega}_{w} = T_{wheel} - r_{eff} F_{x}$
+  
+  - $\displaystyle T_{wheel}  = I_{w}\dot{\omega}_{w} + r_{eff} F_{x}$
 
 - Transmission
-  - $\displaystyle I_{t} \dot{\omega}_{t} = T_{t}  - (GR)T_{wheel}$
-  - $\displaystyle I_{t} \dot{\omega}_{t} = T_{t}  - GR(I_{w} \dot{\omega}_{w} + r_{eff} F_{x})$
+  - $\displaystyle I_{t} \dot{\omega}_{t} = T_{t} - (GR)T_{wheel}$
+
+  - $\displaystyle I_{t} \dot{\omega}_{t} = T_{t} - GR(I_{w} \dot{\omega}_{w} + r_{eff} F_{x})$
 
 - Torque Converter
   - $\displaystyle \omega_{t} = \omega_{e}$
+  
   - $\displaystyle T_{t}  = (I_{t} + I_{w}GR^2) \dot{\omega}_{e} + GRr_{eff} F_{x}$
 
 - Engine 
-  - $\displaystyle I_{e} \dot{\omega}_{e} = T_{Engine}  - T_{t}$
-  - $\displaystyle I_{e} \dot{\omega}_{e} = T_{Engine}  - (I_{t} + I_{w}GR^2) \dot{\omega}_{e} + GRr_{eff} F_{x}$
+  - $\displaystyle I_{e} \dot{\omega}_{e} = T_{Engine} - T_{t}$
+  
+  - $\displaystyle I_{e} \dot{\omega}_{e} = T_{Engine} - I_{t} + I_{w}GR^2 \dot{\omega}_{e} + GRr_{eff} F_{x}$
 
 **Engine Dynamics**
 - Tire force in terms of inertial and load force
   - $\displaystyle F_{x} = m\ddot{x} + F_{load} = mGRr_{eff}\dot{\omega}_{e} + F_{load}$ 
 
 - Combining with our engine dynamics model yields : 
----
   - $\displaystyle [I_{e} + I_{t} + I_{w}(GR^2) + m(GR^2)r^2_{eff}] \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
----
+
 - Finally, the engine dynamic model simplifies to
-  - $\displaystyle J_{e} \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
+
+---
+$\displaystyle J_{e} \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
+
+---
 
 where 
 ```
