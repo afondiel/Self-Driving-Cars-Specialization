@@ -518,9 +518,7 @@ where  :
 <img src="./resources/w4/powerflow.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Wheel
-  
-  - $\displaystyle \dot{\omega}_{w} = T_{w} - r_{eff} F_{x}$
-
+  - $\displaystyle \ddot{x} = r_{eff} GR \dot{\omega}_{e}$
 
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
 
