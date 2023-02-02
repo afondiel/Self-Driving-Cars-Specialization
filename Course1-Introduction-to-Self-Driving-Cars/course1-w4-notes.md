@@ -518,20 +518,10 @@ where  :
 <img src="./resources/w4/powerflow.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Wheel
-  - $\displaystyle I_w \dot{\omega}_w = T_{whl} - r_eff F_x$
+
+$\displaystyle I_w \dot{\omega}_w = T_{whl} - r_eff F_x$
 
 
-- Finally, the engine dynamic model simplifies to
-
-
-$\displaystyle J_{e} \dot{\omega}_{e} = T_{Engine} - GRr_{eff} F_{load}$
-
-
-where 
-```
-- Je : Powertrain Inertia which is the sum of all inertial
-- GRr_effF_load : total Load Torque (T_load)
-```
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
 
 To learn more about longitudinal dynamics and vehicle drivetrain, read **Chapter 4**  in the textbook below:
