@@ -519,7 +519,7 @@ where  :
 
 - Wheel
 
-$\displaystyle \ddot{x} = r_{eff} GR \dot{\omega}_{e} + \Tau_x +\Tau_y +\Tau_z$
+$\displaystyle \ddot{x} = r_{eff} GR \dot{\omega}_{e} + X  + Y +\Tau$
 
 - test
 
