@@ -519,7 +519,7 @@ where  :
 
 - Wheel
 
-$\displaystyle I_w \dot{\omega}_w = T_{whl} - r_eff F_x$
+$\displaystyle I_w\dot{\omega}_{w} = T_{whl} - r_{eff}F_{x}$
 
 
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
