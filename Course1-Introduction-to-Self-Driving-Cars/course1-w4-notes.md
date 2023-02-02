@@ -519,8 +519,9 @@ where  :
 
 - Wheel
 
-$\displaystyle \ddot{x} = r_{eff} GR \dot{\omega}_{e} + \Tau_{w}$
+$\displaystyle \ddot{x} = r_{eff} GR \dot{\omega}_{e} + \Tau +\Tau +\Tau +\Tau$
 
+- test
 
 ### Lesson 4 Supplementary Reading: Longitudinal Vehicle Modeling
 
