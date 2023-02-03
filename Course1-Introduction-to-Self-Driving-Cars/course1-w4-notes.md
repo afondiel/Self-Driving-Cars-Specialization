@@ -535,8 +535,84 @@ where
 To learn more about longitudinal dynamics and vehicle drivetrain, read **Chapter 4**  in the textbook below:
 
 - [Rajamani R. (2012) "Longitudinal Vehicle Dynamics." In: Vehicle Dynamics and Control. Mechanical Engineering Series. Springer, Boston, MA.](http://link.springer.com/content/pdf/10.1007%2F978-1-4614-1433-9_4.pdf)
+
+
 ### Lesson 5: Lateral Dynamics of Bicycle Model
+
+**Vehicle Model to bicycle Model**
+
+<img src="./resources/w4/lateral-modeling.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Assumptions : 
+  - Longitudinal velocity is constant(allows to modeling inaccuracies when acceleration/decelerating out of curves)
+  - Left and right axle are lumped into a single wheel (bicyle model)
+  - Suspension movement, road inclination and aerodynamic influences are neglected
+
+**Lateral Dynamics**
+
+- Lateral dynamics can be written as 
+
+<img src="./resources/w4/lateral-dynamics.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Tire Slip Angles**
+- Many different tire slip models
+- For small tire slip angles, the lateral tire forces are approximated as a linear function of tire slip angle
+- Tire variables
+  - Front tire slip angle, $\alpha f$
+  - Rear tire slip angle, $\alpha r$
+
+**Front and Rear Tire Forces**
+
+<img src="./resources/w4/cornering-stiffness.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The cornering stiffness of the tire is defined by theits ability tp resist deformation while the vehicle corners
+
+Cf : linearized cornering stiffness of the front wheel
+
+<img src="./resources/w4/cf.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Cr : linearized cornering stiffness of the rear wheel
+
+<img src="./resources/w4/cr.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Lateral and Yaw Dynamics**
+
+- From the previous slide formulations :
+
+<img src="./resources/w4/lateral-yaw-dynamics.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Where : 
+
+```
+  - Beta-dot : the vehicle slip angle 
+  - Psi-dot : the rate of change of the yaw rate
+```
+**Standard State Space Representation**
+
+- State Vectors :
+
+<img src="./resources/w4/state-vector.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- System Dynamic Matrices A & B, are **time-invariant** if the forward speed $V$ is constant
+
+<img src="./resources/w4/coef-lateral.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+- Linear Dynamic Model : is also suitable with **Kalman filter** (Course 2)
+
+<img src="./resources/w4/x-state.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+where : 
+```
+  - Delta : the driver steering angle command
+```
+
 ### Lesson 5 Supplementary Reading: Lateral Dynamics of Bicycle Model
+Read more about the Lateral Dynamics of Bicycle Model (pages 27-44) in the PDF below: 
+
+- [R. Rajamani (2012), "Lateral Vehicle Dynamics" In: Vehicle Dynamics and Control, Mechanical Engineering Series ](https://d3c33hcgiwev3.cloudfront.net/vjVDuyDXEemj-RKX93anOA_be4b8ab020d711e9a1134155eeec67a0_Lateral-Vehicle-Dynamics.pdf?Expires=1675468800&Signature=MiUi73gB5UHC58iE06HH9A5wlVgJaXQZU2DhABqbfYAgP3NDjmzikZ-ELqzDmU6w2IP3JkNXfxChSAGQPa9LKjZwY5j8YX8ksgy4S0XC53k0xsX0CIjyUI3itfzQQeDFNquKmWOXZt7brHHuyQyb27gEkKXF1VhShphC8uiCuPE_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
+
+
 ### Lesson 6: Vehicle Actuation
 ### Lesson 6 Supplementary Reading: Vehicle Actuation
 ### Lesson 7: Tire Slip and Modeling
