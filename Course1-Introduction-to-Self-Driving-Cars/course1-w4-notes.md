@@ -614,7 +614,115 @@ Read more about the Lateral Dynamics of Bicycle Model (pages 27-44) in the PDF b
 
 
 ### Lesson 6: Vehicle Actuation
+
+**Coupled Lateral & Longitudinal**
+
+<img src="./resources/w4/coupled-lat-long.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Notice that the lateral dynamics and the longitudinal dynamics can affect each other
+- `Main Control Task` : 
+  - Provide suitable **steering angle** , **throttle** and **brake** commands
+  - To keep the vehicle on the defined path at the desired **velocity**
+
+**Assumption** : 
+- The desired elements are provided by **the motion planning system** (i.e. Course 4.)
+
+**Steering** : the driver's cmd to turn the vehicle to the left or right 
+
+<img src="./resources/w4/steering-model.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **Simple Steering Model**
+  
+<img src="./resources/w4/simple-steering-model.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+  - The wheel angle $\delta_s$ is proportional to the steering angle $\delta$
+  
+where
+```
+  - C : the steering coefficient 
+```  
+- This model can now be used in simulation & as a starting point for non-agressive driving  
+
+
+- **Actual Steering System**
+  - Supplementary reading on : Vehicle steering system.
+
+
+- **PowerTrain (Drive line)** : the vehicle powertrain determines the vehicle forward velocity and acceleration
+  - Throtlle and brake commands affect torque balance
+
+<img src="./resources/w4/powertrain-driveline.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+  
+  - In automatic transmission cars, a driver/autonomy has two inputs to accelerate or decelerate the car: 
+    - the gas
+    - brake
+  - In order to convert the driver commands into wheel motions : 
+```
+    - the power flow starts from the power generation unit (PGU) (internal combustion engine/electric motor)
+    - the throttle depal position drives the torque produced by the PGU
+    - then passed to the transmission system 
+      - in the automatic transmission the fluid coupling system/torque converter is placed btw the engine shafts and the gearbox unit and based on operating mode/ desired speeds the GB changes the gear as needed 
+        - `Gear 1 & 2`, are the `torque modes` and the higher gears are the `speed modes`
+    - Then the power flows to the wheels through a differential and generates the wheel torques which generate traction forces
+      - the traction force might be higher than the resistance force (Faero + road friction) to accelerate the vehicle forward in the longitudinal direction
+```
+
+**Throttle (Accelerating)**
+
+<img src="./resources/w4/throtlle.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The driver puts their foot on the gas pedal to define the level of torque demand needed to accelerate the vehicle
+- The actual response is a bit more complex and depends on the type of the PGU.
+
+- **Accelerating Model**
+
+<img src="./resources/w4/throtlle-model.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- PGUs are differents based on the source and we use the `Torque`-`Speed` diagram to represent their characteristics for power units
+  - Characteristics Plots  
+  - <img src="./resources/w4/characteristics-plots.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+  - Gasoline Engines : higher operating speed range : [2000, 3000] RPM for passager vehicle
+    - suitable for small/city vehicles
+  - Diesel Engines : more consistent torque generation over a wider range of speeds
+    - suitable for heavy-duty vehicles
+  - Electric Motors : more efficient at lower RPMs such as 1500 RMP not very effecient at higher RPM
+    - Hybrid vehicles can be the solution to compensated the loss and improve performance at higher speeds
+
+  - **Typical torque curves for Gasoline Engines**
+
+  - <img src="./resources/w4/gas-torque.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Brake (Decelerating)**
+
+<img src="./resources/w4/braking-sys-model.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The Brake pressure results in a braking force on the brake disc or drum, which then becomes a braking wheel torque at the wheel
+- the braking torque on the wheel creates a negative longitudinal force to decelerate the vehicle
+- Very predictable response because of the braking management system
+
+- **Braking Model**
+  
+<img src="./resources/w4/braking-model.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- A simple linear mapping from pedal position to brake torque can use used for modeling
+
+- **Braking System**
+  - Basic functionality of braking includes : 
+    - Shorten stopping distance
+    - Steerability during braking through ABS systems
+    - Stability during braking to avoid overturning  
+
 ### Lesson 6 Supplementary Reading: Vehicle Actuation
+
+- Read more about vehicle steering system in the Journal article below:
+  - Reimann G., Brenner P., Büring H. (2015) "Steering Actuator Systems". In: Winner H., Hakuli S., Lotz F., Singer C. (eds) Handbook of Driver Assistance Systems. Springer, Cham
+
+- Read more about vehicle driveline (throttling and braking system) in the textbook below: 
+  - Mashadi, B., Crolla, D, Vehicle Powertrain Systems. Wiley (2012)
+
+
 ### Lesson 7: Tire Slip and Modeling
 ### Lesson 7 Supplementary Reading: Tire Slip and Modeling
 
