@@ -722,9 +722,111 @@ where
 - Read more about vehicle driveline (throttling and braking system) in the textbook below: 
   - Mashadi, B., Crolla, D, Vehicle Powertrain Systems. Wiley (2012)
 
-
 ### Lesson 7: Tire Slip and Modeling
+
+**Importance of Tire Modeling**
+
+- The tire is the interface btw the vehicle and road
+
+<img src="./resources/w4/tire-modeling.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Vehicle Actuation (Steering, Throttle, Brake) is the input of the Tire Model
+- The external forces that are exerted on the vehicle are entirely defined by the tire's abilities to genrate them
+- A good controller based on dynamics model depends on the efficiency of the tires model to capture the force-generating behivior of the tire thoughtout its operating range
+  
+**Vehicle Slip Angle vs Slip Ratio** 
+
+- Slip Angle ( $\beta$ ) is the angle btw the forward direction of the vehicle in the actual direction of its motion
+
+<img src="./resources/w4/slip-angle.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Vehicle(Bicycle) Slip Angle 
+
+<img src="./resources/w4/slip-angle-eq.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+where : 
+
+```
+  - Vy :  the lateral velocity
+  - Vx : Longitudnal velocity 
+```
+
+**Tire Slip Angles**
+- the angle btw the direction in which a wheel is pointing and the direction in which it is actually travelling
+
+<img src="./resources/w4/tire-slip-angle.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+where : 
+```
+- Ar, Af : tire slip angle for the front and rea wheels
+```
+- **Slip Ratios**
+  - Longitudinal slip (also called slip ratio)
+  - The slip ratio captures the relationship between the deformation of the tire and the longitudinal forces acting upon it. 
+  - When accelerating or breaking, the observed angular velocity of the tire does not match the expected velocity for the pure rolling motion, which means there is sliding between the tire and the road in addition to rolling
+
+<img src="./resources/w4/slip-ratio.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Tire Modeling**
+
+<img src="./resources/w4/tire-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Additional inputs can improve accuracy : 
+  - Camber angle
+  - Tire properties
+
+- 3 types of modeling :  
+  - Analytical - ex : Brush, Fiala, Linear
+    - Tire physical parameters are explicitly employed
+    - Low precision, but simple
+  - Numerical
+    - Look up tables instead of mathematical equations
+    - No explitic mathematical form
+    - Geometry and material property of tire are considered
+  - Parameterized models
+    - Need experiments for each specific tire
+    - Formed by fitting model with experimental data
+    - Match experimental data very well
+    - Used widely for vehicle dynamics simulation studies and control design
+
+**Liner Tire Parameterized Model**
+
+- Assumption : the relationship btw slip angle and force is linear
+
+<img src="./resources/w4/linear-tire-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Pacejka Tire Model**
+- Also called Magic Formula tire model
+  - widely used in model-based control development.
+
+<img src="./resources/w4/pacejka-tire-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+where
+```
+- Fz : tire vertical force
+- B, C, D, E : varying Friction coefficient (differ to one tire to another)
+```
+
+**Force vs Slip Ratio**
+- These datas are collected from tire road testing
+- Both models are good representations of the data in the low slip regions but the linear does poorly as the lip increases
+- Tire modeling is often diffucult task as the spread measured forces is quite pronounced relative to the models
+
+
+<img src="./resources/w4/force-slip-ratio.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Force vs Slip Angle**
+
+<img src="./resources/w4/force-slip-angle.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Both models are extremely useful for creating `simulated vehicles` whose dynamics can be computed efficiently and for developing control laws based on the dynamic models of the vehicle and its many .
+
+
 ### Lesson 7 Supplementary Reading: Tire Slip and Modeling
+
+Read more about different tire model and formulation in the PDF below:
+
+- [A new linear tire model with varying parameters by Moad Kissai, Bruno Monsuez, Adriana Tapus, Didier Martinez](https://hal.archives-ouvertes.fr/hal-01690792/)
 
 ## Learn from Industry Expert
 ### Challenges for the Industry
