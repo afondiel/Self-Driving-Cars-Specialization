@@ -118,7 +118,7 @@ P'e = [Ceb(theta) | Oeb]P'b
 <img src="./resources/w4/two-wheeled-robot-k-modeling.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - The Kinematic constraint is nonholonomic
-  - A constraint on rate of change of degrees of freedom
+  - A constraint on rate of change of degrees of freedom (dof)
   - Vehicle velocity always tangent to current path
 
 > ## $\frac{dy}{dx} = tan \theta = \frac {sin \theta}{cos \theta}$
@@ -841,4 +841,19 @@ Read more about different tire model and formulation in the PDF below:
 ### Challenges for the Industry
 ## Weekly assignment
 - OK 
+  
 ## References
+
+- [Holonomic vs. Nonholonomic Constraints for Robots](https://www.mecharithm.com/holonomic-nonholonomic-constraints-robots/)
+- [Analytical Mechanics](https://en.wikipedia.org/wiki/Analytical_mechanics)
+- [Odometrie](https://fr.wikipedia.org/wiki/Odom%C3%A9trie)
+- [Modern robotics book by Kevin Lynch](https://github.com/afondiel/cs-books/blob/main/robotics/Modern-Robotics-by-Kevin-Lynch-Frank-Park-2017.pdf)
+
+## Appendices
+
+- Configurations space (C-space) : the space of all configurations, representations of all the positions of the robot
+- Degree of Freedom(DoF) : the dimension of C-space
+  - $dof = \Sigma n - k$
+    - where : 
+      - $n$ is the number of coordinates
+      - k : the independent constraint 
