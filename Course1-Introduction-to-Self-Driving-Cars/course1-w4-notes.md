@@ -276,9 +276,9 @@ $\displaystyle \dot{y}_{f}  = vsin(\theta + \delta)$
 
 $\displaystyle \dot{\theta} = \frac{v.sin \delta}{L}$
 
-**Center of the Gravity (CG) Model**
+**Center of Gravity (CG) - Model**
 
-- If the desired point is at the center of the front axle : 
+- If the desired point is at the center of gravity: 
 
 <img src="./resources/w4/cg-BicycleModel.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -829,6 +829,15 @@ Read more about different tire model and formulation in the PDF below:
 - [A new linear tire model with varying parameters by Moad Kissai, Bruno Monsuez, Adriana Tapus, Didier Martinez](https://hal.archives-ouvertes.fr/hal-01690792/)
 
 ## Learn from Industry Expert
+-  New industry
+   -  New different way to solve problem
+- Challenge to build a scalable algorithms
+  - various wider inputs
+    - complexity interactions w/ the env
+- Do/try several experiments : 
+  - Collecting datas
+  - trying all sensors (Strenghts vs Weakness)     
+  
 ### Challenges for the Industry
 ## Weekly assignment
 - OK 
