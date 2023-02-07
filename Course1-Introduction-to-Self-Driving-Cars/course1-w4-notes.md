@@ -53,24 +53,26 @@ A two wheeled robot with a single sensor has 3 frames
   
 <img src="./resources/w4/vector.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- $v$ is a vector, in a 2D plane, it can be projected both in a body frame and inertial frame
-- The vectors {$b1$, $b2$}, {$e1$, $e2$} define two different coordinate frames, $Fb$ and $Fe$ 
+- $\displaystyle v$ is a vector, in a 2D plane and can be define in two coordinates frame: 
+-  `body frame`  : { $b1$, $b2$ }
+-  `inertial frame` : { $e1$, $e2$ } 
+-  Both coordinates define two different coordinate frames $F_{B}$ and $F_{E}$ 
 
 **Rotation Matrices in 2D**
 
-frame $e$ and $b$ have the same origin, but $b$ is rotated by angle $\theta$ relative to frame $e$
+<img src="./resources/w4/rotation-matrix.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-```
-          [cos(theta) sin(theta)]
-    Ceb = [-sin(theta) cos(theta)]
-```
-```
-          [cos(theta) -sin(theta)]
-    Cbe = [sin(theta) cos(theta)]
-```
+The frames $e$ and $b$ have the same origin, but $b$ is rotated by angle $\theta$ relative to frame $e$
+
+$C_{EB} =  \begin{bmatrix} \cos(\theta) & \sin(\theta) \\ -\sin(\theta) & \cos(\theta) \end{bmatrix}$
+
+
+$C_{BE} =  \begin{bmatrix} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{bmatrix}$
+
+
 where : 
-- **Ceb** is thansform vectors from **b** to the frame **e** 
-- **Cbe** projects the frame **e** onto **b** using the angle $\theta$
+- $C_{EB}$ : transforms vectors from $b$ to the frame $e$ 
+- $C_{BE}$ : projects the frame $e$ onto $b$ using the angle $\theta$
 
 **Coordinate Transformation Application example: Two wheeled robot**
 
@@ -82,7 +84,8 @@ Problem :
 - the **orientation** of the robot is $\theta$
 
 Solution : 
-- Conversion between Inertial frame and Body cordinates is done with a translation vector and a rotation matrix
+- Conversion between Inertial frame and Body cordinates : 
+  - we need **translation vector** and a **rotation matrix**
   - Location of the point $P$ in Body Frame (B)
   
 ```
