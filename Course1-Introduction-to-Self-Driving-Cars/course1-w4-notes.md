@@ -289,7 +289,7 @@ $\displaystyle \dot{y}_{c}  = vsin(\theta + \beta)$
 
 $\displaystyle \dot{\theta} = \frac{v.cos \beta .tan \delta}{L}$
 
-$\displaystyle \beta = tan^-1 (\frac{v.cos \beta .tan \delta}{L})$
+$\displaystyle \beta = tan^-1 (\frac{lr.tan \delta}{L})$
 
 ---
 
