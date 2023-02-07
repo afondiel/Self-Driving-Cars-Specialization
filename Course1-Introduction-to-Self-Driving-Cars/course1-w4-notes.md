@@ -142,7 +142,10 @@ $$
 
 <img src="./resources/w4/two-wheeled-robot-k-modeling.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- The Kinematic constraint is nonholonomic
+- The Kinematic constraint is **nonholonomic** 
+  - It restricts the rate of change of the position of the robot
+  - the robot can only move forward because its wheels point in this direction
+    - `the robot can roll forward and turn while rolling but cannot move sideways directly`
   - A constraint on rate of change of degrees of freedom (dof)
   - Vehicle velocity always tangent to current path
 
@@ -150,7 +153,7 @@ $$
 
 - Nonholonomic constraint
    
-> ## $\dot{y} cos \theta - \dot{x} sin \theta$
+> ## $\dot{y} cos \theta - \dot{x} sin \theta = 0$
 
 - Velocity components
 > ## $\dot{y} = vcos \theta$ 
@@ -163,17 +166,21 @@ $$
     A[Inputs]-->B[Simple Model]
     B-->C[Outputs / States]
 ```
-> ## $\dot{y} = vcos \theta$ 
-> ## $\dot{x} = vsin \theta$
-> ## $\dot{\theta} = \omega$
+
+$$
+\begin{matrix} 
+\dot{y} = vcos \theta \\ 
+\dot{x} = vsin \theta \\
+\dot{\theta} = \omega 
+\end{matrix} 
+$$
 
 ```
 where :
 - Inputs : [v, w] , the velocity and rotation rate
-- Output : [theta, x, y], theta, x and y, the orientation, position of the robot and its heading 
-``` 
-
-> **State** is a set of variables often arranged in the form of vectors that fully describe the system at the current time
+- Output : [x, y, theta], the position of the robot and its the orientation / heading 
+- State : is a set of variables often arranged in the form of vectors that fully describe the system at the current time
+```
 
 **Two-Wheeled Robot Kinematic Model**
 - Assume control inputs are wheel speeds : 
