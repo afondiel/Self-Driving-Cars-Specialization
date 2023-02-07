@@ -855,8 +855,14 @@ Read more about different tire model and formulation in the PDF below:
 ## Appendices
 
 - Configurations space (C-space) : the space of all configurations, representations of all the positions of the robot
-- Degree of Freedom(DoF) : the dimension of C-space
+- Degree of freedom (dof) : the dimension of C-space
   - $dof = \Sigma n - k$
     - where : 
       - $n$ is the number of coordinates
       - k : the independent constraint 
+- `Holonomic Constraint` : 
+  - constraint on configuration (C-space)  
+  - reduces the `dof` of the C-space of the robot
+- `NonHolonomic Constraint` : 
+  - constraint on velocity
+  - reduces the the space of possibles velocities, but doesnot reduce the C-space 
