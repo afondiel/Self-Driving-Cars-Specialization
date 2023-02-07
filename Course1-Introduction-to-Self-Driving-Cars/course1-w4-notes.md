@@ -81,16 +81,6 @@ C_{BE} =
 \end{bmatrix}
 $$
 
-$$
-M = 
-\begin{bmatrix}
-\frac{5}{6} & \frac{1}{6} & 0 \\
-\frac{5}{6} & 0 & \frac{1}{6} \\
-0 & \frac{5}{6} & \frac{1}{6}
-\end{bmatrix}
-$$
-
-
 where : 
 - $C_{EB}$ : transforms vectors from $b$ to the frame $e$ 
 - $C_{BE}$ : projects the frame $e$ onto $b$ using the angle $\theta$
@@ -100,42 +90,53 @@ where :
 <img src="./resources/w4/two-wheeled-robot.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 Problem : 
-- Represent the position of the `point P` observed by the robot body frame $b$ w/ respect to the inertial frame $e$
+- Represent the position of the point $P$ observed by the robot body frame $B$ w/ respect to the inertial frame $e$
 - the **position** of the robot w/ respect to the inertial frame is x and y
 - the **orientation** of the robot is $\theta$
 
 Solution : 
-- Conversion between Inertial frame and Body cordinates : 
-  - we need **translation vector** and a **rotation matrix**
-  - Location of the point $P$ in Body Frame (B)
+- Conversion between Inertial frame and Body cordinates is done with `translation vector` and a `rotation matrix`
+  - Location of the point $P$ in Body Frame $B$
   
-```
-Pb = Ceb(Theta)Pe + Oeb
-```
+$P_{B} = C_{EB}( \theta ) P_{E} + O_{EB}$
+
   - Location of the Point(P) in Inertial Frame(E) 
   
-```
-Pe = Cbe(Theta)Pb + Obe
-```
-```
+$P_{E} = C_{BE}( \theta ) P_{B} + O_{BE}$
+
+
 where : 
-  Oeb/Obe - translation of the axis
-  Ceb/Cbe - the rotation of the axis
-```
+- $O_{EB} / O_{BE}$ : translation of the axis
+- $C_{EB} / C_{BE}$ : the rotation of the axis
 
 **Homogenous Coordinate Form**
 
 - A 2D vector in homogeneous form
 
-```             [X]
-P = [x] => P'=  [Y]
-    [y]         [1]
-```
+$$
+P = 
+\begin{bmatrix} 
+x \\ 
+y         
+\end{bmatrix}
+\to
+\bar{P} = 
+\begin{bmatrix} 
+X \\ 
+Y \\ 
+1         
+\end{bmatrix}
+$$
+
 - Transforming a point from body to inertial coordinates with homogeneous coordinates
 
-```
-P'e = [Ceb(theta) | Oeb]P'b
-```
+$$
+\bar{P_{E}} = 
+\begin{bmatrix} 
+C_{EB}( \theta ) & | & O_{EB} 
+\end{bmatrix}
+\bar{P_{B}}
+$$
 
 **2D Kinematic Modeling**
 
@@ -887,6 +888,6 @@ Read more about different tire model and formulation in the PDF below:
 - `Holonomic Constraint` : 
   - constraint on configuration (C-space)  
   - reduces the `dof` of the C-space of the robot
-- `NonHolonomic Constraint` : 
+- `Non-Holonomic Constraint` (Non integrable): 
   - constraint on velocity
   - reduces the the space of possibles velocities, but doesnot reduce the C-space 
