@@ -64,20 +64,31 @@ A two wheeled robot with a single sensor has 3 frames
 
 The frames $e$ and $b$ have the same origin, but $b$ is rotated by angle $\theta$ relative to frame $e$
 
-$C_{EB} =  \begin{bmatrix} \cos(\theta) & \sin(\theta) \\ -\sin(\theta) & \cos(\theta) \end{bmatrix}$
+$
+C_{EB} =  
+\begin{bmatrix} 
+\cos(\theta) & \sin(\theta) \\
+-\sin(\theta) & \cos(\theta) 
+\end{bmatrix}
+$
 
 
-$C_{BE} =  \begin{bmatrix} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{bmatrix}$
+$
+C_{BE} =  
+\begin{bmatrix} 
+\cos(\theta) & -\sin(\theta) \\ 
+\sin(\theta) & \cos(\theta) 
+\end{bmatrix}
+$
 
-
-$$
+$
 M = 
 \begin{bmatrix}
-\frac{5}{6} & \frac{1}{6} & 0 \\[0.3em]
-\frac{5}{6} & 0 & \frac{1}{6} \\[0.3em]
+\frac{5}{6} & \frac{1}{6} & 0 \\
+\frac{5}{6} & 0 & \frac{1}{6} \\
 0 & \frac{5}{6} & \frac{1}{6}
 \end{bmatrix}
-$$
+$
 
 
 where : 
