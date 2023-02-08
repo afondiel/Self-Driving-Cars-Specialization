@@ -252,7 +252,7 @@ Read more about **2D plan motion and coordinate frames** in the PDF below:
 ### Lesson 2: The Kinematic Bicycle Model
 
 **Bicycle Kinematic Model** : has been used as suitable `control-oriented model` for representing vehicles.
-- 2D bicycle model (simplified car model)
+- 2D bicycle model (*simplified model of four-wheel car*)
 - Nonholonomic constraints of a car
 - Front wheel steering model (similar to cars in 2D plane inertial frame (FI))
 
@@ -467,8 +467,8 @@ The imbalance btw these forces defines the acceleration of the vehicle in the lo
 - The full eq. : 
   - $\displaystyle m\ddot{x} = F_{xf} + F_{xr} - F_{aero} - R_{xf} - R_{xr} -mg \sin \alpha$
 
-- Let $F_{x}$ - total longitudinal force : $F_{x} = F_{xf} + F_{xr}$
-- Let $R_{x}$ - total `rolling force` : $R_{x} = R_{xf} + R_{xr}$
+- Let $F_{x}$ - `total longitudinal force` : $F_{x} = F_{xf} + F_{xr}$
+- Let $R_{x}$ - `total rolling force` : $R_{x} = R_{xf} + R_{xr}$
 - Assume $\alpha$ is a small angle (small road inclinations): $\sin \alpha = \alpha$
 - Then the simplified longitudinal dynamics become
 
@@ -883,6 +883,7 @@ Read more about different tire model and formulation in the PDF below:
 - [Analytical Mechanics](https://en.wikipedia.org/wiki/Analytical_mechanics)
 - [Odometrie](https://fr.wikipedia.org/wiki/Odom%C3%A9trie)
 - [Modern robotics book by Kevin Lynch](https://github.com/afondiel/cs-books/blob/main/robotics/Modern-Robotics-by-Kevin-Lynch-Frank-Park-2017.pdf)
+- [Python for scientific computing - FR](https://fr.wikibooks.org/wiki/Python_pour_le_calcul_scientifique)
 
 ## Appendices
 
