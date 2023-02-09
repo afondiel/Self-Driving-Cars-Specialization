@@ -156,8 +156,8 @@ $$
 > ## $\dot{y} cos \theta - \dot{x} sin \theta = 0$
 
 - Velocity components
-> ## $\dot{y} = vcos \theta$ 
-> ## $\dot{x} = vsin \theta$
+> ## $\dot{x} = vcos \theta$ 
+> ## $\dot{y} = vsin \theta$
 
 **Simple Robot Motion Kinematics**
 
