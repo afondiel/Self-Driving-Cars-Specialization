@@ -885,6 +885,7 @@ Read more about different tire model and formulation in the PDF below:
 - [Modern robotics book by Kevin Lynch](https://github.com/afondiel/cs-books/blob/main/robotics/Modern-Robotics-by-Kevin-Lynch-Frank-Park-2017.pdf)
 - [Python for scientific computing - FR](https://fr.wikibooks.org/wiki/Python_pour_le_calcul_scientifique)
 
+
 ## Appendices
 
 - Configurations space (C-space) : the space of all configurations, representations of all the positions of the robot
@@ -899,3 +900,4 @@ Read more about different tire model and formulation in the PDF below:
 - `Non-Holonomic Constraint` (Non integrable): 
   - constraint on velocity
   - reduces the the space of possibles velocities, but doesnot reduce the C-space 
+- [PID Controller](https://www.youtube.com/watch?v=XfAt6hNV8XM) 
