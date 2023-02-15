@@ -884,6 +884,7 @@ Read more about different tire model and formulation in the PDF below:
 - [Odometrie](https://fr.wikipedia.org/wiki/Odom%C3%A9trie)
 - [Modern robotics book by Kevin Lynch](https://github.com/afondiel/cs-books/blob/main/robotics/Modern-Robotics-by-Kevin-Lynch-Frank-Park-2017.pdf)
 - [Python for scientific computing - FR](https://fr.wikibooks.org/wiki/Python_pour_le_calcul_scientifique)
+- [ISO 8855:2011 - Road vehicles — Vehicle dynamics and road-holding ability — Vocabulary](https://www.iso.org/standard/51180.html)
 
 
 ## Appendices
