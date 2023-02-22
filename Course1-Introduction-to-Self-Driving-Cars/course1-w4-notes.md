@@ -27,8 +27,8 @@ Generally vehicle motion can be modeled in two ways:
 - Right handed by convention
 - **Inertial frame**
   - Fixed, usually relative to earth
-    - ENU (Est: X; North : Y; Z: Up) relative to a reference nearby
-    - Or Earth-Centered Earth fixed (ECEFG), used in GNSS systems
+    - ENU (Est: X; North : Y; Z: Up) relative to a reference point nearby
+    - Earth-Centered Earth fixed (ECEFG), used in GNSS systems
 - **Body frame**
   - Attached to vehicle, origin at vehicle center of gravity, or center of rotation 
     - Example : the center of gravity of the vehicle or the center point of the rear axle
@@ -366,13 +366,16 @@ Read more about **the Kinematic Bicycle Model (pages 15-26)** in the PDF below:
 - Why Dynamic Modeling is important ?
   - At higher speed and slippery roads, vehicles do not satisfy no slip condition
   - Forces such as drag, road friction govern required throttle inputs
-- Steps to build a typical dynamic model  : 
+  - By modeling the balance of forces in moments acting on the vehicle allows to determine the accelerations the vehicle is experiencing and use them to model the vehicle motion 
+  
+- Steps to build a typical dynamic model : 
 ```
 1. Coordinate frames
 2. Lumped dynamic elements
 3. Free Body Diagram
 4. Dynamic Equations
 ```
+
 **Dynamic Modeling - Translation Systems**
 - Deals with forces and torques
 - Roughly, need to equate all forces
@@ -381,7 +384,6 @@ Read more about **the Kinematic Bicycle Model (pages 15-26)** in the PDF below:
 <img src="./resources/w4/translation-system.png" width="250" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Example: Vehicle Shock Absorver (Suspension)
-**Dynamic Modeling - Translation Systems**
 
 **Dynamic Modeling - Rotation Systems**
 - Very common in the automobile : 
