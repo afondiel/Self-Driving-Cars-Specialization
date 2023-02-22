@@ -502,8 +502,9 @@ The imbalance btw these forces defines the acceleration of the vehicle in the lo
 - A : front area of the vehicle/vehicle coef of friction?
 - x (.) = current speed of the vehicle 
 ```
-- The **Rolling resistance** can depend on the tire normal force (N), tire pressures and vehicle speed
+- The **Rolling resistance** can depend on the tire normal force (N), tire pressures and vehicle speed : 
   - $\displaystyle R_{x} = N (\hat{C}_{r,0} + \hat{C}_{r,1} |\dot{x}| + \hat{C}_{r,2} \dot{x}^2)$
+  
   - If we assume nominal operating conditions, and dropping the 2nd-order terms for simplicity we get a `linear rolling model`: 
   - $\displaystyle R_{x} \approx {C}_{r,1} |\dot{x}|$
 
