@@ -908,3 +908,26 @@ Read more about different tire model and formulation in the PDF below:
 - [PID Controller](https://www.youtube.com/watch?v=XfAt6hNV8XM) 
 - [Kinematic Model blog article by Yan Ding](https://www.shuffleai.blog/blog/Simple_Understanding_of_Kinematic_Bicycle_Model.html)
 
+
+- Vehicle Dynamics Control (VDC) sytems in the market :
+  - functions : 
+    - types of maneuvers
+      - longitudinal maneuvers
+      - lateral maneuvers 
+    - `inputs`:
+      - brakes, steering,  ...
+    - `output`: 
+      - correct understeers (front wheels) / overstreer (rear wheels)
+      - safety, stability, comfort
+  - usage  : 
+    - sudden maneuvers affecting the control of vehicle body such as : brakes, steering,  ...
+    - the driving conditions are poor (slippery, wet, dangerous, etc.).
+  - technologies : 
+    - Anti-lock Braking Systems (ABS): Prevent wheel lock during braking
+    - Electronic Stability Control/Program (ESC/P) / Dynamic Stability Control(DSC): Enhances **lateral** vehicle stability
+      - Braking based technique
+    - 4 Wheel steering (4WS): Enhances steerability
+      - Adding additional steering angle
+    - Adaptative Cruise Control (ACC ) ?
+
+
