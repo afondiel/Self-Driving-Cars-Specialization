@@ -905,7 +905,6 @@ Read more about different tire model and formulation in the PDF below:
   - constraint on velocity
   - reduces the the space of possibles velocities, but doesnot reduce the C-space 
 - [State-space representation](https://en.wikipedia.org/wiki/State-space_representation)
-- [PID Controller](https://www.youtube.com/watch?v=XfAt6hNV8XM) 
 - [Kinematic Model blog article by Yan Ding](https://www.shuffleai.blog/blog/Simple_Understanding_of_Kinematic_Bicycle_Model.html)
 
 
