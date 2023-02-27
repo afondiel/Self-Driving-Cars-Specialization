@@ -259,7 +259,58 @@ For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the
 
 
 ### Lesson 3: Feedforward Speed Control
+
+**Feedforward (FF) vs Feedback(FB) Control**
+
+>Feedforward - Open Loop
+
+<img src="./resources/w5/feedforward.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The reference signal is directly fed into the feedforward controller, which generates the input to the plant/system
+- FF controllers create their plant inputs by modeling the plant process (like in [w3](course1-w3-notes.md)) by applying the appropriate input directly
+
+>Feedback - Closed Loop
+
+<img src="./resources/w5/feedback.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The current output is compared to a reference signal
+- And the error btw the two is fed into the feedback controller which generates the input to the plant/system
+
+**Combined FeedForward and Feedback Control**
+
+- Feedforward and feedback are often used together: 
+  - Feedforward controller provides predicte response, non-zero offset
+  - Feedback controller corrects the response, compensating for disturbances and errors in the model
+
+<img src="./resources/w5/ff-fb.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Vehicle and Speed Control**
+- Throttling & Braking : 
+  - The output of the feedforward and feedback control blocks are the throttling or braking signals to accelerate or decelerate the vehicle (plant) to keep the vehicle velocity close to the reference velocity
+- `Note` : 
+  - No low-level controller included in this block diagram, it's now replaceded by the Feedforward block
+
+**Controller Actuators**
+
+- Actuators (throttle angle) : 
+  - The feedward controller generates the actuator signal ( $\displaystyle u_{ff}$ ) based on the predifined table and the feedback controller generates the actuator signal ( $\displaystyle u_{fb}$ ) based on the velocity error.
+
+<img src="./resources/w5/ff-fb-actuator.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Feedfoward Table**
+
+<img src="./resources/w5/ff-table.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Feedfoward Simulation Results**
+
+<img src="./resources/w5/ff-sim-res.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
 ### Lesson 3 Supplementary Reading: Feedforward Speed Control
+
+To learn more about the **feedforward speed control**, read the PDF below:
+
+[Sailan, K., Kuhnert, K.D., "Modeling and Design of Cruise Control System with Feedforward For All Terrain Vehicles", Computer Science & Information Technology (CS & IT). 2013](https://d3c33hcgiwev3.cloudfront.net/fdEeaiDvEem3Cw5hhdQCGg_7e168b3020ef11e99a25a9f602841cc7_Feedforward-speed-control.pdf?Expires=1677628800&Signature=IU2RHRcbuodv8Fli1H73a5jGv2zgSLHO5E0qj2LG3IOmt2WLmv22p3Kg~QI1Z5GZkNrDuuAmP-gLsBb4FbokwNElwHkNrkVjNBzmiScLqh7xIY351BNH0rogi-Esh7v4pp90NnFaCL4d2cqDPM-t8OfWf-5cLl0CBSWteOseRCo_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
 
 ## Learn from Industry Experts
 ### Zoox's Approach to Self-Driving Cars
