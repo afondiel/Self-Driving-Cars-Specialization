@@ -74,7 +74,9 @@ where :
 
 $$
 \displaystyle U(s)=
-G_{C}(s)*E(s) = (K_{P} + \frac{K_{I}}{s} + K_{D}*s)E(s) = ( \frac{K_{D}*s^2 + K_{p}*s + K_{I}}{s})E(s)
+G_{C}(s)*E(s) = 
+(K_{P} + \frac{K_{I}}{s} + K_{D}*s)E(s) = 
+(\frac{K_{D}*s^2 + K_{P}*s + K_{I}}{s})E(s)
 $$
 
 where :
@@ -134,10 +136,10 @@ where :
 **Closed-loop Response**
 - For the unity feedback, i.e., $H(s)$ = 1, the closed loop system is given by, 
  
-$
+$$
 \displaystyle \frac {Y(s)}{R(s)} = 
 \frac {G(s)*G_{C}(s)}{1 + G(s)*G_{C}(s)}
-$
+$$
 
 <img src="./resources/w5/closed-loop-plant.png" width="460" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
