@@ -33,11 +33,11 @@
   - A transfer function $G$ is a relation btw input $U$ and output $Y$
     - $\displaystyle Y(s) = G(s)U(s)$
   - where  : $\displaystyle s = \sigma + j\omega$
-    - $s$ : complex variable in $L$aplace domain 
-  - The system is defined in $L$aplace domain
-  - We $L$aplace transform to go from time domain to the $S$ domain
+    - $s$ : complex variable in Laplace domain 
+  - The system is defined in Laplace domain
+  - We Laplace transform to go from time domain to the $S$ domain
   - it allows easier analysis of an `input-output` relation and useful to understand control performance
-  - Expressed in the $L$aplace domain, as a function of $s$, a complex variable
+  - Expressed in the Laplace domain, as a function of $s$, a complex variable
     - $\displaystyle Y(s) = G(s)U(s)=\frac{N(s)}{D(s)}U(s)$
     - the roots of the tranfer funtion provide powerful insight into the response of a system to input functions
     - the roots of the numerator
@@ -59,7 +59,7 @@ Proportional-Integral-Derivative Controller (PID)
   
 $$
 \displaystyle u(t) =
-K_{P}*e(t) + K_{I} \int_0^t e(t)dt + K_{D}*\dot{e}(t)
+K_{P}*e(t) + K_{I} \int_0^t e(t)dt + K_{D} * \dot{e}(t)
 $$
 
 where :
@@ -70,7 +70,7 @@ where :
 - Ki : the integral gain
 - Kd : the derivative gain
 ```
-- In the $L$aplace domain: 
+- In the Laplace domain: 
 
 $$
 \displaystyle U(s)=
@@ -84,7 +84,7 @@ where :
 - Gc : is the transfer the function 
 ```
 - Important notes: 
-  - multiplying by $S$ in $L$aplace domain is equivalent to taking a derivative in time domain
+  - multiplying by $S$ in Laplace domain is equivalent to taking a derivative in time domain
   - dividing by $S$ is equivalent to taking the integral in the time domain
   - Not all gains need to be used for the all systems, if one or more of the PID gains are set to zero the controller can referred to as $P$, $Pd$ or $Pi$
 
@@ -170,7 +170,92 @@ If you need to review Laplace transforms, check out these videos on Coursera:
 - [Classical control: Textbook by Prof. Bruce Francis (University of Toronto), covers Laplace - Transforms, Bode Diagrams, Nyquist Plots](http://www.scg.utoronto.ca/~francis/main.pdf)
 
 ### Lesson 2: Longitudinal Speed Control with PID
+
+<img src="./resources/w5/vehicle-control-strategy.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- `Perception Layer` : is captured by sensors and generates the input references for our system.
+- `Reference Generation Layer` : also known as `the drive circle` generated through the motion planning process
+- `Control Layer` : defines the setpoints, acceleration and deceleration to be tracked precisely. the main task that needs to  be perfomed by Bboth Longitudinal and Lateral control is to `follow th plan`as well as minimizing the error btw the actual and reference path and speed
+- `Actuation Layer` : generates the input commands or actuator signals for the vehicle
+
+**Longitudinal Speed Control**
+
+- Cruise control : 
+  
+<img src="./resources/w5/cruise-control.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+  - Speed of the vehicle is controlled (by throttling and braking, accelerating/decelerating) to be kept at the reference speed as requested by the driver
+  - When the vehicle is subjected to different loads and resistances, the throttle angle will be changed by the the cruise controller accordingly 
+  - Applications examples already in the market: 
+    - Adaptative Cruise Control: vary the reference point based on measurements of lead vehicle and semi autonomous systems 
+    - Traffic jam assist : operated throughout the vehicle speed range and create spacing gaps for merging vehicles
+
+<img src="./resources/w5/cruise-control2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**High Level Controller**
+
+<img src="./resources/w5/cruise-control2-high.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Determines the desired acceleration for the vehicle (based on the reference and actual velocity).
+
+$$ 
+\displaystyle \ddot{x}_{des} = 
+K_{P}(\dot{x}_{ref} - \dot{x}) + K_{I} \int_0^t (\dot{x}_{ref} - \dot{x}) dt + K_{D}*\frac{d(\dot{x}_{ref} - \dot{x})}{dt} 
+$$
+
+where : 
+
+- $\displaystyle  \ddot{x}_{des}$ : desired acceleration
+- $\displaystyle K_{P}, K_{I}, K_{D}$ : PID gains
+- $\displaystyle \dot{x}_{ref}$ : reference velocity
+- $\displaystyle \dot{x}$ : vehicle velocity
+
+
+**Lower Level Controller**
+
+<img src="./resources/w5/cruise-control2-low.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Generates the throttle input is calculated such that the vehicle track the desired acceleration determined by the upper level controller
+- Assumptions (to simplify the current problem) : 
+  - Only throttle actuations is considered (no braking)
+  - The torque converter is locked (gear 3+) => the torque from engine passes directly throught the tansmission without loss
+  - The tire slip is small (gentle longitudinal maneuvers)
+
+- The low-level controlles seeks to generate the desired acceleration from the high level controller by increasing/descreasing the torque produced by the engine.
+- This is controlled by throttle angle and governed by the powertrain dynamics and the **engine map**
+  - resulting in a nonlinear problem that can be a challenge for classic control methods 
+- Solution : 
+  - The `desired acceleration` is translated to a `torque demand` then to a `throttle angle` command. 
+
+<img src="./resources/w5/lower-level-control.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Using the second order equation from [Module 4](https://github.com/afondiel/Self-Driving-Cars-Specialization-Coursera/blob/main/Course1-Introduction-to-Self-Driving-Cars/course1-w4-notes.md), we can determine the desired engine torque!
+
+- The steady-state engine map is used to determine the throlle angle to produce the amount of torque required
+- The desired torque and the current engine torque in the standard map define the required throttle position(can be interpolated if needed)
+- This approach is a `data-driven approximation`
+
+**Simulation Example**
+
+<img src="./resources/w5/cruise-control-simulation1.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Controllers response
+
+<img src="./resources/w5/cruise-control-simulation2.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Conlusions** : 
+- The PID gains are tuned by trial and error so that the vehicle speed follow the reference velocity of 30m/s or 180km/h
+- In the result plot on the left we have the commanded throttle
+- on the right, we see how the velocity envolves overtime to reaches the reference velocity after a settling time
+- because of the engine map `non-linearity` we can see some artifacts as vehicle response as it closes in on the reference speed 
+
 ### Lesson 2 Supplementary Reading: Longitudinal Speed Control with PID
+
+For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the textbook below:
+
+- [R. Rajamani, "Introduction to Longitudinal Control " In: Vehicle Dynamics and Control, Mechanical Engineering Series](https://github.com/afondiel/cs-books/blob/main/automotive/self-driving-cars/vehicle-dynamics-and-control-2nd-edition-rajesh-rajamani-2012.pdf) 
+
+
 ### Lesson 3: Feedforward Speed Control
 ### Lesson 3 Supplementary Reading: Feedforward Speed Control
 
