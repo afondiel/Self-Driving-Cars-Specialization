@@ -244,10 +244,12 @@ where :
 <img src="./resources/w5/cruise-control-simulation2.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Conlusions** : 
+```
 - The PID gains are tuned by trial and error so that the vehicle speed follow the reference velocity of 30m/s or 180km/h
 - In the result plot on the left we have the commanded throttle
 - on the right, we see how the velocity envolves overtime to reaches the reference velocity after a settling time
 - because of the engine map `non-linearity` we can see some artifacts as vehicle response as it closes in on the reference speed 
+```
 
 ### Lesson 2 Supplementary Reading: Longitudinal Speed Control with PID
 
