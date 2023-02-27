@@ -59,7 +59,7 @@ Proportional-Integral-Derivative Controller (PID)
   
 $$
 \displaystyle u(t) =
-K_{P}*e(t) + K_{I} \int_0^t \mathrm{e}(t)\, \mathrm{d}t + K_{D}*\dot{e}(t)
+K_{P}*e(t) + K_{I} \int_0^t e(t)dt + K_{D}*\dot{e}(t)
 $$
 
 where :
