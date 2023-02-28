@@ -310,7 +310,7 @@ For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the
 <img src="./resources/w5/ff-sim-res.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Conclusions**
-
+```
 - Same simulation parameters as in the lesson 2 simulation
 
 - The key difference between the two responses is visible as the reference speed changes. 
@@ -321,7 +321,7 @@ For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the
 governed by its inertia, and the feedforward approach we've presented relies on steady state - modeling of the car
 
 -  As the feedforward model becomes more precise, the feedback components can focus purely on disturbance rejection, and speed profile tracking can be done with consistent precision.
-
+```
 ### Lesson 3 Supplementary Reading: Feedforward Speed Control
 
 To learn more about the **feedforward speed control**, read the PDF below:
