@@ -297,6 +297,10 @@ For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the
 
 <img src="./resources/w5/ff-fb-actuator.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- convert the entire longintudinal dynamics model => fixed lookup table/ref map
+- this approach works well at steady-state but ignores the internal dynamics of the vehicle powertrain and relies on also on the current vehicle state to solve some of the forces and dynamic model used 
+
+
 **Feedfoward Table**
 
 <img src="./resources/w5/ff-table.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -305,6 +309,18 @@ For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the
 
 <img src="./resources/w5/ff-sim-res.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+**Conclusions**
+
+- Same simulation parameters as in the lesson 2 simulation
+
+- The key difference between the two responses is visible as the reference speed changes. 
+  
+- Because the PID controller needs `errors` to exist before it can correct them, its response lags the feedforward approach, which immediately applies the relevant input reference values
+  
+- The feedforward tracking is still not perfect, however, as the vehicle response is ultimately 
+governed by its inertia, and the feedforward approach we've presented relies on steady state - modeling of the car
+
+-  As the feedforward model becomes more precise, the feedback components can focus purely on disturbance rejection, and speed profile tracking can be done with consistent precision.
 
 ### Lesson 3 Supplementary Reading: Feedforward Speed Control
 
@@ -314,7 +330,16 @@ To learn more about the **feedforward speed control**, read the PDF below:
 
 ## Learn from Industry Experts
 ### Zoox's Approach to Self-Driving Cars
-## Lab 
+- zoox founders : 
+  - Tim Kentley-Klay
+  - Jesse Levinson
+    - initial vision : invent a different build approach for autonomous vehicles
+      - building the vehicle from ground up/tackle
+- Main challenge : drive in all conditions and predict unexpected actions/behavior in the environment
+- zoox cars are : 
+  - bi-directionals
+  - social seating (face to face)
+  - AWD powertrain
 ## Graded Quiz
 
 
