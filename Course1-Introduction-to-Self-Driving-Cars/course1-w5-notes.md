@@ -2,7 +2,7 @@
 
 ## Overview 
 
-- Longitudinal control of an autonomous vehicle involves tracking a speed profile along a fixed path, and can be achieved with reasonable accuracy using classic control techniques. 
+- Longitudinal control of an autonomous vehicle involves tracking a **speed profile** along a fixed path, and can be achieved with reasonable accuracy using **classic control techniques**. 
 - This week, you will learn how to develop a baseline controller that is applicable for a significant subset of driving conditions, which include most non-evasive or highly-dynamic motions.
 
 **Learning Objectives**
@@ -15,10 +15,10 @@
 
 **Control Development**
 
-<img src="./resources/w5/control-dev.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w5/control-dev-new.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- the role of the control is to regulate some of these states of the vehicle by sensing the current state variables and the generating actuator signals to satisfy the commands provided
-- for the longitudinal control, the controller `sensing the vehicle speed` and `adjust the throttle and break` commands to match the desired speed set by the autonomous motion planning sytem.
+- the role of the control is to **regulate** some of these states of the vehicle by sensing the current state variables and the generating actuator signals to satisfy the commands provided
+- for the longitudinal control, the controller `sensing the vehicle speed` and `adjust the throttle and break` commands to match the desired speed set by the autonomous `motion planning sytem`.
 
 **Plant System or Process**
 
