@@ -297,7 +297,7 @@ For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the
 
 <img src="./resources/w5/ff-fb-actuator.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- convert the entire longintudinal dynamics model => fixed lookup table/ref map
+- convert the entire longitudinal dynamics model => fixed lookup table/ref map
 - this approach works well at steady-state but ignores the internal dynamics of the vehicle powertrain and relies on also on the current vehicle state to solve some of the forces and dynamic model used 
 
 
