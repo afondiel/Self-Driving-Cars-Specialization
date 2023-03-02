@@ -187,7 +187,7 @@ If you need to review Laplace transforms, check out these videos on Coursera:
   - Speed of the vehicle is controlled (by throttling and braking, accelerating/decelerating) to be kept at the reference speed as requested by the driver
   - When the vehicle is subjected to different loads and resistances, the throttle angle will be changed by the the cruise controller accordingly 
   - Applications examples already in the market: 
-    - Adaptative Cruise Control: vary the reference point based on measurements of lead vehicle and semi autonomous systems 
+    - Adaptive Cruise Control (ACC): vary the reference point based on measurements of lead vehicle and semi autonomous systems 
     - Traffic jam assist : operated throughout the vehicle speed range and create spacing gaps for merging vehicles
 
 <img src="./resources/w5/cruise-control2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">

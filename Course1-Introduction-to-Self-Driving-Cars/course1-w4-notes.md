@@ -927,6 +927,6 @@ Read more about different tire model and formulation in the PDF below:
       - Braking based technique
     - 4 Wheel steering (4WS): Enhances steerability
       - Adding additional steering angle
-    - Adaptative Cruise Control (ACC ) ?
+    - Adaptive Cruise Control (ACC ) ?
 
 
