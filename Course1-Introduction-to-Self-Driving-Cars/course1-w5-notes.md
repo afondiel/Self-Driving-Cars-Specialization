@@ -274,7 +274,7 @@ For a deeper dive into longitudinal control, read Chapter 5 (pp. 123-150) in the
 <img src="./resources/w5/feedback.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - The current output is compared to a reference signal
-- And the error btw the two is fed into the feedback controller which generates the input to the plant/system
+- And the error btw the two is fed into the feedback controller which generates the input to the plant/process
 
 **Combined FeedForward and Feedback Control**
 
