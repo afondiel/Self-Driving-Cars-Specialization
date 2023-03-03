@@ -117,7 +117,60 @@ To compute the minimum distance to a curved path defined by a spline:
 - [Wang, H., Kearney, J., & Atkinson, K. (2002, June). Robust and efficient computation of the closest point on a spline curve. In Proceedings of the 5th International Conference on Curves and Surfaces (pp. 397-406).](http://homepage.divms.uiowa.edu/~kearney/pubs/CurvesAndSurfaces_ClosestPoint.pdf) 
 
 ### Lesson 2: Geometric Lateral Control - Pure Pursuit
+
+**Geometric path tracking** : tracks a reference path using only the geometry of the vehicle kinematic and the reference path
+- type of lateral Controller that ignores dynamics forces in the vehicle and assumes the `no slip condition` holds at the wheels.
+- it relies on a kinematic bicycle model and the error measures to construct a steering command rule that achives path tracking
+
+- One of the most popular classes of path tracking in robotics and autonomous vehicle
+  - Exploits geometric relationship btw the vehicle and the path resulting in `compact control law solutions` to the path trcking problem
+  - Use of reference point(in red) on path to measure error of the vehicle, can be ahead of the vehicle
+
+- The downside of this approach is that, its performance suffers when the vehicle motion does not match the no-slip assumption like in the `agressive vehicle maneuvers` with high lateral accelarelation 
+  
+<img src="./resources/w6/l2-geometric-path-tracking.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Pure pursuit**
+  
+- Pure pursuit method consists of geometrically calculating the trajectory curvature
+  - the idea is that, a reference point is placed on the path a fixed distance ahead of the vehicle and the steering commands needed to intersect with it, using a constant steering angle can be computed
+  - As the vehicle turns towards the path to follow this curve, the point continue to move forward reducing the steering angle and gently bringing the vehicle towards the path
+
+- Connect the centre of rear axle location to a target point on the path ahead of the vehicle
+
+<img src="./resources/w6/l2-pursuit-1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+where : 
+- $\alpha$ : is the angle btw the vehicle boday heading and the look-ahead line 
+  
+**Pure Pursuit Formulation**
+- Steering angle determined by target point location and angle btw the vehicle's heading direction and lookahead direction
+  
+<img src="./resources/w6/l2-pursuit-formulation.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Using the bicycle model the steering angle is calculated as :
+  
+<img src="./resources/w6/l2-pursuit-formulation2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Crosstrack error (e) is defined here as the lateral distance btw the heading vector and the target point so : 
+  
+<img src="./resources/w6/l2-pursuit-formulation3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Pure pursuit is a proportional controller of the steering angle operating on a crosstrack error some look ahead distance in front of the vehicle
+- The proportional gain $2/t^2_{d}$ can be tuned at different speeds (the $l_{d}$ ) being assigned as a function of the vehicle speed
+
+- Lookahead $l_{d}$ is assigned as a linear function of vehicle speed : $l_{d} = K*\nu_{f}$
+
+<img src="./resources/w6/l2-pursuit-formulation4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
 ### Lesson 2 Supplementary Reading: Geometric Lateral Control - Pure Pursuit
+
+To learn more about Pure Pursuit Control, read the PDF listed below:
+
+- [Snider, J. M., "Automatic Steering Methods for Autonomous Automobile Path Tracking", Robotics Institute, Carnegie Mellon University, Pittsburg (February 2009)](https://www.ri.cmu.edu/pub_files/2009/2/Automatic_Steering_Methods_for_Autonomous_Automobile_Path_Tracking.pdf)
+
+
 ### Lesson 3: Geometric Lateral Control - Stanley
 ### Lesson 3 Supplementary Reading: Geometric Lateral Control - Stanley
 ### Lesson 4: Advanced Steering Control - MPC
