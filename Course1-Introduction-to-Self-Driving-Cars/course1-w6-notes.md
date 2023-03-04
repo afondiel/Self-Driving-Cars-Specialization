@@ -81,7 +81,7 @@
 - Vehicle (bicycle) model & parameters
   - All states variables and inputs defined relative to the centre of front axle
    
-<img src="./resources/w6/bicycle-model.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/bicycle-model.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Driving Controller**
 - Controller error terms
@@ -89,7 +89,7 @@
     - Component of velocity perpendicular to trajectory divided by the ICR radius
     - Desired heading is zero (because the ref heading is not time-varying for a straight line) 
 
-<img src="./resources/w6/driving-controller.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/driving-controller.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - where : 
   - $\psi(t)$ is the rate of heading and allows to understand how the heading error evolves overtime 
@@ -100,7 +100,7 @@
 - Rate of change of crosstrack error ( $\dot{e}$ ) : 
   - $\displaystyle \dot{e}(t) =  v_{f}(t) \sin( \psi(t) - \delta(t))$
 
-<img src="./resources/w6/crosstrack-error.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/crosstrack-error.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 > - Both errors must converge to `zero` for vehicle to properly tracking the desired path
 > - both errors are hard to deal with in the curved path and add some additional complexities, as it's not immediately clear where the ref point should lie
@@ -138,7 +138,7 @@ To compute the minimum distance to a curved path defined by a spline:
 
 - Connect the centre of rear axle location to a target point on the path ahead of the vehicle
 
-<img src="./resources/w6/l2-pursuit-1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l2-pursuit-1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 where : 
 - $\alpha$ : is the angle btw the vehicle boday heading and the look-ahead line 
@@ -146,22 +146,22 @@ where :
 **Pure Pursuit Formulation**
 - Steering angle determined by target point location and angle btw the vehicle's heading direction and lookahead direction
   
-<img src="./resources/w6/l2-pursuit-formulation.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l2-pursuit-formulation.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Using the bicycle model the steering angle is calculated as :
   
-<img src="./resources/w6/l2-pursuit-formulation2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l2-pursuit-formulation2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Crosstrack error (e) is defined here as the lateral distance btw the heading vector and the target point so : 
   
-<img src="./resources/w6/l2-pursuit-formulation3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l2-pursuit-formulation3.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Pure pursuit is a proportional controller of the steering angle operating on a crosstrack error some look ahead distance in front of the vehicle
 - The proportional gain $2/t^2_{d}$ can be tuned at different speeds (the $l_{d}$ ) being assigned as a function of the vehicle speed
 
 - Lookahead $l_{d}$ is assigned as a linear function of vehicle speed : $l_{d} = K*\nu_{f}$
 
-<img src="./resources/w6/l2-pursuit-formulation4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l2-pursuit-formulation4.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 
 ### Lesson 2 Supplementary Reading: Geometric Lateral Control - Pure Pursuit
@@ -172,7 +172,159 @@ To learn more about Pure Pursuit Control, read the PDF listed below:
 
 
 ### Lesson 3: Geometric Lateral Control - Stanley
+
+<img src="./resources/w6/l3-darpa-stanford-team.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+> Stanford University's Darpa Grand Challenge team
+
+**Stanley Controller Approach** (Originally developed by Dr. Gabe Hoffman from Stanford University)
+- Stanley method is the path tracking approach used by Stanford University's Darpa Grand Challenge team
+>  1. Uses the center of `the front axle` as a reference point 
+>  2. Look at both the error in heading and the in position relative to the closest point on the path
+>  3. Define an intuitive steering law to  :
+>     1. Correct heading error
+>     2. correct position error
+>     3. Obey max steering angle bounds
+
+**Heading Control Law**
+
+<img src="./resources/w6/l3-heading-cl.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Combine three requirements : 
+ - Steer to align heading with desired heading (proportianal to heading error)
+
+$$
+\delta(t) = \psi(t)
+$$
+
+- Steer to eliminate crosstrack error
+  - Essentially proportional to error
+  - Inversely proportional to speed
+  - Limit effect for large errors with inverse tan
+  - Gain $k$ determined experimentally
+
+$$
+\displaystyle \delta(t) = 
+\tan-1(\frac{k_{e}(t)}{\nu_{f}(t)})
+$$
+
+- Maximum and minimum steering angles
+  
+$$\displaystyle 
+\delta(t) \in [\delta_{min}, \delta_{max} ]
+$$
+
+- Stanley Controller scales its gains by the forward speed in the same way as pure pursuit control
+- Also has the same inverse tangent of the proportional control signal
+
+**Combined Control Law** 
+
+- Stanley Control Law
+
+$$
+\displaystyle \delta(t) = 
+\psi(t) + \tan-1(\frac{k_{e}(t)}{\nu_{f}(t)}) 
+ , \delta(t) \in [\delta_{min}, \delta_{max} ] 
+$$
+
+- For large heading error, steer in opposite direction
+  - The larger the heading error, the larger the steering correction
+  - Fixed at limit beyond maximum steering angle, assuming no crosstrack error
+
+<img src="./resources/w6/l3-combined-steering-law.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For larger positive crosstrack error
+  - <img src="./resources/w6/l3-combined-steering-law2.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+  - $\displaystyle \tan-1(\frac{k_{e}(t)}{\nu_{f}(t)}) \approx \frac{\pi}{2} \to \delta(t) \approx \psi(t) + \frac{\pi}{2}$ 
+  - As heading changes due to steering angle, the heading correction counteracts the crosstrack correction, and drives the steering angle back to zero 
+  - <img src="./resources/w6/l3-combined-steering-law3.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+   
+   - The  vehicle approaches the path, crosstrack error drops, and steering command starts to correct heading alignment
+   - <img src="./resources/w6/l3-combined-steering-law4.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+  
+**Error Dynamics**
+
+- The error dynamics when not at maximum steering angle are:
+
+$$ \displaystyle  \dot{e}(t) = 
+-\nu_{f}(t)\sin(\psi(t) - \delta(t)) = -\nu_{f}(t)\sin(\tan-1(\frac{k_{e}(t)}{\nu_{f}(t)}))  = \frac{-k_{e}(t)}{\sqrt{1 + (\frac{k_{e}(t)}{\nu_{f}(t)})^2}}
+$$
+
+- For small crosstrack errors, leads to exponential decay characteristics (assuming the quadratic term is negligible)
+  - $\displaystyle \dot{e}(t) = -k_{e}(t)$
+  - we can say, that the cross track error evolution follows a first-order differential equation, and the solution of this ODE is an exponential
+  - since $k$ is positive, we can see that the error decays exponentially to 0
+  - the decay rate is completely independent of the speed
+    - faster vehicles travel farther while converging to the path, at the same time as slower moving vehicles
+
+**Case Study**
+
+- Two scenarios : 
+  - Large initial crosstrack error
+  - Large initial heading error
+  
+<img src="./resources/w6/l3-case-study.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Case Study 1**
+- Large initial crosstrack error
+  - Crosstrack error of 5 meters
+  - Max steer $\delta = 25°$ , forward speed of $\nu_{f} = 5 \frac{m}{s}$
+  - Gain $k = 2.5$, lenght $L = 1 m$
+  - Effect of speed variation 
+    - $\nu_{f} = 2\frac{m}{s}, 5\frac{m}{s}, 10\frac{m}{s}$
+  
+<img src="./resources/w6/l3-case-study1.png" width="340" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l3-case-study1-1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Comments/Observations : 
+-  In all cases, the turn towards the path, straight line progress ans the exponential decay to the path are visible
+-  The higher the speed the further the car travels before reaching the path
+-  But at the end, the small cross track error convergence takes the same amount of time in each case
+
+
+**Case Study 2**
+
+- Large initial heading error 
+  - Max steer $\delta = 25°$ , forward speed of $\nu = 5{m}{s}$
+  - Gain $k = 2.5$, lenght : $L = 1m$
+- same parameters as the case 1, but the vehicle startsout on the path pointing very much in the wrong direction
+  
+<img src="./resources/w6/l3-case-study2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Simulations analysis : 
+- The results show the heading error is corrected by the Stanley control law 
+- First, the steering command is up against its limit as the heading error is corrected
+- Then, as the cross track error starts to grow, the steering commands continue to correct the of the car beyond the alignment with the path
+- Finally, the car enters the exponetial convergence segment as before
+
+**Limit of Stanley Controller**
+
+ - In practice however, the Stanley controller is still a geometric path tracking controller, and as such `does not consider many different aspects of real self-driving car`. 
+ - For example, it does not consider **noisy measurements, actuator dynamics or tire force effects**, all of which can cause undesirable ride characteristics during maneuvers. 
+> - It is possible, however, to make a few adjustments to the geometric path tracking controllers that help mitigate some of these most undesirable effects
+
+**Adjustment**
+
+- Low speed operation
+  - Inverse speed can cause numerical instability
+  - Add softening constant to controller (to assure that the donimator always has a minum value)
+
+$$
+\displaystyle \delta(t) = 
+\psi(t) + \tan-1(\frac{k_{e}(t)}{k_{s} + \nu_{f}(t)}) 
+$$
+
+- Extra damping on heading 
+  - Becomes an issue at higher speed in real vehicle
+
+- Steer into constant radius curves
+  - Improves tracking on curves by adding a feedforward term on heading
 ### Lesson 3 Supplementary Reading: Geometric Lateral Control - Stanley
+
+To learn more about the Stanley Control, check out the PDF listed below:
+
+- [Snider, J. M., "Automatic Steering Methods for Autonomous Automobile Path Tracking", Robotics Institute, Carnegie Mellon University, Pittsburg (February 2009)](https://www.ri.cmu.edu/pub_files/2009/2/Automatic_Steering_Methods_for_Autonomous_Automobile_Path_Tracking.pdf)
+
 ### Lesson 4: Advanced Steering Control - MPC
 ### Lesson 4 Supplementary Reading: Advanced Steering Control - MPC
 
