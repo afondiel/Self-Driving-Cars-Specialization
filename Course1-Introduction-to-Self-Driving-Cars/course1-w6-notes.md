@@ -123,7 +123,7 @@ To compute the minimum distance to a curved path defined by a spline:
 - it relies on a kinematic bicycle model and the error measures to construct a steering command rule that achives path tracking
 
 - One of the most popular classes of path tracking in robotics and autonomous vehicle
-  - Exploits geometric relationship btw the vehicle and the path resulting in `compact control law solutions` to the path trcking problem
+  - Exploits geometric relationship btw the vehicle and the path resulting in `compact control law solutions` to the path tracking problem
   - Use of reference point(in red) on path to measure error of the vehicle, can be ahead of the vehicle
 
 - The downside of this approach is that, its performance suffers when the vehicle motion does not match the no-slip assumption like in the `agressive vehicle maneuvers` with high lateral accelarelation 
@@ -276,7 +276,7 @@ $$
 <img src="./resources/w6/l3-case-study1.png" width="340" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 <img src="./resources/w6/l3-case-study1-1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Comments/Observations : 
+Comments/Observations : 
 -  In all cases, the turn towards the path, straight line progress ans the exponential decay to the path are visible
 -  The higher the speed the further the car travels before reaching the path
 -  But at the end, the small cross track error convergence takes the same amount of time in each case
@@ -291,7 +291,7 @@ $$
   
 <img src="./resources/w6/l3-case-study2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Simulations analysis : 
+Simulations analysis : 
 - The results show the heading error is corrected by the Stanley control law 
 - First, the steering command is up against its limit as the heading error is corrected
 - Then, as the cross track error starts to grow, the steering commands continue to correct the of the car beyond the alignment with the path
@@ -305,17 +305,19 @@ $$
 
 **Adjustment**
 
-- Low speed operation
-  - Inverse speed can cause numerical instability
-  - Add softening constant to controller (to assure that the donimator always has a minum value)
+- Low speed operation (when confronted w/ noisy velocity estimates)
+  - Inverse speed can cause numerical instability (velocity in the denominator)
+    - wild swings in the steering wheel (not desirable for rider `comfort`)
+  - Add softening constant ( $k_{s}$ ) to controller (to assure that the denominator always has a minimum value)
 
 $$
 \displaystyle \delta(t) = 
 \psi(t) + \tan-1(\frac{k_{e}(t)}{k_{s} + \nu_{f}(t)}) 
 $$
 
-- Extra damping on heading 
+- Higher speed - Extra damping on heading 
   - Becomes an issue at higher speed in real vehicle
+  - This converts the heading error control portion to a PD controller(same approach for pure pursuit control of curvature)
 
 - Steer into constant radius curves
   - Improves tracking on curves by adding a feedforward term on heading
