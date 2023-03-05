@@ -365,16 +365,16 @@ To learn more about the Stanley Control, check out the PDF listed below:
 
 **Receding horizon Control** 
 
-- Method that determines the best control inputs for a vehicle by solving an optimization problem at each time-step based on the current state and objectives.
+- Method that determines the best control inputs for a vehicle by solving an **optimization problem** at each time-step based on the current state and objectives.
 
 <img src="./resources/w6/l4-receding-horizontal-control.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Receding Horizon Control Algorithm
-  - Pick receding horizon length ( $T$ )
-  - for each time step, $t$
-  - Set initial state to predicted state, $X_{t}$
-    - Perform optimization over finite horizon $t$ to $T$ while traveling from $X_{t-1}$ to $X_{t}$
-    - Apply first control command, $u_{t}$, from optimization at time $t$ 
+- Receding Horizon Control Algorithm : 
+>  - Pick receding horizon length ( $T$ )
+>  - for each time step, $t$
+>  - Set initial state to predicted state, $X_{t}$
+>    - Perform optimization over finite horizon $t$ to $T$ while traveling from $X_{t-1}$ to $X_{t}$
+>    - Apply first control command, $u_{t}$, from optimization at time $t$ 
   
 **MPC structure**
 
@@ -382,7 +382,7 @@ To learn more about the Stanley Control, check out the PDF listed below:
 
 **Linear MPC formulation**
 
-- Linear time-invariant discrete time model (state - space) : 
+- Linear time-invariant discrete time model (state-space) : 
 
 $$
 \displaystyle x_{t+1} = 
@@ -396,18 +396,20 @@ where : A, B are the coefficient matrices and are assumed to be time-invariant
   
 $$
 \displaystyle U = 
-\{u_{t|t},u_{t+1|t},u_{t+2|t}, ...\}
+\{
+u_{t|t},u_{t+1|t},u_{t+2|t}, ...
+\}
 $$  
 
-Objective function - regulation : 
+- Objective function - `regulation` : 
 
 
 $$
 \displaystyle J(x(t), U) =
-\sum_{j=t}^{t+T-1} x^T_{j|t} Q*x_{j|t} + u^T_{j|t}R*u_{j|t}
+\sum_{j=t}^{t+T-1} x_{j|t}^T Q*x_{j|t} + u_{j|t}^T R*u_{j|t}
 $$  
 
-Objective function - tracking : 
+- Objective function - `tracking` : 
 
 
 $$
@@ -415,7 +417,7 @@ $$
 x_{j|t,des} - x_{j|t} ,
 
 J(x(t), U) =
-\sum_{j=t}^{t+T-1} \delta x^T_{j|t} Q*\delta x_{j|t} + u^T_{j|t}R*u_{j|t}
+\sum_{j=t}^{t+T-1} \delta x_{j|t}^T Q*\delta x_{j|t} + u_{j|t}^T R*u_{j|t}
 $$  
 
 **Linear MPC SOLUTION**
@@ -440,6 +442,7 @@ $$
 
 
 **Vehicle Lateral Control**
+- MPC controller example for trajectory tracking
 
 <img src="./resources/w6/l4-vehicle-lateral-control0.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -448,7 +451,7 @@ $$
   - Deviation from desired trajectory
   - Minimization of control command magnitude
 
-- Constraints - Subject to
+- Constraints - Subject to : 
   - Longitudinal and lateral dynamic models
   - Tire force limits
 
