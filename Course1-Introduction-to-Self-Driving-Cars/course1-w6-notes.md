@@ -328,7 +328,151 @@ To learn more about the Stanley Control, check out the PDF listed below:
 - [Snider, J. M., "Automatic Steering Methods for Autonomous Automobile Path Tracking", Robotics Institute, Carnegie Mellon University, Pittsburg (February 2009)](https://www.ri.cmu.edu/pub_files/2009/2/Automatic_Steering_Methods_for_Autonomous_Automobile_Path_Tracking.pdf)
 
 ### Lesson 4: Advanced Steering Control - MPC
+
+**Model Predictive Control**
+  
+<img src="./resources/w6/l4-MPC1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Model Predictive Control (MPC)
+  - Numerically solving an optimization problem at each time step (can be long/time consumming)
+    - originally appied to slow processes such as industrial chemical processing
+    - Because of the improving performance of todays computing hardward has made MPC a viable approach even on embedded hardware
+    - **(Some) Automotive applications :**    
+    - way to improve performance and expand operating range for a suite of different embedded controllers
+        - from traction control and stability control
+        - to emission reduction, and idle speed control 
+      - Longitudinal and lateral control for autonomous vehicles is another extremely suitable application for MPC
+  - Receding horizon approach
+    - the controller generates an actuator signal based on a fixed finite length horizon at each time-step which receives as time moves forward 
+
+- Adavantages of MPC  (to solve online optimization) 
+
+  <img src="./resources/w6/l4-MPC2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+  - Straightforward formulation
+    - requires the definition of an objective function and relavant constraints 
+    - well-established solvers can optimize these constraints
+  - Explicitly handles constraints
+    - the `states` and `control signals` can be constrained to stay within safe operating bounds and controls can be selected to maximized multiple objectives simustaneously(hard constraints and soft penalties can be employed to reinforce the solution)  
+  - Applicable to linear or nonlinear models
+
+- Disadavantages of MPC
+  
+  <img src="./resources/w6/l4-MPC4.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+  
+  - Computationally expensive 
+    -  requires more resources than `Static Control Law`
+
+**Receding horizon Control** 
+
+- Method that determines the best control inputs for a vehicle by solving an optimization problem at each time-step based on the current state and objectives.
+
+<img src="./resources/w6/l4-receding-horizontal-control.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Receding Horizon Control Algorithm
+  - Pick receding horizon length ( $T$ )
+  - for each time step, $t$
+  - Set initial state to predicted state, $X_{t}$
+    - Perform optimization over finite horizon $t$ to $T$ while traveling from $X_{t-1}$ to $X_{t}$
+    - Apply first control command, $u_{t}$, from optimization at time $t$ 
+  
+**MPC structure**
+
+<img src="./resources/w6/l4-MPC-archi.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Linear MPC formulation**
+
+- Linear time-invariant discrete time model (state - space) : 
+
+$$
+\displaystyle x_{t+1} = 
+Ax_{t} + Bu_{t}
+$$  
+
+```
+where : A, B are the coefficient matrices and are assumed to be time-invariant
+```
+- MPC seeks to find control policy U : 
+  
+$$
+\displaystyle U = 
+\{u_{t|t},u_{t+1|t},u_{t+2|t}, ...\}
+$$  
+
+Objective function - regulation : 
+
+
+$$
+\displaystyle J(x(t), U) =
+\sum_{j=t}^{t+T-1} x^T_{j|t} Q*x_{j|t} + u^T_{j|t}R*u_{j|t}
+$$  
+
+Objective function - tracking : 
+
+
+$$
+\displaystyle \delta x_{j|t} =  
+x_{j|t,des} - x_{j|t} ,
+
+J(x(t), U) =
+\sum_{j=t}^{t+T-1} \delta x^T_{j|t} Q*\delta x_{j|t} + u^T_{j|t}R*u_{j|t}
+$$  
+
+**Linear MPC SOLUTION**
+- Unconstrained, finite horizon, discrete time problem formulation:
+  
+<img src="./resources/w6/l4-linear-mpc.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Linear quadratic regulator, provides a closed form solution
+  - Full state feedback: $u_{t} = -Kx_{t}$
+  - Control  gain K is a matrix
+  - Refer to supplemental materials
+
+
+
+**Non-linear MPC formulation**
+
+- Constrained (non)linear finite horizon discrete time case
+
+<img src="./resources/w6/l4-non-linear-mpc.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- No closed form solution, must be solved numerically
+
+
+**Vehicle Lateral Control**
+
+<img src="./resources/w6/l4-vehicle-lateral-control0.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Model Predictive Controller**
+- Cost Function - minimize
+  - Deviation from desired trajectory
+  - Minimization of control command magnitude
+
+- Constraints - Subject to
+  - Longitudinal and lateral dynamic models
+  - Tire force limits
+
+- Can incorporate low level controller, adding constraints for : 
+  - Engine map
+  - Full dynamic vehicle model
+  - Actuator models
+  - Tire force models
+
+**Vehicle Lateral Control**
+
+- Vehicle trajectory (double lane change)
+
+<img src="./resources/w6/l4-vehicle-lateral-control.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+<img src="./resources/w6/l4-vehicle-lateral-control1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Results of the simulated maneuver with MPC control 
+
 ### Lesson 4 Supplementary Reading: Advanced Steering Control - MPC
+To learn more about Model Predictive Control (MPC) for vehicle control, read the ar below:
+
+- [Falcone, P. et al., "Predictive Active Steering Control for Autonomous Vehicle Systems", IEEE (2007)](https://ieeexplore.ieee.org/document/4162483)
 
 
 ## References
