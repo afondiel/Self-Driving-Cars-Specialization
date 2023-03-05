@@ -408,7 +408,6 @@ $$
 
 - Objective function - `tracking` : 
 
-
 $$
 \displaystyle 
 \delta x_{j|t} = x_{j|t,des} - x_{j|t} ,
@@ -461,12 +460,11 @@ $$
 **Vehicle Lateral Control**
 
 - Vehicle trajectory (**double lane change**)
+  - Scenario description : 
+    - where the vehicle first accelerates to a steady-state speed of 17 m/s or 60 km/h
+    - then maneuvers 4m to the left, and returns 4m to the right immediately thereafter
   
-  - Plot results of the simulated maneuver with MPC control of : 
-    - Distance
-    - Longitudinal and lateral velocity
-    - Tires forces
-    - Yaw rate
+  - Plot results of the simulated maneuver with MPC control of : **Distance, Longitudinal and lateral velocity Tires forces, Yaw rate**
 
 <img src="./resources/w6/l4-vehicle-lateral-control.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
