@@ -395,10 +395,7 @@ where : A, B are the coefficient matrices and are assumed to be time-invariant
 - MPC seeks to find control policy U : 
   
 $$
-\displaystyle U = 
-\{
-u_{t|t},u_{t+1|t},u_{t+2|t}, ...
-\}
+\displaystyle U = (u_{t|t},u_{t+1|t},u_{t+2|t}, ...)
 $$  
 
 - Objective function - `regulation` : 
@@ -406,18 +403,20 @@ $$
 
 $$
 \displaystyle J(x(t), U) =
-\sum_{j=t}^{t+T-1} x_{j|t}^T Q*x_{j|t} + u_{j|t}^T R*u_{j|t}
+\sum_{j=t}^{t+T-1} (x_{j|t})^T Qx_{j|t} + (u_{j|t})^T Ru_{j|t}
 $$  
 
 - Objective function - `tracking` : 
 
 
 $$
-\displaystyle \delta x_{j|t} =  
-x_{j|t,des} - x_{j|t} ,
+\displaystyle 
+\delta x_{j|t} = x_{j|t,des} - x_{j|t} ,
+$$  
 
-J(x(t), U) =
-\sum_{j=t}^{t+T-1} \delta x_{j|t}^T Q*\delta x_{j|t} + u_{j|t}^T R*u_{j|t}
+$$
+\displaystyle J(x(t), U) =
+\sum_{j=t}^{t+T-1} \delta (x_{j|t})^TQ\delta x_{j|t} + (u_{j|t})^TRu_{j|t}
 $$  
 
 **Linear MPC SOLUTION**
@@ -429,8 +428,6 @@ $$
   - Full state feedback: $u_{t} = -Kx_{t}$
   - Control  gain K is a matrix
   - Refer to supplemental materials
-
-
 
 **Non-linear MPC formulation**
 
