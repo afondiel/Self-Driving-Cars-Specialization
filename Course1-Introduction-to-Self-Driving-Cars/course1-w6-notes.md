@@ -447,7 +447,7 @@ $$
 <img src="./resources/w6/l4-vehicle-lateral-control0.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Model Predictive Controller**
-- Cost Function - minimize
+- Cost Function - Minimize
   - Deviation from desired trajectory
   - Minimization of control command magnitude
 
@@ -463,15 +463,24 @@ $$
 
 **Vehicle Lateral Control**
 
-- Vehicle trajectory (double lane change)
+- Vehicle trajectory (**double lane change**)
+  
+  - Plot results of the simulated maneuver with MPC control of : 
+    - Distance
+    - Longitudinal and lateral velocity
+    - Tires forces
+    - Yaw rate
 
 <img src="./resources/w6/l4-vehicle-lateral-control.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-
 <img src="./resources/w6/l4-vehicle-lateral-control1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Results of the simulated maneuver with MPC control 
-
+- The performance of MPC is excellent
+- lagging slightly, but without overshoot or oscillation
+- MPC is  a promising control technique for Autonomous driving
+- can be used without modification for a wide range of operating conditions and a large variety of scenarios
+- This flexibility and convenience comes at the **cost of increased computational requirements** and relies on the availability of robust optimization solvers to always return feasible solutions in the available time window 
+  
 ### Lesson 4 Supplementary Reading: Advanced Steering Control - MPC
 To learn more about Model Predictive Control (MPC) for vehicle control, read the ar below:
 
