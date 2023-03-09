@@ -492,6 +492,7 @@ To learn more about Model Predictive Control (MPC) for vehicle control, read the
 - [Automated Driving Toolbox by MathWorks](https://www.mathworks.com/help/driving/index.html)
 
 - Three types of lateral systems in the market that address lane departure accidents: 
-  - Lane departure warning systems (LDWS), 
+  - Lane departure warning systems (LDWS)
+    - Ex : AutoVue LDW system by [Iteris](https://www.iteris.com/news/iteris-announces-introduction-industry-first-lane-departure-warning-data-collection-product) 
   - Lane keeping systems (LKS)
   - Yaw stability control systems
