@@ -485,3 +485,6 @@ To learn more about Model Predictive Control (MPC) for vehicle control, read the
 ## References
 ## Appendices
 
+- [Vehicle Lateral control Tutorial with MATLAB](https://www.mathworks.com/help/driving/ug/lateral-control-tutorial.html)
+
+- [Automated Driving Toolbox by MathWorks](https://www.mathworks.com/help/driving/index.html)
