@@ -482,9 +482,14 @@ To learn more about Model Predictive Control (MPC) for vehicle control, read the
 - [Falcone, P. et al., "Predictive Active Steering Control for Autonomous Vehicle Systems", IEEE (2007)](https://ieeexplore.ieee.org/document/4162483)
 
 
-## References
+## References 
 ## Appendices
 
 - [Vehicle Lateral control Tutorial with MATLAB](https://www.mathworks.com/help/driving/ug/lateral-control-tutorial.html)
 
 - [Automated Driving Toolbox by MathWorks](https://www.mathworks.com/help/driving/index.html)
+
+- Three types of lateral systems in the market that address lane departure accidents: 
+  - Lane departure warning systems (LDWS), 
+  - Lane keeping systems (LKS)
+  - Yaw stability control systems
