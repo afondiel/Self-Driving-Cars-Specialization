@@ -482,7 +482,9 @@ To learn more about Model Predictive Control (MPC) for vehicle control, read the
 - [Falcone, P. et al., "Predictive Active Steering Control for Autonomous Vehicle Systems", IEEE (2007)](https://ieeexplore.ieee.org/document/4162483)
 
 
-## References 
+## References
+
+- [Vehicle Dynamic Control by Rajesh Rajamani - Ch2 & 3](https://github.com/afondiel/cs-books/blob/main/automotive/self-driving-cars/vehicle-dynamics-and-control-2nd-edition-rajesh-rajamani-2012.pdf)
 ## Appendices
 
 - [Vehicle Lateral control Tutorial with MATLAB](https://www.mathworks.com/help/driving/ug/lateral-control-tutorial.html)
