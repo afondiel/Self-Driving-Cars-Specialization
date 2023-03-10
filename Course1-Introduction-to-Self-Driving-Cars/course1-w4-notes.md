@@ -770,7 +770,7 @@ where
 
 - Vehicle Actuation (Steering, Throttle, Brake) is the input of the Tire Model
 - The external forces that are exerted on the vehicle are entirely defined by the tire's abilities to genrate them
-- A good controller based on dynamics model depends on the efficiency of the tires model to capture the force-generating behivior of the tire thoughtout its operating range
+- A good controller based on dynamics model depends on the efficiency of the tires model to capture the force-generating behavior of the tire thoughtout its operating range
   
 **Vehicle Slip Angle vs Slip Ratio** 
 
