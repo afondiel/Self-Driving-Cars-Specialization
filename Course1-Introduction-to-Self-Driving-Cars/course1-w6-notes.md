@@ -59,7 +59,7 @@
       - can be constructed to have smooth derivatives to aid in consistency of error and error rate calcultations.
   
 > - In all cases of path following the controller tries to eliminate the offset of the vehicle to desired path and to align the vehicle heading with the path heading
-> - for each of those paths definitions the direction of travel along the path is also provided, wich can encoded with the point ordering or cureve ordering
+> - for each of those paths definitions the direction of travel along the path is also provided, which can be encoded with the point ordering or cureve ordering
 
 - Main goals: 
   - Heading path alignment
@@ -84,26 +84,25 @@
 <img src="./resources/w6/bicycle-model.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Driving Controller**
-- Controller error terms
-  - Heading error
+- Controller error terms : 
+  - `Heading error`
     - Component of velocity perpendicular to trajectory divided by the ICR radius
     - Desired heading is zero (because the ref heading is not time-varying for a straight line) 
 
 <img src="./resources/w6/driving-controller.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- where : 
-  - $\psi(t)$ is the rate of heading and allows to understand how the heading error evolves overtime 
+  - where : $\dot{\psi}(t)$ is the rate of heading and allows to understand how the heading error evolves overtime 
 
-- Crosstrack error (e) : 
+- `Crosstrack error (e)` : 
    - Distance from center of front axle to the closest point on path
 
-- Rate of change of crosstrack error ( $\dot{e}$ ) : 
+- `Rate of change of crosstrack error` ( $\dot{e}$ ) : 
   - $\displaystyle \dot{e}(t) =  v_{f}(t) \sin( \psi(t) - \delta(t))$
 
 <img src="./resources/w6/crosstrack-error.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 > - Both errors must converge to `zero` for vehicle to properly tracking the desired path
-> - both errors are hard to deal with in the curved path and add some additional complexities, as it's not immediately clear where the ref point should lie
+> - Both errors are hard to deal with in the curved path and add some additional complexities, as it's not immediately clear where the ref point should lie
 
 
 ### Lesson 1 Supplementary Reading: Introduction to Lateral Vehicle Control
@@ -141,7 +140,7 @@ To compute the minimum distance to a curved path defined by a spline:
 <img src="./resources/w6/l2-pursuit-1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 where : 
-- $\alpha$ : is the angle btw the vehicle boday heading and the look-ahead line 
+- $\alpha$ : is the angle btw the vehicle body heading and the look-ahead line 
   
 **Pure Pursuit Formulation**
 - Steering angle determined by target point location and angle btw the vehicle's heading direction and lookahead direction
@@ -183,15 +182,15 @@ To learn more about Pure Pursuit Control, read the PDF listed below:
 >  2. Look at both the error in heading and the in position relative to the closest point on the path
 >  3. Define an intuitive steering law to  :
 >     1. Correct heading error
->     2. correct position error
+>     2. Correct position error
 >     3. Obey max steering angle bounds
 
 **Heading Control Law**
 
 <img src="./resources/w6/l3-heading-cl.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Combine three requirements : 
- - Steer to align heading with desired heading (proportianal to heading error)
+Combine three requirements :
+- Steer to align heading with desired heading (proportional to heading error)
 
 $$
 \delta(t) = \psi(t)
@@ -273,29 +272,29 @@ $$
   - Effect of speed variation 
     - $\nu_{f} = 2\frac{m}{s}, 5\frac{m}{s}, 10\frac{m}{s}$
   
-<img src="./resources/w6/l3-case-study1.png" width="340" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
-<img src="./resources/w6/l3-case-study1-1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l3-case-study1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l3-case-study1-1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-Comments/Observations : 
--  In all cases, the turn towards the path, straight line progress ans the exponential decay to the path are visible
+**Simulations results:**
+-  In all cases, the turn towards the path, straight line progress and the exponential decay to the path are visible
 -  The higher the speed the further the car travels before reaching the path
 -  But at the end, the small cross track error convergence takes the same amount of time in each case
 
-
 **Case Study 2**
-
 - Large initial heading error 
   - Max steer $\delta = 25°$ , forward speed of $\nu = 5{m}{s}$
   - Gain $k = 2.5$, lenght : $L = 1m$
-- same parameters as the case 1, but the vehicle startsout on the path pointing very much in the wrong direction
+- same parameters as the case 1, but the vehicle starts out on the path pointing very much in the **wrong direction**
   
-<img src="./resources/w6/l3-case-study2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w6/l3-case-study2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-Simulations analysis : 
+**Simulations results:**
 - The results show the heading error is corrected by the Stanley control law 
 - First, the steering command is up against its limit as the heading error is corrected
 - Then, as the cross track error starts to grow, the steering commands continue to correct the of the car beyond the alignment with the path
 - Finally, the car enters the exponetial convergence segment as before
+- The Stanley controller corrects arbitrarily `large errors`
+  - No matter what the initial conditions, it will guide the car back to its path
 
 **Limit of Stanley Controller**
 
@@ -308,7 +307,7 @@ Simulations analysis :
 - Low speed operation (when confronted w/ noisy velocity estimates)
   - Inverse speed can cause numerical instability (velocity in the denominator)
     - wild swings in the steering wheel (not desirable for rider `comfort`)
-  - Add softening constant ( $k_{s}$ ) to controller (to assure that the denominator always has a minimum value)
+  - Add a positive softening constant ( $k_{s}$ ) to controller (to assure that the denominator always has a minimum value)
 
 $$
 \displaystyle \delta(t) = 
@@ -317,7 +316,7 @@ $$
 
 - Higher speed - Extra damping on heading 
   - Becomes an issue at higher speed in real vehicle
-  - This converts the heading error control portion to a PD controller(same approach for pure pursuit control of curvature)
+  - This converts the heading error control portion to a PD controller (same approach for pure pursuit control of curvature)
 
 - Steer into constant radius curves
   - Improves tracking on curves by adding a feedforward term on heading
@@ -329,7 +328,7 @@ To learn more about the Stanley Control, check out the PDF listed below:
 
 ### Lesson 4: Advanced Steering Control - MPC
 
-**Model Predictive Control**
+**Model Predictive Control (MPC)**
   
 <img src="./resources/w6/l4-MPC1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -487,7 +486,7 @@ To learn more about Model Predictive Control (MPC) for vehicle control, read the
 - [Vehicle Dynamic Control by Rajesh Rajamani - Ch2 & 3](https://github.com/afondiel/cs-books/blob/main/automotive/self-driving-cars/vehicle-dynamics-and-control-2nd-edition-rajesh-rajamani-2012.pdf)
 ## Appendices
 
-- [Vehicle Lateral control Tutorial with MATLAB](https://www.mathworks.com/help/driving/ug/lateral-control-tutorial.html)
+- [Vehicle Lateral control Stanley - Tutorial with MATLAB](https://www.mathworks.com/help/driving/ug/lateral-control-tutorial.html)
 
 - [Automated Driving Toolbox by MathWorks](https://www.mathworks.com/help/driving/index.html)
 
