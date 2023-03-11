@@ -31,8 +31,8 @@ Instructors : `Steve Waslander` and `Jonathan Kelly` both Associate professor in
   - road safety
   - mobility for everyone
   - reduce the cost of driving 
-  - Steve and Jonathan built a self-driving car for research porpose :
-    `Autonomoose`
+  - Steve and Jonathan built a self-driving car for research porpose :`Autonomoose`
+
 Global overview and requirements for each of four courses which are already described in the introduction section of each course.
 
 Autonomous driving is a constantly and changing field : 
