@@ -33,6 +33,7 @@
 - The entire simulation can be controlled with an **external client** which can be used to send cmds to the vehicle, record data and automatically execute scenarios for evaluating the performance of the car.
 
 - A modified version of CARLA is used for the purpose of this Specialization.
+  - Carla can be customized to create a specific scenario or environment
 
 ### Lesson 1 Supplementary Reading: Carla Overview - Self-Driving Car Simulation
 
@@ -78,6 +79,23 @@ Virtual Machines are discouraged as they generally do not have the necessary har
 
 
 ### Lesson 2: Final Project Overview
+
+- `input` :
+  -  the track is a loop circuit
+     -  sorted list of waypoints equally spaced to track
+     -  waypoint become the reference signal for the controller and navigation to all wayspoint
+  -  controller reference contain both position and speed 
+  -  implementation of `Longitudinal` and `Lateral control` is needed to control the vehicle
+  
+- `output` :
+  - throttle
+  - brake
+  - steering angle 
+
+- for final grade provide : 
+  - trajectory.txt file
+
+
 ### Final Project: Self-Driving Vehicle Control
 ### Final Project Solution
 
