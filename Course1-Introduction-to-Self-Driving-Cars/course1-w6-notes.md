@@ -213,8 +213,7 @@ $$\displaystyle
 \delta(t) \in [\delta_{min}, \delta_{max} ]
 $$
 
-- Stanley Controller scales its gains by the forward speed in the same way as pure pursuit control
-- Also has the same inverse tangent of the proportional control signal
+- Stanley Controller scales its gains by the forward speed in the same way as pure pursuit control and has the same inverse tangent of the proportional control signal
 
 **Combined Control Law** 
 
@@ -250,7 +249,7 @@ $$ \displaystyle  \dot{e}(t) =
 $$
 
 - For small crosstrack errors, leads to exponential decay characteristics (assuming the quadratic term is negligible)
-  - $\displaystyle \dot{e}(t) = -k_{e}(t)$
+  - $\displaystyle \dot{e}(t) = -k*{e}(t)$
   - we can say, that the cross track error evolution follows a first-order differential equation, and the solution of this ODE is an exponential
   - since $k$ is positive, we can see that the error decays exponentially to 0
   - the decay rate is completely independent of the speed
@@ -348,8 +347,7 @@ To learn more about the Stanley Control, check out the PDF listed below:
 
   <img src="./resources/w6/l4-MPC2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-  - Straightforward formulation
-    - requires the definition of an objective function and relavant constraints 
+       - requires the definition of an objective function and relavant constraints 
     - well-established solvers can optimize these constraints
   - Explicitly handles constraints
     - the `states` and `control signals` can be constrained to stay within safe operating bounds and controls can be selected to maximized multiple objectives simustaneously(hard constraints and soft penalties can be employed to reinforce the solution)  
