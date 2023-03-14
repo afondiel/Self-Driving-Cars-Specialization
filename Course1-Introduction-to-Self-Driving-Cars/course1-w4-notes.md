@@ -622,8 +622,8 @@ Cr : linearized cornering stiffness of the rear wheel
 Where : 
 
 ```
-  - Beta-dot : the vehicle slip angle 
-  - Psi-dot : the rate of change of the yaw rate
+  - Beta-dot : the vehicle slip angle rate
+  - Psi-dot-dot : the rate of change of the yaw rate
 ```
 **Standard State Space Representation**
 
