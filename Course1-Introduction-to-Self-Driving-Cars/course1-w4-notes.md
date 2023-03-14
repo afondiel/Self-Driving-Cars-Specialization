@@ -590,7 +590,7 @@ To learn more about longitudinal dynamics and vehicle drivetrain, read **Chapter
 
 - Lateral dynamics can be written as 
 
-<img src="./resources/w4/lateral-dynamics.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/lateral-dynamics.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Tire Slip Angles**
 - Many different tire slip models
@@ -617,7 +617,7 @@ Cr : linearized cornering stiffness of the rear wheel
 
 - From the previous slide formulations :
 
-<img src="./resources/w4/lateral-yaw-dynamics.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/lateral-yaw-dynamics.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 Where : 
 
@@ -655,7 +655,7 @@ Read more about the Lateral Dynamics of Bicycle Model (pages 27-44) in the PDF b
 
 **Coupled Lateral & Longitudinal**
 
-<img src="./resources/w4/coupled-lat-long.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/coupled-lat-long.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Notice that the lateral dynamics and the longitudinal dynamics can affect each other
 - `Main Control Task` : 
@@ -667,7 +667,7 @@ Read more about the Lateral Dynamics of Bicycle Model (pages 27-44) in the PDF b
 
 **Steering** : the driver's cmd to turn the vehicle to the left or right 
 
-<img src="./resources/w4/steering-model.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/steering-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - **Simple Steering Model**
   
@@ -707,7 +707,7 @@ where
 
 **Throttle (Accelerating)**
 
-<img src="./resources/w4/throtlle.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/throtlle.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - The driver puts their foot on the gas pedal to define the level of torque demand needed to accelerate the vehicle
 - The actual response is a bit more complex and depends on the type of the PGU.
@@ -766,7 +766,7 @@ where
 
 - The tire is the interface btw the vehicle and road
 
-<img src="./resources/w4/tire-modeling.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/tire-modeling.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Vehicle Actuation (Steering, Throttle, Brake) is the input of the Tire Model
 - The external forces that are exerted on the vehicle are entirely defined by the tire's abilities to genrate them
@@ -803,11 +803,11 @@ where :
   - The slip ratio captures the relationship between the deformation of the tire and the longitudinal forces acting upon it. 
   - When accelerating or breaking, the observed angular velocity of the tire does not match the expected velocity for the pure rolling motion, which means there is sliding between the tire and the road in addition to rolling
 
-<img src="./resources/w4/slip-ratio.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/slip-ratio.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Tire Modeling**
 
-<img src="./resources/w4/tire-model.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/tire-model.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Additional inputs can improve accuracy : 
   - Camber angle
