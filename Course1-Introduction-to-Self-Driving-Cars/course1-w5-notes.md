@@ -175,7 +175,7 @@ If you need to review Laplace transforms, check out these videos on Coursera:
 
 - `Perception Layer` : is captured by sensors and generates the input references for our system.
 - `Reference Generation Layer` : also known as `the drive circle` generated through the motion planning process
-- `Control Layer` : defines the setpoints, acceleration and deceleration to be tracked precisely. the main task that needs to  be perfomed by Bboth Longitudinal and Lateral control is to `follow th plan`as well as minimizing the error btw the actual and reference path and speed
+- `Control Layer` : defines the setpoints, acceleration and deceleration to be tracked precisely. the main task that needs to  be perfomed by both Longitudinal and Lateral control is to `follow th plan`as well as minimizing the error btw the actual and reference path and speed
 - `Actuation Layer` : generates the input commands or actuator signals for the vehicle
 
 **Longitudinal Speed Control**
