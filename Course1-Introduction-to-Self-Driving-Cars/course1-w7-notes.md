@@ -107,3 +107,6 @@ Congratulations !
 ## Appendices
 - CARLA simulator keyboard shortcut : 
   - https://carla.readthedocs.io/en/stable/simulator_keyboard_input/  
+
+- Building a race track in the CARLA simulator : 
+  - https://www.youtube.com/watch?v=MM4IrPoBtXs
