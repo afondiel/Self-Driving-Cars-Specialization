@@ -45,7 +45,7 @@
     - the roots of the denominator are called `poles` of the system
   
 **Controller and compensator**
-- Control algorithms can vay from simple to complex
+- Control algorithms can vary from simple to complex
 
 - Some simple algorithms, widely used in industry : 
   - Lead-lag controllers
@@ -348,6 +348,11 @@ To learn more about the **feedforward speed control**, read the PDF below:
 - [Simple Examples of PID Control by Brian Douglas](https://www.youtube.com/watch?v=XfAt6hNV8XM) 
 
 ## Appendices
+
+- Vehicle Longitudinal Control sytems in the market :
+  - Adaptive Cruise Control (ACC ) system
+  - Collision Avoidance (CA) system
+  - Automated highway systems (alternative)
 
 
 
