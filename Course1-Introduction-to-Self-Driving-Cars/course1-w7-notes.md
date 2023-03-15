@@ -80,19 +80,22 @@ Virtual Machines are discouraged as they generally do not have the necessary har
 
 ### Lesson 2: Final Project Overview
 
-- `input` :
+- `inputs` :
   - the track is a loop circuit
     - sorted list of waypoints equally spaced on the track
-      - contain both position and speed 
+      - contain both position and speed [x, y, v]
       - waypoint become the `reference signal` for the controller and navigating to all waypoints to complete the full track
   -  => implementation of `Longitudinal` and `Lateral control` is needed to control the vehicle
   
-- `output` :
-  - throttle
-  - brake
-  - steering angle 
+- `outputs` :
+  - `Longitudinal` 
+    - throttle
+    - brake
+  - `Lateral control` 
+    - steering angle 
 
-- for final grade provide : 
+
+- For the final grade provide : 
   - trajectory.txt file
 
 
