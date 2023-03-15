@@ -231,7 +231,7 @@ where :
 
 - Using the second order equation from [Module 4](https://github.com/afondiel/Self-Driving-Cars-Specialization-Coursera/blob/main/Course1-Introduction-to-Self-Driving-Cars/course1-w4-notes.md), we can determine the desired engine torque!
 
-- The steady-state engine map is used to determine the throlle angle to produce the amount of torque required
+- The steady-state engine map is used to determine the throttle angle to produce the amount of torque required
 - The desired torque and the current engine torque in the standard map define the required throttle position(can be interpolated if needed)
 - This approach is a `data-driven approximation`
 
