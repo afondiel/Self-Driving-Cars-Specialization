@@ -185,7 +185,7 @@ If you need to review Laplace transforms, check out these videos on Coursera:
 <img src="./resources/w5/cruise-control.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
   - Speed of the vehicle is controlled (by throttling and braking, accelerating/decelerating) to be kept at the reference speed as requested by the driver
-  - When the vehicle is subjected to different loads and resistances, the throttle angle will be changed by the the cruise controller accordingly 
+  - When the vehicle is subjected to different loads and resistances, the throttle angle will be changed by the cruise controller accordingly 
   - Applications examples already in the market: 
     - Adaptive Cruise Control (ACC): vary the reference point based on measurements of lead vehicle and semi autonomous systems 
     - Traffic jam assist : operated throughout the vehicle speed range and create spacing gaps for merging vehicles
@@ -344,13 +344,16 @@ To learn more about the **feedforward speed control**, read the PDF below:
 
 
 ## References
+- [Vehicle Dynamic Control by Rajesh Rajamani - Ch4 & 5](https://github.com/afondiel/cs-books/blob/main/automotive/self-driving-cars/vehicle-dynamics-and-control-2nd-edition-rajesh-rajamani-2012.pdf)
+
 - [PID Control triangle - FR](https://raw.githubusercontent.com/afondiel/Self-Driving-Cars-Specialization-Coursera/main/Course1-Introduction-to-Self-Driving-Cars/resources/correction-des-sys-lineaire-asservis-ensea-1er-annee.png)
 - [Simple Examples of PID Control by Brian Douglas](https://www.youtube.com/watch?v=XfAt6hNV8XM) 
 
 ## Appendices
 
 - Vehicle Longitudinal Control sytems in the market :
-  - Adaptive Cruise Control (ACC ) system
+  - the standard cruise control system
+  - Adaptive Cruise Control (ACC) system
   - Collision Avoidance (CA) system
   - Automated highway systems (alternative)
 
