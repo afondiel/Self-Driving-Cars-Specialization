@@ -357,5 +357,10 @@ To learn more about the **feedforward speed control**, read the PDF below:
   - Collision Avoidance (CA) system
   - Automated highway systems (alternative)
 
+- Other methods to implement Longitudinal Control besides PID controller : 
+  - **Model Predictive Control (MPC)**
+  - **Adaptive Cruise Control (ACC)**
+  - **Fuzzy Logic Control (FLC)**
+  - **Feedforward Control**
 
 
