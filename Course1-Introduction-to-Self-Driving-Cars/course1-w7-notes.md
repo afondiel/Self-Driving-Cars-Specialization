@@ -113,3 +113,6 @@ Congratulations !
 
 - Building a race track in the CARLA simulator : 
   - https://www.youtube.com/watch?v=MM4IrPoBtXs
+
+- Carla Pythpn API doc : 
+  - https://carla.readthedocs.io/en/latest/python_api/
