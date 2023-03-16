@@ -248,8 +248,13 @@ $$ \displaystyle  \dot{e}(t) =
 -\nu_{f}(t)\sin(\psi(t) - \delta(t)) = -\nu_{f}(t)\sin(\tan-1(\frac{k_{e}(t)}{\nu_{f}(t)}))  = \frac{-k_{e}(t)}{\sqrt{1 + (\frac{k_{e}(t)}{\nu_{f}(t)})^2}}
 $$
 
-- For small crosstrack errors, leads to exponential decay characteristics (assuming the quadratic term is negligible)
-  - $\displaystyle \dot{e}(t) = -k*{e}(t)$
+  For small crosstrack errors, leads to exponential decay characteristics (assuming the quadratic term is negligible)
+
+$$
+\displaystyle 
+\dot{e}(t) = -k.{e}(t)
+$$
+
   - we can say, that the cross track error evolution follows a first-order differential equation, and the solution of this ODE is an exponential
   - since $k$ is positive, we can see that the error decays exponentially to 0
   - the decay rate is completely independent of the speed
