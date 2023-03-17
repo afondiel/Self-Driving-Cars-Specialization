@@ -179,7 +179,7 @@ To learn more about Pure Pursuit Control, read the PDF listed below:
 **Stanley Controller Approach** (Originally developed by Dr. Gabe Hoffman from Stanford University)
 - Stanley method is the path tracking approach used by Stanford University's Darpa Grand Challenge team
 >  1. Uses the center of `the front axle` as a reference point 
->  2. Look at both the error in heading and the in position relative to the closest point on the path
+>  2. Look at both the error in heading and in position relative to the closest point on the path
 >  3. Define an intuitive steering law to  :
 >     1. Correct heading error
 >     2. Correct position error
