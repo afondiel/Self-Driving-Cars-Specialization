@@ -204,7 +204,7 @@ $$
 
 $$
 \displaystyle \delta(t) = 
-\tan-1(\frac{k_{e}(t)}{\nu_{f}(t)})
+\tan-1(\frac{ke(t)}{\nu_{f}(t)})
 $$
 
 - Maximum and minimum steering angles
@@ -221,7 +221,7 @@ $$
 
 $$
 \displaystyle \delta(t) = 
-\psi(t) + \tan-1(\frac{k_{e}(t)}{\nu_{f}(t)}) 
+\psi(t) + \tan-1(\frac{ke(t)}{\nu_{f}(t)}) 
  , \delta(t) \in [\delta_{min}, \delta_{max} ] 
 $$
 
@@ -233,7 +233,7 @@ $$
 
 - For larger positive crosstrack error
   - <img src="./resources/w6/l3-combined-steering-law2.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
-  - $\displaystyle \tan-1(\frac{k_{e}(t)}{\nu_{f}(t)}) \approx \frac{\pi}{2} \to \delta(t) \approx \psi(t) + \frac{\pi}{2}$ 
+  - $\displaystyle \tan-1(\frac{ke(t)}{\nu_{f}(t)}) \approx \frac{\pi}{2} \to \delta(t) \approx \psi(t) + \frac{\pi}{2}$ 
   - As heading changes due to steering angle, the heading correction counteracts the crosstrack correction, and drives the steering angle back to zero 
   - <img src="./resources/w6/l3-combined-steering-law3.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
    
@@ -245,14 +245,14 @@ $$
 - The error dynamics when not at maximum steering angle are:
 
 $$ \displaystyle  \dot{e}(t) = 
--\nu_{f}(t)\sin(\psi(t) - \delta(t)) = -\nu_{f}(t)\sin(\tan-1(\frac{k_{e}(t)}{\nu_{f}(t)}))  = \frac{-k_{e}(t)}{\sqrt{1 + (\frac{k_{e}(t)}{\nu_{f}(t)})^2}}
+-\nu_{f}(t)\sin(\psi(t) - \delta(t)) = -\nu_{f}(t)\sin(\tan-1(\frac{ke(t)}{\nu_{f}(t)}))  = \frac{-ke(t)}{\sqrt{1 + (\frac{ke(t)}{\nu_{f}(t)})^2}}
 $$
 
   For small crosstrack errors, leads to exponential decay characteristics (assuming the quadratic term is negligible)
 
 $$
 \displaystyle 
-\dot{e}(t) = -k.{e}(t)
+\dot{e}(t) = -ke(t)
 $$
 
   - we can say, that the cross track error evolution follows a first-order differential equation, and the solution of this ODE is an exponential
@@ -315,7 +315,7 @@ $$
 
 $$
 \displaystyle \delta(t) = 
-\psi(t) + \tan-1(\frac{k_{e}(t)}{k_{s} + \nu_{f}(t)}) 
+\psi(t) + \tan-1(\frac{ke(t)}{k_{s} + \nu_{f}(t)}) 
 $$
 
 - Higher speed - Extra damping on heading 
