@@ -174,32 +174,34 @@ To learn more about Pure Pursuit Control, read the PDF listed below:
 
 <img src="./resources/w6/l3-darpa-stanford-team.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-> Stanford University's Darpa Grand Challenge team
+> *Stanford University's Darpa Grand Challenge team*
 
 **Stanley Controller Approach** (Originally developed by Dr. Gabe Hoffman from Stanford University)
 - Stanley method is the path tracking approach used by Stanford University's Darpa Grand Challenge team
->  1. Uses the center of `the front axle` as a reference point 
->  2. Look at both the error in heading and in position relative to the closest point on the path
->  3. Define an intuitive steering law to  :
->     1. Correct heading error
->     2. Correct position error
->     3. Obey max steering angle bounds
+  1. Uses the center of `the front axle` as a reference point 
+  2. Look at both the error in heading and the error in position relative to the closest point on the path
+  3. Define an intuitive steering law to  :
+     1. Correct **heading error ( $\Psi_{e}$ )**
+     2. Correct **position error (dx, dy or e)**
+     3. Obey **max steering angle bounds**
+
+The predictable decay errors are independents of vehicle speed
 
 **Heading Control Law**
 
 <img src="./resources/w6/l3-heading-cl.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 Combine three requirements :
-- Steer to align heading with desired heading (proportional to heading error)
+- `Heading error` : Steer to align heading with desired heading (to eliminate heading error relative to the path))
 
 $$
 \delta(t) = \psi(t)
 $$
 
-- Steer to eliminate crosstrack error
+- `Crosstrack error`: Steer to eliminate crosstrack error
   - Essentially proportional to error
   - Inversely proportional to speed
-  - Limit effect for large errors with inverse tan
+  - Limit effect for large errors with inverse $\tan$
   - Gain $k$ determined experimentally
 
 $$
@@ -207,13 +209,19 @@ $$
 \tan-1(\frac{ke(t)}{\nu_{f}(t)})
 $$
 
-- Maximum and minimum steering angles
+- Maximum and minimum steering angles (usually symetric about 0)
   
 $$\displaystyle 
 \delta(t) \in [\delta_{min}, \delta_{max} ]
 $$
 
-- Stanley Controller scales its gains by the forward speed in the same way as pure pursuit control and has the same inverse tangent of the proportional control signal
+>Notes : 
+>- Stanley Controller scales its gains by the forward speed in the same way as pure pursuit control and has the same inverse tangent of the proportional control signal
+>- Stanley vs Pure pursuit : 
+>     - same inverse tan of the proportional control signal
+>     - add **heading and crosstrack errors**
+>     - it has `no lookahead distance`
+
 
 **Combined Control Law** 
 
@@ -225,20 +233,24 @@ $$
  , \delta(t) \in [\delta_{min}, \delta_{max} ] 
 $$
 
-- For large heading error, steer in opposite direction
+- **For large heading error, steer in opposite direction**
   - The larger the heading error, the larger the steering correction
-  - Fixed at limit beyond maximum steering angle, assuming no crosstrack error
+  - `Fixed at limit beyond maximum steering angle`, assuming no crosstrack error
 
 <img src="./resources/w6/l3-combined-steering-law.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- For larger positive crosstrack error
-  - <img src="./resources/w6/l3-combined-steering-law2.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+- **For larger positive crosstrack error**
+
+<img src="./resources/w6/l3-combined-steering-law2.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
   - $\displaystyle \tan-1(\frac{ke(t)}{\nu_{f}(t)}) \approx \frac{\pi}{2} \to \delta(t) \approx \psi(t) + \frac{\pi}{2}$ 
   - As heading changes due to steering angle, the heading correction counteracts the crosstrack correction, and drives the steering angle back to zero 
-  - <img src="./resources/w6/l3-combined-steering-law3.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w6/l3-combined-steering-law3.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
    
    - The  vehicle approaches the path, crosstrack error drops, and steering command starts to correct heading alignment
-   - <img src="./resources/w6/l3-combined-steering-law4.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w6/l3-combined-steering-law4.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
   
 **Error Dynamics**
 
@@ -248,7 +260,7 @@ $$ \displaystyle  \dot{e}(t) =
 -\nu_{f}(t)\sin(\psi(t) - \delta(t)) = -\nu_{f}(t)\sin(\tan-1(\frac{ke(t)}{\nu_{f}(t)}))  = \frac{-ke(t)}{\sqrt{1 + (\frac{ke(t)}{\nu_{f}(t)})^2}}
 $$
 
-  For small crosstrack errors, leads to exponential decay characteristics (assuming the quadratic term is negligible)
+  For `small crosstrack errors`, leads to exponential decay characteristics (assuming the quadratic term is negligible)
 
 $$
 \displaystyle 
@@ -257,7 +269,7 @@ $$
 
   - we can say, that the cross track error evolution follows a first-order differential equation, and the solution of this ODE is an exponential
   - since $k$ is positive, we can see that the error decays exponentially to 0
-  - the decay rate is completely independent of the speed
+  - `the decay rate is completely independent of the speed`
     - faster vehicles travel farther while converging to the path, at the same time as slower moving vehicles
 
 **Case Study**
@@ -323,7 +335,7 @@ $$
   - This converts the heading error control portion to a PD controller (same approach for pure pursuit control of curvature)
 
 - Steer into constant radius curves
-  - Improves tracking on curves by adding a feedforward term on heading
+  - Improves tracking on curves by adding a **feedforward** term on heading
 ### Lesson 3 Supplementary Reading: Geometric Lateral Control - Stanley
 
 To learn more about the Stanley Control, check out the PDF listed below:
