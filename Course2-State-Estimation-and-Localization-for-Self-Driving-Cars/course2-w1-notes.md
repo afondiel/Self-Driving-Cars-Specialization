@@ -58,7 +58,12 @@
 ### Meet Paul Newman, Founder, Oxbotica & Professor at University of Oxford - OK 
 - All already done [course 1 - w1](..\Course1-Introduction-to-Self-Driving-Cars/course1-w1-notes.md)
 ### The Importance of State Estimation
-- ??
+- Why is state estimation so critical for self-drving cars ? 
+  - you need to know where you are
+  - all you get as input is sensor data 
+  - the state is an answer to where the car is, how it is moving, how fast it is turning
+  - state estimation allows to process sensor data at highest level
+  - state estimation is a challenging problem to solve because the sensor datas are often foul and noisy 
 # Module 1: Least Squares
 
 ## Overview 
