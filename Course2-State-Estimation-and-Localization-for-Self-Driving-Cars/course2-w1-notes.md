@@ -13,24 +13,52 @@
 
 ## Introduction to State Estimation and Localization for Self-driving Cars
 
-### Welcome to the Self-Driving Cars Specialization!
+### Welcome to the Self-Driving Cars Specialization
+- Ok => [course 1 - w1](..\Course1-Introduction-to-Self-Driving-Cars/course1-w1-notes.md)  
 ### Welcome to the Course
-### Course Prerequisites: Knowledge, Hardware & Software
-### How to Use Discussion Forums
-### Get to Know Your Classmates
-### How to Use Supplementary Readings in This Course
 
+<img src="../Course1-Introduction-to-Self-Driving-Cars/resources/w4/vehicle-frame.png" width="360" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Learn about sensors for state estimation & localization
+- `state estimation` is the process of determining the best value of some physical quantity from what are typically **noisy measurements**
+- measurements are noisy because sensors are not perfect (random results for the same input signal)
+- state estimation is fundamental to any device with sensor  
+- Localization is one the most important types of state estimation for self-driving cars
+- `Localization:` is the process of determining `where` the car is in world and `how` is moving
+
+**Course overview**
+
+- Understand the method of least squares for parameter and state estimation
+- Apply the linear Kalman filter and its nonlinear variants, the extended and unscented Kalman filters, to state estimation problems
+- Develop models for typical localization sensors like GPS receivers, inertial sensors, and LIDAR range sensors
+- Learn about LIDAR scan matching and the iterate closest point (ICP) algorithm
+- Use these tools to fuse data from multiple sensors streams into a single state estimate for self-driving car
+- `Final Project:` A full vehicle state estimator for self-driving cars using the CARLA simulator.
+
+### Course Prerequisites: Knowledge, Hardware & Software
+- [Course Prerequisites](../Course1-Introduction-to-Self-Driving-Cars/resources/Course-Prerequisites-Knowledge-Hardware-Software.md)
+### How to Use Discussion Forums
+- OK
+### Get to Know Your Classmates
+- OK
+### How to Use Supplementary Readings in This Course
+- OK
 ## Meet the Self-Driving Car Experts
 
-### Meet the Instructor, Jonathan Kelly - OK -couse
-### Meet the Instructor, Steven Waslander - OK 
-### Meet Diana, Firmware Engineer - Ok
-### Meet Winston, Software Engineer - OK 
-### Meet Andy, Autonomous Systems Architect - OK 
+### Meet the Instructor, Jonathan Kelly 
+- OK
+### Meet the Instructor, Steven Waslander 
+- OK 
+### Meet Diana, Firmware Engineer
+- Ok
+### Meet Winston, Software Engineer 
+- OK 
+### Meet Andy, Autonomous Systems Architect 
+- OK 
 ### Meet Paul Newman, Founder, Oxbotica & Professor at University of Oxford - OK 
 - All already done [course 1 - w1](..\Course1-Introduction-to-Self-Driving-Cars/course1-w1-notes.md)
 ### The Importance of State Estimation
-
+- ??
 # Module 1: Least Squares
 
 ## Overview 
