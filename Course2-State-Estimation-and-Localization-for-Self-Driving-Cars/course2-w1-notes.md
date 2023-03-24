@@ -145,7 +145,7 @@ $$
 
 <img src="./resources/w1/error-criterion.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-> We will only be able to solve for $\hat{x}$ if ($H^TH$)^-1 exits, i.e : $H$ has an inverse
+> We will only be able to solve for $\hat{x}$ if $(H^TH)^-1$ exits, i.e : $H$ has an inverse
 
 <img src="./resources/w1/transpose-theorems.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -158,9 +158,71 @@ $$
 
 
 ### Lesson 1 (Part 2): Squared Error Criterion and the Method of Least Squares
+
+**Method of Weighted Least Squares**
+
+- One of the reason we may want to trust certain measurments more than others is that they may come from a better sensor
+- Ex: In the resistance estimation we could use a much better and expensive device in order to get a better measurement accurancy
+
+<img src="./resources/w1/measurement-device.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- From now on, we also drop the assumption that we're only estimation one parameter and derive the more general normal equations.
+- This allows to estimate multiple parameters at one time
+
+<img src="./resources/w1/weighted-ls.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+If we instead assume that each noise term has a different variance : 
+
+<img src="./resources/w1/weighted-ls2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Re-deriving Regular Least Square**
+
+- What happen if all of our variances are the same ? 
+  
+<img src="./resources/w1/weighted-ls3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Minimizing the Weighted Least Square Criterion**
+
+<img src="./resources/w1/weighted-ls4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Where the derivative is a `Gradient` 
+- Solving this derivative we then solve for our best or optimal parameter vector $\hat{x}$ .
+
+**How Method of Weighted Least Square works ?**
+
+- From the weighted normal equations : 
+
+$$
+\displaystyle \hat{x} = 
+(H^TR^-1H)^-1*H^TR^-1y
+$$
+
+Assuming that the last two measurements were actually taken with a multimeter that had a much smaller noise variance
+
+<img src="./resources/w1/weighted-ls5.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We can see (below) that the final resistance value we get is much closer to what the more accurate multimeter measured as expected
+
+<img src="./resources/w1/weighted-ls6.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Ordinary  vs Weighted Least Squares**
+
+<img src="./resources/w1/weighted-ls7.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
 ### Lesson 1 Supplementary Reading: The Squared Error Criterion and the Method of Least Squares
+
+To learn more about the squared error criterion and least squares, check out some of the resources below: 
+
+- [Here's an interactive least squares fitting simulator provided by the PhET Interactive Simulations project at the University of Colorado](https://phet.colorado.edu/sims/html/least-squares-regression/latest/least-squares-regression_en.html)
+
+- [You can find an overview of the Method of Least Squares in the Georgia Tech online textbook](https://textbooks.math.gatech.edu/ila/least-squares.html)
+
+- [Read more about least squares on Wikipedia](https://en.wikipedia.org/wiki/Least_squares)
+
+- [Read Chapter 3, Sections 1 and 2 of Dan Simon, Optimal State Estimation (2006)](https://onlinelibrary.wiley.com/doi/book/10.1002/0470045345)
+
 ### Lesson 1: Practice Quiz
-### Practice Quiz•6 questions
 ### Lesson 1 Practice Notebook: Least Squares
 
 ## Recursive Squares 
