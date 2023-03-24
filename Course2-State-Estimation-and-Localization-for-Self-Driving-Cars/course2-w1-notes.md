@@ -70,7 +70,8 @@
 
 - The method of least squares, developed by Carl Friedrich Gauss in 1795, is a well known technique for estimating parameter values from data. 
 - This module provides a review of least squares, for the cases of unweighted and weighted observations. 
-- There is a deep connection between least squares and maximum likelihood estimators (when the observations are considered to be Gaussian random variables) and this  connection is established and explained. Finally, the module develops a technique to transform the traditional 'batch' least squares estimator to a recursive form,  suitable for online, real-time estimation applications.
+- There is a deep connection between least squares and maximum likelihood estimators (when the observations are considered to be Gaussian random variables) and this  connection is established and explained. 
+- Finally, the module develops a technique to transform the traditional 'batch' least squares estimator to a recursive form,  suitable for online, real-time estimation applications.
 
 **Course Objectives:**
 
@@ -81,6 +82,81 @@
 - Explain how Jacobian matrices are used
 
 ### Lesson 1 (Part 1): Squared Error Criterion and the Method of Least Squares
+
+- `Localization:` is the process of determining `where` the car is in world and `how` is moving
+- `state estimation` is the process of determining the best value of some physical quantity from what are typically **noisy measurements**
+
+- An accurate localization is a key component of any self-driving car sw stack and state estimation is the way of doing so.
+- Any real world measurements will be imprecise
+- State estimation is the idea of parameter estimation
+  - `state:` physical quantity that changes overtime (ex: position and orientation)
+  - `parameter:` is constant over time  (ex: electric resistor)
+
+**Least Squares**
+
+- Develped by Carl F. Gauss (1809)
+- Theorem : 
+
+```
+The most probable value of the unknown quantities will be that in which the sum of squares of the differences btw the actually observed and the computed values multiplied by numbers that measure the degree of precision is minimum. 
+```
+**Illustraction examples : Estimating Resistance**
+- Measurement model : 
+  - $\displaystyle y_{i} = x + \nu_{i}$
+- where :
+  - $y$ : measurements  
+  - $i$ : the number of experiments/ independent measurements
+  - $x$ : Actual resistance (constant)
+  - $\nu$ : Measurement noise 
+  
+- after 4 measurements : 
+
+<img src="./resources/w1/resistor-estimation.png" width="360" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Minimizing the Squared Error Criterion (SEC)**
+
+$$
+\displaystyle \hat{x}_{LS} = 
+argmin_{x}(e_{1}^2 + e_{2}^2 +e_{3}^2 +e_{4}^2) = 
+J_{LS}(x)
+$$
+
+- To minimize the SEC, we rewrite the errors in matrix notation 
+- Useful when dealing with thousands/larges numbers of measurements 
+
+<img src="./resources/w1/matrix-error.png" width="360" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+where : 
+- $e$ : is the error vector
+- $y$ : the measurements/function of observations
+- $H$ : the Jacobian matrix 
+  - $dim(H) = m x n$ , $m$ : numbers of measurements, $n$ : nb of unkown/parameters to be estimated
+- $x$ : the resistance (a single scalar but can also be a vector) 
+
+We can now express our criterion as follows
+
+$$
+\displaystyle J_{LS}(x) =
+e^Te = (y - Hx)^T(y - Hx) = y^Ty - x^TH^Ty - y^THx + x^TH^THx
+$$
+
+- To minimize this, we can compute `the partial derivative` with respect to our parameter, set to `zero`, and solve for extremum:
+
+
+<img src="./resources/w1/error-criterion.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+> We will only be able to solve for $\hat{x}$ if ($H^TH$)^-1 exits, i.e : $H$ has an inverse
+
+<img src="./resources/w1/transpose-theorems.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w1/problem-solution.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Assumptions**
+
+- Our measurement model, $y = x + \nu$ , is linear
+- Measurements are **equally weighted** (we do not suspect that some have more noise than others)
+
+
 ### Lesson 1 (Part 2): Squared Error Criterion and the Method of Least Squares
 ### Lesson 1 Supplementary Reading: The Squared Error Criterion and the Method of Least Squares
 ### Lesson 1: Practice Quiz
@@ -100,5 +176,7 @@
 
 
 # References
+
+[Least square for estimate theta - line 3321](https://github.com/afondiel/research-notes/blob/master/datascience-notes/courses/certificates/coursera/ibm/ds-ibm-notes.txt)
 
 # Appendices
