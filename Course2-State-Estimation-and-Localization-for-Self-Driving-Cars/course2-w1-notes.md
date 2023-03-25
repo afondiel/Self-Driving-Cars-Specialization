@@ -180,24 +180,32 @@ $$
 **Method of Weighted Least Squares**
 
 - One of the reason we may want to trust certain measurments more than others is that they may come from a better sensor
-- Ex: In the resistance estimation we could use a much better and expensive device in order to get a better measurement accurancy
+- Ex: In the resistance estimation we could use a much better and expensive multi-meter in order to get a better measurement accurancy
 
 <img src="./resources/w1/measurement-device.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- From now on, we also drop the assumption that we're only estimation one parameter and derive the more general normal equations.
+- From now on, we also drop the assumption that we're only estimate one parameter and derive the more general normal equations.
 - This allows to estimate multiple parameters at one time
 
 <img src="./resources/w1/weighted-ls.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- where : 
+  - $\sigma$ is the standard deviation (écart-type)
+  - $R$ is the weight matrix
+
 If we instead assume that each noise term has a different variance : 
 
 <img src="./resources/w1/weighted-ls2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The lower the variance of the noise, the more stronger associated error term will be weighted in the loss function
 
 **Re-deriving Regular Least Square**
 
 - What happen if all of our variances are the same ? 
   
 <img src="./resources/w1/weighted-ls3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In the case of equal variances, the same parameters that minimize our weighted least squares criterion will also minimize our ordinary least squares criterion as expected
 
 **Minimizing the Weighted Least Square Criterion**
 
