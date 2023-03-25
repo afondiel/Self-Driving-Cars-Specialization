@@ -102,18 +102,37 @@ The most probable value of the unknown quantities will be that in which the sum 
 ```
 **Illustraction examples : Estimating Resistance**
 - Measurement model : 
-  - $\displaystyle y_{i} = x + \nu_{i}$
+$$
+\displaystyle y_{i} = 
+x + \nu_{i}
+$$
 - where :
   - $y$ : measurements  
   - $i$ : the number of experiments/ independent measurements
-  - $x$ : Actual resistance (constant)
-  - $\nu$ : Measurement noise 
+  - $x$ : actual resistance (constant)
+  - $\nu$ : measurement noise 
   
-- after 4 measurements : 
+- Experimentation scenarion : 
+  - after 4 measurements 
+  - We define a scalar noise term that is independent of the noise terms
+  - Statistically, we say the noise is independent and indentically distributed (IID)
+  - We define error btw each measurement and the actual value of the resistance $x$
 
-<img src="./resources/w1/resistor-estimation.png" width="360" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w1/resistor-estimation-copy.png" width="460" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The value of $x$ still unknow, to find $x$ we square the errors to arrive at an equation that's a `function of the measurements`
+- **The square error criterion/Squared error cost function or loss function** : 
+$$
+\displaystyle \hat{x}_{LS} = 
+argmin_{x}(e_{1}^2 + e_{2}^2 +e_{3}^2 +e_{4}^2) = 
+J_{LS}(x)
+$$
+
+- The `best` estimate of resistance is the one that minimize the sum of sqaured errors 
 
 **Minimizing the Squared Error Criterion (SEC)**
+
+- To minimize the SEC, we rewrite the errors in matrix notation 
 
 $$
 \displaystyle \hat{x}_{LS} = 
@@ -121,7 +140,6 @@ argmin_{x}(e_{1}^2 + e_{2}^2 +e_{3}^2 +e_{4}^2) =
 J_{LS}(x)
 $$
 
-- To minimize the SEC, we rewrite the errors in matrix notation 
 - Useful when dealing with thousands/larges numbers of measurements 
 
 <img src="./resources/w1/matrix-error.png" width="360" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -130,7 +148,7 @@ where :
 - $e$ : is the error vector
 - $y$ : the measurements/function of observations
 - $H$ : the Jacobian matrix 
-  - $dim(H) = m x n$ , $m$ : numbers of measurements, $n$ : nb of unkown/parameters to be estimated
+  - $dim(H) = m*n$ , $m$ : numbers of measurements, $n$ : nb of unkown/parameters to be estimated
 - $x$ : the resistance (a single scalar but can also be a vector) 
 
 We can now express our criterion as follows
