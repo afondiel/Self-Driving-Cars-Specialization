@@ -121,7 +121,7 @@ $$
 <img src="./resources/w1/resistor-estimation-copy.png" width="460" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - The value of $x$ still unknow, to find $x$ we square the errors to arrive at an equation that's a `function of the measurements`
-- **The square error criterion/Squared error cost function or loss function** : 
+- **The square error criterion/cost or loss function** : 
 $$
 \displaystyle \hat{x}_{LS} = 
 argmin_{x}(e_{1}^2 + e_{2}^2 +e_{3}^2 +e_{4}^2) = 
