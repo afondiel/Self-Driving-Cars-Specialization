@@ -102,10 +102,12 @@ The most probable value of the unknown quantities will be that in which the sum 
 ```
 **Illustraction examples : Estimating Resistance**
 - Measurement model : 
+  
 $$
 \displaystyle y_{i} = 
 x + \nu_{i}
 $$
+
 - where :
   - $y$ : measurements  
   - $i$ : the number of experiments/ independent measurements
@@ -122,6 +124,8 @@ $$
 
 - The value of $x$ still unknow, to find $x$ we square the errors to arrive at an equation that's a `function of the measurements`
 - **The square error criterion/cost or loss function** : 
+
+
 $$
 \displaystyle \hat{x}_{LS} = 
 argmin_{x}(e_{1}^2 + e_{2}^2 +e_{3}^2 +e_{4}^2) = 
@@ -177,9 +181,9 @@ $$
 
 ### Lesson 1 (Part 2): Squared Error Criterion and the Method of Least Squares
 
-**Method of Weighted Least Squares**
+**Method of Weighted Least Squares (WSL)**
 
-- One of the reason we may want to trust certain measurments more than others is that they may come from a better sensor
+- One of the reason we may want to trust certain measurements more than others is that they may come from a better sensor
 - Ex: In the resistance estimation we could use a much better and expensive multi-meter in order to get a better measurement accurancy
 
 <img src="./resources/w1/measurement-device.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -252,10 +256,103 @@ To learn more about the squared error criterion and least squares, check out som
 ### Lesson 1 Practice Notebook: Least Squares
 
 ## Recursive Squares 
+- A technique to compute least square on the "fly"
 
 ### Lesson 2: Recursive Least Squares
+
+- Back to our resistance estimation problem(unkonwn but constant parameter from sets of measurement)
+- We assumed, we had all of the data at hand (available) or a `batch of measurements` and wanted to use those measurement to compute our estimated quantities of interest (more reasonable approach)
+
+`Batch solution` : 
+
+$$
+\displaystyle \hat{x} = 
+(H^TR^-1H)^-1*H^TR^-1y
+$$
+
+**Recursive Estimation**
+
+- What happens if we have a *stream* of data? Do we need to re-solve for our solution every time? Can we do something smarter?
+- For ex: we have a multimeter that can measure a resistance 10 times per second
+
+<img src="./resources/w1/recursive-estimation.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Ideally, we would like to use as many measurements as possible to get an accurate estimate of the resistance 
+- The computational resources required to solve our normal equation will increase with the size of the measurement vector when using the **least squares method**
+- alternatevely, we can use the **recursive method **one that keep a running estimate of the optimal parameter for all the measurements that we collected up to the previous time step and update that estimate given the measurement at the current time step
+
+**Linear Recursive Estimator**
+
+- We can use a linear recursive estimator
+- Suppose we have an optimal estimate, $\hat{X}_{k-1}$, of our unkown parameters at time $k - 1$
+- Then we obtain a new measurement at time $k: y_{k} = H_{k}x + v_{k}$ model with additive Gaussian noise
+
+<img src="./resources/w1/linear-recursive-estimator.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can use a linear recursive update: 
+
+$$
+\displaystyle \hat{X}_{k} =
+\hat{X}_{k-1} + K_{k}(y_{k} - H_{k}\hat{X}_{k-1}) 
+$$
+
+- where, $k$ is the estimator `gain` matrix
+- the term in the () is called the `innovation`: it quantifies how well our current measurement matches our previous best estimate
+- We update our new state as a linear combination of the previous best guess and the current measurement residual(or error), weighted by a gain matrix $K_{k}$
+- If $(y_{k} - H_{k}\hat{X}_{k-1}) == 0$ the old estimate does not change at all.
+
+**Recursive Leat Squares Criterion**
+
+- But what is the gain $K_{k}$ ?
+- We can compute it by minimizing a similar leadt squares criterion, but this time we'll usee a `probabilistic formulation`
+- We wish to minimize the **expexted value of the sum of squared errors** of our current estimate at time step $k$
+
+$$
+\displaystyle J_{RLS} = 
+E[(x_{k} - \hat{x}_{k} )^2] = \sigma_{k}^2 
+$$
+
+- If we have $n$ unknown parameters at time step $k$, we generalize this to :  
+
+$$
+\displaystyle J_{RLS} = 
+E[(x_{1k} - \hat{x}_{1k})^2 + ... + (x_{nk} - \hat{x}_{nk})^2] = Trace(P_{k}) 
+$$
+
+- where : $P_{k}$ is the estimator covariance
+- Same as least squares, but now introduce the `expectation`
+- Instead of minimizing the error directly, we minimized its `expected value` == estimator variance
+- The lower the variance the more the estimate is accurate
+
+
+<img src="./resources/w1/estimator-covariance.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+-  first eq: recursive definition for the state covariance matrix $P_{k}$ by using matrix calculs and taking derivatives
+-  second eq: This criterion is minimized based on value of $K_{k}$
+-  third eq: the larger our gain matrix k,  the smaller the estimator covariance will be.  
+
+> The gain matrix can be seen as balancing the information we get from our `prior estimate` the information received from our `new measurement`
+
+
+**Recursive Least squares Algorithm**
+
+<img src="./resources/w1/recursive-least-sq-algo.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+Why a Recursive Least squares Algorithm important?
+- It enables us to minimize computational effort in our estimation process which is always a good thing 
+- Recursive least squares forms the `update step` of the `linear Kalman filter`. We'll discuss this in more detail in the next module. 
+
 ### Lesson 2 Practice Notebook: Recursive Least Squares
 ### Lesson 2 Supplementary Reading: Recursive Least Squares
+
+To learn more about Recursive Least Squares, check out the resources below:
+
+- [Read the article about recursive least squares on Wikipedia](https://en.wikipedia.org/wiki/Recursive_least_squares_filter)
+
+- [Read Chapter 3, Section 3 of Dan Simon, Optimal State Estimation (2006)](https://onlinelibrary.wiley.com/doi/book/10.1002/0470045345)
+
+
 ### Lesson 3: Least Squares and the Method of Maximum Likelihood
 ### Lesson 2: Practice Quiz
 ### Lesson 3 Supplementary Reading: Least Squares and the Method of Maximum Likelihood
@@ -268,3 +365,8 @@ To learn more about the squared error criterion and least squares, check out som
 [Least square for estimate theta - line 3321](https://github.com/afondiel/research-notes/blob/master/datascience-notes/courses/certificates/coursera/ibm/ds-ibm-notes.txt)
 
 # Appendices
+
+- [Gaussian filter](https://en.wikipedia.org/wiki/Gaussian_filter)
+- [Filtre de Kalman](https://fr.wikipedia.org/wiki/Filtre_de_Kalman)
+- [Finite Impulse Response (FIR)](https://en.wikipedia.org/wiki/Finite_impulse_response)
+- [Infinite Impulse Response (IIR)](https://en.wikipedia.org/wiki/Infinite_impulse_response)
