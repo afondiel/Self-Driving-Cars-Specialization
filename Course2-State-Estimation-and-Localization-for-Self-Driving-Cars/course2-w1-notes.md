@@ -22,7 +22,7 @@
 - Learn about sensors for state estimation & localization
 - `state estimation` is the process of determining the best value of some physical quantity from what are typically **noisy measurements**
 - measurements are noisy because sensors are not perfect (random results for the same input signal)
-- state estimation is fundamental to any device with sensor  
+- state estimation is fundamental to any device with `sensor`  
 - Localization is one the most important types of state estimation for self-driving cars
 - `Localization:` is the process of determining `where` the car is in world and `how` is moving
 
@@ -84,11 +84,11 @@
 ### Lesson 1 (Part 1): Squared Error Criterion and the Method of Least Squares
 
 - `Localization:` is the process of determining `where` the car is in world and `how` is moving
-- `state estimation` is the process of determining the best value of some physical quantity from what are typically **noisy measurements**
+- `state estimation` is the process of determining the best value of some physical quantity from set of measurements, what are typically **noisy measurements**
 
 - An accurate localization is a key component of any self-driving car sw stack and state estimation is the way of doing so.
 - Any real world measurements will be imprecise
-- State estimation is the idea of parameter estimation
+- State estimation is the idea of `parameter estimation`
   - `state:` physical quantity that changes overtime (ex: position and orientation)
   - `parameter:` is constant over time  (ex: electric resistor)
 
@@ -100,9 +100,17 @@
 ```
 The most probable value of the unknown quantities will be that in which the sum of squares of the differences btw the actually observed and the computed values multiplied by numbers that measure the degree of precision is minimum. 
 ```
-**Illustraction examples : Estimating Resistance**
+**Study system : Estimating Resistance value (ohms)**
+
+<img src="./resources/w1/l1-study-system.png" width="460" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Assumptions : 
+  - Our multimeter is particular poor
+  - The tester(person who does the measurement) is not particular careful
+  - Also, we use a $1k \Omega$ w/ +/-5% of tolerance variation
+
 - Measurement model : 
-  
+
 $$
 \displaystyle y_{i} = 
 x + \nu_{i}
@@ -110,21 +118,20 @@ $$
 
 - where :
   - $y$ : measurements  
-  - $i$ : the number of experiments/ independent measurements
+  - $i$ : the number of experiments / independent measurements
   - $x$ : actual resistance (constant)
   - $\nu$ : measurement noise 
   
 - Experimentation scenarion : 
   - after 4 measurements 
   - We define a scalar noise term that is independent of the noise terms
-  - Statistically, we say the noise is independent and indentically distributed (IID)
+  - Statistically, we say the noise is **independent and indentically distributed (IID)**
   - We define error btw each measurement and the actual value of the resistance $x$
 
 <img src="./resources/w1/resistor-estimation-copy.png" width="460" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- The value of $x$ still unknow, to find $x$ we square the errors to arrive at an equation that's a `function of the measurements`
+- The value of $x$ still unknown, to find $x$ we square the errors to arrive at an equation that's a `function of the measurements`
 - **The square error criterion/cost or loss function** : 
-
 
 $$
 \displaystyle \hat{x}_{LS} = 
@@ -152,7 +159,9 @@ where :
 - $e$ : is the error vector
 - $y$ : the measurements/function of observations
 - $H$ : the Jacobian matrix 
-  - $dim(H) = m*n$ , $m$ : numbers of measurements, $n$ : nb of unkown/parameters to be estimated
+  - $dim(H) = m*n$
+    - $m$ : numbers of measurements, 
+    - $n$ : nb of unkown/parameters to be estimated
 - $x$ : the resistance (a single scalar but can also be a vector) 
 
 We can now express our criterion as follows
@@ -453,21 +462,21 @@ where the constant $C$ refers to terms that are not function of $x$
 
 $$
 \displaystyle \hat{x}_{MLE}= 
-argmin\frac{1}{2\sigma}((y_{1} - x)^2 +...+ (y_{m} - x)^2) 
+argmin_{x}\frac{1}{2\sigma}((y_{1} - x)^2 +...+ (y_{m} - x)^2) 
 $$
 
 - Finally, if we assume each measurement has different variance, wa can derive : 
 
 $$
 \displaystyle \hat{x}_{MLE} = 
-argmin\frac{1}{2}(\frac{(y_{1} - x)^2}{\sigma_{1}^2} +...+ \frac{(y_{m} - x)^2}{\sigma_{m}^2})
+argmin_{x}\frac{1}{2}(\frac{(y_{1} - x)^2}{\sigma_{1}^2} +...+ \frac{(y_{m} - x)^2}{\sigma_{m}^2})
 $$
 
 
 $$
 \displaystyle \hat{x}_{MLE} =
 \hat{x}_{LS} = 
-argmin J_{LS}(x) = argmax J_{MLE}(x)
+argmin_{x} J_{LS}(x) = argmax J_{MLE}(x)
 $$
 
 - The maximum likelihood estimate given additive `Gaussian noise` is equivalent to the least square or the Weighted least squares solutions we derived ealier
