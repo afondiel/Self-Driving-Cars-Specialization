@@ -440,8 +440,7 @@ $$
 - Resulting in : 
 
 $$
-\displaystyle log (p(y | x)) = 
-- \frac{1}{2R}((y_{1} - x)^2 +...+ (y_{m} - x)^2) + C 
+\displaystyle log (p(y | x)) = - \frac{1}{2R}((y_{1} - x)^2 +...+ (y_{m} - x)^2) + C 
 $$
 
 where the constant $C$ refers to terms that are not function of $x$
