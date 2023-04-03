@@ -258,7 +258,7 @@ To learn more about the squared error criterion and least squares, check out som
 ## Recursive Squares 
 - A technique to compute least square on the "fly"
 
-### Lesson 2: Recursive Least Squares
+### Lesson 2: Recursive Least Squares (RLS)
 
 - Back to our resistance estimation problem(unkonwn but constant parameter from sets of measurement)
 - We assumed, we had all of the data at hand (available) or a `batch of measurements` and wanted to use those measurement to compute our estimated quantities of interest (more reasonable approach)
@@ -343,6 +343,10 @@ Why a Recursive Least squares Algorithm important?
 - It enables us to minimize computational effort in our estimation process which is always a good thing 
 - Recursive least squares forms the `update step` of the `linear Kalman filter`. We'll discuss this in more detail in the next module. 
 
+**Summary**
+- RLS produces a `running estimate` of parameters(s) for a stream of measurements (without having the entier batch of measurements at hand)
+- RLS is a linear recursive estimator that minimizes the (co)variance of the parameters at the current time
+
 ### Lesson 2 Practice Notebook: Recursive Least Squares
 ### Lesson 2 Supplementary Reading: Recursive Least Squares
 
@@ -354,8 +358,155 @@ To learn more about Recursive Least Squares, check out the resources below:
 
 
 ### Lesson 3: Least Squares and the Method of Maximum Likelihood
+
+**Revisiting the Least Squares Criterion**
+- Finds the best estimates of the unknown but constant parameters by determining the values that minimize the sum of the sqaures errors based on the measurements
+   
+- Recall the least squares criterion :   
+
+$$
+\displaystyle J_{LS} = 
+(y_{1} - x)^2 + (y_{2} - x)^2 +...+ (y_{m} - x)^2
+$$
+
+- We've said that optimal estimate, $\hat{x}$, is the one that minimizes this `loss` : 
+
+$$
+\displaystyle \hat{x}_{LS} = 
+argmin J_{LS}(x) = argmin(e_{1}^2 + e_{2}^2 + ... + e_{m}^2)
+$$
+
+- Why squared errors ?
+
+1. Squared errors allow us to solve for the optimal parameters with relatively straightforward algebra. If the measurement model is **linear**, minimizing the squared error criterion amounts to solving a linear system of equations. 
+2. It has to do with **probability** and a deep connection between `least squares` and `maximum likelihood estimators` under the assumption of Gaussian noise
+
+**The Method of Maximum Likelihood**
+- We can ask which $x$ makes our measurement most likely, Or, in other words, which $x$ maximizes the conditional probability of $y$ : 
+- assumption : we keep a single scalar parametes for explanation
+$$
+\displaystyle \hat{x} = 
+argmax p(y | x)
+$$
+
+- Which $x$ is the most likely given the measurement?
+
+<img src="./resources/w1/max-likelihood.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- $x_{a}$, because `The green` has the maximum probability density
+
+**Measurement Model**
+- Recall our simple measurement model : 
+
+$$
+\displaystyle y = 
+x + \nu
+$$
+
+- We can convert this into a conditiona probability on our measurement, by assuming some probability density for $\nu$, for ex, if 
+
+$$
+\nu \sim N(0, \sigma^2)
+$$ 
+
+- Then : 
+
+$$
+p(y|x) = N(x, \sigma^2)
+$$
+
+when the parameter $x$ becomes the minimum of the density ( $y = x$ ), the variance is simply our noise variance
+
+**Least Squares and Maximum Likelihood**
+
+<img src="./resources/w1/LS-ML.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The maximal likelihood estimate (MLE) is given by
+
+$$
+\displaystyle \hat{x}_{MLE} = 
+argmax p(y | x)
+$$
+
+- Instead of trying to optimize the likelihood directly, we can take its logarithm: 
+
+$$
+\displaystyle \hat{x}_{MLE} = 
+argmax (p(y | x)) = 
+argmax (log (p(y | x))) 
+$$
+
+- The logarithm is monotonically increasing
+- Resulting in : 
+
+$$
+\displaystyle log (p(y | x)) = 
+- \frac{1}{2R}((y_{1} - x)^2 +...+ (y_{m} - x)^2) + C 
+$$
+
+where the constant $C$ refers to terms that are not function of $x$
+
+- Last step : 
+
+<img src="./resources/w1/max-likelihood2.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- So : 
+
+$$
+\displaystyle \hat{x}_{MLE}= 
+argmin\frac{1}{2\sigma}((y_{1} - x)^2 +...+ (y_{m} - x)^2) 
+$$
+
+- Finally, if we assume each measurement has different variance, wa can derive : 
+
+$$
+\displaystyle \hat{x}_{MLE} = 
+argmin\frac{1}{2}(\frac{(y_{1} - x)^2}{\sigma_{1}^2} +...+ \frac{(y_{m} - x)^2}{\sigma_{m}^2})
+$$
+
+
+$$
+\displaystyle \hat{x}_{MLE} =
+\hat{x}_{LS} = 
+argmin J_{LS}(x) = argmax J_{MLE}(x)
+$$
+
+- The maximum likelihood estimate given additive `Gaussian noise` is equivalent to the least square or the Weighted least squares solutions we derived ealier
+
+
+**The Central Limit Theorem**
+
+- Why this is so important ? 
+  - The Self-driving car will have to deal w/ many different sources of errors, very difficult model
+
+```
+Centreal Limit Theorem: when independent random variables are added, their normalized sum tends towards a normal distribution 
+```
+- Why use the method of least squares ? 
+1. Centreal Limit Theorem: sum of different errors will tend be `Gaussian-ish`
+2. Least squares is equivalent to maximum likelihood under Gaussian noise 
+
+**Least Squares - Some Caveats**
+
+<img src="./resources/w1/gaussian.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- `Poor` measurements(e.g. outliers) have a significant effect on the method of LS.
+- It's important to check that the measurements roughly follow a ;`Gaussian distribution` 
+
+<img src="./resources/w1/normal-dist.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
 ### Lesson 2: Practice Quiz
 ### Lesson 3 Supplementary Reading: Least Squares and the Method of Maximum Likelihood
+
+To learn more about Least Squares and Maximum Likelihood, check out the resources below:
+
+- Explore this [interactive explanation](http://mfviz.com/central-limit/) of the Central Limit Theorem by Michael Freeman. 
+
+- Read more about maximum likelihood on the [STAT 414/415](https://newonlinecourses.science.psu.edu/stat414/node/191/) website from Penn State - not available
+
+- [The Epic Story of Maximum Likelihood - Stephen M. Stigler - 2008](https://arxiv.org/pdf/0804.2996.pdf) 
+
 ### Module 1: Graded Quiz
 
 
