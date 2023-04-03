@@ -119,11 +119,11 @@ $$
 - where :
   - $y$ : measurements  
   - $i$ : the number of experiments / independent measurements
-  - $x$ : actual resistance (constant)
+  - $x$ : actual resistance (constant value) or **parameter estimation**
   - $\nu$ : measurement noise 
   
 - Experimentation scenarion : 
-  - after 4 measurements 
+  - After 4 measurements 
   - We define a scalar noise term that is independent of the noise terms
   - Statistically, we say the noise is **independent and indentically distributed (IID)**
   - We define error btw each measurement and the actual value of the resistance $x$
@@ -190,7 +190,7 @@ $$
 
 ### Lesson 1 (Part 2): Squared Error Criterion and the Method of Least Squares
 
-**Method of Weighted Least Squares (WSL)**
+**Method of Weighted Least Squares (WLS)**
 
 - One of the reason we may want to trust certain measurements more than others is that they may come from a better sensor
 - Ex: In the resistance estimation we could use a much better and expensive multi-meter in order to get a better measurement accurancy
@@ -269,6 +269,8 @@ To learn more about the squared error criterion and least squares, check out som
 
 ### Lesson 2: Recursive Least Squares (RLS)
 
+**Batch Least Squares**
+
 - Back to our resistance estimation problem(unkonwn but constant parameter from sets of measurement)
 - We assumed, we had all of the data at hand (available) or a `batch of measurements` and wanted to use those measurement to compute our estimated quantities of interest (more reasonable approach)
 
@@ -288,12 +290,12 @@ $$
 
 - Ideally, we would like to use as many measurements as possible to get an accurate estimate of the resistance 
 - The computational resources required to solve our normal equation will increase with the size of the measurement vector when using the **least squares method**
-- alternatevely, we can use the **recursive method **one that keep a running estimate of the optimal parameter for all the measurements that we collected up to the previous time step and update that estimate given the measurement at the current time step
+- alternatevely, we can use the **recursive method** one that keep a running estimate of the optimal parameter for all the measurements that we collected up to the previous time step and update that estimate given the measurement at the current time step
 
 **Linear Recursive Estimator**
 
 - We can use a linear recursive estimator
-- Suppose we have an optimal estimate, $\hat{X}_{k-1}$, of our unkown parameters at time $k - 1$
+- Suppose we have an optimal estimate, $\hat{x}_{k-1}$, of our unkown parameters at time $k - 1$
 - Then we obtain a new measurement at time $k: y_{k} = H_{k}x + v_{k}$ model with additive Gaussian noise
 
 <img src="./resources/w1/linear-recursive-estimator.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -301,20 +303,20 @@ $$
 - We can use a linear recursive update: 
 
 $$
-\displaystyle \hat{X}_{k} =
-\hat{X}_{k-1} + K_{k}(y_{k} - H_{k}\hat{X}_{k-1}) 
+\displaystyle \hat{x}_{k} =
+\hat{x}_{k-1} + K_{k}(y_{k} - H_{k}\hat{x}_{k-1}) 
 $$
 
-- where, $k$ is the estimator `gain` matrix
+- where, $K$ is the estimator `gain matrix`
 - the term in the () is called the `innovation`: it quantifies how well our current measurement matches our previous best estimate
 - We update our new state as a linear combination of the previous best guess and the current measurement residual(or error), weighted by a gain matrix $K_{k}$
 - If $(y_{k} - H_{k}\hat{X}_{k-1}) == 0$ the old estimate does not change at all.
 
 **Recursive Leat Squares Criterion**
 
-- But what is the gain $K_{k}$ ?
-- We can compute it by minimizing a similar leadt squares criterion, but this time we'll usee a `probabilistic formulation`
-- We wish to minimize the **expexted value of the sum of squared errors** of our current estimate at time step $k$
+- But what is the gain matrix $K_{k}$ ?
+- We can compute it by minimizing a similar least squares criterion, but this time we'll use a `probabilistic formulation`
+- We wish to minimize the **expected value of the sum of squared errors** of our current estimate at time step $k$
 
 $$
 \displaystyle J_{RLS} = 
@@ -336,21 +338,24 @@ $$
 
 <img src="./resources/w1/estimator-covariance.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
--  first eq: recursive definition for the state covariance matrix $P_{k}$ by using matrix calculs and taking derivatives
--  second eq: This criterion is minimized based on value of $K_{k}$
--  third eq: the larger our gain matrix k,  the smaller the estimator covariance will be.  
+-  `first eq`: recursive definition for the state covariance matrix $P_{k}$ by using matrix calculs and taking derivatives
+-  `second eq`: This criterion is minimized based on value of $K_{k}$
+-  `third eq`: the larger our gain matrix k,  the smaller the estimator covariance will be.  
 
-> The gain matrix can be seen as balancing the information we get from our `prior estimate` the information received from our `new measurement`
+> The gain matrix can be seen as balancing the information we get from our `prior estimate` and the information received from our `new measurement`
 
 
 **Recursive Least squares Algorithm**
 
 <img src="./resources/w1/recursive-least-sq-algo.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- We initialises the algorithm w/ Estimate of the unknown parameters and its covariance matrix 
+  - initial guess can come from the first measurement
+  - the covariance could come from technical specification
 
 Why a Recursive Least squares Algorithm important?
 - It enables us to minimize computational effort in our estimation process which is always a good thing 
-- Recursive least squares forms the `update step` of the `linear Kalman filter`. We'll discuss this in more detail in the next module. 
+- Recursive least squares forms the `update step` of the `linear Kalman filter`.  
 
 **Summary**
 - RLS produces a `running estimate` of parameters(s) for a stream of measurements (without having the entier batch of measurements at hand)
