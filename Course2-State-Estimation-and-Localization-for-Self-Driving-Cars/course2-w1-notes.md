@@ -520,3 +520,4 @@ To learn more about Least Squares and Maximum Likelihood, check out the resource
 - [Filtre de Kalman](https://fr.wikipedia.org/wiki/Filtre_de_Kalman)
 - [Finite Impulse Response (FIR)](https://en.wikipedia.org/wiki/Finite_impulse_response)
 - [Infinite Impulse Response (IIR)](https://en.wikipedia.org/wiki/Infinite_impulse_response)
+- [Convolution](https://en.wikipedia.org/wiki/Convolution)
