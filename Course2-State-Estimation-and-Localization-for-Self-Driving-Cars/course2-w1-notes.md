@@ -204,7 +204,7 @@ $$
 
 - where : 
   - $\sigma$ is the standard deviation (écart-type)
-  - $R$ is the weight matrix
+  - $R$ is the measurement **variance matrix**
 
 If we instead assume that each noise term has a different variance : 
 
@@ -281,6 +281,8 @@ $$
 (H^TR^-1H)^-1*H^TR^-1y
 $$
 
+- where : $R$ is the measurement **variance matrix**
+
 **Recursive Estimation**
 
 - What happens if we have a *stream* of data? Do we need to re-solve for our solution every time? Can we do something smarter?
@@ -340,7 +342,7 @@ $$
 
 -  `first eq`: recursive definition for the state covariance matrix $P_{k}$ by using matrix calculs and taking derivatives
 -  `second eq`: This criterion is minimized based on value of $K_{k}$
--  `third eq`: the larger our gain matrix k,  the smaller the estimator covariance will be.  
+-  `third eq`: the larger our gain matrix $K$,  the smaller the estimator covariance will be.  
 
 > The gain matrix can be seen as balancing the information we get from our `prior estimate` and the information received from our `new measurement`
 
