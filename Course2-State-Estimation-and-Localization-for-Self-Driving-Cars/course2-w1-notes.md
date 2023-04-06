@@ -531,10 +531,15 @@ To learn more about Least Squares and Maximum Likelihood, check out the resource
 [Least square for estimate theta - line 3321](https://github.com/afondiel/research-notes/blob/master/datascience-notes/courses/certificates/coursera/ibm/ds-ibm-notes.txt)
 
 # Appendices
+
+**Wikipedia resources :**
+
 - [Statistics](https://en.wikipedia.org/wiki/Statistics)
   - [Descriptive statistics](https://en.wikipedia.org/wiki/Descriptive_statistics)
   - [Statistical inference](https://en.wikipedia.org/wiki/Statistical_inference)
-- [Probability theory](https://en.wikipedia.org/wiki/Probability_theory) 
+- [Probability theory](https://en.wikipedia.org/wiki/Probability_theory)
+- [Linear Regression](https://en.wikipedia.org/wiki/Linear_regression)
+- [Estimator](https://en.wikipedia.org/wiki/Estimator)
 - [Least_squares](https://en.wikipedia.org/wiki/Least_squares)
 - [Gradient descent](https://en.wikipedia.org/wiki/Gradient_descent)
 - [Gaussian filter](https://en.wikipedia.org/wiki/Gaussian_filter)
