@@ -536,15 +536,18 @@ To learn more about Least Squares and Maximum Likelihood, check out the resource
 
 - [Statistics](https://en.wikipedia.org/wiki/Statistics)
   - [Descriptive statistics](https://en.wikipedia.org/wiki/Descriptive_statistics)
-  - [Statistical inference](https://en.wikipedia.org/wiki/Statistical_inference)
+  - [Inferential statistics](https://en.wikipedia.org/wiki/Statistical_inference)
 - [Probability theory](https://en.wikipedia.org/wiki/Probability_theory)
-- [Linear Regression](https://en.wikipedia.org/wiki/Linear_regression)
-- [Estimator](https://en.wikipedia.org/wiki/Estimator)
-- [Least_squares](https://en.wikipedia.org/wiki/Least_squares)
+- [Estimation Theory](https://en.wikipedia.org/wiki/Estimation_theory)
+  - [Estimator](https://en.wikipedia.org/wiki/Estimator)
+    - [Least_squares](https://en.wikipedia.org/wiki/Least_squares)
+    - [Maximum likelihood estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)
 - [Gradient descent](https://en.wikipedia.org/wiki/Gradient_descent)
 - [Gaussian filter](https://en.wikipedia.org/wiki/Gaussian_filter)
 - [Filtre de Kalman](https://fr.wikipedia.org/wiki/Filtre_de_Kalman)
 - [Finite Impulse Response (FIR)](https://en.wikipedia.org/wiki/Finite_impulse_response)
 - [Infinite Impulse Response (IIR)](https://en.wikipedia.org/wiki/Infinite_impulse_response)
 - [Convolution](https://en.wikipedia.org/wiki/Convolution)
+- [Linear Regression](https://en.wikipedia.org/wiki/Linear_regression)
+
   
