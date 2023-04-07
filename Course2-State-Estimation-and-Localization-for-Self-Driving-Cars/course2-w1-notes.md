@@ -400,6 +400,7 @@ $$
 **The Method of Maximum Likelihood**
 - We can ask which $x$ makes our measurement most likely, Or, in other words, which $x$ maximizes the conditional probability of $y$ : 
 - assumption : we keep a single scalar parametes for explanation
+
 $$
 \displaystyle \hat{x} = 
 argmax p(y | x)
