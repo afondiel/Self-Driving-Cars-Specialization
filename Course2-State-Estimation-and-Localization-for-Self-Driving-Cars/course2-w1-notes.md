@@ -333,9 +333,9 @@ E[(x_{1k} - \hat{x}_{1k})^2 + ... + (x_{nk} - \hat{x}_{nk})^2] = Trace(P_{k})
 $$
 
 - where : $P_{k}$ is the estimator covariance
-- Same as least squares, but now introduce the `expectation`
+- Same as least squares, but now introduce the `expectation (E)`
 - Instead of minimizing the error directly, we minimized its `expected value` == estimator variance
-- The lower the variance, the more the estimate is accurate
+- `The lower the variance, the more the estimate is accurate`
 
 
 <img src="./resources/w1/estimator-covariance.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
