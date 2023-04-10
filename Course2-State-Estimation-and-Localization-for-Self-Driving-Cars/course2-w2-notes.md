@@ -112,6 +112,7 @@ $$
 \displaystyle \check{x}_{k} = 
 F_{k−1}x_{k−1} + G_{k−1}u_{k−1}
 $$
+
 ,
 
 $$
@@ -120,6 +121,8 @@ F_{k−1} \check{P}_{k−1}F_{k−1}^T + Q_{k−1}
 $$
 
 - `2a.` Optimal Gain
+
+
 $$
 \displaystyle K_{k} = 
 \check{P}_{k}H_{k}^T(H_{k} \check{P}_{k}H_{k}^T + R_{k})^−1
@@ -131,6 +134,7 @@ $$
 \displaystyle \hat{x}_{k} = 
 \check{x}_{k} + K_{k}(y_{k} − H_{k}\check{x}_{k})
 $$
+
 ,
 
 $$
