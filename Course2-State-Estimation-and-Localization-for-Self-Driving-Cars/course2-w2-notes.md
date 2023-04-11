@@ -155,9 +155,14 @@ where :
 
 <img src="./resources/w2/ex.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+Where : 
+- $a$ : is a constant acceleration from dynamic controller
+- we assume, the vehicle position is measured by a GPS 
 
 
 <img src="./resources/w2/ex2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+What's our corrected position estimate after we perform one prediction step and one correction step using KF? 
 
 **Solution:**
 
@@ -169,13 +174,19 @@ where :
 
 <img src="./resources/w2/ex4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+Result analysis : 
+- The final corrected state **covariance is smaller**
+- More certain about the car's position after we incorporate the position measurement
+- Measurement noise variance is quite small
+
+
 **Summary | The Kalman Filter**
 
 - The Kalman Filter is very similar to RLS but includes a motion model that tells
 us how the state evolves over time
 - The Kalman Filter updates a state estimate through two stages:
-  1. prediction using the motion model
-  2. correction using the measurement model
+  1. prediction using the **motion model**
+  2. correction using the **measurement model**
 ### Lesson 1 Supplementary Reading: The Linear Kalman Filter
 
 To learn more about the Linear Kalman Filter, check out the resources below: 
