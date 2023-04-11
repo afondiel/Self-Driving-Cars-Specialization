@@ -156,6 +156,7 @@ where :
 <img src="./resources/w2/ex.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 Where : 
+- PDF : Probability Density Function 
 - $a$ : is a constant acceleration from dynamic controller
 - we assume, the vehicle position is measured by a GPS 
 
@@ -203,9 +204,89 @@ To learn more about the Linear Kalman Filter, check out the resources below:
 
 ### Lesson 2: Kalman Filter and The Bias BLUEs
 
+**Bias in State Estimation**
 
+<img src="./resources/w2/l2-bias.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We say an estimator or filter is unbiased if it produces an `average` error of zero at a particular time step $k$, over many trials.
+- Graphically : 
+
+<img src="./resources/w2/l2-bias2.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+ 
+- We build a histogram of the positions that our filter reports over multiple trials
+- We compute the difference btw the avg of these estimates and the true position.
+- If the difference doesnot approach zero, the estimate is `biased`
+- Otherwise, the filter is `unbiased`
+
+$$
+\displaystyle E[\hat{e}_{k}] = 
+E[\hat{p}_{k} - p_{k}] = E[\hat{p}_{k}] - p_{k} = 0
+$$
+
+How can we compute this analytically for the Kalman filter?
+- consider the error dynamics : 
+  - Predicted state error : $\displaystyle \check{e}_{k} = \check{x}_{k} + x_{k}$
+  - Corrected estimate error : $\displaystyle \hat{e}_{k} = \hat{x}_{k} + x_{k}$   
+- Using the KF equations, we can derive : 
+
+- PE : 
+
+$$\displaystyle \check{e}_{k} = 
+F_{k-1}\check{x}_{k-1} + w_{k}
+$$
+
+- CE :
+
+$$\displaystyle \hat{e}_{k} = 
+(1-K_{k}H_{k})\check{x}_{k} + K_{k}v_{k}
+$$   
+
+For the KF, for all $k$,
+
+<img src="./resources/w2/l2-bias3.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Note** : this does not mean that the error on a given trial will be zero, but that, with enough trials, our expected error is zero!
+
+**Consistency in State Estimation**
+
+- By concistency we mean that for all time steps $k$, the filter covariance $\hat{p}_{k}$ matches the espected value of the square of our error.
+- for scalar parameters, this means that the empirical variance of the estimate should match the variance reported by the filter
+  - The filter is consistent if for all $k$,
+  
+$$
+\displaystyle E[\hat{e}_{k}^2] = 
+E[(\hat{p}_{k} - p_{k})^2] = \hat{P}_{k}
+$$
+
+- In practice, this means that our filter is neither *overconfident*, nor *underconfident* in the estimate it has producted
+- A *overconfident* filter and inconcistent will report a covariance that is optimistic
+- The filter will place too much emphasis on its own estimate and will be less sensitive to future measurement updates which may be `critical`
+- This may cause negative or dangerous effect on the performance self-driving cars 
+
+<img src="./resources/w2/l2-bias4.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**The Kalman Filter is the BLUE (Best Linear Unbiased Estimator)**
+
+- We're shown that given our linear formulation, and zero-mean, white noise the KF is **unbiased**
+- We can also say that the filter is **consistent**
+  - $E[\hat{e}_{k}] = 0$
+  - $E[\hat{e}_{k}\hat{e}_{k}^T] = \hat{P}_{k}$
+- In general, if we have white, uncorrelated zero-mean noise, the Kalman filter is the best (i.e.., lowest variance) unbiased estimator that uses only a linear combination of measurements
+- For this reason, we call it the `BLUE`
+
+**Summary**
+
+The KF is : 
+- unbiased
+- consistent
+- the lowest variance estimator that uses a linear combination of measurements: Best Linear Unbiased Estimator (**BLUE**)
 
 ### Lesson 2 Supplementary Reading: The Kalman Filter - The Bias BLUEs
+To learn more about the Kalman filter, check out the resources below:
+
+- Read an overview of the properties of the Kalman filter in Chapter 5, Section 2 of [Dan Simon, Optimal State Estimation (2006)](https://onlinelibrary.wiley.com/doi/book/10.1002/0470045345).
+
+- Read more about estimator bias on [Wikipedia](https://en.wikipedia.org/wiki/Bias_of_an_estimator).
 
 ### The Nonlinear Kalman Filter
 ### Lesson 3: Going Nonlinear - The Extended Kalman Filter
