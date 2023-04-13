@@ -147,7 +147,7 @@ where :
 - $\check{x}_{k}$, Prediction (given motion model) at time $k$
 - $\hat{x}_{k}$, Corrected prediction (given measurement) at time $k$
 
-**Process Recap : Prediction & Correction**
+**Recap : Prediction & Correction**
 
 <img src="./resources/w2/pred-correc.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -280,6 +280,8 @@ The KF is :
 - unbiased
 - consistent
 - the lowest variance estimator that uses a linear combination of measurements: Best Linear Unbiased Estimator (**BLUE**)
+- Limitations : 
+  - self-driving generally uses nonlinear quantities : vehicle poses, position and orientation in 2D and 3D
 
 ### Lesson 2 Supplementary Reading: The Kalman Filter - The Bias BLUEs
 To learn more about the Kalman filter, check out the resources below:
@@ -288,9 +290,89 @@ To learn more about the Kalman filter, check out the resources below:
 
 - Read more about estimator bias on [Wikipedia](https://en.wikipedia.org/wiki/Bias_of_an_estimator).
 
-### The Nonlinear Kalman Filter
-### Lesson 3: Going Nonlinear - The Extended Kalman Filter
+## The Nonlinear Kalman Filter
+<img src="./resources/w2/l3-EKF.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Design to work w/ non linear systems, also considered as workhorses of state estimation because of its multiple applicatioins
+  
+### Lesson 3: Going Nonlinear - The Extended Kalman Filter (EKF)
+
+- Choose an operation point $a$ and approximate the nonlinear function by a tangent line at point
+
+<img src="./resources/w2/l3-EKF2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Mathematically, we compute this linear approximation using a first-order Taylor expansion:
+
+<img src="./resources/w2/l3-EKF3.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For the EKF, we choose the **operating point** to be our most recent state estimate, our known input and zero noise: 
+
+- Linearized motion model : 
+
+<img src="./resources/w2/l3-EKF31.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+-  Linearized measurement model : 
+
+<img src="./resources/w2/l3-EKF32.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We now have a linear system in state-space! The matrices $F_{k-1}$ , $L_{k-1}$ , $H_{k}$ , and $M_{k}$ , are called the `Jacobian` matrices of the system.
+
+**Computing Jacobian Matrices**
+
+In vector calculus, a Jacobian matrix is the matrix of the all first-order partial derivatives of a vector-values function 
+
+<img src="./resources/w2/l3-EKF5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Intuitively, the Jacobian matric tells you how fast each output of the function is changing along each input dimension
+
+- For example : 
+
+<img src="./resources/w2/l3-EKF6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Putting it all together**
+
+With our **linearized models** and **Jacobians**, we can now use KF equations : 
+
+<img src="./resources/w2/l3-EKF7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We still using the nonlinear models to propagate the mean of the estimate and to compute the residual & innovation
+  - after linearization of our previous state estimate of the motion  models, and measurement model about the predicted estate
+- The nonlinear model always concises with linear model at the operating point
+- The second difference is the matrice $L$ & $M$ => process and measurement noise
+- $L$ & $M$ are in general **identity matrix** since noise is assumed to be additive (offset), but it's not always the case
+
+**Short Example**
+```
+Tracking the position and velocity of the car moving along the rail, instead of receiving periodic GPS measuremens that tells us our position, we use on-board sensor like *camera* to measure the altitude distant landmarks relative to the horizon
+```
+- Assumptions :
+  -  we know, both the **height** of landmarks (Repères) and its **position** in a global reference frame
+
+
+<img src="./resources/w2/l3-EKF8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Because our sensor is measured angle ( $\phi$ ), the measurement model has a nonlinear dependence on the position of the car (motion model)
+  - S/(D - pk) : Non-linearity expression!!!
+  - (D - pk) shall be different to `zero`
+- measurement model needs to be linearized
+- Motion model Jacobian is always linear in state
+
+<img src="./resources/w2/l3-EKF9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Solution**
+
+
+**Summary**
+
+
 ### Lesson 3 Supplementary Reading: Going Nonlinear - The Extended Kalman Filter
+
+To learn more about the nonlinear Kalman filtering and the extended Kalman filter, check out the resources below:
+
+- To learn more about nonlinear Kalman filtering, check out [this article](https://www.embedded.com/design/connectivity/4025693/Using-nonlinear-Kalman-filtering-to-estimate-signals) by Dan Simon (available for free).
+
+- A detailed explanation of linearization and how it relates to the EKF can be found in Chapter 13,  Sections 1 and 2 of [Dan Simon, Optimal State Estimation (2006)](https://onlinelibrary.wiley.com/doi/book/10.1002/0470045345).
+
 
 ### Lesson 4: An Improved EKF - The Error State Extended Kalman Filter
 ### Lesson 4 Supplementary Reading: An Improved EKF - The Error State Kalman FIlter
