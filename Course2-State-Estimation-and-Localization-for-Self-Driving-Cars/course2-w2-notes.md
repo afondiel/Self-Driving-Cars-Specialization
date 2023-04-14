@@ -460,7 +460,51 @@ To learn more about the Error State Kalman Filter, check out the resources below
 
 ### Lesson 5: Limitations of the EKF 
 
+**Linearization error**
+
+<img src="./resources/w2/l5-EKF-lim0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Example**
+
+Let's look at an ex. of how linearization affects the mean and convariance of two random variables transformed by a non-linear function:
+- Non-linear transformation from Polar coordinates ( $r, \theta$ ) to cartesian coordinates ( $x, y$ )
+- Commonly used to work w/ `LiDARs` (laser scanners) to report range and bearing measurements, just as scanners on many self-driving cars do
+
+<img src="./resources/w2/l5-EKF-lim1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+After transformation : 
+
+<img src="./resources/w2/l5-EKF-lim2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+The EKF is prone to linearization error when : 
+1. The system dynamics are highly nonlinear
+2. The sensor sampling time is slow relative how fast the system is evolving
+
+This has two important consequences:
+1. The estimated `mean` state can become very different from the true uncertainty in the state
+2. The estimated state `covariance` can fail to capture the true uncertainty in the state
+
+<h3 style="text-align: center;"><i>Linearization error can cause the estimator to be overconfident in a wrong answer</i></h3>
+
+**Computing Jacobians**
+
+Computing Jacobian matrices for complicated nonlinear functions is also a common source of error in EKF implementations!
+- Analytical differentiation is prone to human error
+- Numericanl differentiation can be slow and stable
+- Automatic differentiation (e.g., at compile time) can also behavior unpreditably
+
+> **What if one or more of our models is non-differentiable ?** 
+
+> **Do we really need linearization for nonlinear Kalman Filtering ?**
+
+**Summary**
+- The EKF uses analytical local linearization and, as a result, is sensitive to linearization erros
+- For highly nonlinear systems, the EKF estimate can diverge and become unreliable
+- Computing complex Jacobian matrices is an error-prone process and must be done w/ substantial care
+
+
 ### Lesson 6: An Alternative to the EKF - The Unscented Kalman Filter
+
 ### Lesson 6 Supplementary Reading: An Alternative to the EKF - The Unscented Kalman Filter
 
 ### Weekly assigment
