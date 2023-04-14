@@ -19,7 +19,7 @@
 - Assess the performance of the extended Kalman filter and its variants
 
 
-## The Linear Kalman Filter
+## The Linear Kalman Filter (LKF)
 
 - The Kalman filter remains an important tool to fuse measurements from **several sensors** to **estimate in real-time the state** of a robotic system such as a self-driving car
 
@@ -109,19 +109,16 @@ $$
 - `1.` Prediction
 
 $$
+\begin{cases}
 \displaystyle \check{x}_{k} = 
-F_{k−1}x_{k−1} + G_{k−1}u_{k−1}
-$$
-
-,
-
-$$
+F_{k−1}x_{k−1} + G_{k−1}u_{k−1} \\
 \displaystyle \check{P}_{k} = 
 F_{k−1} \check{P}_{k−1}F_{k−1}^T + Q_{k−1}
+\end{cases}
 $$
 
-- `2a.` Optimal Gain
 
+- `2a.` Optimal Gain
 
 $$
 \displaystyle K_{k} = 
@@ -131,15 +128,13 @@ $$
 - `2b.` Correction
 
 $$
+\begin{cases}
+
 \displaystyle \hat{x}_{k} = 
-\check{x}_{k} + K_{k}(y_{k} − H_{k}\check{x}_{k})
-$$
-
-,
-
-$$
+\check{x}_{k} + K_{k}(y_{k} − H_{k}\check{x}_{k}) \\
 \displaystyle \hat{P}_{k} = 
 (1 − K_{k}H_{k})\check{P}_{k}
+\end{cases}
 $$
 
 where : 
@@ -370,16 +365,36 @@ Tracking the position and velocity of the car moving along the rail, instead of 
 - Because our sensor is measured angle ( $\phi$ ), the measurement model has a nonlinear dependence on the position of the car (motion model)
   - S/(D - pk) : Non-linearity expression!!!
   - (D - pk) shall be different to `zero`
-- measurement model needs to be linearized
+- Measurement model needs to be linearized
 - Motion model Jacobian is always linear in state
 
 <img src="./resources/w2/l3-EKF9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- Data : 
+
+<img src="./resources/w2/l3-EKF10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
 **Solution**
+
+- Prediction
+  
+<img src="./resources/w2/l3-EKF11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+- Correction
+
+<img src="./resources/w2/l3-EKF12.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Results analysis**
+- The prediction result is the same as the LKF example (lesson1)
+- The correction result, the corrected covariance doesnot change much compared to LKF because of angle change slowly with the distance doesnot provide too much info about the vehicle state compared to GPS measurement
+- [Implementation code here](./resources/w2/lab/Extend_Kalman_filter_EKF.ipynb)
 
 
 **Summary**
-
+- The EKF uses *linearization* to adapt the KF to nonlinear systems
+- Linearization works by computing a local linear approximation to a nonlinear function about a chosen operating point
+- Linearization relies on computing *Jacobian matrices*, which contain all the **first-order** partial deritatives of a function
 
 ### Lesson 3 Supplementary Reading: Going Nonlinear - The Extended Kalman Filter
 
