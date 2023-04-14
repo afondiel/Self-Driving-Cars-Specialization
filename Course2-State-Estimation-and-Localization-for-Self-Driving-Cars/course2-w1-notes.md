@@ -470,14 +470,14 @@ where the constant $C$ refers to terms that are not function of $x$
 
 $$
 \displaystyle \hat{x}_{MLE}= 
-argmin_{x}\frac{1}{2\sigma}((y_{1} - x)^2 +...+ (y_{m} - x)^2) 
+argmin_{x}\frac{1}{2\sigma}\left((y_{1} - x)^2 +...+ (y_{m} - x)^2\right) 
 $$
 
 - Finally, if we assume each measurement has different variance, wa can derive : 
 
 $$
 \displaystyle \hat{x}_{MLE} = 
-argmin_{x}\frac{1}{2}(\frac{(y_{1} - x)^2}{\sigma_{1}^2} +...+ \frac{(y_{m} - x)^2}{\sigma_{m}^2})
+argmin_{x}\frac{1}{2}\left(\frac{(y_{1} - x)^2}{\sigma_{1}^2} +...+ \frac{(y_{m} - x)^2}{\sigma_{m}^2}\right)
 $$
 
 
