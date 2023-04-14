@@ -129,7 +129,6 @@ $$
 
 $$
 \begin{cases}
-
 \displaystyle \hat{x}_{k} = 
 \check{x}_{k} + K_{k}(y_{k} − H_{k}\check{x}_{k}) \\
 \displaystyle \hat{P}_{k} = 
