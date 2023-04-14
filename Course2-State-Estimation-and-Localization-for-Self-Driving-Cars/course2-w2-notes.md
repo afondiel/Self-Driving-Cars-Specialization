@@ -404,8 +404,59 @@ To learn more about the nonlinear Kalman filtering and the extended Kalman filte
 - A detailed explanation of linearization and how it relates to the EKF can be found in Chapter 13,  Sections 1 and 2 of [Dan Simon, Optimal State Estimation (2006)](https://onlinelibrary.wiley.com/doi/book/10.1002/0470045345).
 
 
-### Lesson 4: An Improved EKF - The Error State Extended Kalman Filter
+### Lesson 4: An Improved EKF - The Error State Extended Kalman Filter (ES-EKF)
+
+**What's in a state?**
+
+We can think of the vehicle state as composed of two parts : $\displaystyle x = \hat{x} + \delta x$
+- where : 
+  - $x$ : true state 
+  - $\hat{x}$ : nominal state ("large")
+  - $\delta x$ : error state ("small")
+
+<img src="./resources/w2/l4-ES-EKF0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can continuously update the nominal state by integrating the motion model
+- Modeling errors and process noise accumulate into the error state
+- `Goal` : use the error state as correction to bring the nominal state closer to the true state
+- Instead of doing Kalman filtering on the full state which might have lots of complicated non-linear behaviors, we use the EKF to estimate the Error-State instead.Then use the estimate of the error state as a correction to the nominal state
+
+- `The ES-EKF estimates the error state directly and uses it as a correction to the nominal state`:
+
+Mathematically: 
+
+<img src="./resources/w2/l4-ES-EKF1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- where the new equation in f( $\delta xk$ ... ) is called  **the error state kinematics**
+
+**Algorithm Loop**
+1. Update nominal state w/ motion model ( $\check{x}_{k} =f_{k-1}(x_{k-1}, u_{k-1}, 0)$ )
+2. Propagate uncertainly ( $\check{P}_{k}$ )
+3. If a measurement is available : 
+   1. Compute the Kalman Gain ( $K_{k}$ )
+   2. Compute the error state ( $\delta \hat{x}_{k} = K_{k}(y_{k} - h_{k}(\check{x}_{k}, 0))$ )
+   3. Correct the nominal state ( $\hat{x}_{x} = \check{x}_{k}  + \delta \hat{x}_{k}$ )
+   4. Correct the state covariance (update $\hat{P}_{k}$ )
+
+
+**Why Use the ES-EKF?**
+
+1. Better performance compared to the vanilla EKF
+   - The "small" error state is more amenable to linear filtering than the "large" nomminal state, which can be integrated nonlinearly
+
+2. Easy to work with constrained quantities (e.g., rotations in 3D)
+   - We can also break down the state using a generalized composition operator
+
+<img src="./resources/w2/l4-ES-EKF2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
 ### Lesson 4 Supplementary Reading: An Improved EKF - The Error State Kalman FIlter
+
+To learn more about the Error State Kalman Filter, check out the resources below:
+
+- Review an important paper by Stergios Roumeliotis et al. on the use of the [error-state Kalman filter for mobile robot localization](https://ieeexplore.ieee.org/document/772597). This paper deals with the important case of aided localization, which in the topic of Module 5.
+
+- Read Section 5 of a technical report by [Joan Solà, Quaternion kinematics for the error-state Kalman filter, 2017 (available for free)](https://arxiv.org/pdf/1711.02508.pdf). Note that this is an advanced reading.
 
 ### Lesson 5: Limitations of the EKF 
 
