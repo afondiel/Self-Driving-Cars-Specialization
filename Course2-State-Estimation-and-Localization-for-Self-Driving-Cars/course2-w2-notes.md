@@ -179,6 +179,7 @@ Result analysis :
 - The final corrected state **covariance is smaller**
 - More certain about the car's position after we incorporate the position measurement
 - Measurement noise variance is quite small
+- [Implementation notebook](https://github.com/afondiel/Self-Driving-Cars-Specialization-Coursera/blob/main/Course2-State-Estimation-and-Localization-for-Self-Driving-Cars/resources/w1/lab/linear_kalman_filter.ipynb)
 
 
 **Summary | The Kalman Filter**
@@ -225,8 +226,17 @@ $$
 
 How can we compute this analytically for the Kalman filter?
 - consider the error dynamics : 
-  - Predicted state error : $\displaystyle \check{e}_{k} = \check{x}_{k} + x_{k}$
-  - Corrected estimate error : $\displaystyle \hat{e}_{k} = \hat{x}_{k} + x_{k}$   
+  - Predicted state error : 
+
+$$\displaystyle \check{e}_{k} = 
+\check{x}_{k} + x_{k}
+$$
+  - Corrected estimate error : 
+  
+$$\displaystyle \hat{e}_{k} = 
+\hat{x}_{k} + x_{k}
+$$   
+
 - Using the KF equations, we can derive : 
 
 - PE : 
@@ -269,8 +279,14 @@ $$
 
 - We're shown that given our linear formulation, and zero-mean, white noise the KF is **unbiased**
 - We can also say that the filter is **consistent**
+
+
   - $E[\hat{e}_{k}] = 0$
-  - $E[\hat{e}_{k}\hat{e}_{k}^T] = \hat{P}_{k}$
+
+
+  - $E[\hat{e}_{k} \hat{e}_{k}^T] = \hat{P}_{k}$
+
+
 - In general, if we have white, uncorrelated zero-mean noise, the Kalman filter is the best (i.e.., lowest variance) unbiased estimator that uses only a linear combination of measurements
 - For this reason, we call it the `BLUE`
 
