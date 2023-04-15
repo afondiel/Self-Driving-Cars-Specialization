@@ -502,18 +502,72 @@ Computing Jacobian matrices for complicated nonlinear functions is also a common
 - For highly nonlinear systems, the EKF estimate can diverge and become unreliable
 - Computing complex Jacobian matrices is an error-prone process and must be done w/ substantial care
 
+### Lesson 6: An Alternative to the EKF - The Unscented Kalman Filter (UKF)
 
-### Lesson 6: An Alternative to the EKF - The Unscented Kalman Filter
+**The Unscented Transform**
+
+<img src="./resources/w2/l6-UKF0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF12.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w2/l6-UKF13.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+**Summary 1**
+- The UKF uses the unscented transform to adapt the KF to nonlinear systems
+- The unscented transform works by passing a small set of carefully chosen samples through a nonlinear systemn, and computing the mean and covariance of the outputs
+- The unscented transform does a better job of approximating the output distribution than analytical local linearization, for similar computational cost
+
+**Summary 2 - The LKF**
+
+<img src="./resources/w2/l6-UKF14.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Summary 3 - The NonLinear KF**
+
+<img src="./resources/w2/l6-UKF15.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
 
 ### Lesson 6 Supplementary Reading: An Alternative to the EKF - The Unscented Kalman Filter
 
-### Weekly assigment
+To learn more about Unscented Kalman Filters, check out the resources below:
 
+- A research paper on [The Unscented Kalman Filters for Nonlinear Estimation](https://www.seas.harvard.edu/courses/cs281/papers/unscented.pdf) by the Oregon Graduate Institute of Science & Technology (free)
+
+- Read a tutorial on the [Unscented Kalman Filter](https://www.cse.sc.edu/~terejanu/files/tutorialUKF.pdf) by Gabriel A. Terejanu from the University of Buffalo (available for free).
+
+- Dig into the [original article](http://www.cs.unc.edu/~welch/kalman/media/pdf/Julier1997_SPIE_KF.pdf) by Simon Julier and Jeffrey Uhlmann that introduced the unscented Kalman filter.
+
+### Weekly assigment
 - Module 2 Graded Notebook: Estimating a Vehicle Trajectory
-- Module 2 Graded Notebook (Submission): Estimating a Vehicle Trajectory
 
 
 # References
+Mathworks : 
+- [Learning the Extended (Non-Linear) Kalman Filter](https://blogs.mathworks.com/pick/2010/07/09/learning-the-extended-non-linear-kalman-filter/?s_tid=srchtitle_EKF_1)
+
+- [Extended and Unscented Kalman Filter Algorithms for Online State Estimation](https://www.mathworks.com/help/ident/ug/extended-and-unscented-kalman-filter-algorithms-for-online-state-estimation.html)
 
 # Appendices
 
