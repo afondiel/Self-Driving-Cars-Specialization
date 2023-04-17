@@ -591,11 +591,15 @@ To correc the state estimate using measurements at time $k$, use the nonlinear m
 
 **Solution**
 
+- Prediction : 
+  
 <img src="./resources/w2/l6-UKF8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 <img src="./resources/w2/l6-UKF9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 <img src="./resources/w2/l6-UKF10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Correction 
 
 <img src="./resources/w2/l6-UKF11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -617,6 +621,11 @@ To correc the state estimate using measurements at time $k$, use the nonlinear m
 
 <img src="./resources/w2/l6-UKF15.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- Because of the accuracy and simplicity, it preferable to use the UKF over the EKF instead
+- If EKF is used instead :
+  - Use error state formulation
+  - be aware of linearization error
+  - strongly ensure that the Jacobians are correct  
 
 ### Lesson 6 Supplementary Reading: An Alternative to the EKF - The Unscented Kalman Filter
 
