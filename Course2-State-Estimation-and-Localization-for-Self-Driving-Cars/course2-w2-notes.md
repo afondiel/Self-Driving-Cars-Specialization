@@ -580,6 +580,11 @@ To correc the state estimate using measurements at time $k$, use the nonlinear m
   
 **Short example**
 
+```
+- track the position and velocity of a moving car that we're controlling by pressing on the gas pedal or the brake, the car has a sensor onboard that measures the angle btw the distance landmark and the horizon 
+- the motion model is linear, but the measurement model is nonlinear 
+
+```
 <img src="./resources/w2/l6-UKF6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 <img src="./resources/w2/l6-UKF7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -628,6 +633,7 @@ To learn more about Unscented Kalman Filters, check out the resources below:
 
 
 # References
+
 Mathworks : 
 - [Learning the Extended (Non-Linear) Kalman Filter](https://blogs.mathworks.com/pick/2010/07/09/learning-the-extended-non-linear-kalman-filter/?s_tid=srchtitle_EKF_1)
 
