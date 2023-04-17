@@ -430,12 +430,12 @@ Mathematically:
 - where the new equation in f( $\delta xk$ ... ) is called  **the error state kinematics**
 
 **Algorithm Loop**
-1. Update nominal state w/ motion model : $\check{x}_{k}=f_{k-1}(x_{k-1}, u_{k-1}, 0)$
+1. Update nominal state w/ motion model : $\displaystyle \check{x}_{k} = f_{k-1}(x_{k-1}, u_{k-1},0)$
 2. Propagate uncertainly : $\check{P}_{k}$ 
 3. If a measurement is available : 
    1. Compute the Kalman Gain : $K_{k}$
-   2. Compute the error state : $\delta \hat{x}_{k} = K_{k}(y_{k} - h_{k}(\check{x}_{k}, 0))$
-   3. Correct the nominal state : $\hat{x}_{x} = \check{x}_{k}  + \delta \hat{x}_{k}$
+   2. Compute the error state : $\displaystyle \delta\hat{x}_{k} = K_{k}(y_{k} - h_{k}(\check{x}_{k}, 0))$
+   3. Correct the nominal state : $\displaystyle \hat{x}_{x} = \check{x}_{k} + \delta\hat{x}_{k}$
    4. Correct the state covariance : update $\hat{P}_{k}$ 
 
 
