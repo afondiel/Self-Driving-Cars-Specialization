@@ -539,7 +539,7 @@ Next we pass each of our $2N+1$ sigma points through the nonlinear function $h(x
 
 $$
 \displaystyle y_{i} = 
-h(x_{i}) \;\;\;\;\;\; i=0, ..., 2N
+h(x_{i}) \qquad i=0, ..., 2N
 $$
 
 And finally compute the mean and covariance of thee output PDF
