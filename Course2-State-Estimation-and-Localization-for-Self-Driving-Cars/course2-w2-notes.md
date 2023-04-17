@@ -503,24 +503,88 @@ Computing Jacobian matrices for complicated nonlinear functions is also a common
 - Computing complex Jacobian matrices is an error-prone process and must be done w/ substantial care
 
 ### Lesson 6: An Alternative to the EKF - The Unscented Kalman Filter (UKF)
+- Alternative approach to Nonlinear KF that relies on something called the Unscented Transform, to pass probability distributions through nonlinear funtions
+- Gives a much higher accuracy than the EKF style linearization, for similar amount of computation without needing to compute any Jacobians 
 
-**The Unscented Transform**
+**The Unscented Transform (UT)**
+- **It's easier to approximate a probability distribution** than it is to approximate an arbitrary nonlinear function" - S. Julier, J. Uhlmann, and H. Durrant-Whyte (2000)
+
+- 1D Gaussian distribution (left graph) transformed trrough Nonlinear function into a more complicated 1D distro (right graph)
+- This is possible by using `UT`.
+
+- `UT has 3 steps` : 
 
 <img src="./resources/w2/l6-UKF0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- Sigma points are deterministic samples chosen to a certain number of `std`, away from the mean (because of that the UT are sometimes called the Sigma Point Transform)
+- Each point is then passed(transformed) through the nonlinear function $h(x)$, producing a new set of sigma points belonging to the output distribution
+- We compute the sample mean and the covariance w/ some chosen weights this gives us a good approximation of estimate (mean and covariance) of the true output distribution
+
+**Choosing sigma points**
+- In general we need 2 sigma points : 
+  - One for the **mean**
+  - the rest symmetrically distributed about the mean
+- For an N-Dimensional PDF $\mathcal{N}(\mu_{x}, \Sigma_{xx})$ , we need $2N+1$ sigma points. For ex. In 1D we need 3 sigma points and in 2D we need 5.
+
 <img src="./resources/w2/l6-UKF1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The first to determine where the sigma points should be is applying the Cholesky decomposition of the covariance matrix associated w/ the input distribution
+- The Cholesky Decomposition performes as a square root operation that operates on symetric positive define matrices such as covariance matrices
+- If the input PDF is one-dimensional, the Cholesky decomposition is just the square root of the variance == std ($\sigma$)
+- To compute the Cholesky decomposition in MATLAB we use the `chol` function or the Cholesky function NumPy
+
+**Transforming and recombining**
+
+Next we pass each of our $2N+1$ sigma points through the nonlinear function $h(x)$
+
+$$
+\displaystyle y_{i} = 
+h(x_{i}) \;\;\;\;\;\; i=0, ..., 2N
+$$
+
+And finally compute the mean and covariance of thee output PDF
 
 <img src="./resources/w2/l6-UKF2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+**The UT vs Linearization**
+
+Let's revisit our nonlinear transformation ex, from the previsous chapiter
+
 <img src="./resources/w2/l6-UKF3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+```
+We can see in this ex, that the `UT` gives a much better approximation for similar work.
+```
+
+**The Unscented Kalman Filter (UKF)**
+
+- We can easily use the UT in our KF framework w/ nolinear models : 
+
+<img src="./resources/w2/l6-UKF31.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Instead of approximating the system equations by linearizing, we will calculate sigma points and use the UT to approximate the PDFs directly
+
+**Prediction step**
+
+To propagate the state from time $(k-1)$ to time $k$, apply the UT using the current best guess for the mean and covariance
 
 <img src="./resources/w2/l6-UKF4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+**Correction step**
+
+To correc the state estimate using measurements at time $k$, use the nonlinear measurements model and the sigma points from the prediction step to predict the measurments
+
 <img src="./resources/w2/l6-UKF5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+-  The UKF follows the same prediction-coorection pattern as EKF, we just replaced the analytical linearization step w/ the Unscented Transformation.
+  
+**Short example**
 
 <img src="./resources/w2/l6-UKF6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 <img src="./resources/w2/l6-UKF7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Solution**
 
 <img src="./resources/w2/l6-UKF8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -576,4 +640,4 @@ Mathworks :
 - [Finite Impulse Response (FIR)](https://en.wikipedia.org/wiki/Finite_impulse_response)
 - [Infinite Impulse Response (IIR)](https://en.wikipedia.org/wiki/Infinite_impulse_response)
 - [Convolution](https://en.wikipedia.org/wiki/Convolution)
-
+- [Unscented Transform](https://en.wikipedia.org/wiki/Unscented_transform)
