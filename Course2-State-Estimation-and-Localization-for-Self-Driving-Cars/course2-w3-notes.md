@@ -351,13 +351,28 @@ To learn more about the evolution of GNSS, check out the resources below:
 - Review overviews of the [Galileo](https://m.esa.int/Our_Activities/Navigation/Galileo/Galileo_satellites) global navigation satellite system developed by the European Union, the [GLONASS](https://gssc.esa.int/navipedia/index.php/GLONASS_General_Introduction) system developed by the Russian Federation, and [COMPASS (BeiDou-2)](https://en.wikipedia.org/wiki/BeiDou_Navigation_Satellite_System) developed by the People's Republic of China.
 
 
-## Learning from Industry Expert
+## Learning from Industry Expert (Paul Newman)
 ### Why Sensor Fusion?
+- State estimation is important for self-driving cars
+- It's full of complexity, because of `the data association` and the `data complexity`
+  - To solve this problem, instead of using `one sensor type we should use many`
+- This might get rid of the confusion btw corner of building and corner of bus from laser by using a camera
+- This leads to two modalities the appearance from a camera in the form of what color the pixels are and we're getting metters in geometry from the bus on how far away stuff is, and so you might find that gets a lot easier
+- we could even add a Doppler RADAR I could measure how fast it's going as well 
+- We have now a `rate` + `appearance` + `shape` and we could use gyro and accelerometer to compute the rate of change of my own state
+- We want now to feed all of those into my `state estimation`. 
+- We want to use all of those different sensor streams to do a better jox of figuring out where I am and what's arrounf me and what those third party entities are doing       
+
+- A combination of these sensors seems to be the clever way to do it. And then the art of a good AV Engineer and a good algorithms Engineer in this space 
+
+- Sensor function is like a big optimization function/module that uses all of those sensor streams and computes the minimum (of the function) that explains all of the sensor data
+- This allows us to have a clear idea `where We are` (th ego vehicle) and what the actual state is (in case of Localization)
+
+### Supplementary Reading: Sensor Fusion
+
+- Wikipedia article [Sensor Fusion ](https://en.wikipedia.org/wiki/Sensor_fusion)
 
 ## Weekly Assignement
-### Module 3: Graded Quiz
-
-
 
 # References
 
@@ -376,4 +391,7 @@ To learn more about the evolution of GNSS, check out the resources below:
 - [Camera Resectioning](https://en.wikipedia.org/wiki/Camera_resectioning)
 - [Optics](https://en.wikipedia.org/wiki/Optics)
 - [Geometrical Optics](https://en.wikipedia.org/wiki/Geometrical_optics)
+- [Bayesian Network](https://en.wikipedia.org/wiki/Bayesian_network)
+- [Bayesian inference](https://en.wikipedia.org/wiki/Bayesian_inference)
+- [Bayesian Statistics](https://en.wikipedia.org/wiki/Bayesian_statistics)
 
