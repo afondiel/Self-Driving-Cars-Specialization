@@ -96,7 +96,7 @@ Where **p** and **q**, are rotation matrices
 
 - Where : RHR is the Right Hand Rule
 
-<img src="./resources/w3/img/l1-coord-rot-cef-ecif.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w3/img/l1-coord-rot-CEF-ECIF.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - ECEF is fixed to the earth, while the ECIF is fixed with respect to the distance stars.  
 - Useful for satelites and inertial sensing onboard aircraft
@@ -248,9 +248,112 @@ To learn more about IMUs and their applications, check out the resources below:
 
 
 ### Lesson 3: The Global Navigation Satellite Systems (GNSS)
+
+- Just like the IMU, nearly every modern smartphone has at least one type of GNSS receiver
+- The first modern system of global positioning satallites (GPS) was built for military use during the 1980s
+- The second version of the system was fully operational in 1995, GPS was made available to the public for free
+
+
+**The Korean Air Line Flight 007**
+
+<img src="./resources/w3/img/l3-gnss0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Korean Ait Flight 007 was shot down in 1983 after deviating into Soviet airspace due to improper use of their Inertial Navigation System
+- This prompted the US to open GPS for worldwide use (ordered by US President Ronald Reagan)     
+
+**GNSS - Accurate Global Positioning**
+
+Although GPS was original system of navigation satellites used for global postioning
+- **Global Navigation Satellite System (GNSS)** is catch-all term for a satellite system(s) that can be used to pinpoint a receiver's position anywhere in the world
+
+<img src="./resources/w3/img/l3-gnss1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **GLONASS** Russian equivalent GPS
+- Several other systems are nearing completion including the European Galileo constellation 
+
+**Global Positioning System (GPS)**
+- The GPS constellation is composed of 24 to 32 satellites in 6 orbital planes
+  - Altitude of ~20,200km (12,550 miles)
+  - Orbital period of ~12 hours 
+
+<img src="./resources/w3/img/l3-gnss2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Each satellite isn't a medium Earth orbit an altitude of roughly 20000 kilometers with an orbital period of just under 12hours
+- The constellation is designed such that at leat four satellites are visible at any surface point on earth at all times
+- Each satellite broadcasts on two frequencies : 
+  - L1 (1575.42 MHz, civilian + military)
+  - L2 (1227.6 MHz, military)
+
+- Other GNSS systems operate on similar principles 
+
+**GPS - Computing Position**
+
+<img src="./resources/w3/img/l3-gnss3.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Each GPS satellite transmits a signal that encodes
+1. Its potision (via accurate ephemeris information)
+2. Time of signal transmission (via onboard atomic clock)
+
+- To compute a GPS position fix in the Earth-centred frame, the receiver users the speed of light to compute distance to each satellite based on time of signal arrival
+- At least four satellites are required to solve for 3D position, three if only 2D is required (e.g., if altitude is known)
+
+**Trilateration**
+
+- For each satellite, we measure the **pseudorange** as follows : 
+
+$$
+\displaystyle \rho^{(i)} =  c(t_{r} - t_{s}) = 
+\sqrt{(p^{(i)} - r)^T(p^{(i)} - r)} + c\Delta t_{r} + c\Delta t_{a}^{(i)} + \eta^{(i)}
+$$
+
+<img src="./resources/w3/img/l3-gnss4.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Each pseudorange measurement defines a circle in 2D or a sphere in 3D
+
+If we have more than 4 satellites we can use the method of least squares to find the maximum likelihood position assuming Gaussian noise
+
+<img src="./resources/w3/img/l3-gnss5.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**GPS - Error Sources (I)**
+
+- GPS suffers from multiple error sources
+  
+<img src="./resources/w3/img/l3-gnss6.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **Ephemeris & clock errors**
+  - A clock error of 1 x $10^{-6}$ s gives a 300m position error  
+
+<img src="./resources/w3/img/l3-gnss7.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **Geometric Dilution of Precision (GDOP)**
+  - The configuration of the visible satellites affects position precision
+
+<img src="./resources/w3/img/l3-gnss8.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**GPS - Improvements**
+
+<img src="./resources/w3/img/l3-gnss9.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Summary**
+
+- A GNSS works through trilateration via pseudoranging from at least 4 satellites (for a 3D position fix)
+
+- GNSS error can be caused by ionospheric delays, multipath effects, and precision is also affected by GDOP.
+
+- For GPS, differential GPS and RTK GPS are potential methods to substantially improve performance
+
 ### Lesson 3 Supplementary Reading: The Global Navigation Satellite (GNSS)
+
+To learn more about the evolution of GNSS, check out the resources below:
+
+- Read this [article](https://www.geospatialworld.net/article/global-navigation-satellite-system-gnss/) about the evolution of the various GNSS constellations.
+
+- Review overviews of the [Galileo](https://m.esa.int/Our_Activities/Navigation/Galileo/Galileo_satellites) global navigation satellite system developed by the European Union, the [GLONASS](https://gssc.esa.int/navipedia/index.php/GLONASS_General_Introduction) system developed by the Russian Federation, and [COMPASS (BeiDou-2)](https://en.wikipedia.org/wiki/BeiDou_Navigation_Satellite_System) developed by the People's Republic of China.
+
+
 ## Learning from Industry Expert
 ### Why Sensor Fusion?
+
 ## Weekly Assignement
 ### Module 3: Graded Quiz
 
@@ -273,4 +376,4 @@ To learn more about IMUs and their applications, check out the resources below:
 - [Camera Resectioning](https://en.wikipedia.org/wiki/Camera_resectioning)
 - [Optics](https://en.wikipedia.org/wiki/Optics)
 - [Geometrical Optics](https://en.wikipedia.org/wiki/Geometrical_optics)
-- 
+
