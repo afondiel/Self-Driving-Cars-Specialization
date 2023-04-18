@@ -138,7 +138,115 @@ For more information on 3D geometry and reference frames, check out the resource
 - Read the [Wikipedia article](https://en.wikipedia.org/wiki/Rotation_matrix) on rotation matrices.
 
 ### Lesson 2: The Inertial Measurement Unit (IMU)
+
+- IMU measures the movement of a body in the inertial space.
+- Today a certain type of cheap masss manufactured IMU is found in every smartphone such as iphone X.
+- IMU are often  used for tasks like : step counting for health tracking, and recently in augmented reality devices
+- IMU aided transoceanic fights long before GPS it was crutial to the  apollo used in onboard guidance navigation and control systems
+
+<img src="./resources/w3/img/l2-imu0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In the Apollo spacecraft relied on an IMU to accurately track both the position and the orientation of the vehicle in its way to the moon
+- In space there are few landmarks to rely on for guidance, one can track the fixed stars but it not easy to do so
+- The onboard IMU operated without the need for landmarks, enabled safe navigation to the moon's surface  
+  
+- IMU plays the similar role in the modern self-driving cars 
+- filling in during the periods when navigation informations from other sensors is either unavailable or unreliable
+
+<img src="./resources/w3/img/l2-imu1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- An IMU is typically composed of : 
+  - **gyroscopes** : measure angular rotation rates about three separate axes
+  - **accelerometers** : measure accelerations along three orthogonal axes
+- IMUs come in many shapes and form factors; cost varies from ~$10 to ~$100K (this might changed today 2023 ...)
+
+**The Gyroscope**
+
+<img src="./resources/w3/img/l2-imu21.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Microelectromechanical systems (MEMS) are much smaller and cheaper
+  - Measure rotational rates instead of orientation directly
+  - Measurements are noisy and drift over time
+
+<img src="./resources/w3/img/l2-imu22.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+**The accelerometer**
+- Measures acceleration relative to free-fall (this also called the proper acceleration or specific force)
+
+<img src="./resources/w3/img/l2-imu4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+$$
+\displaystyle a_{meas} = f =
+\frac{F_{non-gravity}}{m}
+$$
+
+```
+Sitting still at your desk, your proper acceleration is $g$ upwards (think of the normal force holding you up)
+```
+In localization, we typically require the acceleration relative to a fixed reference frame : 
+- coordinate acceleration
+- computed using Newton fundamental equation for accelerometers in a gravity field:
+
+$$
+\displaystyle f + g = \ddot{r}_{i}
+$$
+
+**Examples**
+
+<img src="./resources/w3/img/l2-imu5.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- An accelerometer in a stationary car measures g 'upwards' because the coordinate acceleration is zero, ignoring the rotation of the earth: 
+
+$$
+\displaystyle f = 
+\ddot{r}_{i} - g \approx 0 - g \approx -g
+$$
+
+- Accelerometer on the International Spce Station (ISS) measures 0g. The entire ISS is free-fall together with the astronauts inside it.
+
+<img src="./resources/w3/img/l2-imu6.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+$$
+\displaystyle f = 
+\ddot{r}_{i} - g \approx g  - g \approx 0g 
+$$
+
+- the value of g is less in low Earth orbit by about 10% when compared to the value on the surface of the Earth
+- In other terms, this is that the proper acceleration with respect to free fall is 0, since the ISS is in free fall
+- Althought, in reality residual atmospheric drag and structural vibrations will create some measured accelerations but they are typically as low as 10 to the -6g
+
+
+<img src="./resources/w3/img/l2-imu8.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Althought gyroscope do measure the rotation of the Earth, it's often safe to ignore this for application where we care only about motion over a short duration.
+
+<img src="./resources/w3/img/l2-imu7.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Inertial Navigation - Important Notes**
+
+- When using an IMU for localization, keep in mind : 
+1. If we inaccurately keep track of $C_{sn}(t)$ , we incorporate components of $g_{n}$ into $\ddot{r}_{n}^{sn}(t)$ This will ultimately lead to terrible estimates of position ( $\ddot{r}_{n}^{sn}(t)$ )
+2. Both measurement models ignore the effect of **Earth's rotation**
+3. We only consider **strapdown IMUs** - where the individual sensors are rigidly attached to the vehicle and are gimballed
+
+**Summary**
+- A 6-DOF IMU is composed of three gyroscope and three accelerometers, monted orthogonally
+- A strapdown gryroscope measures a rotationa rate in the sensor frame
+- A strapdown accelerometer measures a specific force (or acceleration relative to free-fall) in the sensor frame
 ### Lesson 2 Supplementary Reading: The Inertial Measurement Unit (IMU)
+
+To learn more about IMUs and their applications, check out the resources below:
+
+- Read the [page](https://en.wikipedia.org/wiki/Inertial_measurement_unit) about IMUs on Wikipedia.
+
+- Follow along with the PDF slides from Gordon Wetzstein's [lecture on IMUs at Stanford University](http://stanford.edu/class/ee267/lectures/lecture9.pdf).
+
+- Examine a technical description of inertial navigation in Chapter 11, [Section 1 of Jay A. Farrell, Aided Navigation (2008)](https://books.google.ca/books/about/Aided_Navigation_GPS_with_High_Rate_Sens.html?id=yNujEvIMszYC&redir_esc=y).
+
+- Reflect on 4o years of advances in inertial navigation, summarized in this [article by Anthony King (1998)](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.616.1248) from the magazine GEC Review.
+
+
 ### Lesson 3: The Global Navigation Satellite Systems (GNSS)
 ### Lesson 3 Supplementary Reading: The Global Navigation Satellite (GNSS)
 ## Learning from Industry Expert
@@ -152,7 +260,7 @@ For more information on 3D geometry and reference frames, check out the resource
 
 - [Course 1 - W4 - MODULE 4: Vehicle Dynamic Modeling (VDM) -  Lesson 1: Kinematic Modeling in 2D](https://github.com/afondiel/Self-Driving-Cars-Specialization-Coursera/blob/main/Course1-Introduction-to-Self-Driving-Cars/course1-w4-notes.md)
 
-
+- [EE267 Getting Started with Unity - Stanford Computational Imaging Lab](https://www.youtube.com/watch?v=tFMwG2Ee-D4)
 # Appendices
 - [3D Space](https://en.wikipedia.org/wiki/Three-dimensional_space)
 - [3D pose estimation](https://en.wikipedia.org/wiki/3D_pose_estimation)
