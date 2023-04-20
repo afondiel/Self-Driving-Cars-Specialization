@@ -414,13 +414,14 @@ To learn more about LIDAR sensor models and point clouds, check out the resource
 
 **State Estimation via Point set Registration**
 
-- Returning to our example of a self-driving car observing a tree from a LIDAR mounted on the cars roof
+Returning to our example of a self-driving car observing a tree from a LIDAR mounted on the cars roof
+
 - At time $t = 1$ , the LIDAR returns a point cloud that follows the contour of the tree as before
 - The coordinates of every point in the point cloud are given relative to the pose of the lidar at the time of the scan, we'll call this coordinate frame $S$
 
 <img src="./resources/w4/img/l2-lidar3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-At time $t = 2$ , the car is driven a bit further ahead, but the LIDAR can still see the tree and return a second point cloud whose coordinates are again specified relative to the pose of the lidar at time t equals two, we'll call this coordinate frame S prime. 
+- At time $t = 2$ , the car is driven a bit further ahead, but the LIDAR can still see the tree and return a second point cloud whose coordinates are again specified relative to the pose of the lidar at time t equals two, we'll call this coordinate frame S prime. 
 
 <img src="./resources/w4/img/l3-state-estimation0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
