@@ -439,16 +439,18 @@ More specifically, we want to figure out the **optimal translation** and the **o
 
 - In this example, our ideal rotation matrix would be the identity matrix, that is no rotation at all, and a ideal translation would be along the cars forward direction. 
 - The problem is that, in general we don't know which points correspond to each other
+  
+<img src="./resources/w4/img/l3-state-estimation3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
 - In the course on computer vision, you'll learn about **feature matching** which is one way of determining correspondences between points using cameraData. 
 - But for now let's think about how we might solve this problem without knowing any of the correspondences ahead of time.
 
-<img src="./resources/w4/img/l3-state-estimation3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
- 
+
 **Iterative Closest Point algorithm (ICP)**
 
-<img src="./resources/w4/img/l3-icp00.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
-
 - The most popular algorithm for solving this kind of problem is called the Iterative Closest Point algorithm or ICP for short
+
+<img src="./resources/w4/img/l3-icp00.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 The basic **intuition** behind ICP is this : 
 
@@ -460,9 +462,8 @@ The basic **intuition** behind ICP is this :
 
 With ICP we use a simple **heuristic** : 
 
-```
-For each point in one cloud, the best candidate for a corresponding point in the other Cloud is the point that is closest to it right now. 
-```
+```For each point in one cloud, the best candidate for a corresponding point in the other Cloud is the point that is closest to it right now.```
+
 - The idea here is that this heuristic should give us the correspondences that let us make our next guess for the translation and rotation, that's a little bit better than our current guess.
 
 - As our guesses get better and better, our correspondences should also get better and better until we eventually converge to the optimal motion and the optimal correspondences. 
@@ -488,9 +489,8 @@ For each point in one cloud, the best candidate for a corresponding point in the
 
 - If the car is moving slowly relative to the scanning rate of the LIDAR sensor, one may even use the last known pose as the initial guess. 
 
-- For our example, let's say we use a very noisy IMU and emotion model to provide the initial guess. 
+- For our example, let's say we use a very noisy IMU and emotion model to provide the initial guess. The model tells us that the sensor translated forward a bit and also pitched upwards
 
-- The model tells us that the sensor translated forward a bit and also pitched upwards
 
 2. We'll use this initial guess to transform the coordinates of the points in one cloud into the reference frame of the other, and then match each point in the second cloud to the closest point in the first cloud. 
 
@@ -510,6 +510,7 @@ For each point in one cloud, the best candidate for a corresponding point in the
 4. Then, we repeat the process using the translation and rotation we just solved for as our new initial guess
 
 <img src="./resources/w4/img/l3-icp3.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
 - So in the next iteration, we use the new translation and rotation to transform the point cloud and then find the closest matches, solve for the optimal transformation, and keep going until we reach the optimum after a few iteration
 
 **ICP - Solving for the Optimal Transformation**
@@ -522,6 +523,7 @@ How do we actually solve for the optimal transformation in step three? Maybe you
 - Specifically, you want to minimize the sum of squared euclidean distances between each pair of matched points, which is one of the loss function that we've defined here.
 - This least squares problem is a little bit more complex than the ones we've encountered so far.
 - That's **because the rotation matrix is inside the loss function** : 
+
 ```
 - It turns out the rotation matrices do not behave like vectors.
 - If you add two vectors together, you get another vector.
