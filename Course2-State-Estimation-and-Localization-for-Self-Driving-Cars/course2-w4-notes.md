@@ -218,7 +218,196 @@ For more information on LIDAR sensors, check out the resources below:
 
 
 ### Lesson 2: LIDAR Sensor Models and Point Clouds
+
+- Study case : A LIDAR scans a nearby tree off on the side of the road, and produces a point cloud that looks like this : 
+
+<img src="./resources/w4/img/l2-lidar00.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Begin of the beam propogation 
+
+<img src="./resources/w4/img/l2-lidar1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Nearly to the target
+
+<img src="./resources/w4/img/l2-lidar2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Reach the target oject
+
+<img src="./resources/w4/img/l2-lidar3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We only see points on the part of the tree that's facing us because the tree and the leaves reflect **infrared light**.
+
+- *How do we keep track of all of these points? What kinds of data structures should we use to work with them?*
+
+**Data Structures**
+
+One common solution is to assign an index to each of the points, say point 1 through point n, and store the x, y, z coordinates of each point as a 3 by 1 column vector
+
+<img src="./resources/w4/img/l2-lidar4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+From there, you could think about storing each of these vectors in a list, or you could stack them side by side into a matrix that we'll call big $P$.
+
+<img src="./resources/w4/img/l2-lidar5.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Doing it this way make it easier to work with the standard linear algebra libraries, like the Python NumPy library, which lets us take advantage of fast matrix operations rather than iterating over a list and treating each vector independently.
+
+There are 3 basic spatial operations that are important for carrying out state estimation with point clouds : 
+
+**Operations on Point Clouds**
+
+- Translation : 
+
+<img src="./resources/w4/img/l2-lidar-translation0.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w4/img/l2-lidar-translation1.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Rotation : 
+
+<img src="./resources/w4/img/l2-lidar-rotation0.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w4/img/l2-lidar-rotation1.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Scaling : 
+
+<img src="./resources/w4/img/l2-lidar-scalling0.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w4/img/l2-lidar-scalling1.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+<img src="./resources/w4/img/l2-lidar-scalling2.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- When we think about spatial operations on point clouds, our intuition might be to think in terms of physically manipulating the point cloud while our reference frame stays fixed.
+
+- But for state estimation, it's more useful to think about things the other way around.
+- Objects in the world mostly stay put while the reference frame attached to the vehicle moves and observes the world from different perspectives.
+
+
+**Translation**
+
+- How translating our reference frame, say, by driving for a $10 m$ will affect our perception of a single point in point cloud
+
+- We can start by drawing the vector from the origin of our sensor frame, S, to a point, P.
+
+<img src="./resources/w4/img/l2-lidar-translation2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Consider a second frame, S-prime, whose origin has been translated relative to S due to motion of the vehicle.
+- Note that the basis vectors of frame S-prime are the same as the basis vectors of frame S. Only the origin has moved.
+
+<img src="./resources/w4/img/l2-lidar-translation3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can draw another vector from the origin of S-prime to the point P
+- We notice the resulting vector, indicated here, is just the tip to tail sum of the other two vectors.
+
+<img src="./resources/w4/img/l2-lidar-translation4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- And these vectors are just geometric objects until we express them in a coordinate system. 
+- And what we're after are the coordinates of the point P in frame S-prime
+- We can get these easily by just subtracting the frame-to-frame translation vector from the coordinates of P in frame S. 
+
+<img src="./resources/w4/img/l2-lidar-translation5.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This extends easily to a batch operation on the full point cloud by simply tiling the frame-to-frame translation in a big matrix R, and subtracting it from the point cloud matrix
+- Depending on the language or linear algebra library you're using, you probably won't need to build this R matrix explicitly
+- In Python, for example, the NumPy library is smart enough to repeat the frame-to-frame translation implicitly using broadcasting semantics
+
+**Rotation** 
+
+<img src="./resources/w4/img/l2-lidar-rotation2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Again, keep in mind that we're not changing the physical point P, only our view of it. 
+- So in this case, we only have to think about one vector from the origin of frame S to P
+- What does change in this case is actually the set of basis vectors we use to express the coordinates of the vector $S$ to $P$.
+- Remember that the rotation matrix $C$ tells us how to find the coordinates of a vector in a rotated frame from the coordinates of the vector in the original frame.
+- So if we know the rotation matrix from frame S to frame S-prime, all we have to do is multiply it against the coordinates of P in frame S to get the coordinates of P in frame S-prime. 
+- To determine the coordinates of the entire rotated point cloud, the operation is exactly the same, thanks to the properties of matrix multiplication.
+
+**Scaling**
+
+<img src="./resources/w4/img/l2-lidar-scalling3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Scaling, which works very similarly to rotation, but instead of changing the direction of the basis vectors in our coordinate system, we're changing their lengths
+- Mathematically, this just means pre-multiplying the coordinates of each point by a diagonal matrix S whose non-zero elements are simply the desired scaling factors along each dimension.
+- Often but not always these scaling factors are the same, and the matrix multiplication is equivalent to multiplying by a scaler.
+- In these cases, we say that the scaling is isotropic or equal in every direction.
+- We can use the same matrix multiplication for individual points or for the entire point cloud, just like we did for rotations.
+
+**Putting Them All Together**
+
+Usually, the transformations we're interested in are a combination of translation and rotation and sometimes scaling.
+
+<img src="./resources/w4/img/l2-all-together0.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+For example, we're often interested in estimating the translation and rotation that best aligns to point clouds so that we can estimate the motion of our self-driving car.
+
+Fortunately for us, it's easy to combine all three operations into a single equation By first translating each vector, then rotating into the new frame, and finally applying any scaling.
+
+<img src="./resources/w4/img/l2-all-together.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+<img src="./resources/w4/img/l2-all-together1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Finding the Road with 3D Plan  Fitting**
+
+- Allows to figuring out where the road surface is and predicting where it's going to be as the car continues driving 
+
+<img src="./resources/w4/img/l2-3D-fitting0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The eq. of a plane in 3D, tells you how the height of the plane z changes as you move around in the x and y directions. 
+- And it depends on three parameters, a, b, and c, which tells you the slope of the plane in each direction and where the z axis intersects the plane.
+
+- So in our case, we have a bunch of measurements of x, y and z from our LIDAR point cloud, and we want to find values for the parameters a, b, and c that give us the plane of best fit through these points
+- We'll start by defining a measurement error e for each point in the point cloud. And e is just going to be the difference between the predicted value of our dependent variable z-hat and the actual observed value of z.
+
+- We get z-hat simply by plugging our current guess for the parameters a-hat, b-hat, and c-hat, and the actual values of x and y in
+- In this case, the error, e, that we are considering, is for a bumpy road surface, for example. That is, a surface which is not exactly planar.
+
+We can stack all of these error terms into matrix form so we have a big matrix of coefficients called a, multiplied by our parameter vector x, minus our stack measurements b.
+- You can work out the matrix multiplication yourself to see that we get back the same measurement error equations we started out with.
+
+<img src="./resources/w4/img/l2-3D-fitting1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Now, all we have to do is minimize the square of this error and we'll have our solution.
+- This works exactly the same way as the resistor problem we worked through in module one.
+- We can start by multiplying out the square to get a matrix polynomial in the parameter vector x.
+
+
+<img src="./resources/w4/img/l2-3D-fitting2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+From there, we take the partial derivative of the squared error function with respect to the parameter vector x and set it to 0 to find the minimum. 
+
+This gives us the linear system we'll need to solve to obtain the final least squares estimate.
+
+
+<img src="./resources/w4/img/l2-3D-fitting3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can solve this linear system using an efficient numerical solver like Python NumPy's solve function. Or just use the pseudo inverse to get our final answer for the plane parameters.
+- One important thing to notice here is that we did not account for sensor noise in our x, y, zed measurements.
+- All we've done is to find the plane of best fit through a set of points.
+- It's certainly possible to set this problem up in a more sophisticated way that does account for sensor noise.
+- You could use a batch approach similar to what we just discussed, or you could even think about including the road parameters in the column filter to estimate them on the fly as the sensor data comes in.
+- The best solution for your self-driving application will depend on how much you trust your LIDAR data and how much thought you want to give to uncertainty in the road surface.
+ 
+**The Point Cloud Library (PCL)**
+
+<img src="./resources/w4/img/l2-pcl.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Summary**
+
+- we've seen that point clouds are a way of capturing all of the measurements from a LIDAR scan. And they are often stored as a big matrix 
+- We saw how we can use linear algebra to do useful operations on point clouds, like translating, rotating, and scaling.
+- And we also saw how we can use the least squares algorithm to fit a 3D plane to a point cloud to find the road surface.
+The Point Cloud Library, or PCL, implements a bunch of useful tools for working with point clouds in C++. 
+One of the most useful algorithms in PCL is called the iterative closest point algorithm, or ICP, which is a common method for estimating the motion of a self-driving car using two LIDAR point clouds
+
 ### Lesson 2 Supplementary Reading: LIDAR Sensor Models and Point Clouds
+
+To learn more about LIDAR sensor models and point clouds, check out the resources below:
+
+- Read Chapter 6, Sections 1 and 2 of [Timothy D. Barfoot, State Estimation for Robotics (2016)](http://asrl.utias.utoronto.ca/~tdb/bib/barfoot_ser17.pdf) (available for free).
+
+- Explore the functionality available in the Point Cloud Library (PCL) at http://pointclouds.org/.
+
+
 ### Lesson 3: Pose Estimation from LIDAR Data
 ### Lesson 3 Supplementary Reading: Pose Estimation from LIDAR Data
 ## Learn from Insdustry Experts
