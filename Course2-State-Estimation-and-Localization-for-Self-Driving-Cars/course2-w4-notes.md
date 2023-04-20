@@ -310,7 +310,7 @@ There are 3 basic spatial operations that are important for carrying out state e
 
 **Rotation** 
 
-<img src="./resources/w4/img/l2-lidar-rotation2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l2-lidar-rotation2.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Again, keep in mind that we're not changing the physical point P, only our view of it. 
 - So in this case, we only have to think about one vector from the origin of frame S to P
@@ -321,7 +321,7 @@ There are 3 basic spatial operations that are important for carrying out state e
 
 **Scaling**
 
-<img src="./resources/w4/img/l2-lidar-scalling3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l2-lidar-scalling3.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Scaling, which works very similarly to rotation, but instead of changing the direction of the basis vectors in our coordinate system, we're changing their lengths
 - Mathematically, this just means pre-multiplying the coordinates of each point by a diagonal matrix S whose non-zero elements are simply the desired scaling factors along each dimension.
@@ -333,17 +333,16 @@ There are 3 basic spatial operations that are important for carrying out state e
 
 Usually, the transformations we're interested in are a combination of translation and rotation and sometimes scaling.
 
-<img src="./resources/w4/img/l2-all-together0.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
-
+<img src="./resources/w4/img/l2-all-together0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 For example, we're often interested in estimating the translation and rotation that best aligns to point clouds so that we can estimate the motion of our self-driving car.
 
 Fortunately for us, it's easy to combine all three operations into a single equation By first translating each vector, then rotating into the new frame, and finally applying any scaling.
 
-<img src="./resources/w4/img/l2-all-together.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l2-all-together.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 
-<img src="./resources/w4/img/l2-all-together1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l2-all-together1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Finding the Road with 3D Plan  Fitting**
 
@@ -388,7 +387,7 @@ This gives us the linear system we'll need to solve to obtain the final least sq
  
 **The Point Cloud Library (PCL)**
 
-<img src="./resources/w4/img/l2-pcl.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l2-pcl.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 **Summary**
 
@@ -651,9 +650,6 @@ Some popular choices for robust loss functions include the **Absolute error or L
 - 2D and 3D LIDAR sensors can scan large swaths of the environment around the car, and the collection of points returned from each scan is stored as a point cloud, which can be manipulated using standard spatial operations such as `translation` , `rotation`, and `scaling`. 
 - These operations are an important part of the Iterative Closest Point or ICP algorithm, which is one common technique for using LIDAR to localize a self-driving car. 
 - In the next module, we'll discuss some practical aspects of state estimation and talk about how we can use LIDAR and ICP in conjunction with other sensors like IMUs and GPS to get an accurate and reliable state estimate for the vehicle.
-
-
-
 
 ### Lesson 3 Supplementary Reading: Pose Estimation from LIDAR Data
 
