@@ -202,7 +202,7 @@ After propagation of light
 
 **Summary**
 
-- LIDAR sensors measure distances by emitting pulse laser light and measuring the time of flight of the pulse. 
+- LIDAR sensors measure distances by emitting pulse laser light and measuring the time of flight(ToF) of the pulse. 
 - 2D or 3D LIDAR is extend this principle by using a mirror to sweep the laser across the environment and measure distances in many directions.
 
 ### Lesson 1 Supplementary Reading: Light Detection and Ranging Sensors
@@ -282,7 +282,7 @@ There are 3 basic spatial operations that are important for carrying out state e
 
 **Translation**
 
-- How translating our reference frame, say, by driving for a $10 m$ will affect our perception of a single point in point cloud
+- How translating our reference frame, by driving for a $10 m$ will affect our perception of a single point in point cloud
 
 - We can start by drawing the vector from the origin of our sensor frame, S, to a point, P.
 
@@ -313,10 +313,10 @@ There are 3 basic spatial operations that are important for carrying out state e
 <img src="./resources/w4/img/l2-lidar-rotation2.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Again, keep in mind that we're not changing the physical point P, only our view of it. 
-- So in this case, we only have to think about one vector from the origin of frame S to P
+- In this case, we only have to think about one vector from the origin of frame S to P
 - What does change in this case is actually the set of basis vectors we use to express the coordinates of the vector $S$ to $P$.
 - Remember that the rotation matrix $C$ tells us how to find the coordinates of a vector in a rotated frame from the coordinates of the vector in the original frame.
-- So if we know the rotation matrix from frame S to frame S-prime, all we have to do is multiply it against the coordinates of P in frame S to get the coordinates of P in frame S-prime. 
+- If we know the rotation matrix from frame S to frame S-prime, all we have to do is multiply it against the coordinates of P in frame S to get the coordinates of P in frame S-prime. 
 - To determine the coordinates of the entire rotated point cloud, the operation is exactly the same, thanks to the properties of matrix multiplication.
 
 **Scaling**
@@ -350,16 +350,16 @@ Fortunately for us, it's easy to combine all three operations into a single equa
 
 <img src="./resources/w4/img/l2-3D-fitting0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- The eq. of a plane in 3D, tells you how the height of the plane z changes as you move around in the x and y directions. 
-- And it depends on three parameters, a, b, and c, which tells you the slope of the plane in each direction and where the z axis intersects the plane.
+- The eq. of a plane in 3D, tells you how the height of the plane $z$ changes as you move around in the $x$ and $y$ directions. 
+- And it depends on three parameters, $a$ , $b$, and $c$ , which tells you the slope of the plane in each direction and where the $z$ axis intersects the plane.
 
-- So in our case, we have a bunch of measurements of x, y and z from our LIDAR point cloud, and we want to find values for the parameters a, b, and c that give us the plane of best fit through these points
-- We'll start by defining a measurement error e for each point in the point cloud. And e is just going to be the difference between the predicted value of our dependent variable z-hat and the actual observed value of z.
+- In our case, we have a bunch of measurements of $x$ , $y$ and $z$ from our LIDAR point cloud, and we want to find values for the parameters $a$, $b$, and $c$ that give us the plane of best fit through these points
+- We'll start by defining a measurement error $e$ for each point in the point cloud. And $e$ is just going to be the difference between the predicted value of our dependent variable z-hat and the actual observed value of $z$ .
 
-- We get z-hat simply by plugging our current guess for the parameters a-hat, b-hat, and c-hat, and the actual values of x and y in
-- In this case, the error, e, that we are considering, is for a bumpy road surface, for example. That is, a surface which is not exactly planar.
+- We get $z-hat$ simply by plugging our current guess for the parameters $a-hat$ , $b-hat$ , and $c-hat$ , and the actual values of $x$ and $y$ in
+- In this case, the error, $e$ , that we are considering, is for a bumpy road surface, for example. That is, a surface which is not exactly planar.
 
-We can stack all of these error terms into matrix form so we have a big matrix of coefficients called a, multiplied by our parameter vector x, minus our stack measurements b.
+We can stack all of these error terms into matrix form so we have a big matrix of coefficients called $a$ , multiplied by our parameter vector $x$ , minus our stack measurements $b$ .
 - You can work out the matrix multiplication yourself to see that we get back the same measurement error equations we started out with.
 
 <img src="./resources/w4/img/l2-3D-fitting1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -456,8 +456,8 @@ The basic **intuition** behind ICP is this :
 ```When we find the optimal translation and rotation, or if we know something about them in advance, and we use them to transform one point cloud into the coordinate frame of the other, the pairs of points that truly correspond to each other will be the ones that are closest to each other in a Euclidean sense```
 
 - This makes sense if you consider the simplified case where our LIDAR sensors scans exactly the same points just from two different vantage points. 
-- In this case, there's a one-to-one mapping between points in the two scans, and this mapping is completely determined by the motion of the sensor. 
-- So, that's the ideal case for when we found the best possible translation and rotation, but what if we don't have the optimal translation and rotation, how do we decide which points actually go together? 
+- In this case, there's a one-to-one mapping between points in the two scans, and this mapping is completely determined by the **motion of the sensor**. 
+- That's the ideal case for when we found the best possible translation and rotation, but what if we don't have the optimal translation and rotation, how do we decide which points actually go together? 
 
 With ICP we use a simple **heuristic** : 
 
@@ -510,7 +510,7 @@ With ICP we use a simple **heuristic** :
 
 <img src="./resources/w4/img/l3-icp3.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- So in the next iteration, we use the new translation and rotation to transform the point cloud and then find the closest matches, solve for the optimal transformation, and keep going until we reach the optimum after a few iteration
+- In the next iteration, we use the new translation and rotation to transform the point cloud and then find the closest matches, solve for the optimal transformation, and keep going until we reach the optimum after a few iteration
 
 **ICP - Solving for the Optimal Transformation**
 
@@ -544,7 +544,7 @@ How do we actually solve for the optimal transformation in step three? Maybe you
 
 <img src="./resources/w4/img/l3-icp5.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-3. It is actually finding the optimal rotation matrix. This step is the most complex, and it involves taking something called the singular value decomposition or SVD of the W matrix.
+3. It is actually finding the optimal rotation matrix. This step is the most complex, and it involves taking something called the singular value decomposition or SVD of the $W$ matrix.
 
 <img src="./resources/w4/img/l3-icp6.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -621,7 +621,7 @@ But, of course, we did move, just not relative to the vehicle directly ahead of 
 
 <img src="./resources/w4/img/l3-outliers7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-So we need to be careful to exclude or mitigate the effects of outlying points that violate our assumptions of a stationary world. 
+We need to be careful to exclude or mitigate the effects of outlying points that violate our assumptions of a stationary world. 
 - One way to do this is by fusing ICP motion estimates with GPS and INS estimates. 
 - Another option is to identify and ignore moving objects, which we could do with some of the computer vision techniques. 
 - But an even simpler approach for dealing with outliers like these is to choose a different loss function that is less sensitive to large errors induced by outliers than our standard squared error loss. 
