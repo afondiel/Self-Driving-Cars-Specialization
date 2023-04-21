@@ -666,7 +666,7 @@ To learn more about Pose Estimation from LIDAR data, check out the resources bel
 - Review the original papers by [Yang Chen and Gerard Medioni (1991)](https://ieeexplore.ieee.org/document/132043), and [Paul Besl and Neil McKay (1992)](https://ieeexplore.ieee.org/document/121791), that first described (variations of the) iterative closest point (ICP) algorithm.
 
 
-## Learn from Insdustry Experts
+## Learn from Industry Experts
 ### Optimizing State Estimation
 
 - State estimation, which is a process of estimating the internal state of a system based on measurements of its inputs and outputs. The most compelling ways to do state estimation are some guise of an optimization. 
@@ -680,3 +680,7 @@ To learn more about Pose Estimation from LIDAR data, check out the resources bel
 # References
 
 # Appendices
+
+- [Pulse-Doppler signal processing](https://en.wikipedia.org/wiki/Pulse-Doppler_signal_processing)
+- [Particle Filter](https://en.wikipedia.org/wiki/Particle_filter)
+
