@@ -45,7 +45,7 @@ Some of the most popular models/brand used today :
   
 <img src="./resources/w4/img/l1-lidar-hokuyo-sick.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-For the purpose of this course we will using the Velodyne LiDAR but the basic techniques applied to other types of LiDARs too
+For the purpose of this course we will be using the Velodyne LiDAR but the basic techniques applied to other types of LiDARs too
 
 **Measuring Earth, Sea and Sky**
 
@@ -59,18 +59,18 @@ For the purpose of this course we will using the Velodyne LiDAR but the basic te
 
 <img src="./resources/w4/img/l1-lidar-mapping.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- The first application that brought LiDAR into public consciousness was Apollo 15
-- the fourth manned mission to land on the moon, and the first to use a laser altimeter to map the surface of the moon.
+- The first application that brought LiDAR into public consciousness was the Apollo 15
+- The fourth manned mission to land on the moon, and the first to use a laser altimeter to map the surface of the moon.
 
 <img src="./resources/w4/img/l1-lidar-apollo15.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-**Measuring Distance with Time-of-Flight**
+**Measuring Distance with Time-of-Flight (ToF)**
 
 - LiDAR can be used to measure distances and create a certain type of map, but how it works in context of self-driving cars ? 
 - To build a basic LIDAR in 1D, 3 components are needed : 
-1. A laser
-2. A photodetector
-3. A very precise stop watch
+1. Laser
+2. Photodetector
+3. A very precise stopwatch
 
 <img src="./resources/w4/img/l1-lidar-dist-measurement0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -90,10 +90,10 @@ For the purpose of this course we will using the Velodyne LiDAR but the basic te
 <img src="./resources/w4/img/l1-lidar-dist-measurement3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - That time is called the **round-trip time**. 
-- Now, we know the speed of light, which is a bit less than 3x$10^8 m/s$.
+- Now, we know the speed of light, which is a bit less than 300 x $10^6 m/s$ .
 - So, we can multiply the speed of light by the round-trip time to determine the total round trip distance traveled by the laser pulse
 
-<img src="./resources/w4/img/l1-lidar-dist-measurement31.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l1-lidar-dist-measurement31.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Since light travels much faster than cars, it's a good approximation to think of the LIDAR and the target as being effectively stationary during the few **nanoseconds** that it takes for all of this to happen. 
 - That means that the distance from the LIDAR to the target is simply half of the round-trip distance we just calculated
@@ -248,7 +248,7 @@ From there, you could think about storing each of these vectors in a list, or yo
 
 <img src="./resources/w4/img/l2-lidar5.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-Doing it this way make it easier to work with the standard linear algebra libraries, like the Python NumPy library, which lets us take advantage of fast matrix operations rather than iterating over a list and treating each vector independently.
+Doing this way make it easier to work with the standard linear algebra libraries, like the Python NumPy library, which lets us take advantage of fast matrix operations rather than iterating over a list and treating each vector independently.
 
 There are 3 basic spatial operations that are important for carrying out state estimation with point clouds : 
 
@@ -302,7 +302,7 @@ There are 3 basic spatial operations that are important for carrying out state e
 - And what we're after are the coordinates of the point P in frame S-prime
 - We can get these easily by just subtracting the frame-to-frame translation vector from the coordinates of P in frame S. 
 
-<img src="./resources/w4/img/l2-lidar-translation5.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l2-lidar-translation5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - This extends easily to a batch operation on the full point cloud by simply tiling the frame-to-frame translation in a big matrix R, and subtracting it from the point cloud matrix
 - Depending on the language or linear algebra library you're using, you probably won't need to build this R matrix explicitly
@@ -682,8 +682,9 @@ To learn more about Pose Estimation from LIDAR data, check out the resources bel
 - [Pulse-Doppler signal processing](https://en.wikipedia.org/wiki/Pulse-Doppler_signal_processing)
 - [Particle Filter](https://en.wikipedia.org/wiki/Particle_filter)
 - [Time of flight](https://en.wikipedia.org/wiki/Time_of_flight)
-  
+- [Electromagnetic Spectrum](https://en.wikipedia.org/wiki/Electromagnetic_spectrum)
+
 # Appendices
 
-- Time of Flight (ToF) : sensors such as cameras that see in 3D thanks to the speed of light
+- Time-of-Flight (ToF) : sensors such as cameras that see in 3D thanks to the speed of light
 
