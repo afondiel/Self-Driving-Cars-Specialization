@@ -679,8 +679,11 @@ To learn more about Pose Estimation from LIDAR data, check out the resources bel
 
 # References
 
-# Appendices
-
 - [Pulse-Doppler signal processing](https://en.wikipedia.org/wiki/Pulse-Doppler_signal_processing)
 - [Particle Filter](https://en.wikipedia.org/wiki/Particle_filter)
+- [Time of flight](https://en.wikipedia.org/wiki/Time_of_flight)
+  
+# Appendices
+
+- Time of Flight (ToF) : sensors such as cameras that see in 3D thanks to the speed of light
 
