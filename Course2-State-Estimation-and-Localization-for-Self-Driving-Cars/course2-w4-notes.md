@@ -668,6 +668,12 @@ To learn more about Pose Estimation from LIDAR data, check out the resources bel
 
 ## Learn from Insdustry Experts
 ### Optimizing State Estimation
+
+- State estimation, which is a process of estimating the internal state of a system based on measurements of its inputs and outputs. The most compelling ways to do state estimation are some guise of an optimization. 
+- You write down a function which you wish to minimize given all the sensor data, and then solve this optimization problem proper fast to tell you an idea of where you could be or a set of places where you could be, and then having uncertainty associated with that as well. 
+- There are lots of algorithms that use optimization, such as **least squares**, **Kalman filters**, **particle filters**, etc. These algorithms are used to estimate the state of a system by looking for some maxima or a minima depending on how you pose it
+
+
 ## Weekly Assignment
 ### Module 4: Graded Quiz
 
