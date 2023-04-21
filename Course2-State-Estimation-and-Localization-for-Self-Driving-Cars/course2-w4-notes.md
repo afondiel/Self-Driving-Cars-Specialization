@@ -33,12 +33,12 @@ Waymo
 Uber 
 
 - LiDAR job is to provide detailed 3D scans (mapping) of the environment around the vehicle.
-- Other applications : Rototics
+- Other applications : Robotics
 
 They can be found in many different shapes and sizes as well as for different applications: from measuring the distance to a single point, a 2D slice of the world or perform a full 3D scan
 
 Some of the most popular models/brand used today : 
-- **Velodyne** (in California, USA)  
+- **Velodyne** (in California, USA // One of 2004 Darpha Grand Challenge participant)  
 <img src="./resources/w4/img/l1-lidar-velodyne.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - **Hokuyo** in Japan and **SICK** in Germany 
