@@ -133,7 +133,7 @@ Here's an example of a typical raw LIDAR stream from a Velodyne sensor attached 
 
 **Measurement Models for 3D LIDAR Sensors**
 
-- 3D LiDAR sensors report *range*, *azimuth* angle and *elevetion angle*( + return intensity)
+- 3D LiDAR sensors report *range*, *azimuth* angle and *elevation angle*( + return intensity)
 
 Before propagation of light 
 
