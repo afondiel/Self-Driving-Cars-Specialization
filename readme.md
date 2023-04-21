@@ -1,6 +1,6 @@
 # Self-Driving Cars Specialization - Coursera - University of Toronto - Notes
 
-Notes and assignements of Self-Driving Cars Specialization course by Coursera from Faculty of Appied Science and Engineering of [University of Toronto](https://www.utoronto.ca/). 
+Notes and assignements of `Self-Driving Cars Specialization` Coursera course Offered by Faculty of Appied Science and Engineering of [University of Toronto](https://www.utoronto.ca/). 
 
 ![Autonomy solutions](https://www.rd.com/wp-content/uploads/2022/08/self-driving-cars-GettyImages-1292394282-JVedit.jpg?resize=768,512) 
 
@@ -35,7 +35,7 @@ Notes and assignements of Self-Driving Cars Specialization course by Coursera fr
 
 # Applied Learning Project
 
-You’ll learn from a highly realistic driving environment that features 3D pedestrian modelling and environmental conditions. When you complete the Specialization successfully, you’ll be able to build your own `self-driving software stack` and be ready to apply for jobs in the autonomous vehicle industry.
+You’ll learn from a highly realistic driving environment that features 3D pedestrian modelling and environmental conditions. When you complete the Specialization successfully, you’ll be able to build your own `self-driving software stack` and be ready to `apply for jobs in the autonomous vehicle industry`.
 
 
 # References
