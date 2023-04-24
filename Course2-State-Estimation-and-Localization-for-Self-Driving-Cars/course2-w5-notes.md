@@ -479,7 +479,7 @@ A GNSS receiver will not work under a bridge and may have reduced accuracy betwe
 
 **Sensors Measurement Ranges**
 
-<img src="./resources/w5/img/l4-2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w5/img/l4-2.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 What's more, for sensors that observe the external world like Lidars, sonar, cameras, or radars, their sensing range plays a very important role in safe operation. 
 
@@ -530,6 +530,31 @@ It's always important to consider the limitations of any set of sensors and use 
 
 ## Learn From Industry Expert
 ### The Challenges of State Estimation
+
+- `State estimation is hard because of the complexity of the sensor data that we’re processing`.
+- The sensor data that we’re being asked to process to answer questions such as “where am I?”, “how am I moving?”, “what’s that individual over there going to be doing because I’ve got an idea of their velocity?” is often complex and confusing.
+- Processing GPS data is a lot easier because you’ve almost being given position and it’s a bit cluttered and you get bounces off buildings and that’s an easier case which I do off radar or laser that’s a lot more complex.
+- The thing that makes state estimation hard so often is the processing of complex signals, and there’s one topic in particular that can make it hard, and that’s data association.
+- `Data association:` is associating some elements, an attribute that you see in the data to an entity in the world.
+
+- You were asking about how to associate a subset of the laser returns from a scanning laser to a car.
+- One way to do this is by using a laser scanner data processing pipeline that converts the laser scan to a point cloud and then uses algorithms such as Iterative Closest Point (ICP) or Normal Distribution Transform (NDT) to match the point cloud with a 3D model of the car.
+- Another way is by using LiDAR (Light Detection and Ranging) which can detect objects in 3D space and provide accurate measurements of distance and position.
+
+- ```State estimation in autonomous vehicles refers to the process of estimating the vehicle’s own state (e.g., motion, orientation, behavior, and trajectory), as well as the states of other - vehicles.```
+- It can be thought of as writing down an equation that explains what is being seen in terms of what is wished to be understood about the state estimation.
+- The complexity of the input signal can make this confusing.
+- None of the sensors that are currently being used are good enough for what is needed.
+- Cameras have a lower dynamic range than human eyes and need to be improved.
+- The latest cameras are still way sparse and do not go far enough.
+- Radar is not good enough either.
+- However, there is a lot of work being done on cameras and radar which will improve their capabilities in the future.
+
+- The first generation of electric vehicles will be made with the sensors, vehicles, software, algorithms, and data that we have now.
+- These will all be better in three years and six years as they evolve together.
+- This is similar to the ecosystem of hardware, software, and applications moving forward in computers.
+
+
 ## Final Project: Vehicle State Estimation on a Roadway
 ### Final Lesson: Project Overview
 ## Lesson3-Congratulations 
