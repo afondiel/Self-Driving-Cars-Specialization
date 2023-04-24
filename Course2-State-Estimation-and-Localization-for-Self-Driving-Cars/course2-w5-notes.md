@@ -123,7 +123,7 @@ All of these factors are critical forms of calibration which we'll discuss in mo
 
 - One of the big challenges for self-driving cars is finding ways to account for these kinds of changes, whether by modeling them or by finding ways of identifying and ignoring objects that violate our assumptions. In fact, this is still a very active area of research. 
 
-**SUmmary**
+**Summary**
 
 - State estimation in practice will typically rely on sensor fusion to combine information from many different kinds of sensors, like **IMUs, LiDAR, cameras, and GPS or GNSS receivers**. 
 - In order for `sensor fusion to work` as intended, we need to `calibrate` the sensors by determining the parameters of our sensor models. 
@@ -133,7 +133,184 @@ All of these factors are critical forms of calibration which we'll discuss in mo
 - Finally, we need to think about how to safely cope with localization failures and aspects of the world that do not conform to our assumptions such as moving objects. 
 
 ### Lesson 2: Multisensor Fusion for State Estimation
+
+Let's put everything together :  
+
+<img src="./resources/w5/img/l2-0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In this lesson, we'll derive an error state Extended Kalman Filter that estimates position, velocity, and orientation of a self-driving car using an IMU, a GNSS receiver, and a LIDAR. 
+- Although we'll make some simplifications, the basic structure of our pipeline will resemble one used in modern self-driving vehicles. 
+
+**Why use GNSS with IMU & LIDAR**
+
+*Before we dive into the algorithm details, it's always useful to take a step back and ask, why use these sensors? Can we do something more simple?*
+
+<img src="./resources/w5/img/l2-1.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In our case, we'll be using an IMU with a GNSS receiver, and a LIDAR for several reasons. 
+
+- First, whenever we fuse information for the purpose of state estimation, one important factor to consider, is whether or not the errors from different sensors will be correlated. 
+- In other words, if one fails, is the other likely to fail as well. In this case, all three of our sensors use different measurement methods, and are unlikely to fail for the same reason. 
+- Second, we should try our best to choose sensors that are complimentary in nature. In our case, the IMU acts as a high-rate smoother of GPS or GNSS position estimates, and GNSS data can mitigate errors that are due to IMU drift.
+- It's also possible to use wheel odometry for this purpose. In this lecture, we'll stick to IMUs, as they can provide full position and orientation information in three-dimensions.Whereas wheel odometry is limited to two-dimensions. 
+- Finally, LIDAR can compliment GNSS information, by providing very accurate position estimates within a known map and in sky obstructed locations. Conversely, GNSS can tell LIDAR which map to use when localizing. 
+
+**Tightly vs Loseky Coupled**
+
+For the purposes of EKF state estimation, we can implement either what's called a `loosely coupled` or a `tightly coupled` estimator.
+
+<img src="./resources/w5/img/l2-2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In a `tightly coupled EKF`, we use the raw pseudo range and point cloud measurements from our GNSS and LIDAR as observations. 
+
+- In a `loosely coupled system`, we assume that this data has already been preprocessed to produce a noisy position estimate. 
+
+Although the tightly coupled approach can lead to more accurate localization, it's often tedious to implement and requires a lot of tuning. For this reason, we'll implement a loosely coupled EKF here. 
+
+**EKF : IMU + GNSS + LIDAR**
+
+Here you can see a graphical representation of our system. 
+
+<img src="./resources/w5/img/l2-3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We'll use the IMU measurements as noisy inputs to our motion model. 
+
+This will give us our predicted state, which will update every time we have an IMU measurement. This can happen hundreds of times a second. 
+
+At a much slower rate, we'll incorporate GNSS and LIDAR measurements whenever they become available, say once a second or slower, and use them to correct our predicted state. 
+
+**Some preliminaries**
+
+<img src="./resources/w5/img/l2-40.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+So what is our state? For our purposes, we'll use a 10-dimensional state vector that includes a 3D position, a 3D velocity, and a 4D unit quaternion that will represent the orientation of our vehicle with respect to a navigation frame. 
+
+<img src="./resources/w5/img/l2-41.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We'll assume that our IMU output specific forces and rotational rates in the sensor frame, and combine them into a single input vector $u$. 
+
+It's also important to point out that we're not going to track accelerometer or gyroscope biases. 
+
+These are often put into the state vector, estimated, and then subtracted off of the IMU measurements. For clarity, we'll emit them here and assume our IMU measurements are unbiased. 
+
+**Motion Model**
+
+Our motion model for the position, velocity and orientation will integrate the proper accelerations and rotational rates from our IMU.
+
+<img src="./resources/w5/img/l2-motion-model0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+The position update looks like this. Next is the velocity update and finally the orientation or quaternion update. We'll need to use several definitions as shown below. 
+
+Remember that our quaternion will keep track of the orientation of our sensor frame s, with respect to our navigation frame n. Notice that the incremental orientation updates are applied via quaternion multiplication. 
+
+Where the orientation change, that is the quaternion form of small omega times delta t, appears on the right-hand side because the orientation change is measured in the local sensor frame. 
+
+**Linearized Motion Model**
+
+<img src="./resources/w5/img/l2-motion-model1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Because of the orientation parameters, which we express as a rotation matrix, our motion model is not linear.
+
+To use it in our EKF, we'll need to linearize it with respect to some small error or perturbation about our predicted state. 
+
+To do this, we'll define an error state that consists of $\delta_{p}$ , $\delta_{v}$ and delta phi. Where $\delta_{phi}$ is a three by one orientation error. 
+
+There are some advantages to representing the orientation error in the global or navigation frame, rather than in the local frame. So we'll proceed accordingly. 
+
+This choice will impact the derivation of our Jacobian matrices, and also the exact form of the error state update. 
+
+Using this error state, we can derive the aerodynamics with the appropriate Jacobians. 
+
+**Measurement Model - GNSS**
+
+For our measurement model, we'll use a very simple observation of the position, plus some additive Gaussian noise. 
+
+<img src="./resources/w5/img/l2-meas-model0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We'll define a covariance $R$ sub GNSS for the GNSS position noise, and R sub LIDAR for our LIDAR position measurement noise. 
+
+<img src="./resources/w5/img/l2-meas-model1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+It's important here to note that we've assumed that our LIDAR and GNSS will supply position measurements in the same coordinate frame. 
+
+In a realistic implementation, the GNSS position estimates may serve as a way to select a known map against which the LIDAR data can then be compared. 
+
+With these definitions in mind, we can now describe our Extended Kalman Filter. 
+
+<img src="./resources/w5/img/l2-ekf0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Our filter will loop every time an IMU measurement occurs. We'll first use the motion model to predict a new state based on our last state. 
+
+The last state may be a fully corrected state, or one that was also propagated using the motion model only.
+
+Depending on whether or not we received the GNSS or LIDAR measurement at the last time step. 
+
+Next, we'll propagate the state uncertainty through our linearized motion model. Again accounting for whether or not our previous state was corrected or uncorrected.
+
+<img src="./resources/w5/img/l2-ekf1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+At this point if we don't have any GNSS or LIDAR measurements available, we can repeat steps one and two. 
+ 
+<img src="./resources/w5/img/l2-ekf2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+If we do, we'll first compute the Kalman gain that is appropriate for the given observation. We'll then compute an error state that we will use to correct our predicted state. 
+ 
+This error state is based on the product of the Kalman gain, and the difference between the predicted and observed position. 
+
+<img src="./resources/w5/img/l2-ekf3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We will then correct our predicted state using our error state. This correction is straightforward for a position of velocity. But some more complicated algebra is required to correct the quaternion. 
+ 
+We'll need this special update because the quaternion is a constrained quantity that is not a simple vector. We have chosen to use a global orientation error. 
+
+This means that the orientation update involves multiplying by the error state quaternion on the left. 
+
+This is different from the propagation step, where we multiplied by the incremental quaternion defining the orientation change on the right. 
+
+<img src="./resources/w5/img/l2-ekf4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+You should pay careful attention to this when completing the final project for this course. 
+
+<img src="./resources/w5/img/l2-ekf5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Finally, we'll update our state covariance in the usual way. That's it. There you have it. Your very own `localization pipeline`. 
+
+If you followed everything up until now, congratulations. You're well on your way to becoming a *localization guru*. 
+
+**Summary**
+
+Before we end this lesson, let's review a few of the assumptions we've made when putting our pipeline together. 
+
+<img src="./resources/w5/img/l2-sum.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+- We used a loosely coupled Extended Kalman Filter framework to fuse inertial measurements from an IMU together with the position measurements from a GNSS receiver and LIDAR. 
+ 
+- We assume that the GNSS and LIDAR provided us with position estimates in the same coordinate frame, which requires some preprocessing, but is possible to do in a realistic implementation. Second, we did not account for accelerometer or gyroscope biases in our IMU measurements. 
+ 
+- This simplified our algebra, but is not a realistic assumption. Luckily, if you followed along with what we've done here, adding biases is not a significant leap.
+ 
+ 
+- Next, we did discuss Filter State initialization. This is often taken to be some known state at the start of the localization process. 
+  
+- Finally, we also assumed that our sensors were all spatially and temporally aligned. 
+
+- We assumed that our sensors were calibrated, in the sense that we didn't worry about varying time steps or how we can get several sets of measurements all aligned into one coordinate frame. 
+  
+- Performing this ladder step is a very important part of constructing an accurate localization pipeline. We'll discuss it next.
 ### Lesson 2 Supplementary Reading: Multisensor Fusion for State Estimation
+
+To learn more about Multisensor fusion, check out the resources below:
+
+- Read Sections 5.1-5.4 and Section 6.1 of a technical report by [Joan Solà, Quaternion kinematics for the error-state Kalman filter, 2017](https://arxiv.org/pdf/1711.02508.pdf) (available for free). Note that this is an advanced reading.
+
+- Read a [research paper](https://www.sciencedirect.com/science/article/pii/S2405896317323674) by Jay Farrell and Paul Roysdon that provides a tutorial for autonomous driving state estimation.
+
+- Read a [Medium article](https://medium.com/@wilburdes/sensor-fusion-algorithms-for-autonomous-driving-part-1-the-kalman-filter-and-extended-kalman-a4eab8a833dd) about sensor fusion algorithms for autonomous driving (Kalman filters and extended Kalman filters).
+
+- Review an [article](https://www.technologyreview.com/s/608321/this-image-is-why-self-driving-cars-come-loaded-with-many-types-of-sensors/) from MIT Technology Review that explains the need for sensor fusion to enable robust autonomous driving.
+
+
 ### Lesson 3: Sensor Calibration - A Necessary Evil
 ### Lesson 3 Supplementary Reading: Sensor Calibration - A Necessary Evil
 ### Lesson 4: Loss of One or More Sensors
