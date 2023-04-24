@@ -557,6 +557,31 @@ It's always important to consider the limitations of any set of sensors and use 
 
 ## Final Project: Vehicle State Estimation on a Roadway
 ### Final Lesson: Project Overview
+
+
+<img src="./resources/w5/img/l5-final-project.png" width="1024" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+All right, now that you've learned about **least squares, linear and non-linear common filters, GPNS and INS sensing for posed estimation and LiDARs**. It's time to put everything together for the final project in this course. By this point, you should have a solid grasp of the methods commonly used for vehicle state estimation, and be ready to test your knowledge in a more realistic scenario.
+
+For the project : 
+- `Input` : 
+  - you'll be provided with a data set gathered during a test drive in the carless simulator.
+  - The data set contains measurements from a sensor array on a moving self-driving car.
+    - The sensor array consists of an **IMU**, a **GNSS receiver**, and a **LiDAR**, all of which provide measurements of varying reliability and at different rates.
+
+  - While driving, the vehicle is subject to various dynamic effects caused by the environment : **the drive train, and the suspension**. These effects are difficult to accurately model.
+  - Therefore, in a self-driving scenario, the vehicle controller will rely on measurements acquired by the sensors.
+
+- `Output` : 
+  - As Self-Driving Car Engineer my goal is :  
+    - is to `implement a state estimator` that fuses the available sensor measurements to provide a reasonable estimate of the vehicle's pose and velocity. 
+    - Specifically, you will be implementing `the error state extended common filter (EKF)` from module two. Since it **provides a high degree of robustness**, and is a staple in state estimation.
+
+- `Skills acquired` : 
+  - For this project, you will have an opportunity to apply much of what you've learned throughout this course, as well as observe the inner workings and interactions of various components found in a full state estimation pipeline.
+  - By the end of this project, you should have a good understanding of the main components that make up a standard state estimation pipeline for an autonomous vehicle. 
+
+
 ## Lesson3-Congratulations 
 ### Your Learning Journey
 ### Congratulations on Completing Course 2!
