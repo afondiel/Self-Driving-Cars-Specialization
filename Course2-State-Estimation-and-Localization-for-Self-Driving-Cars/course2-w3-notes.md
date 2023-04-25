@@ -230,9 +230,8 @@ $$
 **Inertial Navigation - Important Notes**
 
 - When using an IMU for localization, keep in mind : 
-1. If we inaccurately keep track of $C_{sn}(t)$ , we incorporate components of $g_{n}$ into $\displaystyle \ddot{r}_{n}^{s}$ , this will ultimately lead to terrible estimates of position : 
+1. If we inaccurately keep track of $C_{sn}(t)$ , we incorporate components of $g_{n}$ into $\ddot{r}_{n}^{sn}(t)$ , this will ultimately lead to terrible estimates of position : $\ddot{r}_{n}^{sn}(t)$
 
-$\displaystyle \ddot{r}_{n}$
 
 2. Both measurement models ignore the effect of **Earth's rotation**
 3. We only consider **strapdown IMUs** - where the individual sensors are rigidly attached to the vehicle and are gimballed
