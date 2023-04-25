@@ -565,7 +565,7 @@ All right, now that you've learned about **least squares, linear and non-linear 
 
 For the project : 
 - `Input` : 
-  - you'll be provided with a data set gathered during a test drive in the carless simulator.
+  - you'll be provided with a data set gathered during a test drive in the carla simulator.
   - The data set contains measurements from a sensor array on a moving self-driving car.
     - The sensor array consists of an **IMU**, a **GNSS receiver**, and a **LiDAR**, all of which provide measurements of varying reliability and at different rates.
 
@@ -575,7 +575,7 @@ For the project :
 - `Output` : 
   - As Self-Driving Car Engineer my goal is :  
     - is to `implement a state estimator` that fuses the available sensor measurements to provide a reasonable estimate of the vehicle's pose and velocity. 
-    - Specifically, you will be implementing `the error state extended common filter (EKF)` from module two. Since it **provides a high degree of robustness**, and is a staple in state estimation.
+    - Specifically, you will be implementing `the error state extended common filter (ES-EKF)` from module two. Since it **provides a high degree of robustness**, and is a staple in state estimation.
 
 - `Skills acquired` : 
   - For this project, you will have an opportunity to apply much of what you've learned throughout this course, as well as observe the inner workings and interactions of various components found in a full state estimation pipeline.

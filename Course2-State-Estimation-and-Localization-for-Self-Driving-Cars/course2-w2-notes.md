@@ -65,38 +65,38 @@ Study Case : problem of estimating the 1D position of the vehicle
 
 <img src="./resources/w2/motion-model.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-**Motion model** : linear combination btw the estimate at time step $k-1$, control input and zero-mean noise
+`Motion model` : linear combination btw the estimate at time step $k-1$, control input and zero-mean noise
 
 $$
 \displaystyle x_{k} = 
 F_{k−1}x_{k−1} + G_{k−1}u{k−1} + w{k−1}
 $$
 
-where :
+Where :
 - $F_{k−1}, G_{k−1}$ , the gain ?  
 - $u_{k−1}$, is the input signal/control input (can be a wheel torque applied to speed up & change lanes )
 - $w_{k−1}$, is zero-mean noise
 
-**Measurement model**: 
+`Measurement model`: 
 
 $$
 \displaystyle y{k} = 
 H_{k}x{k} + v_{k}
 $$
 
-where :
+Where :
 
 - $v_{k}$, is the measurement noise
   
 **With the following noise properties:**
   
-- Measurement Noise : 
+- **Measurement Noise** : 
 
 $$
 vk ∼ 𝒩(0,R_{k})
 $$
 
-- Process or Motion Noise : govern how certain we are that our linear dynamical system is actually correct/ how uncertain we are about the effects of our control inputs
+- **Process or Motion Noise** : govern how certain we are that our linear dynamical system is actually correct/ how uncertain we are about the effects of our control inputs
 
 $$
 w{k} ∼ 𝒩(0,Q_{k})
@@ -136,7 +136,7 @@ $$
 \end{cases}
 $$
 
-where : 
+Where : 
 - $(y_{k} − H_{k}\check{x}_{k})$, is often called the `innovation`
 - $\check{x}_{k}$, Prediction (given motion model) at time $k$
 - $\hat{x}_{k}$, Corrected prediction (given measurement) at time $k$
