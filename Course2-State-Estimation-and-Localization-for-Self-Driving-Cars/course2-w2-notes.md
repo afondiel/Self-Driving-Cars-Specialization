@@ -52,12 +52,10 @@ Study Case : problem of estimating the 1D position of the vehicle
 - This can be broken down into 3 steps : 
 1. Initial probabilistic Estimate at time $k-1$
 2. Use **Motion Model** (which can be derived from Wheel odometry or Inertial sensor measurement)to predict our new state
-3. Use **Obesrvation Model** (derived from GPS, LIDAR) to correct that prediction at time $k$ to find the final state
+3. Use **Observation Model** (derived from GPS, LIDAR) to correct that prediction at time $k$ to find the final state
 - Notice : All the states (initial, predicted and final) are all random variables specify by their means and covariances
 
-``` 
-- KF can seen as a technique/tool to fuse informations from several sensors to produce a final estimate the unkown state in real-time, taking into account uncertainty in motion and in our measurements
-```
+``` KF can be seen as a technique/tool to fuse informations from several sensors to produce a final estimate the unkown state in real-time, taking into account uncertainty in motion and in our measurements```
 
 **Linear Dynamical System**
 
