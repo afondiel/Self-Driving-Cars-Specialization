@@ -402,4 +402,8 @@ To learn more about the evolution of GNSS, check out the resources below:
 - [Bayesian Network](https://en.wikipedia.org/wiki/Bayesian_network)
 - [Bayesian inference](https://en.wikipedia.org/wiki/Bayesian_inference)
 - [Bayesian Statistics](https://en.wikipedia.org/wiki/Bayesian_statistics)
+- [Hypercomplex Number](https://en.wikipedia.org/wiki/Hypercomplex_number)
+- [Hypercomplex Number](https://en.wikipedia.org/wiki/Hypercomplex_number)
+>- [Quaternion](https://en.wikipedia.org/wiki/Quaternion)
+
 
