@@ -9,7 +9,7 @@
 
 **Course Objectives :**
 
-- Explain the operation of the two most common sensors used for pose estimation in autonomous driving, inertial meaurement units and GNSS receivers.
+- Explain the operation of the two most common sensors used for pose estimation in autonomous driving, inertial measurement units and GNSS receivers.
 - Understand the concept of coordinate acceleration and the fundamental equation of inertial navigation.
 - Apply gyroscope and accelerometer measurement models in the context of navigation.
 - Describe the process of trilateration and justify why four satellites must be visible to obtain a 3D position fix from a GPS (GNSS) receiver.
@@ -33,7 +33,7 @@
  
 <img src="./resources/w3/img/l1-transf.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-**How can we reprensent a rotation**
+**How can we represent a rotation**
 - A critical component of tracking reference frames is tracking their orientation or rotation with respect to some base reference frame.
 - Rotations are particularly tricky mathematical objects and they can be the source of major bugs if not dealt with carefully and diligently.
 
@@ -45,10 +45,14 @@
 
 2. Unit quaternions
 
-- It can be represented as a 4D vector of unit of length ( $\mathbb{R}^4$ )
+- It can be represented as a 4D vector of unit of length
 
 <img src="./resources/w3/img/l1-coord-rot2.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- Where : 
+  - $q = [q_{v} \quad q_{x} \quad q_{y} \quad q_{z}]^{T}$ , and 
+  - $Re(q) = q_{v}$
+  - $Im(q) = q_{x}, q_{y}, q_{z}$
 - We can **convert a quaternion to a rotation matrix** by using the algebra expression below : 
 
 <img src="./resources/w3/img/l1-coord-rot3.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -56,8 +60,8 @@
 - Why use quaternions? 
   - They don't suffer from singularities and need 4 parameters instead of 9.
 
-**Quarterion Multiplication and Rotations**
-- Quarternions multiplication is a special operation that is associative but is not commutative in general(just like matrix multiplication)
+**Quaternion Multiplication and Rotations**
+- Quaternions multiplication is a special operation that is associative but is not commutative in general(just like matrix multiplication)
   
 <img src="./resources/w3/img/l1-coord-rot4.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
