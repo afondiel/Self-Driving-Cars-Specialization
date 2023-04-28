@@ -45,12 +45,12 @@
   - That are tailored to process images from cameras
 
 - **MODULE 4 : Use Neural networks to perform 2D object detection**
-- Use Neural networks to perform 2D object detection, classification and regression task. 
-- You will learn how to formulate the 2D object detection problem, 
-- how to evaluate 2D object detection models, 
-- how to build neural networks that perform the 2D object detection task, 
-- and how to use the output of 2D object detectors in the context to self-driving cars. 
-- Specifically, you will use 2D object detection results to predict 3D position and track objects of interest in road scenes. 
+  - Use Neural networks to perform 2D object detection, classification and regression task. 
+  - You will learn how to formulate the 2D object detection problem, 
+  - how to evaluate 2D object detection models, 
+  - how to build neural networks that perform the 2D object detection task, 
+  - and how to use the output of 2D object detectors in the context to self-driving cars. 
+  - Specifically, you will use 2D object detection results to predict 3D position and track objects of interest in road scenes. 
 
 - **MODULE 5 : Semantic segmentation** 
   - You will learn to formulate the semantic segmentation problem, evaluate semantic segmentation models, 
