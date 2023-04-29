@@ -401,7 +401,7 @@ The camera projection matrix $P$ by itself, is useful for projecting 3D points i
 
 Fortunately, we can factorize $P$ into intrinsic parameter matrix K and extrinsic rotation parameters R and translation parameters t, using a linear algebra operation known as the `RQ factorization`.
 
-*How we perform this factorization* 
+*How we perform this factorization?* 
 
 <img src="./resources/w1/img/l2-camera-calib6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -456,27 +456,184 @@ You can test out some of the most common implementations by following the links 
 
 
 ### Lesson 3 Part 1: Visual Depth Perception - Stereopsis
+
+Self-driving cars require accurate depth perception for the safe operation of our autonomous vehicles. 
+
+*If you don't know how far away the cars are in front of you, how can you avoid them while driving?*
+
+- **Lidar** and **Radar** sensors are usually thought of as the primary 3D sensors available for `perception tasks`. 
+- However, we can get **depth information** from two or more cameras using `multi-view geometry` ( [Tesla Self-Driving Cars?](https://www.youtube.com/watch?v=eZOHA6Uy52k) ). 
+- Specifically, we'll be describing the process of getting depth from two axis aligned cameras a setup known as `the stereo cameras`. 
+
+**Stereopsis**
+
+The process of stereo vision, was first described by **Charles Wheatstone** back in **1838**. 
+
+- He recognized that because each eye views the visual world from a slightly different horizontal position that each eye's image differs from the other. 
+
+- Objects at different distances from the eye project images into the two eyes that differ in their horizontal position giving depth cues of horizontal disparity that are also known as binocular disparity.
+
+<img src="./resources/w1/img/l3-vdp0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- However, historical evidence suggests that stereopsis was discovered much earlier than this. In fact some drawings by **Leonardo da Vinci** depict accurate geometry of depth through stereopsis. 
+
+**Stereoscopes: A 19th Century Pastime**
+
+Up to the 19th century, the phenomenon of stereopsis was primarily used for entertainment. 
+
+<img src="./resources/w1/img/l3-vdp1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+Anaglyphs were used to provide a stereoscopic 3D effect when viewed with 2D color glass, where each lens employs different chromatically opposite colors, usually red and cyan. 
+
+**Stereo Cameras**
+
+Nowadays, we use stereopsis with complex algorithms to derive depth from two images using a similar concept to Da Vincis drawings. 
+
+<img src="./resources/w1/img/l3-vdp2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+Now, let us delve into the geometry of a stereo sensor. 
+
+**Stereo Cameras Model**
+
+`A stereo sensor is usually created by two cameras with parallel optical axes`. 
+
+<img src="./resources/w1/img/l3-stereo-cam0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+To simplify the problem even more, most manufacturers align the cameras in 3D space so that the two image planes are aligned with only an offset in the x-axis. 
+
+Given a known rotation and translation between the two cameras and a known projection of a point $O$ in 3D to the two camera frames resulting in pixel locations $OL$ and $OR$ respectively, we can formulate the necessary equations to compute the 3D coordinates of the point $O$ . 
+
+To make our computation easier, we will state some assumptions. 
+1. we assume that the two cameras used to construct the stereo sensors are identical. 
+
+2. we will assume that while manufacturing the stereo sensor, we tried as hard as possible to keep the two cameras optical axes aligned. 
+
+
+Let's now define some important parameters of the stereo sensor. 
+- The focal length $f$ is, once again, the distance between the camera center and the image plane. 
+- Second, the baseline $b$ is defined as the distance along the shared x-axis between the left and right camera centers. 
+
+By defining a baseline to represent the transformation between the two camera coordinate frames, we are assuming that the rotation matrix is identity and there is only a non-zero x component in the translation vector. 
+
+The $R$ and $T$ transformation therefore boils down to a single baseline parameter $B$. 
+
+**Stereo Sensor: Assumptions**
+
+Before proceeding, we will project the previous figure to bird's eye view for easier visualization. 
+
+<img src="./resources/w1/img/l3-stereo-cam1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+Now, let's define the quantities we would like to compute.
+
+- We want to compute the x and z coordinates of the point $O$ with respect to the left camera frame. 
+
+<img src="./resources/w1/img/l3-stereo-cam2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- The $y$ coordinate can be estimated easily after the $x$ and $z$ coordinates are computed. Remember, we are given the baseline, focal length, and the coordinates of the projection of the point $O$ onto the left and right image planes.
+  
+<img src="./resources/w1/img/l3-stereo-cam3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We can see two similar triangles formed by the left camera measurement as follows. 
+
+- The triangle formed by the depth $z$ and the position $x$ is similar to the triangle formed by the focal length $f$ and the left measurement $x$ component $xl$. 
+- From this similarity we can construct the equation z over equals $x$ over $xl$ . 
+
+<img src="./resources/w1/img/l3-stereo-cam4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- The same can be done for the right measurements but with the offset for the baseline included. In this case, the two triangles are defined by $z$ , and the distance $x$ minus $b$ and the focal length $f$ and the right measurement $x$ component $xr$ . 
+
+- Similarly, we can get a second equation relating $z$ to $x$ via the right camera para meters in measurements. 
+
+<img src="./resources/w1/img/l3-stereo-cam5.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+From these two equations, we can now derive the 3D coordinates of the point $O$ .
+
+**Computing the 3D Point coordinates**
+
+<img src="./resources/w1/img/l3-3d-point0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We define the disparity $d$ to be the difference between the image coordinates of the same pixel in the left and right images. 
+- We can easily transform between image and pixel coordinates using the $x$ and $y$ offsets $u$ Naught and $v$ Naught. 
+- We then use the two equations from the similar triangle relations to solve for the value of z as follows. From there we use the value of $z$ to compute x with the following expression. 
+
+<img src="./resources/w1/img/l3-3d-point1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Finally, we can repeat the process in the $y$ direction with the same derivation to arrive at the following expression for $y$ . 
+
+- The three components of the point position are now explicitly available from the two sets of pixel measurements available to us. 
+
+- Now that we have established the equations needed for 3D coordinate computation from the stereo sensor, two problems arise to be able to perform this computation. 
+
+<img src="./resources/w1/img/l3-3d-point2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- First, we need to compute the focal length baseline and $x$ and $y$ offsets. That is, we need to calibrate the stereo camera system. 
+- Second, we need to find the correspondence between each left and right image pixel pair to be able to compute their disparity. 
+
+`Fortunately, the calibration problem can be solved using stereo camera calibration.` 
+
+This is an extension of the **monocular process** we discussed in the previous video, for which well-established implementations are available. 
+
+```
+The correspondence problem however, requires specialized algorithms to efficiently perform the matching and compute the disparity between left and right image pixels, which we'll discuss further in the next video. 
+```
+
+**Conclusion**
+
+- The output depth from stereopsis suffers from some limitations particularly as points move further away from the stereo camera.
+
+- However, given a good disparity estimation algorithm, the output is still useful for self-driving cars as a dense source of depth information and closer range which exceeds the density we can get from common Lidar sensors.``` 
+
+**Summary**
+
+- To summarize this lesson, you've learned some historical background on stereopsis. 
+
+- You also learned the equations required to estimate 3D coordinates of a pixel given the geometric transformation between the two cameras sensors and the disparity between pixels. 
+
 ### Lesson 3 Part 2: Visual Depth Perception - Computing the Disparity
 ### Supplementary Reading: Visual Depth Perception
+
+
 ### Lesson 4: Image Filtering
+
+
 ### Supplementary Reading: Image Filtering
+
+
 ### Lab
-### Grade : Module 1 Graded Quiz
+### Grade 
+
 
 # References
 
+Tesla Vision vs Lidar : 
+- [Tesla autonomy neural networks How AI neural networks function in Tesla - By Andrej Karpathy](https://www.youtube.com/watch?v=eZOHA6Uy52k)
+- [Tesla Vision vs LIDAR](https://www.youtube.com/watch?v=W-ubNvS0RGU)
+- [How Tesla Is Using Artificial Intelligence to Create The Autonomous Cars Of The Future](https://bernardmarr.com/how-tesla-is-using-artificial-intelligence-to-create-the-autonomous-cars-of-the-future/)
+- [LiDAR vs Computer Vision: Does Waymo Have A Better Strategy Than Tesla? - Joe Scott](https://www.youtube.com/watch?v=HmjuEikY4ew)
+- [Tesla Vision vs UltraSonics Sensors (USS)](https://www.youtube.com/watch?v=1imyiPbYB24)
+
+Tesla AI Day : 
+- [Tesla Autonomy Day - 2019](https://www.youtube.com/watch?v=Ucp0TTmvqOE)
+- [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
+- [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
+- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=5646s)
+
 # Appendices
 
+CV : 
 - [Computer Vision](https://en.wikipedia.org/wiki/Computer_vision)
+- [Machine Perception](https://en.wikipedia.org/wiki/Machine_perception)
+- [Depth Perception](https://en.wikipedia.org/wiki/Depth_perception)
 
-- Environment : 
+Environment : 
+  - [Light](https://en.wikipedia.org/wiki/Light)
+  - [Optics](https://en.wikipedia.org/wiki/Optics)
   - [Color Theory](https://en.wikipedia.org/wiki/Color_theory)
   - [3D space](https://en.wikipedia.org/wiki/Three-dimensional_space)
-  - [Optics](https://en.wikipedia.org/wiki/Optics)
-  - [Machine Perception](https://en.wikipedia.org/wiki/Machine_perception)
 
 - [Multidimensional Signal Processing](https://en.wikipedia.org/wiki/Category:Multidimensional_signal_processing)
   - [Image Processing](https://en.wikipedia.org/wiki/Category:Image_processing)
   - [Video Processing](https://en.wikipedia.org/wiki/Category:Video_processing)
   - [Geometry Processing](https://en.wikipedia.org/wiki/Category:Geometry_processing)
 
+- [Stereometry or Solid Geometry - 3D (Objects) Geometry](https://en.wikipedia.org/wiki/Solid_geometry)
