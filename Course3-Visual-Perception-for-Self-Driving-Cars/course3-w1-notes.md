@@ -473,7 +473,7 @@ The process of stereo vision, was first described by **Charles Wheatstone** back
 
 - Objects at different distances from the eye project images into the two eyes that differ in their horizontal position giving depth cues of horizontal disparity that are also known as binocular disparity.
 
-<img src="./resources/w1/img/l3-vdp0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+<img src="./resources/w1/img/l3-vdp0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
 - However, historical evidence suggests that stereopsis was discovered much earlier than this. In fact some drawings by **Leonardo da Vinci** depict accurate geometry of depth through stereopsis. 
 
@@ -481,7 +481,7 @@ The process of stereo vision, was first described by **Charles Wheatstone** back
 
 Up to the 19th century, the phenomenon of stereopsis was primarily used for entertainment. 
 
-<img src="./resources/w1/img/l3-vdp1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+<img src="./resources/w1/img/l3-vdp1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
 Anaglyphs were used to provide a stereoscopic 3D effect when viewed with 2D color glass, where each lens employs different chromatically opposite colors, usually red and cyan. 
 
@@ -489,7 +489,7 @@ Anaglyphs were used to provide a stereoscopic 3D effect when viewed with 2D colo
 
 Nowadays, we use stereopsis with complex algorithms to derive depth from two images using a similar concept to Da Vincis drawings. 
 
-<img src="./resources/w1/img/l3-vdp2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+<img src="./resources/w1/img/l3-vdp2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
 Now, let us delve into the geometry of a stereo sensor. 
 
