@@ -184,7 +184,7 @@ We've come a long way since the invention of the camera obscura. Current-day cam
 
 **Ubiquitous Imaging devices**
 
-*How many cameras do you think you own?* You'd be surprised if you stop to count them all. 
+*How many cameras do you think you own?* 
 
 <img src="./resources/w1/img/l1-camera8.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -300,7 +300,7 @@ Let us formulate the mathematical tools needed to perform this projection using 
   - Distortion 
   - Non unit aspect ratio. 
 
-- Luckily, this only changes the camera K matrix, and the equations you have learned can be used as is with a few additional parameters. 
+- Luckily, this only changes the camera $K$ matrix, and the equations you have learned can be used as is with a few additional parameters. 
 
 **The Digital Iamge: Greyscale**
 
@@ -340,7 +340,121 @@ Now that we have formulated the coordinates of projection of a 3D point onto the
 - Hartley, R., & Zisserman, A. (2003). Multiple view geometry in computer vision. Cambridge university press. Read sections 1.1, 1.2, 2.1, 6.1, 6.2
 
 ### Lesson 2: Camera Calibration
+
+The camera calibration problem is defined as finding these unknown intrinsic and extrinsic camera parameters, shown here in red given n known 3D point coordinates and their corresponding projection to the image plane.
+
+**Camera Calibration: Problem Formulation**
+
+<img src="./resources/w1/img/l2-camera-calib0.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Our approach will comprise of getting the $P$ matrix first and then decomposing it into the intrinsic parameters $K$ and the extrinsic rotation parameters $R$ and translation parameters $t$ .
+
+<img src="./resources/w1/img/l2-camera-calib1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For calibration, we use a scene with known geometry to get the location of our 3D points from the 2D image, resolving the scale issue by measuring the actual 3D distance between the points that are observed in the image.
+
+- The most commonly used example would be a 3D checkerboard, with squares of known size providing a map of fixed point locations to observe. 
+
+- We define our word coordinate frame, in yellow and compute our 3D point coordinates and their projections in the image.
+
+- Associating 3D points to 2D projections can be done either manually, by clicking on the purple points, for example or automatically, with checkerboard detectors. 
+
+- We can then set up a system of equations to solve for the unknown parameters of $P$ . Now, let us form the system of linear equations that needs to be solved. 
+
+<img src="./resources/w1/img/l2-camera-calib2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- First, we expand the projection equations to three equations through matrix multiplication. 
+  
+<img src="./resources/w1/img/l2-camera-calib3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- To get zero on the right-hand side of these equations, we move the right hand side to the left-hand side for each one. 
+
+<img src="./resources/w1/img/l2-camera-calib4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Then, we substitute the third equation into equations one and two, and end up with two equations per point. 
+
+<img src="./resources/w1/img/l2-camera-calib5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Therefore, if we have $n$ points, we have $2n$ associated equations. Putting these equations in matrix form gives us the shown homogeneous linear system. 
+
+Since this is a **homogeneous linear system**, we can use the pseudo-inverse or even better, the singular value decomposition to get `the least squares solution`.
+
+**Camera Calibration: Linear Methods**
+
+Our simple linear calibration approach has several advantages. 
+
+- It's **easy to formulate**
+- Has a **closed form solution**
+- Often provides really **good initial points for non-linear calibration approaches.**
+
+*Can you think of some disadvantages of a simple linear system?*
+
+- One disadvantage of solving for $P$ , is that we do not directly get the intrinsic and extrinsic camera parameters. 
+- Furthermore, our linear model does not take into account complex phenomena, such as radial and tangential distortion. 
+- Finally, since we are solving via the linear least squares method, we cannot impose constraints on our solution, such as requiring the focal length to be non-negative. 
+
+The camera projection matrix $P$ by itself, is useful for projecting 3D points into 2D, but it has several drawbacks: 
+- It doesn't tell you the cameras pose 
+- it doesn't tell you about the camera's internal geometry
+
+**Factoring the P matrix**
+
+Fortunately, we can factorize $P$ into intrinsic parameter matrix K and extrinsic rotation parameters R and translation parameters t, using a linear algebra operation known as the `RQ factorization`.
+
+*How we perform this factorization* 
+
+<img src="./resources/w1/img/l2-camera-calib6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- First, we alter the representation of $P$ to be a function of the camera center $C$ . $C$ is the point that projects to zero when multiplied by $P$ . 
+- We multiply $K$ into the matrix to form two sub-matrices, $KR$ and minus $KRC$. We will refer to the combination of $K$ and $R$ as the $M$ matrix. 
+
+<img src="./resources/w1/img/l2-camera-calib7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can now express our projection matrix $P$ as $M$ and minus $MC$ . From here, we use the fact that any square matrix can be factored into an upper triangular matrix $R$ and an orthogonal basis to decompose $M$ into upper triangular R and orthogonal basis $Q$ . 
+
+<img src="./resources/w1/img/l2-camera-calib8.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In linear algebra, this procedure is known as **RQ factorization**, which is a variant of the more commonly referred to `QR factorization`. In QR factorization, we have the orthogonal $Q$ first and then the upper triangular $R$. 
+  
+- Note here that the $R$ and the output of RQ factorization, is a different variable than our rotation matrix $R$. `So, don't get those confused`. 
+
+Let's now see how we can use the output of RQ factorization of the matrix $M$ to retrieve $K$ , $R$ , and $t$ by aligning these two expressions. 
+
+<img src="./resources/w1/img/l2-camera-calib9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The intrinsic calibration matrix $K$ is the output $R$ of the $RQ$ factorization of $M$ . The rotation matrix $R$ is the orthogonal basis $Q$ . 
+
+- Finally, we can extract the translation vector directly from $K$ in the last column of the $P$ matrix. RQ factorization is a great tool to compute $K$ , $R$ , and $t$ from the camera $P$ matrix. 
+
+- `However, some mathematical assumptions need to be performed to guarantee a unique solution for these matrices`. 
+
+- We will explore these assumptions in further detail with this lesson's practice Jupiter notebook. 
+
+**Camera Calibration**
+
+Monocular camera calibration is a well-established tool that has excellent implementations in **C++, Python and MATLAB**. 
+
+<img src="./resources/w1/img/l2-camera-calib10.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+You can test out some of the most common implementations by following the links we've included in the [supplemental materials](#supplementary-reading-camera-calibration)
+
+**Summary**
+
+- In this lesson, you've learned that the camera projection matrix $P$ can be found through a process known as **camera calibration**. 
+
+- You've learnt that this matrix can be factored into the camera intrinsic matrix $K$ and the camera's extrinsic parameters $R$ and $t$ , through **RQ factorization**. 
+
 ### Supplementary Reading: Camera Calibration
+
+- Orsyth, D. A. and J. Ponce. (2003). Computer vision: a modern approach (2nd edition). New Jersey: Pearson. Read sections 5.3.
+
+- Szeliski, R. (2010). Computer vision: algorithms and applications. Springer Science & Business Media. Read sections 6.1, 6.2. 6.3 (PDF available online: http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf)
+
+- Hartley, R., & Zisserman, A. (2003). Multiple view geometry in computer vision. Cambridge university press. Read sections 7.1, 7.2, 7.4, 8.4, 8.5
+
+- Camera Calibration with OpenCV: https://docs.opencv.org/3.4.3/dc/dbb/tutorial_py_calibration.html
+
+
 ### Lesson 3 Part 1: Visual Depth Perception - Stereopsis
 ### Lesson 3 Part 2: Visual Depth Perception - Computing the Disparity
 ### Supplementary Reading: Visual Depth Perception
