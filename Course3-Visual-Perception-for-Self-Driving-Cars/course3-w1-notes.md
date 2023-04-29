@@ -553,7 +553,7 @@ From these two equations, we can now derive the 3D coordinates of the point $O$ 
 <img src="./resources/w1/img/l3-3d-point0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
 - We define the disparity $d$ to be the difference between the image coordinates of the same pixel in the left and right images. 
-- We can easily transform between image and pixel coordinates using the $x$ and $y$ offsets $u$ Naught and $v$ Naught. 
+- We can easily transform between image and pixel coordinates using the $x$ and $y$ offsets $u_{0}$ and $v_{0}$. 
 - We then use the two equations from the similar triangle relations to solve for the value of z as follows. From there we use the value of $z$ to compute x with the following expression. 
 
 <img src="./resources/w1/img/l3-3d-point1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
@@ -590,8 +590,119 @@ The correspondence problem however, requires specialized algorithms to efficient
 - You also learned the equations required to estimate 3D coordinates of a pixel given the geometric transformation between the two cameras sensors and the disparity between pixels. 
 
 ### Lesson 3 Part 2: Visual Depth Perception - Computing the Disparity
+
+**Part 1 Review : Computing 3D Point Coordinates**
+
+<img src="./resources/w1/img/l32-vdp-recall.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We identified two primary issues with the visual depth estimation from stereo images. 
+- The first is that the camera parameters focal length F baseline B and camera pixel centers $U_{0}$ and $V_{0}$ , need to be estimated from stereo camera calibration. 
+- It's great to see you again. Welcome back. So far we have learned the essential equations to extract 3D information from a stereo pair. However, we were faced with some unknown parameters that we have to estimate. 
+
+In this `part 2` you will learn : 
+- **How to estimate these missing parameters** such as the disparity through `stereo matching`. 
+- You will also learn that efficient disparity estimation is possible due to `epipolar constraints`. 
+
+Similar to monocular camera calibration, **stereo calibration** is a well-studied problem with lots of user-friendly free software capable of performing in.
+
+`This lesson we'll be targeting the second problem, mainly stereo matching to compute disparities`. 
+
+As a reminder, **disparity** is the difference in the image location of the same 3D point as observed by two different cameras. 
+
+<img src="./resources/w1/img/l32-3D-coord-review.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+To compute the disparity we need to be able to find the same point in the left and right stereo camera images. This problem is known as **the stereo correspondence problem**. 
+
+The most naive solution for this problem is an `exhaustive search`, where we searched the whole rate image for every pixel in the left image. 
+
+- Such a solution is extremely inefficient and will usually not run in real time to be used on self-driving cars. 
+
+<img src="./resources/w1/img/l32-0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- It's also unlikely to succeed as many pixels will have similar local characteristics, making it difficult to match them correctly. 
+
+Luckily for us, we can use `stereo geometry` to constrain our search problem from 2D over the entire image space to a 1D line. 
+
+Let's revisit our stereo camera setup and see why such a simplification is valid. 
+
+**Epipolar Constraint for Correspondence**
+
+We've already determined, how a single point is projected to both cameras. 
+
+<img src="./resources/w1/img/l32-constraint0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Now, let's move our 3D point along the line connecting it with the left cameras center. Its projection on the left camera image plane does not change. 
+
+- However, what can you notice about the projection on the right camera plane, the projection moves along the horizontal line.
+
+- This is called an epipolar line and follows directly from the fixed lateral offset and image plane alignment of the two cameras in a stereo pair. 
+
+- We can constrain our correspondence search to be along the epipolar line, reducing the search from 2D to 1D.
+
+<img src="./resources/w1/img/l32-constraint1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+**Non-Parallet Optical Axles**
+
+<img src="./resources/w1/img/l32-constraint2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- One thing to note is that horizontal epipolar lines only occur if the optical axes of the two cameras are parallel. 
+- In the case of non parallel optical axis, the epipolar lines are skewed. 
+- In such cases we will have to result to multiple view geometry rather than the stereo equations we have developed, which is out of the scope of this lesson.
+
+**Disparity Computation**
+
+In the case of two calibrated use such as our stereo camera, a skewed epipolar line is not a huge problem.
+
+In fact, we can work the optical axis to be parallel through a process known as `stereo rectification`. 
+
+<img src="./resources/w1/img/l32-disparity0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- After rectification we arrive back to our horizontal epipolar line.
+- We will not go through how to perform rectification as implementations are available in standard computer vision packages such as `OpenCV` and `MATLAB`. 
+
+<img src="./resources/w1/img/l32-disparity1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+
+**A Basic Stereo Algorithm**
+
+To put it all together we will go over our first basic stereo algorithm. 
+
+<img src="./resources/w1/img/l32-stereo-algo0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For each epipolar line take a pixel on this line in the left image, compare these left image pixels to every pixel in the right image on the same epipolar line.
+- Next, select the right image pixel that matches the left pixel the most closely which can be done by minimizing the cost. For example, a very simple cost here can be the squared difference in pixel intensities. 
+- Finally, we can compute the disparity by subtracting the right image location from the left one. 
+
+<img src="./resources/w1/img/l32-stereo-algo2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Stereo matching**
+
+Stereo matching is a very well-studied problem in computer vision. 
+
+<img src="./resources/w1/img/l32-stereo-matching0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Many more complex costs and search regions can be defined, which attempts to improve either computational efficiency or disparity accuracy. 
+ 
+- There are a wide range of approaches including both local and global methods, which differ in the main image region considered when identifying correspondences and computing disparities. 
+ 
+- As with most problems in computer vision, the stereo vision algorithms are evaluated on a public benchmark. The most famous of which is `the middlebury stereo benchmark`. 
+
+- If you are interested, many of the top-performing stereo matching algorithms have results published there and have code available too. 
+
+**Summary**
+
+- With this lesson, you should now know how a stereo sensor generates depth from images through disparity estimation.
+
+- This week's assignment will give a chance to compute your own disparity maps and to use them to create your own distance to impact driver assist module. 
+ 
+
 ### Supplementary Reading: Visual Depth Perception
 
+- Forsyth, D.A. and J. Ponce (2003). Computer Vision: a modern approach (2nd edition). New Jersey: Pearson. Read sections 11.1, 12.1, 12.2.
+- Szeliski, R. (2010). Computer vision: algorithms and applications. Springer Science & Business Media. Read sections 11.1 (PDF available online: http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf)
+- Hartley, R., & Zisserman, A. (2003). Multiple view geometry in computer vision. Cambridge university press. Read section 9.1, 10.1, 11.12
+- Epipolar Geometry (OpenCV): https://docs.opencv.org/3.4.3/da/de9/tutorial_py_epipolar_geometry.html
+- Depth Map from Stereo Images (OpenCV): https://docs.opencv.org/3.4.3/dd/d53/tutorial_py_depthmap.html 
 
 ### Lesson 4: Image Filtering
 
