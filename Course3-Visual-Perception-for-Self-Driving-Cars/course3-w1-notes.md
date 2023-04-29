@@ -706,13 +706,152 @@ Stereo matching is a very well-studied problem in computer vision.
 
 ### Lesson 4: Image Filtering
 
+**Image Filtering**
+
+*Why we would use image filtering?*
+
+**The image formation process**: is susceptible to lots of different noise sources`
+
+- In the image below you can see the camera man, a very famous photo created at MIT that is used for testing computer vision algorithms. 
+
+<img src="./resources/w1/img/l4-img-filtering0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+Now let us add salt and pepper noise to this image, by randomly turning some of its pixels white and others black.
+
+*How can we retrieve a reasonable visual appearance of the original image from such a noisy one?*
+
+<img src="./resources/w1/img/l4-img-filtering1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- `Image filtering is as simple and efficient method to eliminate noise.`
+
+
+You will also see that depending on the filter, a variety of operations can be performed on images in an efficient manner. 
+
+But first, let us see how image filtering helps reduce salt and pepper noise as a motivating example. 
+
+<img src="./resources/w1/img/l4-img-filtering2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- If we look at the image array, we noticed that salt and pepper noise usually results in outlier pixels, low-value pixels in a high-value neighborhood or high-value pixels in a low-value neighborhood. 
+
+<img src="./resources/w1/img/l4-img-filtering3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- One idea to reduce this noise is to compute the `mean` of the whole neighborhood, and replace the outlier pixel with this mean value. 
+
+- Let us define $G$ as the output of our filter operation. The equation of the mean can be described in terms of $k$, $u$ and $v$ . Here, $2k + 1$ one is the filter size. 
+- In this case, the size of our neighborhood which is three leads to a $k$ that's equal to one. $u$ and $v$ are the center pixel image coordinates. 
+- Computing the mean results in $80$ for the top neighborhood and $10$ for the bottom one. 
+- The final step is to replace the center pixel of each of those neighborhoods by the corresponding mean. 
+  
+```
+We have successfully reduced the noise and smooth the image array values in this neighborhood. 
+```
+
+**Cross-Correlation**
+
+The mean equation can be generalized by adding a weight to every pixel in the neighborhood.
+
+<img src="./resources/w1/img/l4-cc0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+
+- The weight matrix $H$ is called a `kernel`. This generalized form is termed cross-correlation, as it defines a correlation between each pixel and every other pixel in the neighborhood. 
+
+- For the mean filter defined above, we now represented with the following kernel. A 3x3 matrix filled with the value one-ninth. 
+- Another kernel for noise reduction is `the Gaussian kernel`, where the center pixel is weighted more than the neighboring pixels and the weights follow a Gaussian distribution. 
+
+Now let's apply these kernels to our camera man image. 
+
+<img src="./resources/w1/img/l4-cc1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+ 
+- We can see that our kernels successfully reduces the salt and pepper noise.
+- However, it also blurred our image, an inevitable consequence of these linear filters. 
+- This blur can be reduced by tuning the parameters specific to each type of filter. 
+
+**Convulation**
+
+A Convolution :  is a cross-correlation, where the filter is flipped both horizontally and vertically before being applied to the image. 
+
+<img src="./resources/w1/img/l4-conv0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- To apply the convolution, we take each row of our kernel, flip it and replace it at its corresponding symmetric position from the middle row.
+
+<img src="./resources/w1/img/l4-conv1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Mathematically convolution can be described as the following equation. 
+
+<img src="./resources/w1/img/l4-conv2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Note that we simply manipulated the image coordinates instead of flipping the kernel.
+ 
+*What are the advantages of using a convolution over a kernel?* 
+
+<img src="./resources/w1/img/l4-conv3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+  
+- Unlike correlation, convolution is associative, meaning the order of multiplication of kernels does not matter. 
+
+We can therefore apply as many consecutive linear kernels to an image as we want by precomputing the combined convolution of all the kernels, and then performing a single convolution of the resulting kernel with the image. 
+
+- As an example, we apply two linear kernels, $H$ and $F$, by computing $H$ times $F$ and then applying it to the image. 
+- This results in a substantial reduction in runtime, especially if we need to process images in real-time while moving in a vehicle. 
+
+**Applications: Template Matching**
+
+Now let's present some important applications of cross-correlation and convolution operations. 
+- Cross-correlation can be used for template matching.
+
+<img src="./resources/w1/img/l4-ex0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Template matching is the problem where we are given a pattern or a template, and we want to find its location in the image. 
+- This can be done by finding the location of the highest value of the output of cross-correlation, between the template and the image. 
+
+To visualize this better, let's superimpose the colorized output of cross-correlation on top of our target image. 
+
+<img src="./resources/w1/img/l4-ex1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Here red is a high cross-correlation response, while blue is a very low response. 
+- The location of the template and the image is then the $u$ , $v$ coordinates of the pixel with the highest value from the output of the cross-correlation.
+
+- We can check that our correlation is correct by superimposing the template on the $u$ , $v$ coordinates we just found.
+
+<img src="./resources/w1/img/l4-ex2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- This method can be used as a starting point for the identification of signs, and even for lean detection, although challenges arise with the approach in practice. 
+
+**Applications: Image Gradient Computation**
+
+Another important application that can be performed using convolutions, is `image gradient computation`. 
+
+<img src="./resources/w1/img/l4-ex3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Image gradients can be computed by a convolution with a kernel that performs finite difference. 
+
+- We can rotate our kernel in different orientations to get vertical, horizontal or even diagonal gradients of an image at a pixel.
+
+- Image gradients are extremely useful for detection of edges and corners, and are used extensively in self-driving for image feature and object detection, for example. 
+
+**Summary**
+
+- In this lesson, you learned how to perform cross-correlation and convolution as well as some of the uses of these operations. 
+
+- These operations will prove to be very useful later on in the course when we discuss convolution neural networks. 
+
+- Next week we will deal deeper into image processing to learn how to distill useful information from these high dimensional objects. 
+
+**Skills acquired**
+
+- By now you should know how to represent a digital image. How points in 3D relate to pixels in an image. 
+- How to compute 3D point coordinates from a pair of images, and how to process images using cross-correlation and convolution operations.
+- For this week's assignment, we will use what we've learnt as building blocks for a simple distance to impact perception module for self-driving cars. Good luck.
 
 ### Supplementary Reading: Image Filtering
 
+- Forsyth, D.A. and J. Ponce (2003). Computer Vision: a modern approach (2nd edition). New Jersey: Pearson. Read sections 7.1, 7.2. 
+
+- Szeliski, R. (2010). Computer vision: algorithms and applications. Springer Science & Business Media. Read sections 3.2, 3.3 (PDF available online: http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf)
+
+- Image filtering (OpenCV), Detailed Description section of the following document: https://docs.opencv.org/3.4.3/d4/d86/group__imgproc__filter.html
 
 ### Lab
 ### Grade 
-
 
 # References
 
@@ -728,6 +867,12 @@ Tesla AI Day :
 - [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
 - [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
 - [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=5646s)
+
+Notes
+
+- [The Complete Self-Driving Car Course Applied Deep-Learning - Udemy - Notes](https://github.com/afondiel/The-Complete-Self-Driving-Car-Course-Udemy/blob/main/self-driving-cars-dl-notes.md)
+- [Research Notes - cv resources](https://github.com/afondiel/research-notes/blob/master/computer-vision-notes/cv-notes.md)
+- [CONVOLUTIONAL NEURAL NETWORK (CNN)](https://github.com/afondiel/research-notes/blob/master/ai/ml-notes/deep-learning-notes/neural-nets-architecture-notes.md)
 
 # Appendices
 
