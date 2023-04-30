@@ -1,0 +1,143 @@
+# Course-2-W2-MODULE 2: Visual Features - Detection, Description and Matching
+
+## Overview 
+- Visual features are used to track motion through an environment and to recognize places in a map. 
+- This module describes how features can be detected and tracked through a sequence of images and fused with other sources for localization as described in Course 2. 
+- Feature extraction is also fundamental to object detection and semantic segmentation in deep networks, and this module introduces some of the feature detection methods employed in that context as well.
+  
+**Course Objectives :**
+- Apply feature detection methods to driving images
+- Distinguish between different feature detectors and descriptors
+- Match image features using brute-force matching
+- Perform improved image feature matching with maximum likelihood and KLT
+- Formulate and solve visual odometry for a self-driving car dataset
+Improve VO performance through outlier rejection
+
+## Image Features and Feature Detectors
+
+### Lesson 1: Introduction to Image features and Feature Detectors
+
+**Image Features: A General Process**
+
+- Let's begin describing this process by taking a real application, image stitching. 
+- We're given two images from two different cameras, and we would like to stitch them together to form a panorama. 
+
+<img src="./resources/w2/img/l1-img-feat0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- First, we need to identify distinctive points in our images. We call this point image features.
+   
+<img src="./resources/w2/img/l1-img-feat11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Second, we associate a descriptor for each feature from its neighborhood.
+
+<img src="./resources/w2/img/l1-img-feat1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Finally, we use these descriptors to match features across two or more images. 
+
+<img src="./resources/w2/img/l1-img-feat2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For our application here, we can use the matched features in an `image stitching algorithm` to align the two images and create lovely panorama. 
+
+<img src="./resources/w2/img/l1-img-feat3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Take a look at the details of the stitched panorama. You can see the two images have been stitched together from some of the artifacts at the edge of the image. 
+
+*So how do we do it?* 
+
+**Feature Detection**
+
+But first, let's begin by defining what an image feature really is. 
+
+- **Features** are points of interest in an image. 
+
+This definition is pretty vague, as it poses the following question. 
+*What is considered an interesting point?*
+
+<img src="./resources/w2/img/l1-img-feat-det31.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Points of interest should be distinctive, and identifiable, and different from its immediate neighborhood. 
+- Features should also be repeatable. That means that we should be able to extract the same features from two independent images of the same scene. 
+- Third, features should be local. That means the features should not change if an image region far away from the immediate neighborhood changes. 
+- Forth, our features should be abundant in an image. 
+- This is because many applications such as calibration and localization require a minimum number of distinctive points to perform effectively.
+- Finally, generating features should not require a large amount of computation, as it is usually used as a pre-processing step for the applications that we've described. 
+
+**Point of interest**
+
+Take a look at the following images. *Can you think of pixels that abide by the above characteristics? *
+
+<img src="./resources/w2/img/l1-img-feat0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Feature Extraction**
+
+- Repetitive texture less patches are very hard to localize. So these are definitely not feature locations. 
+
+<img src="./resources/w2/img/l1-img-feat4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- You can see that the two red rectangles located on the road are almost identical. 
+  
+<img src="./resources/w2/img/l1-img-feat5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Patches with large contrast change, where there's a **strong gradient**, are much easier to localize, but the patches along a certain **image edge** might still be confusing. 
+- As an example, the two red rectangles on the edge of the same lane marking look very similar. So again, these are challenging locations to use as features. 
+
+<img src="./resources/w2/img/l1-img-feat6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+The easiest concept to localize in images is that of a `corner`. A corner occurs when the gradients in at least two significantly different directions are large. Examples of corners are shown in the red rectangles. 
+
+<img src="./resources/w2/img/l1-img-feat7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
+- The most famous corner detector is the `Harris Corner Detector`, which uses image gradient information to identify pixels that have a strong change in intensity in both x and y directions. 
+
+- Many implementations are available online in different programming languages. 
+
+**Feature Detection: Algorithms**
+
+- However, the corners detected by Harris corner detectors are not scale invariant, meaning that the corners can look different depending on the distance the camera is away from the object generating the corner. 
+- To remedy this problem, researchers proposed the Harris-Laplace corner detector. 
+- `Harris-Laplace detectors` detect corners at different scales and choose the best scale based on the Laplacian of the image. Furthermore, researchers have also been able to `machine learn corners`. 
+- One prominent algorithm, the fast corner detector, is one of the most used feature detectors due to its very high computational efficiency and solid detection performance. 
+- Other scale invariant feature detectors are based on the concept of blobs such as `the Laplacian of Gaussian` or the difference of Gaussian feature detectors of which there are many variance. 
+- We will not be discussing these detectors in great depth here, as they represent a complex area of ongoing research, but we can readily use a variety of feature extractors. 
+- Thanks to robust open source implementations like OpenCV. 
+
+**Feature Extraction: Harris Corners**
+
+- Now let's see some examples of these detectors in action. 
+
+<img src="./resources/w2/img/l1-img-feat8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Here you can see corners detected by the Harris Corner Detector. 
+- The features primarily capture corners as expected, where strong illumination changes are visible. 
+- Here you can see Harris-Laplace features on the same image. 
+- By using the Laplacian to determine scale, we can detect scale and variant corners that can be more easily matched as a vehicle moves relative to the scene. 
+- Scale is represented here by the size of the circle around each feature. The larger the circle, the larger the principal scale of that feature. 
+
+**Summary**
+
+- In this lesson, you learn what characteristics are required for good image features. 
+- You also learn the different methods that can be used to extract image features. 
+- Most of these methods are already implemented in many programming languages including `Python` and `C++`, and are ready for you to use whenever needed.
+- As a matter of fact, you will be using the `OpenCV Python implementation of the Harris-Laplace corner detector` for this week's programming assignment. 
+
+### Lesson 2: Feature Descriptors
+### Supplementary Reading: Feature Detectors and Descriptors
+### Lesson 3 Part 1: Feature Matching
+### Video•. Duration: 7 minutes7 min
+### Supplementary Reading: Feature Matching
+### Lesson 3 Part 2: Feature Matching: Handling Ambiguity in Matching
+### Supplementary Reading: Feature Matching
+## Outlier Rejection & Visual Odometry
+### Lesson 4: Outlier Rejection
+### Supplementary Reading: Outlier Rejection
+### Lesson 5: Visual Odometry
+### Supplementary Reading: Visual Odometry
+### Visual Odometry for Localization in Autonomous Driving
+### Grade & Lab
+
+
+# References
+
+
+# Appendices
