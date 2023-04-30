@@ -95,8 +95,8 @@ The easiest concept to localize in images is that of a `corner`. A corner occurs
 **Feature Detection: Algorithms**
 
 - However, the corners detected by Harris corner detectors are not scale invariant, meaning that the corners can look different depending on the distance the camera is away from the object generating the corner. 
-- To remedy this problem, researchers proposed the Harris-Laplace corner detector. 
-- `Harris-Laplace detectors` detect corners at different scales and choose the best scale based on the Laplacian of the image. Furthermore, researchers have also been able to `machine learn corners`. 
+- To remedy this problem, researchers proposed the Harris-Laplace corner detector. `Harris-Laplace detectors` detect corners at different scales and choose the best scale based on the Laplacian of the image.
+- Furthermore, researchers have also been able to `machine learn corners`. 
 - One prominent algorithm, the fast corner detector, is one of the most used feature detectors due to its very high computational efficiency and solid detection performance. 
 - Other scale invariant feature detectors are based on the concept of blobs such as `the Laplacian of Gaussian` or the difference of Gaussian feature detectors of which there are many variance. 
 - We will not be discussing these detectors in great depth here, as they represent a complex area of ongoing research, but we can readily use a variety of feature extractors. 
@@ -122,7 +122,92 @@ The easiest concept to localize in images is that of a `corner`. A corner occurs
 - As a matter of fact, you will be using the `OpenCV Python implementation of the Harris-Laplace corner detector` for this week's programming assignment. 
 
 ### Lesson 2: Feature Descriptors
+
+Mathematically, we define a feature point by its coordinates $u$ and $v$ in the image frame.
+
+<img src="./resources/w2/img/l2-feat-desc0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We define a descriptor $f$ as an n dimensional vector associated with each feature.
+- The descriptor has the task of providing a summary of the image information in the vicinity of the feature itself, and can take on many forms.
+  
+Similar to the design of feature detectors we also have some favorable characteristics required for the design of descriptors to allow for robust feature matching.
+ 
+<img src="./resources/w2/img/l2-feat-desc1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- As with feature detectors descriptors should be repeatable, that means that regardless of shifts in position, scale, and illumination, the same point of interest in two images should have approximately the same descriptor. 
+- This invariance in transformations is one of the most researched topics when it comes to descriptor design. 
+- And a large amount of work has been done to provide descriptors that are invariant to scale, illumination, and other variables in image formation.
+
+The second important characteristic of a feature descriptor is `distinctiveness`. 
+
+<img src="./resources/w2/img/l2-feat-desc2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Two nearby features should not have similar descriptors, as this will confuse our feature matching process later on. 
+- Finally, descriptors should be `compact` and `efficient to compute`. 
+- This is because we will usually require matching to be performed in real time for autonomous driving applications.
+
+```
+- A wide variety of effective descriptors have been developed for feature matching. 
+- So let's take a look at a specific case study on the design of a single feature descriptors to give you sense for descriptors work. 
+```
+
+**Designing Invariant Descriptors: SIFT**
+
+<img src="./resources/w2/img/l2-sift0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We will describe how to compute the shift features descriptors specifically designed by `David Lowe` in 1999. 
+
+The procedure for computing shift feature descriptors is as follows.
+
+- Given a feature in the image, the shift descriptor takes a 16 by 16 window of pixels around it, we call this window the features local neighborhood.
+- We then separate this window in to four, 4 by 4 cells such that each cell contains 16 pixels. 
+- Next we compute the edges and edge orientation of each pixel in each cell using the gradient filters we discussed in module one.
+- For stability of the descriptor, we suppress weak edges using a predefined threshold as they are likely to vary significantly in orientation with small amounts of noise between images.
+- Finally, we compute a 32 dimensional histogram of orientations for each cell. 
+- And concatenate the histograms for all four cells to get a final 128 dimensional histogram for the feature at hand, we call this histogram or descriptor. 
+
+Some additional post processing is done as well in that it helps the 128 dimensional vector retain stable values under variable contrast, game, and other fundametric variations.
+
+**Scale Invariant Feature Transform**
+
+<img src="./resources/w2/img/l2-sift1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **SIFT** is an example of a very well human engineered feature descriptor, and is used in many state-of-the-art systems. 
+- It is usually computed over multiple scales and orientations for better scale and rotation invariants. 
+- Finally, when combined with a scale invariant feature detector, such as the difference of Gaussian's detector, it results in a highly robust feature detector and descriptor pair.
+
+**Other Descriptors** 
+
+<img src="./resources/w2/img/l2-other-descriptors.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- It is worth mentioning that there is huge literature out there for feature detectors and descriptors. 
+- The surf descriptive for example uses similar concepts to **SIFT** while being significantly faster to compute. 
+
+Many other variants exist in the literature including : 
+
+- The Gradient Location-Orientation Histogram or GLOH descriptor. 
+- The Binary Robust Independent Elementary Features descriptor (BRIEF)
+- The Oriented Fast and Rotated Brief descriptor or ORB. 
+- But you may see them in the implementations available for use in Open Source Computer Vision Libraries. 
+
+We've now completed our discussion on feature detectors and descriptors.
+
+- Although most of the discussed algorithms have open source implementations, some like `SIFT` and SURF are patented and should not be used commercially without approval of the authors. 
+- Fortunately, the feature detector and descriptor literature up there is vast and some really good algorithms such as ORB match the performance of SIFT and SURF and are free to use even commercially.
+
+**Summary**
+
+- In this lesson, you learned what comprises a feature descriptor, what characteristics are favorable when designing these descriptors. 
+- And different algorithms that are available in the open source libraries to extract feature descriptors as you need them.
+- In combination with the feature extractors we talked about in the previous video, you're now ready to take on the challenging tasks of matching features between images using their computed descriptors. 
+
 ### Supplementary Reading: Feature Detectors and Descriptors
+
+- You can find implementation resources here: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_table_of_contents_feature2d/py_table_of_contents_feature2d.html
+- Textbook: Forsyth, D.A. and J. Ponce (2003). Computer Vision: a modern approach (2nd edition). New Jersey: Pearson. Read section 9.4.
+- Haris Corner Detection: https://docs.opencv.org/4.0.0/dc/d0d/tutorial_py_features_harris.html
+- Introduction to SIFT (Scale-Invariant Feature Transform): https://docs.opencv.org/4.0.0/da/df5/tutorial_py_sift_intro.html
+
 ### Lesson 3 Part 1: Feature Matching
 ### Video•. Duration: 7 minutes7 min
 ### Supplementary Reading: Feature Matching
@@ -138,6 +223,5 @@ The easiest concept to localize in images is that of a `corner`. A corner occurs
 
 
 # References
-
 
 # Appendices
