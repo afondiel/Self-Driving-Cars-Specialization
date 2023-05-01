@@ -850,7 +850,7 @@ Another important application that can be performed using convolutions, is `imag
 
 - Image filtering (OpenCV), Detailed Description section of the following document: https://docs.opencv.org/3.4.3/d4/d86/group__imgproc__filter.html
 
-### Lab
+### Lab : Applying Stereo Depth to a Driving Scenario 
 ### Grade 
 
 # References
