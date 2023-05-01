@@ -324,7 +324,7 @@ Now, let's update our brute force matcher algorithm with our threshold.
 **Summary**
 
 - By now, you should have a much better understanding of **feature detection**, **description**, and **matching**. 
-- These three steps are required to use features for various self-driving applications, such as **visual odometry and object detection**. 
+- These 3 steps are required to use features for various self-driving applications, such as **visual odometry and object detection**. 
 - Our brute force matcher is pretty deep, but still `far from perfect`. 
 - We really need precise results to create safe and reliable self-driving car perception. 
 
@@ -333,7 +333,85 @@ Now, let's update our brute force matcher algorithm with our threshold.
 - Feature Matching: https://docs.opencv.org/4.0.0/dc/dc3/tutorial_py_matcher.html
 
 ### Lesson 3 Part 2: Feature Matching: Handling Ambiguity in Matching
+
+We're almost ready to start applying **feature detection**, **description**, and **matching** to self-driving car perception.
+
+**Brute Force Feature Matching: Case 1**
+
+But first, let's review the two feature matching cases we discussed in the last lesson : 
+
+- In the first case, we have a useful feature descriptor that clearly gives a small distance to the feature $f2$ and a large distance to other features in the second image. 
+
+<img src="./resources/w2/img/l3-feat-match6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In this case we can successfully identify the correct match to the feature f1 and image one.
+- Our brute force matching algorithm works well with this descriptor and as seamlessly capable of finding the right match in image two. 
+
+**Brute Force Feature Matching: Case 2**
+
+In the second case, the feature $f1$ in image one does not have a match at all in image two. 
+
+<img src="./resources/w2/img/l3-feat-match9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We modified our brute force matching algorithm with a threshold delta to eliminate incorrect matches in this case. 
+- Since both features and image two have a distance greater than the distance threshold Delta, the brute force matcher rejects both the features $f2$ and $f3$ as potential matches and no match is returned. 
+
+**Brute Force Feature Matching: Case 3**
+
+But, let us consider a third case, once again we are trying to match feature $f1$ in image one to a corresponding feature in image two. 
+
+<img src="./resources/w2/img/l3-feat-match5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- With the feature vectors presented here, feature $f1$ gets an SSD value of nine with feature two in image two. We test another feature $f3$ , and we also get an SSD of nine. 
+- Both of these features have an SSD less than Delta which was 20 in this case, and as such are valid matches. 
+
+*So what should we do?*
+
+- We refer to feature $fi$ in case 3 as a feature with ambiguous matches. 
+
+**Distance Ratio [Lowe 1999]**
+
+An elegant solution to this problem was proposed by David Lowe in 1999. 
+The solution goes as follows. 
+
+<img src="./resources/w2/img/l31-feat-match0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- First, we compute the distance between feature $fi$ in image one and all the features $fj$ in image two, similar to our previous algorithm, we choose the feature $fc$ in image two with the minimum distance to feature $fi$ in image of one as our closest match. 
+- We then proceed to get feature $fs$ the feature in image two with the second closest distance to the feature $fi$ . 
+- Finally, we find how much nearer our closest match $fc$ is over our second closest match $fs$. 
+- This can be done through the distance ratio. The distance ratio can be defined as the distance computed between feature $fi$ in image one and $fc$ the closest match in image two. 
+- Over the distance computed between feature $fi$ and $fs$ , the second closest match in image two. 
+- If the distance ratio is close to one, it means that according to our descriptor and distance function, $fi$ matches both fs and $fc$.
+
+- In this case, we don't want to use this match in our processing later on, as it clearly is not known to our matcher which location in image two corresponds to the feature in image one. 
+
+**Brute Force Feature Matching: Updated**
+
+Let us update our brute force matcher algorithm with the distance ratio formulation. 
+
+- The updates replace the distance with the ratio of distance as our metric to keep matches.
+
+<img src="./resources/w2/img/l31-feat-match1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+We usually set the distance ratio threshold which we'll refer to as row somewhere around 0.5, which means that we require our best match to be at least twice as close as our second best match to our initial features descriptor.
+
+**Brute Force Feature Matching: Case 3 (Suite)**
+
+Revisiting case 3, we can see that using the distance ratio and a corresponding threshold row set to 0.5, we discard our ambiguous matches and retain the good ones.
+
+<img src="./resources/w2/img/l31-feat-match2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Summary**
+
+- In this video, you've learned what ambiguous matches are, and how to handle these ambiguous matches through the distance ratio formulation. 
+- Unfortunately, even with the **distance ratio** formulation, as much as 50 percent of typical matches can still be wrong when using modern descriptors. 
+- This is because, repetitive patterns in images and small variations in pixel values, are often sufficient to confuse the matching process. 
+- We call these `erroneous matches outliers`. 
+
 ### Supplementary Reading: Feature Matching
+
+- Feature Matching + Homography to find Objects: https://docs.opencv.org/4.0.0/d1/de0/tutorial_py_feature_homography.html
+
 ## Outlier Rejection & Visual Odometry
 ### Lesson 4: Outlier Rejection
 ### Supplementary Reading: Outlier Rejection
@@ -347,7 +425,8 @@ Now, let's update our brute force matcher algorithm with our threshold.
 - [Open Source Computer Vision - opencv doc](https://docs.opencv.org/4.0.0/index.html)
 - [OpenCV Course - Full Tutorial with Python - Notebook](https://colab.research.google.com/drive/1PqRkXtpaA-GhNSRXTS3W8aQVumX9CGjP#scrollTo=aS4_dZup6bhW)
 - [Basics of Brute-Force Matcher](https://docs.opencv.org/4.0.0/dc/dc3/tutorial_py_matcher.html).
-
+- [Computer Vision Datasets - Roboflow](https://public.roboflow.com/)
+- [Computer Vision Dataset - Kaggle](https://www.kaggle.com/datasets?tags=13207-Computer+Vision)
 # Appendices
 
 - [Harris Affine Region Detector](https://en.wikipedia.org/wiki/Harris_affine_region_detector)
