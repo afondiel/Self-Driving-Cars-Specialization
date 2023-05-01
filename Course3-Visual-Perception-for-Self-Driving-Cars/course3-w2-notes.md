@@ -413,8 +413,135 @@ Revisiting case 3, we can see that using the distance ratio and a corresponding 
 - Feature Matching + Homography to find Objects: https://docs.opencv.org/4.0.0/d1/de0/tutorial_py_feature_homography.html
 
 ## Outlier Rejection & Visual Odometry
+
 ### Lesson 4: Outlier Rejection
+
+**Image Features: Localization** 
+
+The three-step feature extraction framework for the real-world problem of vehicle localization. 
+
+Our **localization problem** is defined as follows: given any two images of the same scene from different perspectives, find the translation $T$ , between the coordinate system of the first image shown in red, and the coordinate system of the second image shown in green.
+
+<img src="./resources/w2/img/l4-img-feat-loc0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+In practice, we'd also want to solve for the scale and skew due to different viewpoints. But we'll keep this example simple to stay focused on the current topic. 
+
+<img src="./resources/w2/img/l4-img-feat-loc1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+To solve this localization problem, we need to perform the following steps : 
+
+- First, we need to find the displacement of image one on the u image axis of image two. We call this displacement $t_{u}$ . 
+- Second, we need to find the displacement of image one on the $v$ axis of image two, and we'll call this displacement $t_{v}$ .
+
+<img src="./resources/w2/img/l4-img-feat-loc2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We will find $t_{u}$ and $t_{v}$ by matching features between the images, and then solving for the displacements that best align these matched features. 
+
+We begin by computing features and their descriptors in image one and image two. 
+
+<img src="./resources/w2/img/l4-img-feat-loc3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We then match these features using the brute force matcher we developed in the previous lesson. 
+
+*Do you notice anything a little off in the results from our brute force match?* 
+
+- Don't worry. We will come back to these results in a little bit.
+- But first, let's define the solution of our problem mathematically in terms of our matched features. 
+
+<img src="./resources/w2/img/l4-img-feat-loc4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We denote a feature pair from images one and two, as $f1_{i}$ and $f2_{i}$. 
+
+- Where $i$ ranges between $0$ ... $n$, the total number of feature pairs returned by our matching algorithm. 
+- Each feature in the feature pair is represented by its pixel coordinates $ui$ and $vi$. 
+- Note that every pixel in the image ones should coincide with its corresponding pixel in image two after application of the translation $t_{q}$ and $t_{v}$ . 
+- We can then use our feature pairs to model the translation as follows: the location of a feature in image one is translated to a corresponding location in image two through model parameters $t_{u}$ and $t_{v}$. 
+- Here the translations on the $u$ image axis $t_{u}$ , and the $v$ image axis $t_{v}$ , are the same for all feature pairs. Since we assume a rigid body motion. 
+
+<img src="./resources/w2/img/l4-img-feat-loc5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Now we can solve for $t_{u}$ and $t_{v}$ using **least squares estimation**. 
+  - The solution to the least squares problem will be the values for $t_{u}$ and $t_{v}$ that minimize the sum of squared errors between all pairs of pixels. 
+
+**Outliers**
+
+Now that we have our localization problem defined, let's return to the results of our feature matching. 
+
+<img src="./resources/w2/img/l4-outlier0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- By observing the feature locations visually, it can be seen that the feature pair in the purple circles is actually an incorrect match. 
+- This happens even though we use the distance ratio method, and is a common occurrence in feature matching. We call such feature pairs `outliers`. 
+- **Outliers** can comprise a large portion of our feature set, and typically have an out-sized negative effect on our model solution, especially when using least squares estimation. 
+
+- Let us see if we can identify these outliers and avoid using them in our least squares solution. 
+
+``` 
+Outliers can be handled using a model-based outlier rejection method called Random Sample Consensus (RANSAC).
+```
+
+**Random Sample Consensus (RANSAC)**
+
+- RANSAC developed by Martin Fischler and Robert Bolles in 1981 is one of the most used model-based methods for outlier rejection in robotics. 
+
+<img src="./resources/w2/img/l4-ransac0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The RANSAC algorithm proceeds as follows: 
+
+1. given a model for identifying a problem solution from a set of data points, find the smallest number M of data points or samples needed to compute the parameters of this model. 
+  - In our case, the problem localization and the model parameters, are the t sub u and t sub v offsets of the least square solution. 
+2. Second, randomly select M samples from your data. 
+3. Third, compute the model parameters using only the M samples selected from your data set
+4. Forth, use the computed parameters and count how many of the remaining data points agree with this computed solution. The accepted points are retained and referred to as inliers. 
+5. Fifth, if the number of inliers C is satisfactory, or if the algorithm has iterated a pre-set maximum number of iterations, terminate and return the computed solution and the inlier set. Else, go back to step two and repeat. 
+6. Finally, recompute and return the model parameters from the best inlier set. The one with the largest number of features. 
+
+Now we can revisit our localization problem and try to accommodate for the outliers from our feature matcher. 
+
+As a reminder, our model parameters $t_{u}$ and $t_{v}$, shift each feature pair equally from the first image to the second. To estimate $t_{u}$ and $t_{v}$, we need one pair of features. 
+
+<img src="./resources/w2/img/l4-ransac1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**RansaC - Iteration 1**
+
+- Now, let us go through the RANSAC algorithm for this problem. 
+
+<img src="./resources/w2/img/l4-ransac2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- First, we randomly select one feature pair from the matched samples. Now, we need to estimate our model using the computed feature pair. 
+- Using the feature pair, we compute the displacement along the u image axis, $t_{u}$, and the displacement along the $v$ image axis, $t_{v}$. We now need to check if our model is valid by computing the number of `inliers`.
+- Here, we use a tolerance to determine the inliers, since it is highly unlikely that we satisfy the model with a 100% precision. 
+
+<img src="./resources/w2/img/l4-ransac3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Unfortunately, our first iteration chose a poor feature match to compute the model parameters.
+- When using this model to compute how many features in image one translate to their matched location in image two, we notice that none of them do. 
+
+**RansaC - Iteration 2**
+
+Since our number of inliers is zero, we go back and choose another feature pair at random, and restart the RANSAC process. 
+
+<img src="./resources/w2/img/l4-ransac4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Once again, we compute $t_{u}$ and $t_{v}$, using a new randomly sampled feature pair to get our new model parameters. 
+
+<img src="./resources/w2/img/l4-ransac5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Using the model, we compute how many features and image one translate to their match in image two. This time we can see that most of the features actually fit this model. 
+
+<img src="./resources/w2/img/l4-ransac6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In fact 11 out of 12 features are considered in inliers. Since most of our features are inliers, we're satisfied with this model, and we can stop the RANSAC algorithm. 
+
+**Summary**
+
+- At this point you should now understand the proper use of image features for an autonomous vehicle applications. 
+- You've learned what outliers are within the scope of feature matching, and how to handle outliers through the RANSAC algorithm. 
+- Outlier removal is a key process in improving robustness when using feature matching, and greatly improves the quality of localization results.
+
 ### Supplementary Reading: Outlier Rejection
+
+- Forsyth, D.A. and J. Ponce (2003). Computer Vision: a modern approach (2nd edition). New Jersey: Pearson. Read section 19.1-19.3.
+
 ### Lesson 5: Visual Odometry
 ### Supplementary Reading: Visual Odometry
 ### Visual Odometry for Localization in Autonomous Driving
