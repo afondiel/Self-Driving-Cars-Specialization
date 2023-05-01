@@ -164,7 +164,172 @@ Now, let us pass this matrix through the ReLU non-lineary.
 - Goodfellow, I., Bengio, Y., Courville, A., & Bengio, Y. (2016). Deep Learning (Vol. 1). Cambridge: MIT press. Read sections 6.1, 6.3. https://www.deeplearningbook.org/.
 
 ### Lesson 2: Output Layers and Loss Functions
+
+**Machine Leaning Algorithm Design Process**
+
+Generally, supervised machine learning models including neural networks have two modes of operation : 
+- **inference** 
+- **training**. 
+
+Recall are basic neural network formulation. 
+- Given a set of parameters data, the input $x$ is passed through the model $f(x:theta)$ to get an output $y$. 
+
+<img src="./resources/w3/img/l2-ml-design0-0.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This mode of operation is called `inference`, and is usually the one we usually `deploy` the machine learning algorithms in the real world. 
+- The network and its parameters are fixed and we use it to extract perception information from new input data. 
+- However, we still need to define how to obtain the parameter set data. 
+
+Here we need a second mode of operation involving optimization over the network parameters. 
+
+This mode is called `training` and has the sole purpose of generating a satisfactory parameter set for the task at hand. 
+
+<img src="./resources/w3/img/l2-ml-design0-1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We start with the same workflow as inference. However, during training we have training data. As such we know what $f^{*}(x)$ is, the expected output of the model.
+- For self-driving, this training data often takes the form of human annotated images which take a long time to produce. 
+- We compare our inference to a predicted output $y$ , to the true output $f^{*}(x)$ , through a loss or a cost function. 
+- The loss function takes as an input the predicted output y from the network, and the true output $f^{*}(x)$ , and provides a measure of the difference between the two. 
+- We usually try to minimize this measure by modifying the parameters data so that the output $y$ from the network is as similar as possible to the $f^{*}(x)$. 
+- We do this modification to data via an optimization procedure. 
+- This optimization procedure takes in the output of the loss function and provides a new set of parameters data that provide a lower value for that loss function. 
+
+
+**Artificial Neural Networks**
+
+By extending the design process to neural networks. 
+
+<img src="./resources/w3/img/l2-ml-design1.png" width="480" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We discussed in the last lesson a feed-forward neural network which takes an input $x$ , passes it through a sequence of hidden layers, then passes the output of the hidden layers through an output layer. 
+- This is the end of the inference stage of the neural network. 
+- For `training`, we pass the predicted output through the loss function, then use an optimization procedure to produce a new set of parameters data that provide a lower value for the loss function. 
+
+```The major difference between the design of traditional machine learning algorithms in the design of artificial neural networks, is that the neural network only interacts with the loss function via the output layer```. 
+
+- Therefore, it is quite reasonable that the output layer and the loss function are designed together depending on the task at hand. 
+
+**Tasks: Classification and Regression**
+
+Let's dig deeper into the major perception tasks we usually encounter in autonomous driving. 
+
+- The first important task that we use for autonomous driving perception is `classification`. 
+
+<img src="./resources/w3/img/l2-ml-class0.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **Classification** can be described as taking an input x and mapping it to one of k classes or categories. 
+- Examples include : 
+  - **image classification**, where we just want to map an image to a particular category, to say whether or not it contains cats or dogs for example
+  - **semantic segmentation**, where we want to map every pixel in the image to a category.
+ 
+<img src="./resources/w3/img/l2-ml-class-img-seg0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The second task that we usually use for autonomous driving perception is a `regression`. 
+
+- In regression, we want to map inputs to a set of real numbers. 
+- Examples of regression include, 
+  - depth estimation, where we want to estimate a real depth value for every pixel in an image. 
+
+<img src="./resources/w3/img/l2-ml-reg0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can also mix the two tasks together. 
+  - For example : 
+    - **object detection**is usually comprised of a regression task where we estimate the bounding box that contains an object 
+    - **classification** task where we identify which type of object is in the bounding box.
+
+<img src="./resources/w3/img/l2-ml-class-reg0.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Classification: Softmax Output  Layers**
+
+We will now describe the output layer loss function pairs associated with each of these basic perception tasks. 
+
+Let's start with the classification task first.Usually, for a $k$ class classification tasks, we use the `softmax output layer`. 
+
+<img src="./resources/w3/img/l2-class-softmax0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **Softmax output layers** are capable of representing a probability distribution over $k$ classes. 
+- The softmax output layer takes as input $h$, the output of the last hidden layer of the neural network. 
+
+- It then passes it through an affine transformation resulting in a transformed output vector $z$. 
+- Next, the vector $z$ is transformed into a discrete probability distribution using the softmax element-wise function. 
+- For each element $z_{i}$, this function computes the ratio of the exponential of element $z_{i}$ over the sum of the exponentials of all of the elements of $z$.
+- The result is a value between zero and one and the sum of all of these elements is one, making it a proper probability distribution. 
+
+Let's take a look at a numerical example to better explain the softmax output layer. 
+
+In this example, we'd like to classify images containing a cat, a dog or a fox. 
+
+<img src="./resources/w3/img/l2-class-softmax1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- First we define the first element of our output vector to correspond to the probability that the image is a cat according to our network. 
+- The ordering of classes is arbitrary and has no impact on network performance. 
+- Taking the output of the affine transformation, we compute the probability by dividing the exponential of each elements of the output by the sum of the exponentials of all of the elements. 
+- Given values of 13 minus seven and 11 as the outputs of the linear transformation layer, we achieve a probability of 88% that this image is a cat, 11.9% that this image is a fox and a very low probability that this image is a dog. 
+
+**Classification: Cross-Entropy Loss Function**
+
+Now, let's see how to design a loss function that uses the output of the softmax output layer to show us how accurate our estimate is. 
+
+<img src="./resources/w3/img/l2-class-entropy0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The standard loss function to be used with the softmax output layer is the `Cross-Entropy Loss`, which is formed by taking the negative log of the softmax function. 
+- The Cross-Entropy Loss has two terms to control how close the output of the network is to the true probability. 
+- $Z_{i}$ is the output of the hidden layer corresponding to the true class before being passed through the softmax function.
+
+- This is usually called the class logit which comes from the field of logistic regression.
+- When minimizing this loss function, the negative of the class logit $z_{i}$ encourages the network to output a large value for the probability of the correct class.   
+- The second term on the other hand, encourages the output of the affine transformation to be small. 
+
+<img src="./resources/w3/img/l2-class-entropy1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The two terms together encourages the network to minimize the difference between the predicted class probabilities and the true class probability. 
+- To understand this loss better. Let's take a look at a numerical example on how the Cross-Entropy Loss is computed from the output of a classification neural network. 
+
+**Classification: Softmax Output Layers**
+
+Revisiting our previous example, we first need to choose what our $z_{i}$ is. 
+
+<img src="./resources/w3/img/l2-class-softmax2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- $Z_{i}$ is the linear transformation output corresponding to the true class of inputs. 
+- In this case, $z_{i}$ is the element of the output of the linear transformation corresponding to the cat class. 
+- Once we determine $z_{i}$ , we use the Cross-Entropy to compute the final loss value. 
+- In this case, the network correctly predicts that the input is a cat and sees a loss function value of **0.12**. 
+- Let us now do the computation again but with an erroneous network output. The input to the network is still a cat image. 
+- The network still assigns the value of **13** to the cat entry of the output of the linear transformation. But this time the fox entry will get a value of **14**. 
+- Computing the Cross-Entropy Loss, we find that it evaluates to **1.31** more than ten times the value of the previous slide. 
+- Note how the loss function heavily penalizes erroneous predictions even when the difference in output is only one. 
+
+```This difference accelerates the learning process and rapidly steers network outputs to the true values during training.```
+
+**Regression: Linear Output Layers**
+
+Let's now go through the most common output layer for the regression task. 
+
+The linear output layer is mostly used for regression tasks to model statistics of common probability distributions. 
+
+<img src="./resources/w3/img/l2-ml-reg-output0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The linear output layer is simply comprised of a single affine transformation without any non-linearity. 
+- The statistics to be modeled with the linear output layer depends on the loss function we choose to go with it. 
+
+For example, to model the mean of a probability distribution, we use `the mean squared error` as our loss function. 
+- The linear and softmax output units described above are the most common output layers used in neural networks today and can be coupled with a variety of tasks specific loss functions to perform a variety of useful perception tasks for autonomous driving. 
+
+- Many other output layers and loss functions exist and this remains an active area of research in deep learning. 
+
+**Summary**
+
+<img src="./resources/w3/img/l2-ml-summary.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In this lesson, you learned that to build a machine learning model you need to define a **network model**, a **loss function** and an **optimization procedure** to learn the network parameters. 
+- You also learn what loss function to choose based on the task that needs to be done by the neural network model. 
+
 ### Supplementary Reading: Output Layers and Loss Functions
+
+- Goodfellow, I., Bengio, Y., Courville, A., & Bengio, Y. (2016). Deep Learning (Vol. 1). Cambridge: MIT press. Read sections 6.2, 6.4. https://www.deeplearningbook.org/
+
+
 ### Lesson 3: Neural Network Training with Gradient Descent
 ### Supplementary Reading: Neural Network Training with Gradient Descent
 
