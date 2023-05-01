@@ -1,4 +1,4 @@
-# Course-2-W2-MODULE 2: Visual Features - Detection, Description and Matching
+# Course-3-W2-MODULE 2: Visual Features - Detection, Description and Matching
 
 ## Overview 
 - Visual features are used to track motion through an environment and to recognize places in a map. 
