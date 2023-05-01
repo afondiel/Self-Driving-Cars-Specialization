@@ -64,7 +64,7 @@ This definition is pretty vague, as it poses the following question.
 
 **Point of interest**
 
-Take a look at the following images. *Can you think of pixels that abide by the above characteristics? *
+Take a look at the following images. *Can you think of pixels that abide by the above characteristics?*
 
 <img src="./resources/w2/img/l1-img-feat0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -134,7 +134,7 @@ Similar to the design of feature detectors we also have some favorable character
  
 <img src="./resources/w2/img/l2-feat-desc1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- As with feature detectors descriptors should be repeatable, that means that regardless of shifts in position, scale, and illumination, the same point of interest in two images should have approximately the same descriptor. 
+- As with feature detectors descriptors should be `repeatable`, that means that regardless of shifts in position, scale, and illumination, the same point of interest in two images should have approximately the same descriptor. 
 - This invariance in transformations is one of the most researched topics when it comes to descriptor design. 
 - And a large amount of work has been done to provide descriptors that are invariant to scale, illumination, and other variables in image formation.
 
@@ -209,8 +209,129 @@ We've now completed our discussion on feature detectors and descriptors.
 - Introduction to SIFT (Scale-Invariant Feature Transform): https://docs.opencv.org/4.0.0/da/df5/tutorial_py_sift_intro.html
 
 ### Lesson 3 Part 1: Feature Matching
-### Video•. Duration: 7 minutes7 min
+
+**Image Features: A General Process - Review**
+
+how we intend to use features for a variety of perception tasks. 
+
+- First, we identify image features, distinctive points in our images. 
+
+<img src="./resources/w2/img/l3-feat-match0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Second, we associate a descriptor for each feature from its neighborhood.
+
+<img src="./resources/w2/img/l3-feat-match1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Finally, we use descriptors to match features across two or more images. 
+
+Afterwards, we can use the matched features for a variety of applications including `state estimation`, `visual odometry`, and `object detection`. 
+
+- It is essential to identify matches correctly however, as these applications are susceptible to catastrophic failures if incorrect matches are provided too frequently. 
+- As a result, feature matching plays a critical role in robust perception methods for self-driving cars. 
+
+**Feature Matching**
+
+Here's an example of a feature matching problem. Given a feature and it's descriptor in image one, we want to try to find the best match for the feature in image two. 
+
+<img src="./resources/w2/img/l3-feat-match2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+*So how can we solve this problem?*
+
+**Brute Force Feature Matching**
+
+The simplest solution to the matching problem is referred to as brute force feature matching, and is described as the following. 
+
+<img src="./resources/w2/img/l3-feat-match3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- First, define a distance function d that compares the descriptors of two features $fi$ and $fj$ , and defines the distance between them. The more similar the two descriptors are to each other, the smaller the distance between them. 
+- Second, for every feature $fi$ in image one, we apply the distance function $d$ to compute the distance with every feature $fj$ in image two. 
+- Finally, we will return the feature which we'll call $fc$ from image two with the minimum distance to the feature $fi$ in image one as our match. 
+
+This feature is known as `the nearest neighbor`, and it is the closest feature to the original one in the descriptor space. 
+
+**Distance Function**
+
+The most common distance function used to compare descriptors is the sum of squared distances (SSD).
+
+<img src="./resources/w2/img/l3-feat-match4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Which penalizes variations between two descriptors quadratically making it sensitive to large variations in the descriptor, but insensitive to smaller ones. 
+- Other distance functions such as the sum of absolute differences or the Hamming distance are also viable alternatives. 
+- The sum of absolute difference penalizes all variations equally while the Hamming distance is used for binary features, for which all descriptor elements are binary values. 
+
+We will be using the SSD distance function for our examples to follow. 
+Our matching technique and distance choices are really quite simple. 
+
+**Brute Force Feature Matching**
+
+*But what do you think might go wrong with our proposed nearest neighbor matching technique?* 
+
+- Let's look at our first case and see how our brute force matcher works in practice. Consider the feature inside the yellow bounding box. 
+
+<img src="./resources/w2/img/l3-feat-match5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For simplicity, this feature has a four-dimensional descriptor, which we'll call $f1$ . 
+- Let's compute the distance between $f1$ and the first feature in the image two, which we'll label $f2$ . We get a sum of squared difference or SSD value of nine. 
+- We then compute the distance between $f1$ and the second feature in image two, which we'll label $f3$ . 
+- Here, we get an SSD of 652. We can now repeat this process for every other feature in the second image and find out that all the other distances are similarly large relative to the first one. 
+
+<img src="./resources/w2/img/l3-feat-match6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We therefore choose feature $f2$ to be our match as it has the lowest distance to $f1$ . 
+- Visually, our brute force approach appears to be working. As humans, we can immediately see that feature $f1$ in the image is indeed the same point of interest as feature $f2$ in image two. 
+
+Now, let us consider a second case where our feature detector tries to match a feature from image one, for which there is no corresponding feature in image two. 
+
+<img src="./resources/w2/img/l3-feat-match7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Let's take a look at what the brute force approach will do when our feature detector encounters this situation. 
+- Following the same procedure as before, we compute the $SSD$ between the descriptors of a feature $f1$ in image one, and all the features in image two.
+- Assume that $f2$ and $f3$ are the nearest neighbors of $f1$ and with $f2$ having the lowest score. 
+- Although at 441, it is still rather dissimilar to the $f1$ feature descriptor from the original image. 
+
+As a result, $f2$ will be returned as our best match. Clearly, this is not correct. Because feature $f1$ is not the same point of interest as feature f2 in the scene. 
+  
+<img src="./resources/w2/img/l3-feat-match8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+*So how can we solve this problem?* 
+- We can solve this problem by setting a **distance threshold Delta** on the acceptance of matches. 
+
+<img src="./resources/w2/img/l3-feat-match9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This means that any feature in image two with a distance greater than Delta to $f1$ , is not considered a match even if it has the minimum distance to $f1$ among all the features in image two.
+
+**Brute Force Feature Matching - Algorithm update**
+
+Now, let's update our brute force matcher algorithm with our threshold. 
+
+<img src="./resources/w2/img/l3-feat-match10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We usually define Delta empirically, as it depends on the application at hand and the descriptor we are using. 
+
+- Once again, we define our distance function to quantify the similarity of two feature descriptors. We also fix a maximum distance threshold Delta for acceptable matches. 
+
+- Then, for every feature in image one, we compute the distance to each feature in image two and store the shortest distance or nearest neighbor as the most likely match. 
+
+**Feature Matching**
+
+<img src="./resources/w2/img/l3-feat-match11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Brute force matching is suitable when the number of features we want to match is reasonable, but has quadratic computational complexity making it ill-suited as the number of features increases. 
+- For large sets of features, special data structures such as `k-d trees` are used to enhance computation time.
+- Both brute force and k-d tree-based matchers are implemented as part of OpenCV, making them easy for you to try out. 
+- Just follow the links shown at the bottom of this slide. As a reminder, you can download these lecture slides for your review. 
+
+**Summary**
+
+- By now, you should have a much better understanding of **feature detection**, **description**, and **matching**. 
+- These three steps are required to use features for various self-driving applications, such as **visual odometry and object detection**. 
+- Our brute force matcher is pretty deep, but still `far from perfect`. 
+- We really need precise results to create safe and reliable self-driving car perception. 
+
 ### Supplementary Reading: Feature Matching
+
+- Feature Matching: https://docs.opencv.org/4.0.0/dc/dc3/tutorial_py_matcher.html
+
 ### Lesson 3 Part 2: Feature Matching: Handling Ambiguity in Matching
 ### Supplementary Reading: Feature Matching
 ## Outlier Rejection & Visual Odometry
@@ -223,5 +344,14 @@ We've now completed our discussion on feature detectors and descriptors.
 
 
 # References
+- [Open Source Computer Vision - opencv doc](https://docs.opencv.org/4.0.0/index.html)
+- [OpenCV Course - Full Tutorial with Python - Notebook](https://colab.research.google.com/drive/1PqRkXtpaA-GhNSRXTS3W8aQVumX9CGjP#scrollTo=aS4_dZup6bhW)
+- [Basics of Brute-Force Matcher](https://docs.opencv.org/4.0.0/dc/dc3/tutorial_py_matcher.html).
 
 # Appendices
+
+- [Harris Affine Region Detector](https://en.wikipedia.org/wiki/Harris_affine_region_detector)
+- [15 Best Open-Source Autonomous Driving Datasets](https://medium.com/analytics-vidhya/15-best-open-source-autonomous-driving-datasets-34324676c8d7)
+
+
+
