@@ -331,7 +331,174 @@ For example, to model the mean of a probability distribution, we use `the mean s
 
 
 ### Lesson 3: Neural Network Training with Gradient Descent
+
+
+So far in this module, we have reviewed what comprises a feedforward neural network model, and how to evaluate the performance of a neural network model using loss functions. 
+
+- This lesson will explain the final major component of designing neural networks, the training process. Specifically, we will be answering the following question. 
+
+*How can we get the best parameter set theta for a feedforward neural network given training data?*
+- The answer lies in using an iterative optimization procedure with proper parameter initialization. 
+
+**Review: Artificial Neural Networks**
+
+Let us first revisit the feedforward neural network training procedure we described previously. 
+
+<img src="./resources/w3/img/l3-nn-training0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Given a training data input $x$ and the corresponding correct output, $f(x: \theta )$ , we first pass the input $x$ through the hidden layers, then through the output layer to get the final output $y$. 
+- We see here that the output $y$ is a function of the parameters $\theta$ . And remember, that theta comprises the weights and the biases of our affine transformations inside the network. 
+- Next, we compare our predicted output $f(x: \theta )$ and theta with the correct output, $f^{*}(x)$ through the loss function.
+  
+<img src="./resources/w3/img/l3-nn-training1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Remember that the loss function measures how large the error is between the network output and our true output. 
+- Our goal is to get a small value for the loss function across the entire data set. 
+- We do so by using the loss function as a guide to produce a new set of parameters theta that are expected to give a lower value of the loss function. 
+- Specifically, we use the gradient of the loss function to modify the parameters theta.This optimization procedure is known as `gradient descent`. 
+
+**Review: Neural Networks Loss Functions**
+
+Before describing gradient descent in detail, let's take another look at the neural network loss function. 
+
+<img src="./resources/w3/img/l3-nn-lossfunc0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Usually, we have thousands of training example pairs, $x$ and $f^{*}(x)$ , available for autonomous driving tasks. 
+- We can compute the loss over all training examples, as the mean of the losses over the individual training examples. 
+- We can then compute the gradient of the training loss with respect to the parameters theta which is equal to the mean of the gradient of the individual losses over every training example. 
+- Here we use the fact that the gradient and the sum are linear operators. So the gradient of a sum is equal to the sum of the individual gradients. 
+- Using the formulated gradient equation, we can now describe `the batch gradient descent optimization algorithm`. 
+
+**Batch gradient descent**
+
+- **Batch gradient descent** is a linear first order optimization method. 
+
+<img src="./resources/w3/img/l3-nn-gradient-desc0.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Iterative means that it starts from an initial guess of parameters theta and improves on these parameters iteratively. 
+- First order means that the algorithm only uses the first order derivative to improve the parameters theta. Batch gradient descent goes as follows. 
+  - First, the parameters theta of the neural network are initialized. 
+  - Second, a stopping condition is determined, which terminates the algorithm and returns a final set of parameters. 
+  - Once the iterative procedure begins, the first thing to be performed by the algorithm is to compute the gradient of the loss function with respect to the parameters $\theta$ , denoted $V_{\theta}$ . 
+  - The gradient can be computed using the equation we derived earlier. 
+  - Finally, the parameters theta are updated according to the computed gradient. 
+  - Here, $\epsilon$ is called **the learning rate** and controls how much we adjust the parameters in the direction of the negative gradient at every iteration. 
+
+Let's take a look at a visual example of batch gradient descent in the 2D case. 
+
+<img src="./resources/w3/img/l3-nn-gradient-desc1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Here, we are trying to find the parameters $\theta_{1}$ and $\theta_{1}$ that minimize our function $J_{\theta}$ . 
+- Theta is shaped like an oblong ball shown here with contour lines of equal value. 
+- Gradient descent iteratively finds new parameters theta that take us a step down the bowl at each iteration. 
+- The first step of the algorithm is to initialize the parameters theta. Using our initial parameters, we arrive at an initial value for our loss function denoted by the red dot. 
+- We start gradient descent by computing the gradient of the loss function at the initial parameter values  $\theta_{1}$ and  $\theta_{2}$. 
+
+<img src="./resources/w3/img/l3-nn-gradient-desc2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Using the update step, we then get the new parameters to arrive at a lower point on our loss function. 
+- We repeat this process until we achieve our stopping criteria. 
+
+<img src="./resources/w3/img/l3-nn-gradient-desc3.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We then get the last set of the parameters, $\theta_{1}$ and  $\theta_{2}$ as our optimal set that minimizes our loss function. 
+
+<img src="./resources/w3/img/l3-nn-gradient-desc4.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+Two pieces are still missing from the presented algorithm : 
+- How do we initialize the parameter's data
+- how do we decide when to actually stop the algorithm?
+
+- The answer to both of these questions is still highly based on heuristics that work well in practice. 
+
+
+**Parameter Initialization and Stopping Conditions**
+
+For parameter initialization, we usually initialized the weights using a standard normal distribution and set the biases to 0.
+
+<img src="./resources/w3/img/l3-nn-gradient-desc5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- It is worth mentioning that there are other heuristics specific to certain activation functions that are widely used in a literature. We provide some of these heuristics in a supplementary material. 
+- Defining the gradient descent's stopping conditions is a bit more complex. There are three ways to determine when to stop the training algorithm. 
+- Most simply, we can decide to stop when a predefined maximum number of gradient descent iterations is reached. 
+- Another heuristic is based on how much the parameters $\theta$ changed between iterations. 
+- A small variation means the algorithm is not updating the parameters effectively anymore, which might mean that a minimum has been reached. 
+- The last widely used stopping criteria is the change in the loss function value between iterations. 
+- Again, as the changes in the loss function between iterations become small, the optimization is likely to have converged to a minimum. 
+- Choosing one of these stopping conditions is very much a matter of what works best for the problem at hand.
+- We will revisit the stopping conditions in the next lesson, as we study some of the pitfalls of the training process, and how to avoid them. 
+
+Unfortunately, the batch gradient descent algorithm suffers from severe `drawbacks`.
+
+- To be able to compute the gradient we use `backpropogation`. 
+
+<img src="./resources/w3/img/l3-nn-gradient-desc6.png" width="00" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **Backpropogation** involves computing the output of the network for the example on which we would like to evaluate the gradient. 
+- **And batch gradient descent evaluates the gradient over the whole training set**. Making it very slow to perform a single update step. 
+- Luckily, the laws function as well as its gradient are means over the training dataset.
+- For example, we know that the standard error in a mean estimated from a set of N samples is sigma over the square root of N.
+
+- Where sigma is the standard deviation of the distribution and N as the number of samples used to estimate the mean. 
+- That means that the rate of decrease in error in the gradient estimate is less than linear in the number of samples. 
+
+- This observation is very important, as we now can use a small sub-sample of the training data or a mini batch to compute our gradient estimate. 
+
+*So how does using mini batches modify our batch gradient descent algorithm?*
+
+**Stochatisc (minibatch) Gradient Descent**
+
+The modification is actually quite simple. 
+
+<img src="./resources/w3/img/l3-nn-gradient-desc7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The only alteration to the base algorithm is at the sampling step. Here we choose the sub sample $N$ prime of the training data as our mini batch. 
+- We can now evaluate the gradient and perform the update steps in an identical manner to batch grading descent. 
+- This algorithm is called `stochastic or minibatch gradient descent`, as we randomly select samples to include in the minibatches at each iteration. 
+
+However, this algorithm results in an additional parameter to be determined, which is the size of the minibatch that we want to use. 
+
+**What Minibatch Size to Use?**
+
+To pick an appropriate minibatch, it has to be noted that some kinds of hardware achieve better runtime with specific sizes of data arrays. 
+
+- Specifically when using GPUs, it is common to use power of two mini batch sizes which match GPU computing and memory architecture as well. And therefore, use the GPU resources efficiently. 
+- Let's look at some of the factors that drive batch size selection.  
+
+<img src="./resources/w3/img/l3-nn-gradient-desc8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Multi-core architectures such as GPUs are usually under-utilized by extremely small batch sizes, which motivates using some absolute minimum batch size below which there's no reduction in the time to process a minibatch. 
+
+- Furthermore, large batch sizes usually provide a more accurate estimate of the gradient. Ensuring descent in a direction that improves the network performance more reliably.
+- However as noted previously, this improvement in the accuracy of the estimate is less than linear. Small batch sizes on the other hand have been seen to offer a regularlizing effect.
+- With the best generalization often seen at a batch size of one. If you're not sure what we mean by generalization, don't worry. As we'll be exploring it more closely in the next lesson. 
+- Furthermore, optimization algorithms usually converge more quickly if they're allowed to rapidly compute approximate estimates of the gradients and iterate more often rather than computing exact gradients and performing fewer iterations. 
+- As a result of these trade-offs, typical power of two mini batch sizes range from 32 to 256, with smaller sizes sometimes being attempted for large models or to improve generalization. 
+- One final issue to keep in mind is the requirement to shuffle the dataset before sampling the minibatch. 
+
+`Failing to shuffle the dataset at all can reduce the effectiveness of your network`. 
+
+
+**SGD Variations**
+
+<img src="./resources/w3/img/l3-nn-gradient-desc9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- There exist many variants of stochastic gradient descent in the literature, each having their own advantages and disadvantages. 
+- It might be difficult to choose which variant to use, and sometimes one of the variants works better for certain problem than another. 
+- As a simple rule of thumb for autonomous driving applications, a safe choice is the **ADAM optimization method**. It is quite robust to initial parameters theta, and widely use. 
+- If you are interest in learning more about this variance, have a look at the resources listed in the supplemental notes. 
+
+**Summary**
+
+- In this lesson, you learned how to optimize the parameters of a neural network using batch gradient descent. 
+- You also learned that there are a lot of proposed variance of this optimization algorithm, with a safety fault choice being `ADAM`. 
+- Congratulations, you've finished the essential steps required to build and train an neural network. 
+
+
 ### Supplementary Reading: Neural Network Training with Gradient Descent
+
+- Goodfellow, I., Bengio, Y., Courville, A., & Bengio, Y. (2016). Deep Learning (Vol. 1). Cambridge: MIT press. Read sections 6.5, 8.1-8.5. https://www.deeplearningbook.org/.
+
 
 ## Neural Networks Continued
 ### Lesson 4: Data Splits and Neural Network Performance Evaluation
