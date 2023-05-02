@@ -604,7 +604,138 @@ Let's see how we can try to go from the underfitting or overfitting regime to a 
 - To learn more about this topic, we highly recommend taking the Structuring Machine Learning Projects course by Andrew Ng, co-founder of Coursera. 
 
 ### Lesson 5: Neural Network Regularization
+
+In this lesson, we'll explore some ways to reduce overfitting by applying regularization strategies during training. 
+
+As a result of regularization, our networks will generalize well to new data, and we'll be able to use them more effectively outside of the lab. 
+
+**Toy Example**
+
+Let's walk through an iteration of neural network development on a toy example. 
+
+- We want to separate a 2D Cartesian space into two components, orange and blue. 
+
+<img src="./resources/w3/img/l5-nn-eval0.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Any point belonging to the blue space should be labelled class 1, while any point belonging to the orange space should be labelled class 2. 
+
+However, we do not have direct access to these classes or their boundaries. 
+
+- Instead we only have access to sensor measurements that provide us with examples of points and their corresponding class. 
+- Unfortunately, our sensor is also noisy, that means it sometimes provides the incorrect label. 
+  
+<img src="./resources/w3/img/l5-nn-eval1-noise.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The label points in the `blue` space as `class 2`, and in `orange` space as `class 1`. Our problem amounts to finding the space classification from the noisy sensor data. 
+
+- We begin by collecting data from the sensor and splitting them into 60-40 training validation splits. 
+
+<img src="./resources/w3/img/l5-nn-eval2.png" width="200" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The training splits is shown here as points with white out lines, and the validation splits is shown here as points with black out lines. 
+
+
+- Let's use a simple neuron network with one layer and two hidden units per layer to classify measurements. Using this design choice, we get that following space classification. 
+  
+<img src="./resources/w3/img/l5-nn-eval3.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The training set loss is 0.264 close to the validation set loss of 0.2268. 
+- But it's still much higher than the minimum achievable loss of 0.1. This is a clear case of underfitting. 
+- When we compare the results of our network classification to the true space classification, we see that the neural network fail to capture the complexity of the problem at hand, and did not correctly segment the space into four compartments as required. 
+- To resolve underfitting issues, we increase the network size by adding five additional layers, and increase the number of hidden units to six units per layer. 
+- Our model is now much more expressive, so it should be able to better represent the true classification. 
+- We go ahead and train our model again, then test to see how well we have done. 
+- We noticed that our validation set loss result of 0.45 is much higher than our training set loss result of 0.1. 
+- The training set loss, however, is equal to the minimum achievable loss of 0.1 on this task. We are in a state of overfitting to the training data. 
+
+<img src="./resources/w3/img/l5-nn-eval4.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Overfitting is caused by the network learning the noise in the training data. 
+- Because the neural network has so many parameters, it is able to curve out small regions in the space that correspond to the noisy training examples as shown inside the red circles. 
+- This usually happens when we increase the network size too much for the problem at hand. 
+- Again, we have learned that one way to remedy over fitting is through `regularization` (or/instead of adding more training data which are sometimes difficult to collect). 
+
+
+**Parameter Norm Penalties**
+
+Let's check out the first regularization method commonly used for neural networks.
+
+The most traditional form of regularization applicable to neural networks is the concept of parameter norm penalties. 
+
+<img src="./resources/w3/img/l5-nn-params-penalty0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This approach limits the capacity of the model by adding the penalty omega of theta to the objective function. 
+- We add the norm penalty to our existing loss function using our weighting parameter `alpha`. 
+- Alpha is a new hyperparameter that weights the relative contribution of the norm penalty to the total value of loss function. 
+- Usually, omega of theta is a measure of how large the value of theta is. Most commonly this measure is an Lp Norm. 
+- When P is 1 we have an absolute sum, and when P is 2 we get the quadratic sum, etc. Furthermore, we usually only constrain the weights of the neural network. 
+- This is motivated by the fact that the number of weights is much larger than the number of biases in the neural network. 
+- So weight penalty have a much larger impact on the final network performance. 
+
+**L2-Parameter Norm Penalties**
+
+The most common norm penalty used in neural networks is the L2-norm penalty. 
+
+<img src="./resources/w3/img/l5-nn-params-penalty1.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The L2-norm penalty tries to minimize the L2-norm of all the weights in each layer of the neural network. 
+- Let's take a look at the effect of the L2-norm penalty applied to our problem. Remember that our latest design resulted in overfitting on the training data set. 
+- Adding the L2-norm penalty the loss function results in a much better estimate of the space classification, due to a lower validation set loss over the unregularized network. 
+- However, this lower validation set loss is coupled with an increase in the training set loss from 0.1 to 0.176. 
+- In this case the decrease in the generalization gap is higher than the increase in training set loss. 
+- Do be careful not to regularize too much, however, to avoid falling into the underfitting regime once again. Adding a norm penalty is quite easy in most neural network packages. 
+- If you suspect over fitting, L2-norm penalties might be a very easy remedy that will prevent a lot of waste of time during the design process.
+
+**Dropout**
+
+- As we mentioned earlier in this video, researchers have developed regularization mechanisms that are specific to neural networks. One powerful mechanism used regularly is called `dropout`. 
+
+Lets see how dropout gets applied during network training. 
+
+<img src="./resources/w3/img/l5-nn-dropout1.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The first step of dropout is to choose a probability which we'll call P sub keep. 
+- At every training iteration, this probability is used to choose a subset of the network nodes to keep in the network. These nodes can be either hidden units, output units, or input units. 
+- We then proceed to evaluate the output y after cutting all the connections coming out of this unit. 
+- Since we are removing units proportional to the keep probably, P sub keep, we multiply the final weights by P sub keep at the ending of training. 
+- This is essential to avoid incorrectly scaling the outputs when we switch to inference for the full network. 
+- Dropout can be intuitively explained as forcing the model to learn with missing input and hidden units. Or in other words, with different versions of itself. 
+- It provides a computationally inexpensive but powerful method of regularizing a broad family of neural network models during the training process, leading to significant reductions in over feeding and practice. 
+- Furthermore, dropout does not significantly limit the type or model of training procedure that can be used. 
+- It works well with nearly any model that uses a distributed over parameterized representation, and that can be trained with **stochastic gradient descent**. 
+
+
+- Finally, all neural network libraries have a dropout layer implemented and ready to be used. 
+- We recommend using drop out whenever you have dense feed forward neural network layers.
+
+**Early Stopping**
+
+<img src="./resources/w3/img/l5-early-stopping.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The final form of regularization you should know about is early stopping. To explain early stopping visually, we look at the evolution of the loss function of a neuro network evaluated on the training set. 
+- Given enough capacity, the training loss should be able to decrease to a value close to zero, as the neuro network memorizes the training data. 
+- However, if we have independent training and validation sets, the validation loss reaches a point where it starts to increase. 
+- This behaviour is typical during the overfitting regime, and can be resolved via a method known as `early stopping`. 
+- We discussed earlier that we can stop the optimization according to various stopping criteria.
+- Early stopping ends training when the validation loss keeps increasing for a preset number of iterations or epochs. 
+- This is usually interpreted at the point just before the neural network enters the overfitting regime.
+- After stopping the training algorithm, the set of parameters with the lowest validation loss is returned. 
+
+```
+- As a final note, early stopping should not be use as a first choice for regularization. 
+- As it also limits the training time, which may interfere with the overall network performance. Congratulations, you are now ready to start building your own neural networks. 
+```
+
+**Summary**
+
+- In this lesson, you learned how to improve the performance of the neural network in the key as it falls into an overfitting regime. 
+- There are many more interesting aspects to neural network design and training, and I urge you to keep exploring this fascinating field through the additional resources that we've included with this module. 
+
 ### Supplementary Reading: Neural Network Regularization
+
+- Goodfellow, I., Bengio, Y., Courville, A., & Bengio, Y. (2016). Deep learning (Vol. 1). Cambridge: MIT press. Read sections  7.1, 7.8, 7.12. https://www.deeplearningbook.org/.  
+
+
 ### Lesson 6: Convolutional Neural Networks
 ### Supplementary Reading: Convolutional Neural Networks
 ### Grade : Feed-Forward Neural Networks
