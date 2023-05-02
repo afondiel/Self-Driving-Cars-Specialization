@@ -535,7 +535,232 @@ Let's assume that we have sorted the bounding box list in decreasing order.
 - Lin, T. Y., Goyal, P., Girshick, R., He, K., & Dollár, P. (2018). Focal loss for dense object detection. IEEE transactions on pattern analysis and machine intelligence. (State of the art)
 
 ### Lesson 4: Using 2D Object Detectors for Self-Driving Cars
-### Supplementary Reading: Using 2D Object Detectors for Self-Driving Cars
+
+**3D Object Detection**
+
+<img src="./resources/w4/img/l4-3D-ObjDet0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Self-driving cars require scene understanding in 3D to be able to safely traverse their environment. 
+- Knowing where pedestrians, cars, lanes, and signs are around the car entirely defines what actions can be taken safely when autonomous. 
+- This means that detecting objects in the image plane is not enough. 
+- We need to extend the problem from 2D to 3D, and locate the detected objects in the world frame. 
+- 3D object detection with ConvNets is a relatively new topic, and results in this domain are constantly changing. 
+- As with it's 2D counterpart, 3D object detection requires category classification. 
+- This is essential for tracking objects as cars move differently from pedestrians, for example, so better predictions are possible if the object class is known. 
+- In addition, we want to estimate the position of the objects centroid in 3D, the extent in 3D, and the orientation in 3D. 
+- In each case, this detailed state information improves motion prediction, and collision avoidance, and improves the cars ability to move in traffic.
+- This object's state can be expressed as a 3D vector for centroid position expressed as the x, y, y position of the object. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- A 3D vector for extense, expressed as the length, width, and height of an object. 
+- A 3D vector of orientation angles expressed as the roll, pitch, and yaw angles of an object. 
+- For road scenes, the orientation angle we are interested in is usually only the **yaw angle** as most road agents cannot vary their roll and pitch angles beyond what the ground surface dictates for the most part. 
+- It is therefore sufficient to only track the yaw angle. 
+
+**From 2D To 3D Object Detection**
+
+*But how do we get from a 2D bounding box to an accurate 3D estimation of the location and extent of an object?* 
+
+<img src="./resources/w4/img/l4-3D-ObjDet2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The most common and successful way to extend 2D object detection results in 3D is to use **LiDAR point clouds**. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Given a 2D bounding box in an image space and a 3D LiDAR point cloud, we can use the inverse of the camera projection matrix to project the corners of the bounding box as rays into the 3D space. 
+- The polygon intersection of these lines is called a `frustum`, and usually contains points in 3D that correspond to the object in our image. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We then take the data in this frustum from the LiDAR, transform it to a representation of our choice, and train a small neural network to predict the seven parameters required to define our bounding box in 3D. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-rep0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+*Now, which representation of the LiDAR points in the frustum should we input to the neural network?* 
+
+- Some groups choose to directly process the raw point cloud data. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-rep1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Others choose to normalize the point cloud data with respect to some fixed point such as the center of the frustum. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-rep2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Finally, one could also preprocess the points to build fixed length representations such as a histogram of x, y, z had points, for example, making their use as an input to a continent much more convenient. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-rep3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Typical 3D object detectionn results**
+
+- Whatever representation we use, 
+
+<img src="./resources/w4/img/l4-3D-ObjDet00.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We are expected to get results in the form of oriented 3D bounding boxes. 
+  
+<img src="./resources/w4/img/l4-3D-ObjDet01.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Keep in mind that the procedure discussed above is only one way of performing 3D object detection. 
+
+*So, why would we choose to extend 2D detections to 3D rather than detecting objects directly in 3D?* 
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-pros-cons0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+**Pros :**
+- First, 2D object detectors are much more well-established than 3D object detectors. 
+  - We are usually able to get a very high precision and recall from a mature 2D object detector. Something that is still not available when working in the 3D object detection literature. 
+- Second, we get classification for free from the 2D object detector results.
+- There is no need to use LiDAR data or pass 3D information into the network to determine whether we are looking at a car or a post. This is eminently visible in the image data in 2D. 
+- Finally, searching a 3D space for possible objects is quite computationally expensive if no assumptions can be made about where the object should be found.
+- Extending 2D object detectors to 3D, usually allows us to limit the search region for object instances keeping real-time performance manageable. 
+
+**Cons :**
+- However, extending 2D object detectors to 3D also incurs a set of unique problems. 
+  - One prominent problems stemming from using this approach for 3D object detection is that we bound the performance of the 3D pose estimator by an upper limit which is the performance of the 2D detector. 
+  - Furthermore, 2D to 3D methods usually fail when facing severe occlusion and truncation from the cameras viewpoint which may not affect the LiDAR data
+  - Finally, the latency induced by the serial nature of this approach is usually not negligible. Latency is manifested as delayed perception which means that our car will see an object on the road after a certain delay. 
+- If this delay is significant, the system might not be safe enough to operate as vehicle reaction time is limited by perception latency. 
+
+**2D Object Tracking**
+
+Another very important application of 2D to 3D object detection is object tracking.
+
+<img src="./resources/w4/img/l4-3D-ObjDet-assumptions0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Tracking involves stitching together a sequence of detections of the same object into a track that defines the object motion over time. 
+- We will begin by describing a simple tracking method that can be used both in 2D and in 3D which will hopefully sound familiar from course 2
+- When we perform object detection, we usually detect objects independently in each frame. 
+- In tracking however, we incorporate a predicted position usually through known object dynamic models. 
+- Tracking requires a set of assumptions constraining how quickly a scene changes. 
+- For example, we assume that our camera and the tracked objects cannot teleport to different locations within a very short time. 
+- Also, we assume that the scene changes smoothly and gradually. 
+- All of these assumptions are logically valid in roads scenes. 
+
+
+Let's visually see what object tracking looks like. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Given a detected object in the first frame along with their velocity vectors, we begin by predicting where the objects will end up in the second frame
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+- If we model their motion using the velocity vector, we then get new detections in the second frame. 
+- We call these detections or measurements, we correlate each detection with a corresponding measurement, and then update our object prediction using the correlated measurement. 
+
+**Object Tracking: Prediction**
+
+Let's describe each of the necessary steps. First, we define a block state as its position and velocity in image space. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking-pred.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Each object will have a motion model that updates its state. As an example, the constant velocity motion model shown here is used to move each bounding box to a new location in the second frame.
+
+
+- Notice that, we added a zero mean Gaussian noise to our motion model as the model is not perfect. 
+
+**Object Tracking: Correlation**
+
+- After the prediction step, we get the second frame measurement from our 2D object detector. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking-correl.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We then proceed to correlate each measurement to a prediction by computing the IOU between all predictions and all measurements. 
+- A measurement is correlated to a corresponding prediction if it has the highest IOU with that prediction. 
+
+**Object Tracking: Update**
+
+The final step consists of using a Kalman filter to fuse the measurement and prediction updates. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking-update.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We recommend reviewing the Kalman filter equations presented in course two to remember how this step is performed. 
+- The Kalman filter updates the whole object state including both the position and the velocity, and we can use that in our subsequent prediction step. 
+- Note that, we do not need to track the object sizes but can rely on the detector instead. We usually assign an object the size of its last known measurement. 
+
+**Object Tracking**
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+A few intricacies remain to be tackled, specifically how to initiate tracks and how to terminate them. 
+
+- We initiate new tracks if we get 2D detector results not correlated to any previous prediction. 
+- Similarly, we terminate inconsistent tracks, if a predicted object does not correlate with a measurement for a preset number of frames. 
+- Finally, we need to note that by defining IOU in 3D, we can use the same methodology for 3D object tracking. 
+
+**3D Object Tracking**
+
+Let's take a look at a video from the autonomous vehicle 3D object tracking in action. 
+
+
+<img src="./resources/w4/img/l4-3D-ObjDet-3D-tracking0.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Note that, the tracks are slightly jittery because the detections have some noise in their frame to frame position estimates, and the motion model used in this code does not include accurate vehicle kinematic or dynamic models. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-3D-tracking1.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- This is because of a lack of knowledge of the other vehicles steering and acceleration inputs. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-3D-tracking2.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Nonetheless, we can still accurately detect multiple vehicles moving through the environment and make careful decisions about precedence and safe interaction along the way. 
+
+**Traffic Sign and Traffic Signal Detection**
+
+One final concept we will describe within the framework of 2D object detection, is detection of traffic signs and traffic signals. 
+
+- The correct detection of these road rule indicators guides the self-driving car as it drives legally on busy streets. 
+- However, the detection task incurs its own separate set of challenges. 
+- Let's take a look at the most prominent ones. Here you can see a typical dash cam style image from a camera mounted on a self-driving car. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-traffic-sign.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Usually, traffic signs and traffic signals have to be detected at long range for a car to know how to react properly in a timely manner. 
+- At long range, traffic signs and signals occupy a very small number of pixels in the image making the detection problem particularly challenging. Furthermore, traffic signs are highly variable. 
+- Usually, including as many as 50 classes that need to be classified reliably. 
+- Traffic lights on the other hand might appear differently in different areas of the world, and have multiple states that need to be detected for a self-driving car to safely maneuver through signalized intersections. 
+- In addition, traffic lights change state as the car moves. 
+- This might cause some problems when trying to track traffic signals in image space. 
+- As the appearance changes with respect to the state the traffic light is in
+
+**Traffic Sign and Traffic Signal Detection - 2**
+
+- Luckily, standard object detectors we have described so far can be used without major modifications to detect traffic signs and signals. 
+
+<img src="./resources/w4/img/l4-3D-ObjDet-2D-traffic-sign1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- However, current approaches rely on multistage hierarchical models to perform this detection task more robustly. 
+ 
+Let's consider the two-stage model shown here. The two stages share the output of the feature extractor to perform their respective task.
+
+- In this example, the first stage outputs class agnostic bounding boxes that point to all traffic signs and signals in the image, without specifying which class each box belongs to. 
+- The second stage then takes all of the bounding boxes from the first stage and classifies them into categories such as red, yellow or green signals stop signs etc. 
+- In addition, some methods also use the second stage to further refine the bounding boxes provided in the first stage. 
+
+```
+- This multi-stage approach is not specific to traffic signs and signals, and many of the general object detection frameworks employ multi-stage methods to generate accurate object class and location. 
+- If interested, we have provided some of these approaches as supplementary reading materials. 
+```
+
+**Summary**
+
+- In this video, we saw that the output of the 2D object detectors can be used to produce 3D object locations, we studied how tracking can be performed on a 2D object detector output in consecutive image frames to create object tracks through the environment, and we explored how 2D object detectors can be used to detect traffic signs and traffic signals without major modifications. 
+- However, specialized methods that exploit hierarchical models usually perform better than standard methods. 
+- We now have the tools needed for the main types of object detection used in self-driving cars. 
+- Congratulations. You've successfully completed this module on 2D object detection. 
+- This module has been quite involved and we recommend that you check our provided resources for more information, on how to use neural networks for 2D and 3D object detection and tracking. 
+
+
+- ### Supplementary Reading: Using 2D Object Detectors for Self-Driving Cars
+
+- Qi, C. R., Liu, W., Wu, C., Su, H., & Guibas, L. J. (2017). Frustum pointnets for 3d object detection from rgb-d data. arXiv preprint arXiv:1711.08488. (3D object detection from 2D)
+
+- Forsyth, D.A. and J. Ponce (2003). Computer Vision: a modern approach (2nd edition). New Jersey: Pearson. Read section 18.2 (Tracking)
+
+
 ## Grade : Object Detection For Self-Driving Cars
 
 # References
