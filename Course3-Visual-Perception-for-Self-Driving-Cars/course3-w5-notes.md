@@ -149,7 +149,185 @@ Our final IOU for the road is then three-fifths. Let's follow this procedure for
 - Neuhold, G., Ollmann, T., Bulò, S. R., & Kontschieder, P. (2017, October). The Mapillary Vistas Dataset for Semantic Understanding of Street Scenes. In ICCV (pp. 5000-5009).
 
 ### Lesson 2: ConvNets for Semantic Segmentation
+
+**Learning Objectives**
+
+In the first lesson of this module, we define the semantic segmentation problem and saw how to evaluate the performance of semantic segmentation algorithm by calculating the class IOU. 
+- In this video, we will learn how to use convolutional neural networks to perform the semantic segmentation task. 
+- Using confidence for semantic segmentation is actually a little easier than using them for object detection. 
+- Unlike ConvNets for object detection, the training and inference stages are practically the same for semantic segmentation. 
+- However, there are some intricacies to semantic segmentation that we need to be aware of. 
+
+**ConvNets For Semantic Segmentation**
+
+*What kind of ConvNet model can we use to perform this function approximation?*
+
+<img src="./resources/w5/img/l2-seg-cnn0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- One idea is to use the same ConvNet model we used for object detection. That is, a feature extractor followed by an output layer. 
+- We do not need anchors here as we are not trying to localize objects. 
+
+Let's see how effective this architecture is for performing semantic segmentation. 
+
+**The Feature Extractor**
+
+You'll start by analyzing the feature extractor. 
+
+- As with the feature extractor used for object detections, we can use the VGG architecture.
+
+<img src="./resources/w5/img/l2-seg-cnn1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Let's see what happens to the size of MxNx3 input image, as we go through this feature extractor. 
+
+- As with object detection, our resolution will be reduced by half after every pooling layer. 
+- On the other hand, our depth will increase due to the convolutional layers. 
+- The output feature map of our convolutional feature extractor will be downsampled by 16 times. 
+- We can add as many convolutional pooling blocks as needed, but that will further shrink our feature map. 
+- However, we want our output to have a classification for every pixel in the image.
+
+*So how can we achieve this given a down sampled feature map that is 16 times smaller than our original input?*
+
+**Upsampling The Output**
+
+- A simple solution would be the following. We can first compute the output by passing the 16 times downsampled output feature map through a softmax layer. 
+
+<img src="./resources/w5/img/l2-seg-cnn2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can then determine the class of every pixel in the subsampled output by taking the highest class score obtained by **the softmax layer**. 
+- The final step would be to proceed to upsample, the downsampled output back to the original image resolution. 
+
+*How well do you think the described approach will work?*
+
+- To understand why naive upsampling might produce inadequate results, let's take a look at how upsampling increases the image resolution. 
+
+<img src="./resources/w5/img/l2-seg-cnn3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We want to use the nearest neighbor upsampling on a two-by-two image patch. The color of the pixels of the image patch represent different values of every pixel.
+- We want to upsample our patch to double its original size. So have an upsampling multiplier S of two. 
+- Nearest neighbor upsampling generates an empty initial upsampled grid by multiplying Win an Hin by the upsampling multiplier. 
+- Each pixel in the upsampled grid is then filled with the value of the nearest pixel in the original image patch. 
+- This process is repeated until all the pixels in the upsampled grid are filled with values from the image patch. 
+- The depth of the output upsampled grid remains the same as the input image patch. The problem induced by upsampling is that the upsampled output image has very coarse boundaries. 
+
+<img src="./resources/w5/img/l2-seg-cnn4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- As you can remember from the last lesson, one of the most challenging problems in semantic segmentation is **attaining smooth** and accurate boundaries around the objects. 
+- Smooth boundaries are hard to attain as in general boundaries in the image space are ambiguous, especially for thin objects such as pools, similar looking objects such as roads and sidewalks, and far away objects. 
+- Naive upsampling also induces two additional problems. 
+- Any object less than 16 pixels in width or height usually fully disappears in their upsampled image. 
+  
+<img src="./resources/w5/img/l2-seg-cnn40.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This affects both thin objects such as pools and far away objects. 
+- As they are below the minimum dimensions required for the pixels to appear from the original image.
+   
+<img src="./resources/w5/img/l2-seg-cnn41.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+**Learning Same resolution Feature Maps**
+
+- To remedy these problems, researchers have formulated what is commonly referred to as a feature decoder. 
+
+<img src="./resources/w5/img/l2-seg-cnn5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The feature decoder can be thought of as a mirror image of the feature extractor. Instead of using the convolution pooling paradigm to downsample the resolution, it uses upsampling layers followed by a convolutional layer to upsample the resolution of the feature map. 
+- The upsampling usually using nearest neighbor methods achieves the opposite effect to pooling, but results in an inaccurate feature map.
+- The following convolutional layers are then used to correct the features in the upsampled feature map with learnable filter banks. 
+- This correction usually provides the required smooth boundaries as we go forward through the feature decoder. 
+
+**The Feature Decoder**
+
+Let's now go through an analysis of the dimensions of the feature map as it travels forward through the feature decoder. 
+
+<img src="./resources/w5/img/l2-seg-cnn6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- As a reminder, the input feature map is downsampled 16 times with a depth of 512. 
+- Similar to the feature extractor, each upsampling convolution block is referred to as a deconvolution. 
+- There is of course a debate among current researchers on whether this terminology is accurate. 
+- But we will use it here to refer to the reverse of the convolutional pooling block. 
+- As we go through the first deconvolution block, our input feature map is upsampled to twice the input resolution. 
+- The depth is controlled by how many filters are defined for each successive convolutional layer. 
+- As we go forward through the rest of the decoder, we finally arrive at a feature map of similar resolution to the input image. 
+- For reduced computational complexity, we usually shrink the depth of the map as we go forward. But this is a design choice that depends on your application. 
+
+
+- Note, this upsampling mechanism is the simplest among many of the proposed methods for semantic segmentation. 
+
+```Please take a look at the supplementary material provided for more efficient, powerful, and complex upsampling models that have been proposed for semantic segmentation.``` 
+
+- Now that we have a similar sized feature map to our input image, we need to generate the semantic segmentation output. 
+
+<img src="./resources/w5/img/l2-seg-cnn7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We can perform semantic segmentation through a linear output layer, followed by a softmax function. 
+- This layer is very similar to the classification output layer we described in object detection. 
+- In fact, this layer provides a k-dimensional vector per pixel with the kth element being how confident the neural network is that the pixel belongs to the kth class. 
+
+**Output Representation**
+
+- Let's investigate the expected output visually. Given an image patch and its corresponding ground truth label, we can represent each pixel as a k-dimensional one-hot vector. 
+
+<img src="./resources/w5/img/l2-seg-cnn8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- A one hot vector assigns the value of one to the correct class and zero to the remaining classes. Since only that one value is non-zero or hot.
+- In this case, we have two classes and a background class, so we are working with a three-dimensional ground truth vector per pixel. 
+
+<img src="./resources/w5/img/l2-seg-cnn9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The neural network drives the output of the softmax to be as close to one as possible for the correct class, and is close to zero as possible for the rest of the classes for each pixel. 
+- We then take the index of the maximum score to recover the required output representation. 
+
+<img src="./resources/w5/img/l2-seg-cnn10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Note however, that we only perform this step during `inference`. For training, we use the softmax output score directly. 
+
+**Classification Loss**
+
+- The problem of semantic segmentation by definition requires the neural network to provide a single class for every pixel classification. 
+
+<img src="./resources/w5/img/l2-seg-cnn11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- To learn how to perform this task, the cross entropy classification loss is used to train the neural network once again. 
+- This loss is similar to the one we used for the object detection classification hit. 
+- Cross entropy drives the neural network to learn a probability distribution per pixel that is closest to the ground truth class probability distribution. 
+- Here, N_total is the total number of classified pixels in all the images of a mini-batch.
+- Usually, a mini-batch would comprise of 8 to 16 images, and the choice of this number depends on how much memory your GPU has. 
+- Finally, the cross entropy loss compares Si, the output of the neural network for every pixel with Si star, the ground truth classification for that pixel.
+
+**ConvNets For Semantic Segmentation**
+
+- In summary, we arrived at the following ConvNet model for semantic segmentation.
+
+<img src="./resources/w5/img/l2-seg-cnn12.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+-  The feature extractor takes the image as an input and provides an expressive, but low resolution feature map as an output. 
+- The decoder then takes this feature map and upsamples it to get a final feature map of equal resolution to the original input image. 
+- Finally, a linear layer followed by a softmax function generates the class ConvNets vector for each pixel in the input image. 
+
+- The architecture we described in this lesson is one of the simpler models that can be used for semantic segmentation. 
+- A lot of research on the optimal neural network model for semantic segmentation has been performed. 
+
+<img src="./resources/w5/img/l2-seg-cnn13.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Ideas such as propagating the indices from pooling layers in the extractor to upsampling layers in the decoder have shown to provide a boost in performance as well as computational speed for semantic segmentation models. 
+
+<img src="./resources/w5/img/l2-seg-cnn14.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We've included a list of recent manuscripts describing architecture used for semantic segmentation in the supplementary material. 
+
+**Summary**
+
+- Congratulations, you should now have grasp the basics of using ConvNets to solve the semantic segmentation problem. 
+- Most state of the art segmentation networks share the structure we described in this video. 
+- With a feature extractor, a decoder and then an output layer as the main building blocks. 
+- We provide some links to recent methods as a reference if you're interested in diving deeper into current top performing algorithms. 
+
 ### Supplementary Reading: ConvNets for Semantic Segmentation
+
+- Badrinarayanan, V., Kendall, A., & Cipolla, R. (2015). Segnet: A deep convolutional encoder-decoder architecture for image segmentation. arXiv preprint arXiv:1511.00561.
+
+- Zhao, H., Shi, J., Qi, X., Wang, X., & Jia, J. (2017, July). Pyramid scene parsing network. In IEEE Conf. on Computer Vision and Pattern Recognition (CVPR) (pp. 2881-2890). (State of the art)
+
+
 ### Lesson 3: Semantic Segmentation for Road Scene Understanding
 ### Supplementary Reading: Semantic Segmentation for Road Scene Understanding
 ### Grade : Semantic Segmentation For Self-Driving Cars
