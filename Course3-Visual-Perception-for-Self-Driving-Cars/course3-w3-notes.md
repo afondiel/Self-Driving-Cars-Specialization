@@ -502,7 +502,107 @@ To pick an appropriate minibatch, it has to be noted that some kinds of hardware
 
 ## Neural Networks Continued
 ### Lesson 4: Data Splits and Neural Network Performance Evaluation
+
+
+
+**Data splits**
+
+Let's begin by describing the usual data splits we use to evaluate a machine learning system. 
+
+Let's take as an example a real life problem. We're given a dataset of 10,000 images of traffic signs with corresponding classification labels. 
+
+We want to train our neural network to perform traffic sign classification. 
+- How do we approach this problem? 
+- Do we train on all the data and then deploy our traffic sign classifier? 
+
+<img src="./resources/w3/img/l4-nn-eval-data-split0-0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- That approach is guaranteed to fail for the following reason. 
+  - Given a large enough neural network, we are almost guaranteed to get a very low training loss. 
+  - This is due to the very large number of parameters in a typical deep neural network allowing it to memorize the training data to a large extent given a large enough number of training iterations. 
+
+- A better approach is to split this data into three parts, the training split, the validation split, and the testing split.
+
+<img src="./resources/w3/img/l4-nn-eval-data-split0-1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+```As the name suggests, the training split is directly observed by the model during neural network training```. 
+
+<img src="./resources/w3/img/l4-nn-eval-data-split1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- **The loss function** is directly minimized on this training set. But as we've stated earlier, we are expecting the value of this function to be very low over the set. 
+- **The validation split** is used by developers to test the performance of the neural network when `hyperparameters` are changed. 
+- **Hyperparameters** are those parameters that either modify our network structure or affect our training process, but are not a part of the network parameters learned during training. 
+- Examples include :  `the learning rate`, `the number of layers`, `the number of units per layer`, and `the activation function type`. 
+- The final split is called the testing split and is used to get an unbiased estimate of performance. 
+- The test splits should be off limits when developing a neural network architecture so that the neural network never sees this data during the training or hyperparameter optimization process. 
+- The only use of the test set should be to evaluate the performance of the final architecture and hyperparameter set before it is deployed on a self-driving vehicle. 
+
+Let us now determine what percentage of data goes into each split. 
+- Before the big data era, it was common to have datasets on the order of thousands of examples. 
+
+<img src="./resources/w3/img/l4-nn-eval-data-split2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In that case, the default percentage of data that goes into each split was approximately 60 % for training, 20% for validation, and 20% held in reserve for testing. 
+- However, nowadays, it is not uncommon to have datasets on the order of millions of examples having 20 % of the data in the validation and test sets is unnecessary as the validation and test would contain far more samples than are needed for the purpose. 
+- In such cases, we would find that a training set of 98% of the data with a validation and test set of 1% of the data each is not uncommon. 
+
+Let us go back to our traffic sign detection problem. 
+
+We assume that our traffic sign dataset is comprised of **10,000 labeled** examples. 
+
+<img src="./resources/w3/img/l4-nn-eval-data-split3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+ 
+- We can separate our dataset into a training validation and testing split according to the 602020 **small dataset heuristic**. 
+- We now evaluate the performance of our neural network on each of these splits using the loss function. 
+- For a classification problem, the loss function is defined as the cross entropy between the prediction and the ground truth labels. 
+- **Cross entropy** is strictly greater than zero, so the higher its value, the worse the performance of our classifier. 
+- Keep in mind that the neural network only directly observes the training set. 
+- All the developers use the validation set to determine the best hyperparameters to use. 
+- The ultimate goal of the training is still minimizing the error on the test set since it is an unbiased estimate of performance of our system and the data has never been observed by the network. 
+
+
+Let us first consider the following scenario. 
+
+- Let us assume that our estimator gave a cross entropy loss of 0.21 on the training set, and a loss of 0.25 on the validation set, and finally, a loss of 0.3 on the test set. 
+- Furthermore, due to errors in the labels of the dataset, the minimum cross entropy loss that we can expect is 0.18. 
+- In this case, we have quite a good classifier as the loss on the three sets are fairly consistent and the loss is close to the minimum achievable loss on the entire task. 
+
+Let's consider a second scenario where the training loss is now 1.9 around ten times that of the minimum loss. 
+
+- As we discussed in the previous lesson, we expect any reasonably sized neural network to be able to almost perfectly fit the data given enough training time. 
+- But in this case, the network was not able to do so. We call this scenario where the neural network fails to bring the training loss down underfitting. 
+- One other scenario we might face is when we have a low training set loss but a high validation and testing set loss. 
+
+- For example, we might arrive at the case where the validation loss is around ten times that of the training loss. 
+- This case is referred to as overfitting and is caused by the neural network optimizing its parameters to precisely reproduce the training data output. 
+- When we deploy on the validation set, the network cannot generalize well to the new data. 
+- The gap between training and validation loss is called `the generalization gap`. We want this gap to be as low as possible while still having low enough training loss.
+
+**Reducing the Effect of Underffiting and Overfitting**
+
+Let's see how we can try to go from the underfitting or overfitting regime to a good estimator. We begin with how to remedy underfitting. 
+
+<img src="./resources/w3/img/l4-nn-eval-under-over-fitting0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The first option to remedy underfitting is to train longer. If the architecture is suitable for the task at hand, training longer usually leads to a lower training loss.
+- If the architecture is too small, training longer might not help. 
+- In that case, you would want to add more layers to your neural network or add more parameters per layer. 
+- If both of the above options don't help, your architecture might not be suitable for the task at hand and you would want to try a different architecture to reduce underfitting. 
+- Now, let's proceed to the most common approaches to reduce overfitting. In the case of overfitting, the easiest thing to do is to just collect more data. 
+- Unfortunately, for self-driving cars, collecting training data is very expensive as it requires engineering time for data collection and a tremendous amount of annotator time to properly define the true outputs. 
+- Another solution for overfitting is regularization. Regularization is any modification made to the learning algorithm with an intention to lower `the generalization gap` but not the training loss. 
+- If all else fails, the final solution is to revisit the architecture and check if it is suitable for the task at hand. 
+
+**Summary**
+
+- In this lesson, we have learned how to interpret the different performance scenarios of our neural network on the training, validation, and test splits. 
+- If it is determined that our network is underfitting, the easiest solution is to train for a longer time or to use a larger neural network. 
+- However, a much more commonly faced scenario in self-driving car perception is overfitting where good performance on the training data does not always translate to good performance on actual robots. 
+
 ### Supplementary Reading: Data Splits and Neural Network Performance Evaluation
+
+- To learn more about this topic, we highly recommend taking the Structuring Machine Learning Projects course by Andrew Ng, co-founder of Coursera. 
+
 ### Lesson 5: Neural Network Regularization
 ### Supplementary Reading: Neural Network Regularization
 ### Lesson 6: Convolutional Neural Networks
