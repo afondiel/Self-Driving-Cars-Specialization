@@ -182,7 +182,6 @@ In this video, you learned how to **formulate the 2D object detection problem** 
  
 Next lesson, you will learn how to use confinet as 2D object detectors for self-driving cars. See you then.
 
-
 ### Supplementary Reading: The Object Detection Problem
 
 - Implementation Resources: https://github.com/tensorflow/models/tree/master/research/object_detection (Fully implemented models ready to be used, from Google team)
@@ -343,7 +342,6 @@ Many different methods have been proposed in the literature on how to use the an
 - During average precision computation, we only consider one detection per ground truth bounding box. 
 - Any redundant detections are considered false positives and results in lower precision and thus a lower average precision overall. 
 
-
 **Output Handling**
 
 <img src="./resources/w4/img/l2-2D-objDet-cnn19.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
@@ -367,7 +365,175 @@ Many different methods have been proposed in the literature on how to use the an
 - Everingham, M., Van Gool, L., Williams, C. K., Winn, J., & Zisserman, A. (2010). The pascal visual object classes (voc) challenge. International journal of computer vision, 88(2), 303-338. (For understanding the problem + the metrics)
 
 ### Lesson 3: Training vs. Inference
+
+**Review : 2D Object Detector Training**
+
+Last lesson we learned a baseline approach to perform object detection using ConvNets. 
+
+However, processing all the anchors in our anchor grid led to multiple bounding boxes being detected per object rather than the expected single locks per object.
+
+This lesson, we will discuss the final components we need to **build and train convolutional neural networks for 2D object detection**.
+
+Specifically, you will learn how to handle multiple regressed anchors per object during **training** through `mini batch selection` and during **inference** through `non-maximum suppression`. 
+
+Let's begin by reviewing neural network training. We are given our ConvNet model and training data pairs, $x$ , the input image, and $f^{*}(x)$ , the bounding box locations and class.
+
+We want to approximate f star of x with our output bounding boxes y equal to $f(x:theta)$ . 
+
+<img src="./resources/w4/img/l3-training-inference0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Recall from last week that we performed training by first evaluating a loss function that measures how similar our predicted bounding boxes are to the ground truth bounding boxes.
+- Then we feed the resultant loss function to our optimizer that outputs a new set of parameters theta to be used for the second iteration.
+- Notice that both the feature extractor and the output layers are modified during training.
+- Now if f star of x and f of x theta are one to one, our problem would have been easy. 
+- However, the outputs of our network is multiple boxes that can be associated with a single ground truth box.
+
+
+**Mini Batch selection**
+
+Let's see how we can work to resolve this issue.Remember that for each pixel in the feature map, we associate k anchors.
+
+<img src="./resources/w4/img/l3-training-inference1.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+*Where do these anchors appear in the original image?*
+
+- As we've learnt earlier, our feature extractor reduces the resolution of the initial input by a factor of 32. 
+
+<img src="./resources/w4/img/l3-training-inference2.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- That means that if we associate every pixel in the feature map with a set of anchors, these anchors will be transferred to the initial image by placing them on a grid with stride 32. 
+- We can then visualize the ground truth bounding box alongside these anchors. You can notice that some anchors overlap and some don't.
+- We quantify this overlap with IOU and categorize the anchors into two categories. 
+
+<img src="./resources/w4/img/l3-training-inference3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We first specify two IOU thresholds, a positive anchor threshold, and a negative anchor threshold.
+- Any anchor with an IOU greater than the positive anchor threshold is called a **positive anchor**. 
+- And similarly, any anchor with an IOU less than the negative anchor threshold is called a **negative anchor**.
+- Any anchor with an IOU in between the two thresholds is fully discarded.
+
+*So now, how do we use these positive and negative anchors in training?* 
+
+- Let's now see how to assign the classification and regression targets for the positive and negative anchors. 
+
+<img src="./resources/w4/img/l3-training-inference4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For classification, we want the neural network to predict that the negative anchors belong to the background class. 
+- Background is usually a class we add to our classes of interest to describe anything non-included in these classes.
+- On the other hand, we want the neural network to assign ground truth class to any positive anchor intersecting that ground truth.
+- For regression, we want to shift the parameters of the positive anchor to be aligned with those of the ground truth bounding box. 
+- The negative anchors are not used in bounding box regression as they are assumed to be background.
+
+This approach of handling multiple regressed anchors during training is not free from problems.
+
+<img src="./resources/w4/img/l3-training-inference5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- The proposed IOU thresholding mechanism results in most of the regressed anchors being negative anchors. 
+- When training with all these anchors, the network will be observing far more negative than positive examples leading to a biased towards the negative class.
+- The solution to this problem is actually quite simple, instead of using all anchors to compute the lost function, we sample the chosen minibatch size with a three to one ratio of negative to positive anchors.
+- The negatives are chosen through a process called `online hard negative mining`, in which negative minibatch members are chosen as the negative anchors with the highest classification loss.
+- This means that where we've training to fix the biggest errors in negative classification.
+
+- As an example, if we have a minibatch of 64 examples, the negative minibatch will be the 48 negative examples with the highest classification loss, and the 16 remaining anchors will be positive anchors. 
+
+- If the number of positives is less than 16, we either copy some of the positives to pad the minibatch or fill the remaining spots with negative anchors.
+
+**Classification Loss**
+
+<img src="./resources/w4/img/l3-training-inference6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- As we described earlier last week, we used the cross entropy loss function for the classification head of our ConvNet. 
+- The total classification loss is the average of the cross entropy loss of all anchors in the minibatch.
+- The normalization constant and total is the chosen minibatch size.
+Si is the output of the classification head. 
+- And Si star is the ground truth classification which is set to background for negative anchors and to the class of the ground truth bounding box for the positive anchors.
+
+**Regression Loss**
+
+- For regression, we use the L2 norm loss in a similar manner. However, we only attempt to modify an anchor if it is a positive anchor. 
+
+<img src="./resources/w4/img/l3-training-inference7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- This is expressed mathematically with a multiplier Pi on the L2 norm. It is 0 if the anchor is negative and 1 if the anchor is positive.
+- To normalize, we divide by the number of positive anchors, and just as a reminder, `bi star` is the **ground truth bounding box representation**, while `bi` is the estimated bounding box.
+- Remember that we don't directly estimate box parameters, but rather, we modify the anchor parameters by an additive residual or a multiplicative scale. 
+- So bi must be constructed from the estimated residuals.
+
+**Visual Representation Of Training**
+
+- Let's visualize what we are trying to teach the neural network to learn with these loss functions.
+
+- Given an input image, a ground truth bounding box, and a set of input anchors from the anchor prior, we are teaching the neural network to classify anchors as containing background in purple or a car in blue. 
+- This is done by minimizing **the cross entropy loss** defined above. 
+
+<img src="./resources/w4/img/l3-training-inference8.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Then we want the neural network to move only anchors that contain a class of interest, in a way that matches the closest ground truth bounding box. 
+- This is done by minimizing **L2 norm loss** defined above.
+
+**Inference Time**
+
+- By now, you should have a good grasp on how to handle multiple output boxes for object during training. 
+
+*But what do we do when we run the neural network in real time during inference?* 
+
+<img src="./resources/w4/img/l3-training-inference9.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Remember, during inference, we do not have ground truths to determine positive and negative anchors and we do not evaluate loss functions. 
+- We just want a single output box per object in the scene.
+- Here is when non max suppression comes into play, an extremely powerful approach to improving inference output for anchor based neuron networks. 
+
+<img src="./resources/w4/img/l3-training-inference10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+**Non-Maximum suppression**
+
+<img src="./resources/w4/img/l3-training-inference11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Non-max suppression takes as an input a list of predicted boundary boxed b, and each bounding blocks is comprised of the regressed coordinates in the class output score.
+- It also needs as an input a predefined IOU threshold which we'll call ada.
+- The algorithm then goes as follows, we first sort the bounding boxes in list B according to their output score. 
+- We also initialize an empty set D to hold output bounding boxes.
+- We then proceed to iterate overall elements in the sorted box list B bar. Inside the for loop, we first determine the box B max with the highest score in the list B, which should be the first element in B bar.
+- We then remove this bounding box from the bounding box set D bar and add it to the output set D.
+- Next, we find all boxes remaining in the set B bar that have an IOU greater than ada with the box B max. 
+- These boxes significantly overlap with the current maximum box, B max. 
+- Any box that satisfies this condition gets removed from the list B bar. 
+- We keep iterating through the list B bar until is empty, and then we return the list D.
+- D now contains a single bounding box per object.
+
+Let's go through a visual example to understand how non-max suppression algorithms work in practice.
+
+Let's assume that we have sorted the bounding box list in decreasing order.
+
+<img src="./resources/w4/img/l3-training-inference12.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- We also show the score list explicitly here for better visibility on how non-max suppression works. 
+- b max will be the first bounding box of the sorted list B bar.
+- We then proceed to compare each bounding box to b max. In this case, only one box, B3, has a non zero IOU with b max. We compute that IOU and compare it with our IOU threshold ada. 
+- In this case, the IOU is greater than the threshold ada, so we remove box 3 from the list B bar. 
+- We repeat the process for the next highest score that remains in the list.
+
+<img src="./resources/w4/img/l3-training-inference13.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Again, only one box has a non-zero IOU with b max, box 4 in this case.
+
+<img src="./resources/w4/img/l3-training-inference14.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Computing the IOU and comparing with the threshold, we eliminate box 4 from list B bar, and add box 2 to the output list D.
+- We notice that our initial list, B bar, is now empty. 
+- So our non-max suppression algorithm exits and returns the output box list D that contains one bounding box per object as expected.
+
+**Summary**
+
+- Congratulations, you have now completed the content required to train and deploy ConvNet based 2D object detectors for self-driving cars. 
+- In this video, we explored how to adjust network output during training to maintain class balance, and to restrict network output during inference to select one output bounding box per object.
+- 
 ### Supplementary Reading: Training vs. Inference
+
+- Ren, S., He, K., Girshick, R., & Sun, J. (2015). Faster r-cnn: Towards real-time object detection with region proposal networks. In Advances in neural information processing systems (pp. 91-99).
+- Liu, W., Anguelov, D., Erhan, D., Szegedy, C., Reed, S., Fu, C. Y., & Berg, A. C. (2016, October). Ssd: Single shot multibox detector. In European conference on computer vision (pp. 21-37). Springer, Cham. https://arxiv.org/abs/1512.02325
+- Lin, T. Y., Goyal, P., Girshick, R., He, K., & Dollár, P. (2018). Focal loss for dense object detection. IEEE transactions on pattern analysis and machine intelligence. (State of the art)
+
 ### Lesson 4: Using 2D Object Detectors for Self-Driving Cars
 ### Supplementary Reading: Using 2D Object Detectors for Self-Driving Cars
 ## Grade : Object Detection For Self-Driving Cars
