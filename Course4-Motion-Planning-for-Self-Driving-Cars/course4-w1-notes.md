@@ -540,7 +540,7 @@ Now, when planning paths, we have to be mindful that the structure of our path w
 - We discussed how to encourage trajectories to track reference paths and velocity profiles, as well as how to improve comfort along a given trajectory by penalizing high-path curvature and jerk.
 - By now, you should have a general idea of some types of objective functions you will need to consider when optimizing paths and trajectories.
 - When designing an over-arching objective function, each of these terms will need to be combined into one function, often as a weighted sum.
-- The particular combination of weights you choose is an engineering decision, and you will need to fine tune your choice depending on a specific application.
+- The particular combination of weights you choose is an engineering decision, and you will need to `fine tune` your choice depending on a specific application.
 - Of course, we have only scratched the surface on a rich topic of optimization objectives for path and trajectory planning.
 - As you progress as an autonomy engineer I'm sure you'll be able to come up with interesting and useful objectives functions yourself.
 
