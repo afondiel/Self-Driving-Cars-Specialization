@@ -247,7 +247,7 @@ To handle this scenario, we will require three high-level driving maneuvers.
 - Even with no other dynamic objects to detect, the localization estimates of the vehicle state may contain noise and not satisfy these conditions exactly.
 - To handle this type of input noise, we can introduce noise threshold hyperparameters.
 - This is a small threshold value allowing speeds close to zero to be accepted as stopped.
-- We will continue to see these hyperparameters more and more in the next lesson, when handling more complex scenarios with dynamic objects.
+- We will continue to see these `hyperparameters` more and more in the next lesson, when handling more complex scenarios with dynamic objects.
 
 **Behavior Palnning Testing**
 
@@ -586,9 +586,9 @@ Let's begin by identifying the issues with our state machine model.
 - While we saw in lesson 2 and 3 how the addition of hyperparameters can be used to deal with some noise.
 - This type of noise handling is only able to deal with some every limited situations.
 - To deal with all types of input uncertainty different methods will be required.
-- On that note, the next issue I would like to point out is the actual tuning of the hyperparameters.
+- On that note, the next issue I would like to point out is the actual `tuning of the hyperparameters`.
 - As the behaviors required get more complex, the number of hyperparameters to both discretize the environment and handle some of the low level noise grow rapidly.
-- All these hyperparameters have to be tuned very carefully and this can be a lengthy process.
+- ```All these hyperparameters have to be tuned very carefully and this can be a lengthy process```.
 - Finally, the last issue we'll discuss is handling of unencountered situations.
 - Due to the program nature of this approach it is very likely that there will arise a situation in which the programmed logic of the system will react in an incorrect or unintended manner.
 - State machine based approaches are classified as experts systems, systems which have been designed and develop by human experts.
