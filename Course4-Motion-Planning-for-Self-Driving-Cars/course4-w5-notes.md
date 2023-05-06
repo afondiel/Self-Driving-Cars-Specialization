@@ -42,7 +42,7 @@ Welcome to the fifth week of the motion planning course.
 **Driving Maneuvers**
 
 - Now that we have the definition for the role of the behavior planner, let's build a list of basic behaviors that we'll work with for the rest of this module.
-- We've described most of these in an earlier video in this course, and we'll use this list as a representation of the set of likely maneuvers or driving behaviors encountered throughout regular driving that an autonomous vehicle may need to execute.
+- We've described most of these in an earlier lesson in this course, and we'll use this list as a representation of the set of likely maneuvers or driving behaviors encountered throughout regular driving that an autonomous vehicle may need to execute.
 - In all, we'll consider 5 behaviors.
 
   - The first is `track speed`.
@@ -150,23 +150,23 @@ We can think of them as a direct implementation of the definition of behavior pl
 - There is also no explicit way to handle uncertainty and errors in the input data.
 - These challenges mean that the finite-state machine approach tends to run into difficulties, as we approach full level five autonomy.
 - But it is an excellent starting point for systems with restricted operational design domains, permitting a manageable number of states.
-- We'll look into these limitations and alternative approaches to behavior planning in the final video in this module.
+- We'll look into these limitations and alternative approaches to behavior planning in the final lesson in this module.
 
 **Summary**
 
-- In this video, we formulated a clear definition of the behavior planning problem and its role within the overall motion planning system.
+- In this lesson, we formulated a clear definition of the behavior planning problem and its role within the overall motion planning system.
 - We discussed the standard inputs and outputs of the behavior planning module.
 - We introduced the finite state machine and its components, and applied it to a two-state behavior planning problem.
 - From here, we'll start to add more capabilities to our finite-state machine behavior planner.
 
 ### Lesson 2: Handling an Intersection Scenario Without Dynamic Objects
 
-In the last video, we introduced the concept of a behavior planner, and described the basics of the finite state machine to implement behavior planning.
-- In this video, we will see how to build out our system to handle a more complete intersection scenario.
+In the last lesson, we introduced the concept of a behavior planner, and described the basics of the finite state machine to implement behavior planning.
+- In this lesson, we will see how to build out our system to handle a more complete intersection scenario.
 - We will start by defining the specifics of the scenario that will be handled.
 - We will then look at how we can discretize the intersection map into sections to establish clear transitions between states.
 - Then we will define the states and transitions which are required to complete the given scenario safely and efficiently.
-- To finish this video, we will highlight the testing procedure required to confirm the correctness and accuracy of our behavior planning system.
+- To finish this lesson, we will highlight the testing procedure required to confirm the correctness and accuracy of our behavior planning system.
 
 **Scenario Evaluation**
 
@@ -175,8 +175,8 @@ The scenario which we will be attempting to handle is a four-way intersection, w
 <img src="./resources/w5/img/l2-scenario-eval0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - A diagram of such an intersection can be seen here, where the red lines represent the stop lines which the car is required to stop behind.
-- By the end of the video, this vehicle should be able to travel left, right, or straight through this intersection.
-- We'll leave dynamic objects out of the scenario for now, and we'll address them in the next video.
+- By the end of the lesson, this vehicle should be able to travel left, right, or straight through this intersection.
+- We'll leave dynamic objects out of the scenario for now, and we'll address them in the next lesson.
 - We've now defined a very restricted operational design domain for our behavior planner to handle.
 - It's now time to implement the behavior planner.
 
@@ -277,13 +277,13 @@ To handle this scenario, we will require three high-level driving maneuvers.
 - We then saw how the intersection can be discretized so that each zone can be used when making the transitions of the state diagram.
 - We then built up the states in transitions at the system to correctly define the required behaviors throughout the intersection.
 - Finally, we reviewed four stages of testing that can be used to confirm proper behaviors in the scenario.
-- In the next video, we will show you how to handle the same intersection scenario while interacting with other dynamic objects.
+- In the next lesson, we will show you how to handle the same intersection scenario while interacting with other dynamic objects.
 - As we will see, this makes the state machines significantly more complex and interesting.
 
 ### Lesson 3: Handling an Intersection Scenario with Dynamic Objects
 
-Welcome to the third video this week on behavior planning.
-- In the last video, we developed a basic behavior planner using a finite state machine for a four-way intersection without traffic.
+Welcome to the third lesson this week on behavior planning.
+- In the last lesson, we developed a basic behavior planner using a finite state machine for a four-way intersection without traffic.
 - We now focus on incorporating traffic interactions in the same four-way intersection.
 - In today's lesson, we will begin by reviewing some of the interactions with the dynamic object covered in previous modules, which we use throughout this lesson to safely interact with the other objects in the environment.
 - We will then extend the state machine that we had built in the previous lesson to include these interactions with other vehicles.
@@ -291,7 +291,7 @@ Welcome to the third video this week on behavior planning.
 
 **Review - Scenario Evaluation**
 
-Once again, the scenario we study in this video is a single lane four-way stop intersection.
+Once again, the scenario we study in this lesson is a single lane four-way stop intersection.
 
 <img src="./resources/w5/img/l3-review-scenario-eval0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -461,9 +461,9 @@ Finally, I will end with the case of a vehicle which is parked in close proximit
 
 **Learning Objectives**
 
-Welcome to the fourth video in the behavior planning module.
-- In the last video, we introduced dynamic objects into our finite state machine behavior planner.
-- In this video, we will develop a larger behavior planner which is able to manage the decision process for multiple scenarios simultaneously.
+Welcome to the fourth lesson in the behavior planning module.
+- In the last lesson, we introduced dynamic objects into our finite state machine behavior planner.
+- In this lesson, we will develop a larger behavior planner which is able to manage the decision process for multiple scenarios simultaneously.
 - We will do this by introducing the notion of a hierarchical finite state machine.
 - We will also develop a method to switch between each of the driving scenarios as they occur.
 
@@ -564,7 +564,152 @@ One reason for the large number of rules is that all scenarios have fully separa
 - We also discussed how to transition between the different driving scenarios at the super and sub-state levels, and we discussed the capabilities and limits of behavior planning with hierarchical finite state machines.
 
 ### Lesson 5: Advanced Methods for Behaviour Planning
+
+**Learning Objectives**
+
+Welcome to the fifth and final lesson of the behavior planning module.
+- In this lesson we will discuss the limitations of state machine based approaches to behavior planning.
+- And we will then take a tour through some alternative behavior planning systems that aim to address some of these limitations.
+- By the end of this lesson you should have a good overall picture of the main methods used in behavior planning.
+
+**State Machine Behavour Planning Issues**
+
+Let's begin by identifying the issues with our state machine model.
+
+<img src="./resources/w5/img/l5-advanced-meth0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The first issue we identified throughout the development of this module is the issue of rule-explosion.
+- This means that as we develop a more complete set of scenarios and maneuvers to handle the number of rules required grows very quickly.
+- This limitation means that while it is possible to develop a finite state machine behavior planner to handle a limited operational design domain.
+- Developing a full level four or five capable vehicle is almost impossible with finite state machines.
+- Dealing with a noisy environment is the next issue.
+- While we saw in lesson 2 and 3 how the addition of hyperparameters can be used to deal with some noise.
+- This type of noise handling is only able to deal with some every limited situations.
+- To deal with all types of input uncertainty different methods will be required.
+- On that note, the next issue I would like to point out is the actual tuning of the hyperparameters.
+- As the behaviors required get more complex, the number of hyperparameters to both discretize the environment and handle some of the low level noise grow rapidly.
+- All these hyperparameters have to be tuned very carefully and this can be a lengthy process.
+- Finally, the last issue we'll discuss is handling of unencountered situations.
+- Due to the program nature of this approach it is very likely that there will arise a situation in which the programmed logic of the system will react in an incorrect or unintended manner.
+- State machine based approaches are classified as experts systems, systems which have been designed and develop by human experts.
+- However, state machines are not the only such expert systems devised.
+
+**Rule-Based Behavour Planner**
+
+- There are also approaches that rely on a database of rules which are applied to the input data at every time step.
+
+<img src="./resources/w5/img/l5-advanced-meth1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The rules are formed into a hierarchy where safety critical rules take precedence, override comfort rules, or defensive driving rules, for example.
+- Each rule is engaged only when the appropriate conditions arise for it to affect the selection of the output maneuver.
+- Such rule databases do not suffer from the problem of needing to duplicate the rules that we encountered with hierarchical state machines.
+- As the rules can apply throughout the ODD or over significant portions of it.
+- However, rule based systems have to very carefully develop rules in such a way that they do not negatively impact each other.
+- Or lead to unintended outcomes when multiple rules are activated at the same time.
+- Due to the common reliance on expert users to design for all possible scenarios, both types of expert systems suffer from the same issues described above.
+
+**Fuzzy Logic**
+
+One possible solution to some of the problems we've identified above is to extend the human expert type plan or to incorporate `Fuzzy logic`.
+
+<img src="./resources/w5/img/l5-advanced-meth2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Fuzzy logic is a system by which a set of crisp, well-defined values are used to create a more continuous set of fuzzy states.
+- For a simple example of how a Fuzzy based system works, let's take a look at the example of the vehicle following behavior.
+- While previously we set a parametrized distance which divided the space into follow the vehicle or do not follow the vehicle.
+- With a Fuzzy system we're able to have a continuous space over which different rules can be applied.
+- For example, a Fuzzy system might react strongly to a lead vehicle when very close to it.
+- But be less concerned with the speed matching or distance following requirements when it's further away.
+- While Fuzzy based rule systems are able to deal with the environmental noise of a system to a greater degree than traditional discreet systems.
+- Both rule-explosion and hyperparameter tuning remain issues with Fuzzy systems.
+- In fact, Fuzzy systems can result in rule-explosion to an even greater degree, as even more logic is required to handle the fuzzy set of inputs.
+- Accompanying the rule-explosion is a large challenge in hyperparameter tuning as well.
+
+**Reinforcement Learning**
+
+The next exciting research approach I'd like to discuss is the use of reinforcement learning for behavior planning.
+
+<img src="./resources/w5/img/l5-advanced-meth3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Reinforcement learning is a form of machine learning in which an agent learns how to interact with a given environment by taking action and receiving a continuous reward.
+- The agent begins by engaging in play with a simulated environment.
+- Which means that at the start the agent will not be good at the particular task, however, over time as the agent maximizes its reward, they eventually learn to master the task.
+- By learning in a simulated environment, no real world repercussions occurred during the many failures experienced during learning.
+- More specifically, we can say the agent is attempting to learn a policy, denoted by p, which maps a given environment, denoted by s, to a given actions, denoted by a.
+- To connect the concept of reinforcement learning to behavior planning let's say we're attempting to teach the autonomous vehicle how to follow a lead vehicle.
+
+- In this case our policy p will be attempting to do vehicle following.
+- Our actions may be explicitly defined as behaviors to execute or can define behaviors implicitly through selection of desired accelerations and turn rates.
+- The environment can be represented by a continuous set of variables telling us relevant information, such as distance to all objects and our mission path.
+- And, finally, the reward function could be based on an optimal following distance.
+- And give the highest reward at the preferred distance, penalizing getting too close more heavily than being too far away.
+
+Because of the extremely large variety of scenarios and inputs that an autonomous vehicle can encounter, direct reinforcement learning for behavior planning is unlikely to succeed.
+
+
+<img src="./resources/w5/img/l5-advanced-meth4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Instead some further adaptations are usually applied.
+- One such adaptation is known as hierarchical reinforcement learning.
+- Where we divide the problem into low level policies in the maneuver space and high level policies the scenarios.
+- This is similar to the hierarchical finite state machine.
+- Then each low level policy is learned independently and only once successfully learned a high level policy can be learned to complete a scenario.
+- The second technique often applied is called model-based reinforcement learning.
+- In model-based reinforcement learning not only is the agent attempting to learn a policy, p, but also a model of the current environment around the agent.
+- An example of how this approach might apply to behavior planning for self driving cars would be to include a model of the movement of dynamic objects.
+- If the agent understands the movement patterns of the dynamic object it can create more effective plans through the environment.
+
+**Reinforcement Learning Issues**
+
+While reinforcement learning is a very exciting and highly promising area of research it too is not without its own limitations.
+
+<img src="./resources/w5/img/l5-advanced-meth5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Many simulation environments used to learn the policies required for autonomous driving are overly simplified.
+- And due to their simplicity the policies learned may not be transferable to real world environments.
+- Overly realistic simulators lead to the issue of severe computational requirements.
+- Especially when running thousands of repetitions of widely varying scenarios for self driving learning.
+
+- The second is an issue concerning `safety`.
+
+<img src="./resources/w5/img/l5-advanced-meth7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- While there are techniques within reinforcement learning that attempt to ensure safety constraints along the trajectories created by the reinforcement learner.
+
+<img src="./resources/w5/img/l5-advanced-meth6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- There is still no way to perform rigorous safety assessment of a learned system, as they are mostly black boxes in terms of the way in which decisions are made.
+
+**Machine Learning**
+
+- Many other interesting ideas are also being explored right now in the research community and many of them try to learn from human driving actions.
+- For example, in inverse reinforcement learning rather than trying to obtain a policy given a reward function, the approach is to use human driving data as the policy.
+- An attempt to learn the reward function used by humans.
+- Once the reward function is learned the algorithm can then execute driving maneuvers similarly to a human driver.
+- Finally, end-to-end approaches take as an input raw sensor data and attempt to output throttle, break, and steering commands.
+- By learning, once again, from human driving commands in an imitation learning approach.
+- This approach was pioneered by researchers at Nvidia with their paper, `End to End Learning for Self-Driving Cars`.
+- While this is not explicitly classified as behavior planning, the end-to-end approach still implicitly performs the task of behavior selection as part of its output selection process.
+- These brief explanations only scratched the surface of a huge and rapidly evolving research area.
+- Behavior planning remains one of the hotbeds of activity in autonomous driving research.
+- And one of the toughest bottlenecks in achieving real world level five autonomy.
+- We've included a reading list of some of the recent work in this area in the supplemental materials for those interested in learning more.
+
+**Summary**
+
+- We presented some of the issues with finite state machine based planning.
+- And presented multiple advanced approaches to the problem of behavior planning which seek to address the full complexity of the behavior planning problem.
+- And with that we have come to the end of our behavior planning module.
+- In this module we've defined the requirements needed to make a behavior planning system capable of autonomous driving.
+- Then we walked through the creation of such a system for a specific scenario, a four way intersection.
+- We then added dynamic vehicle interactions and expanded to incorporate multiple scenarios.
+- We ended with a brief review of a few exciting methods emerging from the behavior planning research community.
+
 ### Module 5 Supplementary Reading
+
+- J. Wei, J. M. Snider, T. Gu, J. M. Dolan, and B. Litkouhi, [“A behavioral planning framework for autonomous driving,”](https://ieeexplore.ieee.org/abstract/document/6856582) 2014 IEEE Intelligent Vehicles Symposium Proceedings, 2014. This gives a nice overview of an example framework that can be used in behaviour planning.
+
+- R. S. Sutton and A. G. Barto, [Reinforcement learning an introduction.](http://incompleteideas.net/book/the-book-2nd.html) Cambridge: A Bradford Book, 1998. Gives a great introduction to reinforcement learning concepts.
 
 ### Grade : Quiz
 
