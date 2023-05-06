@@ -289,10 +289,165 @@ There is also a limit to how much we can rely on assumptions about expected dyna
 - In today's lesson, we have described a set of assumptions for map-aware algorithms, to improve motion prediction of vehicles on drive lanes, defined position and velocity-based methods to improve motion prediction, described multi-hypothesis prediction as a way to maintain multiple beliefs about another vehicles future actions, and finally identified some of the issues with exclusively relying on map-aware motion prediction.
 - I hope you will join us next time where we will see how to use our predicted paths, to calculate a time to collision, between pairs of dynamic objects.
 
-
-
 ### Lesson 3: Time to Collision
+
+Welcome to the third and final lesson this week.
+- In this video, we will be looking at the concept of time to collision between two dynamic objects.
+- In this video we will present two alternatives for calculating the time to collision: simulation-based approaches and estimation-based approaches.
+- Compare the strengths and weaknesses of both approaches and highlight where each is most readily used, and explore the simulation-based approach in more detail and calculate the time to collision between any two vehicles.
+
+
+**Definition of Time to collision**
+
+`The time to collision` provides a valuable measure of behavioral safety in a self-driving vehicle, and is heavily used in assessing potential maneuvers, based on the current driving environment.
+
+<img src="./resources/w4/img/l3-time-to-collision0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- By knowing if collisions are imminent and when they might occur and with which object, a self-driving system can better plan safe maneuvers through the environment, or prepare for emergency evasive actions if needed.
+- To evaluate the time to collision between dynamic objects, we use their predicted paths to identify possible collision points.
+- If a collision point exists, the time to collision is a measure of the amount of time until that collision occurs.
+- Computing the time to collision can therefore be accomplished in two steps.
+  - First, we identify and compute the location of a collision point along the predicted paths between the dynamic objects,
+  - Second, if such a collision point exists, we then compute the amount of time that it will take for the dynamic objects to arrive at that collision point.
+- The challenge with computing the time to collision, is that it relies very much on an accurate understanding of the space that will be occupied by the objects in the future, to achieve accurate estimates.
+- Clearly, accurate predictions of the objects trajectories are critical to identifying collision points in their time of occurrence.
+- Precise prediction of object trajectories is as we saw in the previous two lessons, a difficult problem.
+- Furthermore, we also need accurate geometries for all dynamic objects in the environment.
+- This is required as when the time to collision is computed, the geometries of both the vehicles are considered to calculate the exact collision point.
+- As objects in the environment are only seen from the current and previous viewpoints, it can be challenging to accurately define their geometry while driving.
+- Due to errors in both requirements, the time to collision should always be treated as an approximation, updated regularly, and treated with some safety buffer when making decisions about driving.
+
+**Approaches to calculate time to collision**
+
+<img src="./resources/w4/img/l3-time-to-collision1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+There are two main approaches to calculating the time to collision between two objects : 
+- The simulation-based approach
+- The estimation-based approach
+
+**The simulation-based approach**
+
+- Simulation-based approaches simulate the movement of every vehicle in this scene over a finite horizon into the future.
+
+<img src="./resources/w4/img/l3-time-to-collision2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- At each simulation time step, new position, heading, and occupancy extent predictions are calculated for every dynamic object.
+- This is done by propagating forward the predicted trajectory, as discussed in the previous module.
+
+<img src="./resources/w4/img/l3-time-to-collision3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Once the position of all dynamic objects is known for a given time in the simulated future, a check is conducted to determine if any two or more dynamic objects have collided with each other.
+
+<img src="./resources/w4/img/l3-time-to-collision4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- If they have collided, the location and time to the collision is then noted.
+- Note that this is a different type of collision checking than in the static case, where swaths of the entire path were constructed and compared to static object locations.
+- Because these collision checks are performed between moving objects, we only need to check collisions between the geometries of each object at each instant, as the objects will occupy new locations at the next time step.
+
+**Estimation Approach**
+
+<img src="./resources/w4/img/l3-time-to-collision5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Estimation-based approaches function by computing the evolution of the geometry of each vehicle as it moves through its predicted path.
+- The results is a swath for each vehicle that can then be compared for potential collisions.
+- Once the swath has been computed, their intersection can be explored for potential collision points by computing, if any two or more dynamic objects will occupy the same space at the same time.
+- If this is true, potential collision points are tagged, and an estimation of when each vehicle will arrive at each collision point is used to estimate the time to collision.
+- This method traditionally makes many simplifying assumptions to accelerate the calculations.
+- `These assumptions include`: 
+  - Identifying collision point locations based on object path intersection points
+  - Estimating object space occupancy based on simple geometric primitives like bounding boxes
+  - Estimating the time to reach a collision point based on a constant velocity profile.
+
+**Relative Strengths and Weaknesses**
+
+<img src="./resources/w4/img/l3-time-to-collision6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Each approach has strengths and weaknesses relative to the other.
+- Estimation-based approaches rely on simplifying assumptions which make the computation of time to collision less computationally expensive both in terms of memory requirements, and processing efforts.
+- Simulation approaches tend to be more computationally expensive, as they involve step-by-step evaluations, and object geometry intersection computations.
+- Due to their simplifying assumptions however, estimation-based approaches usually create a less accurate estimate of the collision point and the time to collision.
+- Simulation approaches on the other hand do not need to rely on these approximations, and with small step sizes, can perform high fidelity evaluation of the time to collision.
+- These relative differences make each algorithm suited to different applications.
+- For real-time applications such as onboard time to collision computation, estimation-based approaches are preferred.
+- Whereas offline, where accuracy is vital such as dataset creation and simulation-based testing, simulation-based approaches are preferred.
+
+**Simulation approach Pseudocode**
+
+Let's look at a simple simulation-based approach to calculating both the collision points, and the time to each collision point in more detail.
+
+<img src="./resources/w4/img/l3-time-to-collision7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Estimation-based approaches are outside the scope of this video, but we've included an extensive set of links to estimation-based methods in the supplemental materials.
+- The algorithm for the simulation-based approach takes as input a list of dynamic objects D, with their predicted paths including the planned path for the ego vehicle.
+- The time between simulation prediction steps DT if sim, and any parameters needed to define the collision checking approach to be used.
+- Be it polygon intersection requiring the object footprints, or circle checking requiring the number of circles, and their spacing relative to the object position.
+- The output that this algorithm will provide is the collision point and the time to collision for every pair of objects that have one.
+- Note that the simulation time steps can be a different size than the predicted path time steps, to improve collision checking approximation accuracy.
+
+
+The algorithm loops through each time step from the current time to the end of the simulation horizon, which can't exceed the maximum length of the predicted and planned paths.
+
+<img src="./resources/w4/img/l3-time-to-collision8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- At each time step, we propagate forward the positions of all dynamic objects along their path by one step using the dynamic object motion predictions.
+- The object states, position, heading, and velocity of all objects are established through this update, one time step at a time.
+- Then for every pair of objects, we perform pairwise collision checking.
+- If a collision point is found, then the current simulated time is added to this collision point to estimate the time to collision.
+
+**Estimation of Dynamic Object State**
+
+Let's refine each stage of the simulation approach a little further.
+
+<img src="./resources/w4/img/l3-time-to-collision9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- For state prediction, we must take into account the possibility that the predicted path state time steps, do not align with the simulation time steps.
+- Thus to get the best estimate of a given dynamic object vehicle state at a point in time required by the simulation, we find the closest state preceding the current simulated time, either by looping through each object's predicted path, or by tracking the current predicted path reference states throughout the simulation loop.
+- We then apply the predicted inputs for the remaining interval of time to arrive at a prediction of the object location, at the current simulation time.
+
+**Efficient Collision Detection Method**
+
+For pairwise collision checking, we can proceed either exactly or approximately.
+
+<img src="./resources/w4/img/l3-time-to-collision10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- In either case, because we're now comparing pairs of dynamic objects with each other, we present both objects similarly and must modify our collision check to not rely on occupancy grid information, as we did in the static case.
+- For the exact approach, a polygonal intersection is performed and any overlap implies a collision.
+- For the circle approximation, each circle pair is compared, which leads to nine distance checks for three circle approximation and 16 distance checks for a four-circle approximation.
+- Note that as the number of dynamic objects increases in the scene, the number of collision checks scales quadratically, if exhaustively evaluating all possible collisions.
+- It is of course also possible to only compare the ego vehicle to others, to keep computational complexity linear, or eliminate large portions of the pairwise comparisons, based on a single point-to-point distance check between the centroids.
+- If two objects are not within a distance of two times their combined longest axis dimension, no further checking is required.
+- Once a collision is detected, a calculation can be performed to establish the collision point.
+
+<img src="./resources/w4/img/l3-time-to-collision11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- If we assume small increments for the simulation, this first collision point is a single point that satisfies both equations of the circles around each object.
+- Rearranging leads to the following pair of equations for x and y coordinates.
+- The x-coordinate of the collision point is equal to the x-coordinate of the center of circle I, multiplied by the radius of circle j, plus the x-coordinate of circle j multiplied by the radius of circle I.
+- All divided by the sum of the two radii.
+- The same equation is then used for the y-coordinate; however, using the y-coordinate of both circles rather than the x-coordinate.
+- It is also possible to identify both intersection points when the circles overlap, and the equations are available in the supplementary materials.
+
+As is often the case, there exists a trade-off between the accuracy of the time to collision estimate, and the overall computation time.
+
+<img src="./resources/w4/img/l3-time-to-collision13.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- As we increase the fidelity of the collision check, we also increase the number of computations required.
+- Likewise as can be seen in this example, if we reduce the number of circles considered to one, the number of computations goes down, but the accuracy of the exact collision points suffers significantly.
+- You should now have a strong handle on the time to collision computation, and the implications of approximations in terms of accuracy of the predicted solution.
+- To summarize in this video, we defined the time to collision for pairs of dynamic objects.
+- We discussed the strengths and weaknesses of two types of time to collision algorithms, simulation-based and estimation based.
+- We presented the simulation-based approach to time to collision prediction, in more detail.
+
+**Summary**
+
+- You've made it through the dynamic object interactions module.
+- In this module, you learned how to predict a dynamic objects motion, using the constant velocity model, you refined your motion predictions to incorporate HD road map information, and you apply your motion predictions to the task of estimating the time to collision between dynamic objects.
+- We'll see you in the next module, where we will study the behavior planner, the key decision-maker for selecting appropriate maneuvers to execute, for every driving scenario encountered.
+
+
 ### Module 4 Supplementary Reading
+
+- C. Urmson, C. Baker, J. Dolan, P. Rybski, B. Salesky, W. Whittaker, D. Ferguson, and M. Darms, [“Autonomous Driving in Traffic: Boss and the Urban Challenge,”](https://www.aaai.org/ojs/index.php/aimagazine/article/view/2238) AI Magazine, vol. 30, no. 2, p. 17, 2009. This gives an overview of some of the methods used to handle dynamic obstacles in the DARPA Urban Challenge.
 
 ### Grade: Quiz
 
