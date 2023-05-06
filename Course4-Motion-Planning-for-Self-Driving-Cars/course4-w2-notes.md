@@ -111,14 +111,13 @@ In order to handle this noise, the occupancy grid will be modified to be probabi
 - The higher the value stored, the higher the probability that the given square is occupied.
 - To use this set of probabilities, the occupancy grid can now be represented as a belief map denoted by the term $bel_{t}$ .
 - To keep notations simple, m_i represents a single square of the occupancy grid, where $i$ can be constructed from measurements $Y$, and the vehicle location $X$ .
-- The belief over Mi is equal to the probability that the current cell Mi is occupied given the sensor measurements gathered for that cell location.
+- The belief over m_i is equal to the probability that the current cell m_i is occupied given the sensor measurements gathered for that cell location.
 - To convert back to a binary map, a threshold value can be established at which a given belief is confident enough to be classified as occupied.
 - Any value below the set threshold will be set to free.
 
 As an example, the occupied square in the figure to the left has a probability of 0.94, which classifies the square is occupied.
   
 - On the other hand, the square found on the street only has a probability of 0.12 of being occupied, and thus will be classified as a free location.
-
 
 **Bayesian Update of the Occupancy Grid**
 
@@ -139,7 +138,7 @@ As an example, the occupied square in the figure to the left has a probability o
 - This is needed to scale the results to make sure it remains a probability distribution.
 
 
-**Cccupancy Grid in Action**
+**Occupancy Grid in Action**
 
 Lets see an occupancy grid in action.
 
@@ -165,10 +164,114 @@ Lets see an occupancy grid in action.
 
 
 ### Lesson 2: Populating Occupancy Grids from LIDAR Scan Data (Part 1)
+
+- In this video, we will identify the issues with the Bayesian Probability Update step which we saw in the previous lesson.
+- We will then present a solution to the issues highlighted using a log odds representation.
+- Finally, in this video, we will see the derivation of the Bayesian log odds update step required to update the belief map.
+
+**Bayesian Update of the Occupancy Grid - Summary**
+
+As we have seen in the previous video, we can apply Bayes' theorem to combine the previous belief map with the current measurement information to create a highly accurate occupancy grid at each time step.
+
+<img src="./resources/w2/img/l2-bayesian-update-sum0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This is achieved by the following function in which n represents a normalizing constant, p of yt given mi is the current measurement received, and the belief at time t minus 1 over mi is the previous belief map.
+- There is, however, a problem with using this simple Bayesian update.
+- To demonstrate the issue, we will look at an example of an update to an unoccupied cell of the occupancy grid with a new unoccupied measurement.
+
+**Issue With Standard Bayesian Update**
+
+Let's suppose we have a cell which previously had a low belief of occupation, 6.38*10 - 4, and the new measurement results in low probability as well, 1.2*10 - 5.
+- This means that the resulting belief would be very low, or 8.0 * 10 - 7. As you can see, all of these beliefs are quite close to zero.
+
+<img src="./resources/w2/img/l2-bayesian-update-issue0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- Multiplication of floating-point numbers on a computer, however, can lead to significant rounding error when multiplying small numbers, which in turn can lead to instability in the estimate of the probabilities.
+- Further, the multiplication of probabilities turns out to be an inefficient way to perform the belief update.
+- So our basic application of Bayes' rules to update beliefs over the occupancy cells is `not looking good`.
+- There is, however, a solution. Instead of storing the belief map with the values ranging from 0-1, we can convert our beliefs into log odds probabilities using the logit function. We first saw this logit function in course 3.
+- This leads to cell values ranging from negative infinity to positive infinity avoiding the issue with numbers close to zero.
+- The logit function takes the natural logarithm of the ratio of the probability p and 1-p. So it takes probability values from 0-1 and maps them to the entire real axis.
+
+**Conversion**
+
+It is also possible to transition from the log odds domain back to probabilities.
+
+<img src="./resources/w2/img/l2-conversion0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This is done by taking the ratio of e raised to the logit of p divided by 1 plus e to the logit of p.
+- We now have an alternative representation for our cell probabilities.
+
+**Bayesian Log Odds Single Cell Update Derivation**
+
+So let's see how this affects our Bayesian update equation.
+
+<img src="./resources/w2/img/l2-bayesian-log0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- We will start this derivation by the application of Bayes' rule to p of mi given y1 to t, where mi is the current occupancy grid map square at location i and y1 to t are the sensor measurements of that cell from time one to time t.
+- Writing out the full Bayesian update for incorporating the latest measurements into our occupancy belief, we get the following equation.
+- The first term in the numerator is the probability of getting measurement yt given the cell state at all previous measurements.
+- The second term in the numerator is the probability a cell is occupied given all measurements to time t - 1, and the nominator is the probability of getting the measurements yt given all previous measurements up to time t - 1.
+- It should be noted that the measurement yt is separated from the rest of the measurements of y1 to t - 1.
+- This is done as we would like to update the occupancy grid with only the most recent sensor measurement rather than storing all measurements and applying them again every time.
+- Next, we will apply `the Markov assumption` which ensures the current measurement is independent of previous measurements if the map state mi is known.
+
+The next step is to expand the measurement model p of y given mi by the application of Bayes' rule once again.
+
+<img src="./resources/w2/img/l2-bayesian-log1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- This results in the probability of map cell mi being the current measurement multiplied by the probability of getting that measurement divided by the probability of grid cell mi is occupied.
+- We now substitute the expanded measurement model in blue into the main Bayesian inference equation shown here.
+- This leaves us with three terms in the numerator and two terms in the denominator.
+- We will now pass this expanded form through the logit function and then start simplifying the resulting expression.
+- Let's rearrange the term 1 minus p before we write out the resulting expression.
+- The denominator portion of the log odds ratio 1 minus pmi given y1 to t can be constructed by negating the expression for the probability of a cell being occupied, which is of course, the probability that a grid cell is not occupied.
+- Next, we form the log odds ratio which is simply the log of the ratio of the probability a cell is occupied to the probability it is not.
+
+<img src="./resources/w2/img/l2-bayesian-log2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- There are many like terms in this expression which we can now cancel out as follows.
+- We arrive at the following simplified expression for the odds ratio with only three terms each in the numerator and denominator.
+- We rewrite the expression in the original 1 minus p notation.
+
+<img src="./resources/w2/img/l2-bayesian-log3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- As you may have noticed, this equation is better viewed as three ratios.
+- The ratio of the probabilities to 1 minus the same probability.
+- The first ratio is the probability of a cell being occupied given a measurement y.
+- The second is the probability a cell is not occupied, and the third is the prior belief that a cell is occupied given all measurements up to time t minus 1.
+- Finally, we apply the log to our series of probability ratios to arrive at the addition of three logit functions.
+- This is our final update equation and has the nice property of simply requiring addition when a new measurement is required.
+- The three terms can be written in a convenient shorthand where lt minus 1i is the logit of the belief that cell $i$ is occupied at time $t-1$. Similarly, l0i at time zero and lti at time t. 
+
+**Bayesian log odds Update**
+
+We now arrive at the convenient log odds update rule for Bayesian inference on occupancy grid maps.
+- It is made up of the three terms that are combined at each time step based on the latest measurement data.
+
+<img src="./resources/w2/img/l2-bayesian-log4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+- The first term the logit of the probability of mi given yt is the logit formed using new measurement information.
+- The probability distribution p of mi given yt is known as the inverse measurement model. We'll study how to do this in the next lesson for LIDAR data.
+- Lt minus 1i is the previous belief at time t minus 1 for cell i, and l0i is the initial belief at time zero for the same cell.
+- The initial belief represents the baseline belief that a grid cell is occupied, which is usually set to 50 percent uniformly as we don't expect to have prior information that improves on this value.
+- It shows up in this equation at every time step, which is a bit surprising but is simply a result of the derivation that we studied in this video and adjusts the addition of the first two terms to ensure the updated belief is consistent with the log odds form.
+- The Bayesian log odds has two strong advantages over directly updating probabilities.
+- The update is numerically stable due to the logit mapping of 01 probabilities to the entire real axis, and computationally, it is also significantly more efficient as it relies exclusively on addition to complete all updates of the occupancy grid.
+
+**Summary**
+
+- We first identified some issues with storing and updating the occupancy grid with a straightforward Bayesian probability update.
+- We then saw how this issue could be solved by employing the log odds representation of the probability space.
+- Finally, we saw how the Bayesian log odds update is derived from Bayes' rule.
+
+
 ### Lesson 2: Populating Occupancy Grids from LIDAR Scan Data (Part 2)
 ### Lesson 3: Occupancy Grid Updates for Self-Driving Cars
 ### Lesson 4: High Definition Road Maps
 ### Module 2 Supplementary Reading
+
+
 ### Lab : Occupancy Grid Generation
 ### Grade : Occupancy Grid Generation
 
