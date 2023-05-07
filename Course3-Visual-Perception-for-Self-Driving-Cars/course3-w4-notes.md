@@ -764,7 +764,11 @@ Let's consider the two-stage model shown here. The two stages share the output o
 ## Grade : Object Detection For Self-Driving Cars
 
 # References
-
+Tesla AI Day : 
+- [Tesla Autonomy Day - 2019](https://www.youtube.com/watch?v=Ucp0TTmvqOE)
+- [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
+- [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
+- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=5646s)
 
 # Appendices
 

@@ -931,6 +931,12 @@ There are really two important reasons for the effectiveness of ConvNets.
 - [Deep Learning Resources - Personal Research Notes](https://github.com/afondiel/research-notes/tree/master/ai/ml-notes/deep-learning-notes)
 - [Neural Network (NN) Architecture - Notes](https://github.com/afondiel/research-notes/blob/master/ai/ml-notes/deep-learning-notes/neural-nets-architecture-notes.md)
 
+Tesla AI Day : 
+- [Tesla Autonomy Day - 2019](https://www.youtube.com/watch?v=Ucp0TTmvqOE)
+- [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
+- [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
+- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=5646s)
+
 # Appendices
 
 
