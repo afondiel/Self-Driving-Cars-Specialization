@@ -669,6 +669,12 @@ There are many more interesting details to consider when implementing VO algorit
 - [Basics of Brute-Force Matcher](https://docs.opencv.org/4.0.0/dc/dc3/tutorial_py_matcher.html).
 - [Computer Vision Datasets - Roboflow](https://public.roboflow.com/)
 - [Computer Vision Dataset - Kaggle](https://www.kaggle.com/datasets?tags=13207-Computer+Vision)
+
+Tesla AI Day : 
+- [Tesla Autonomy Day - 2019](https://www.youtube.com/watch?v=Ucp0TTmvqOE)
+- [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
+- [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
+- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=5646s)
 # Appendices
 
 - [Harris Affine Region Detector](https://en.wikipedia.org/wiki/Harris_affine_region_detector)
