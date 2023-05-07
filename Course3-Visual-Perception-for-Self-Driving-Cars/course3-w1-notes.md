@@ -99,13 +99,15 @@
 
 ## The Camera Sensor
 
-<img src="./resources/w1/img/l1-intro0.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+**Learning Objectives**
 
 - Most major players in the autonomous driving industry have a **camera** as their primary sensor in their vehicle sensor suite. 
 
 - ```The camera is a rich sensor that captures incredible detail about the environment around the vehicle but requires extensive processing to make use of the information that's available in that image.``` 
 
 - Throughout this course, you will get hands on experience on how to algorithmically manipulate camera images to extract information, useful, not just for autonomous driving but for robotic perception in general. 
+- <img src="./resources/w1/img/l1-intro0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
 - In the first module in week one of this course, we will provide you with an overview of important concepts related to cameras and computer vision. 
 - This module is only meant as a high level summary of the basics of computer vision. So, we'll move quickly through a large number of topics to develop more in-depth knowledge in this area, have a look at the computer vision courses also available on Coursera. 
 - In this first video, we will highlight **why the camera is a critical sensor for autonomous driving**. We will then briefly introduce the concept of image formation and present `the pinhole camera model` which captures the essential elements of how a camera works in a simple and elegant manner. 
@@ -868,7 +870,7 @@ Tesla AI Day :
 - [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
 - [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=5646s)
 
-Notes
+Research Notes:
 
 - [The Complete Self-Driving Car Course Applied Deep-Learning - Udemy - Notes](https://github.com/afondiel/The-Complete-Self-Driving-Car-Course-Udemy/blob/main/self-driving-cars-dl-notes.md)
 - [Research Notes - cv resources](https://github.com/afondiel/research-notes/blob/master/computer-vision-notes/cv-notes.md)
@@ -882,14 +884,24 @@ CV :
 - [Depth Perception](https://en.wikipedia.org/wiki/Depth_perception)
 
 Environment : 
-  - [Light](https://en.wikipedia.org/wiki/Light)
-  - [Optics](https://en.wikipedia.org/wiki/Optics)
-  - [Color Theory](https://en.wikipedia.org/wiki/Color_theory)
-  - [3D space](https://en.wikipedia.org/wiki/Three-dimensional_space)
+- [Optics](https://en.wikipedia.org/wiki/Optics)
+- [Light](https://en.wikipedia.org/wiki/Light)
+- [Color Theory](https://en.wikipedia.org/wiki/Color_theory)
+- [Electromagnetic Radiation](https://en.wikipedia.org/wiki/Electromagnetic_radiation)
+
+Human perception : 
+- [Human Eye](https://en.wikipedia.org/wiki/Human_eye)
+- [Visual System](https://en.wikipedia.org/wiki/Visual_system)
+- [Visual Cortex](https://en.wikipedia.org/wiki/Visual_cortex)
+
+Signal Processing
 
 - [Multidimensional Signal Processing](https://en.wikipedia.org/wiki/Category:Multidimensional_signal_processing)
-  - [Image Processing](https://en.wikipedia.org/wiki/Category:Image_processing)
-  - [Video Processing](https://en.wikipedia.org/wiki/Category:Video_processing)
-  - [Geometry Processing](https://en.wikipedia.org/wiki/Category:Geometry_processing)
+- [Image Processing](https://en.wikipedia.org/wiki/Category:Image_processing)
+- [Video Processing](https://en.wikipedia.org/wiki/Category:Video_processing)
+- [Geometry Processing](https://en.wikipedia.org/wiki/Category:Geometry_processing)
 
+Geometry
 - [Stereometry or Solid Geometry - 3D (Objects) Geometry](https://en.wikipedia.org/wiki/Solid_geometry)
+- [Geometry Processing](https://en.wikipedia.org/wiki/Geometry_processing)
+- [3D space](https://en.wikipedia.org/wiki/Three-dimensional_space)
