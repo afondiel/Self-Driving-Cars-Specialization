@@ -304,7 +304,7 @@ Let us formulate the mathematical tools needed to perform this projection using 
 
 - Luckily, this only changes the camera $K$ matrix, and the equations you have learned can be used as is with a few additional parameters. 
 
-**The Digital Iamge: Greyscale**
+**The Digital Image: Greyscale**
 
 Now that we have formulated the coordinates of projection of a 3D point onto the 2D image plane, we want to define what values go into the coordinates in a 2D color image. 
 
@@ -768,7 +768,7 @@ Now let's apply these kernels to our camera man image.
 - However, it also blurred our image, an inevitable consequence of these linear filters. 
 - This blur can be reduced by tuning the parameters specific to each type of filter. 
 
-**Convulation**
+**Convolution**
 
 A Convolution :  is a cross-correlation, where the filter is flipped both horizontally and vertically before being applied to the image. 
 
@@ -875,6 +875,13 @@ Research Notes:
 - [The Complete Self-Driving Car Course Applied Deep-Learning - Udemy - Notes](https://github.com/afondiel/The-Complete-Self-Driving-Car-Course-Udemy/blob/main/self-driving-cars-dl-notes.md)
 - [Research Notes - cv resources](https://github.com/afondiel/research-notes/blob/master/computer-vision-notes/cv-notes.md)
 - [CONVOLUTIONAL NEURAL NETWORK (CNN)](https://github.com/afondiel/research-notes/blob/master/ai/ml-notes/deep-learning-notes/neural-nets-architecture-notes.md)
+
+Camera Sensor : 
+
+- [How does a camera work? - Branch Education ](https://www.youtube.com/watch?v=B7Dopv6kzJA)
+- [The Science of Camera Sensors - Filmmaker IQ](https://www.youtube.com/watch?v=MytCfECfqWc)
+- [Understanding The Digital Image Sensor](https://thinklucid.com/tech-briefs/understanding-digital-image-sensors/)
+- [Image Sensor](https://en.wikipedia.org/wiki/Image_sensor)
 
 # Appendices
 
