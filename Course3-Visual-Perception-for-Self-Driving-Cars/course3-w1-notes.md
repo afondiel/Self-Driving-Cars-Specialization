@@ -315,7 +315,7 @@ Now that we have formulated the coordinates of projection of a 3D point onto the
 
 - Zooming in, we can see these pixels is a grid. In grayscale, brightness information is written in each pixel as an unsigned eight bit integer. Some cameras can produce unsigned 16-bit integers for better quality images. 
 
-**The Digital Iamge: Color**
+**The Digital Image: Color**
 
 <img src="./resources/w1/img/l12-camera-geometry11.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -593,21 +593,20 @@ The correspondence problem however, requires specialized algorithms to efficient
 
 ### Lesson 3 Part 2: Visual Depth Perception - Computing the Disparity
 
+- It's great to see you again. Welcome back. So far we have learned the essential equations to extract 3D information from a stereo pair. However, we were faced with some unknown parameters that we have to estimate. 
+- In this `part 2` you will learn : 
+  - **How to estimate these missing parameters** such as the disparity through `stereo matching`. 
+  - You will also learn that efficient disparity estimation is possible due to `epipolar constraints`. 
+
 **Part 1 Review : Computing 3D Point Coordinates**
+
+We identified two primary issues with the visual depth estimation from stereo images. 
 
 <img src="./resources/w1/img/l32-vdp-recall.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
-- We identified two primary issues with the visual depth estimation from stereo images. 
-- The first is that the camera parameters focal length F baseline B and camera pixel centers $U_{0}$ and $V_{0}$ , need to be estimated from stereo camera calibration. 
-- It's great to see you again. Welcome back. So far we have learned the essential equations to extract 3D information from a stereo pair. However, we were faced with some unknown parameters that we have to estimate. 
-
-In this `part 2` you will learn : 
-- **How to estimate these missing parameters** such as the disparity through `stereo matching`. 
-- You will also learn that efficient disparity estimation is possible due to `epipolar constraints`. 
-
-Similar to monocular camera calibration, **stereo calibration** is a well-studied problem with lots of user-friendly free software capable of performing in.
-
-`This lesson we'll be targeting the second problem, mainly stereo matching to compute disparities`. 
+- The `first` is that the camera parameters focal length F baseline B and camera pixel centers $U_{0}$ and $V_{0}$ , need to be estimated from stereo camera calibration. 
+- Similar to monocular camera calibration, **stereo calibration** is a well-studied problem with lots of user-friendly free software capable of performing in.
+- This lesson we'll be targeting the `second` problem, **mainly stereo matching** to compute disparities. 
 
 As a reminder, **disparity** is the difference in the image location of the same 3D point as observed by two different cameras. 
 
