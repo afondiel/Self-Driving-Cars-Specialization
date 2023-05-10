@@ -593,7 +593,9 @@ The correspondence problem however, requires specialized algorithms to efficient
 
 ### Lesson 3 Part 2: Visual Depth Perception - Computing the Disparity
 
-- It's great to see you again. Welcome back. So far we have learned the essential equations to extract 3D information from a stereo pair. However, we were faced with some unknown parameters that we have to estimate. 
+- It's great to see you again. Welcome back. 
+- So far we have learned the essential equations to extract 3D information from a stereo pair.
+- However, we were faced with some unknown parameters that we have to estimate. 
 - In this `part 2` you will learn : 
   - **How to estimate these missing parameters** such as the disparity through `stereo matching`. 
   - You will also learn that efficient disparity estimation is possible due to `epipolar constraints`. 
