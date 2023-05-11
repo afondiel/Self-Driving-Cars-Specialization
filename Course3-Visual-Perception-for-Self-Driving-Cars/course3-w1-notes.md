@@ -343,7 +343,7 @@ Now that we have formulated the coordinates of projection of a 3D point onto the
 
 ### Lesson 2: Camera Calibration
 
-The camera calibration problem is defined as finding these unknown intrinsic and extrinsic camera parameters, shown here in red given n known 3D point coordinates and their corresponding projection to the image plane.
+The camera calibration problem is defined as finding these unknown intrinsic and extrinsic camera parameters, shown here in red given $n$ known 3D point coordinates and their corresponding projection to the image plane.
 
 **Camera Calibration: Problem Formulation**
 
@@ -568,7 +568,7 @@ From these two equations, we can now derive the 3D coordinates of the point $O$ 
 
 <img src="./resources/w1/img/l3-3d-point2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
-- First, we need to compute the focal length baseline and $x$ and $y$ offsets. That is, we need to calibrate the stereo camera system. 
+- First, we need to compute the focal length, baseline, and $x$ and $y$ offsets. That is, we need to calibrate the stereo camera system. 
 - Second, we need to find the correspondence between each left and right image pixel pair to be able to compute their disparity. 
 
 `Fortunately, the calibration problem can be solved using stereo camera calibration.` 
@@ -583,7 +583,7 @@ The correspondence problem however, requires specialized algorithms to efficient
 
 - The output depth from stereopsis suffers from some limitations particularly as points move further away from the stereo camera.
 
-- However, given a good disparity estimation algorithm, the output is still useful for self-driving cars as a dense source of depth information and closer range which exceeds the density we can get from common Lidar sensors.``` 
+- However, given a good disparity estimation algorithm, the output is still useful for self-driving cars as a dense source of depth information and closer range which exceeds the density we can get from common Lidar sensors.
 
 **Summary**
 
@@ -869,7 +869,7 @@ Tesla AI Day :
 - [Tesla Autonomy Day - 2019](https://www.youtube.com/watch?v=Ucp0TTmvqOE)
 - [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
 - [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
-- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=5646s)
+- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
 
 Research Notes:
 
