@@ -379,7 +379,7 @@ The camera calibration problem is defined as finding these unknown intrinsic and
 
 Therefore, if we have $n$ points, we have $2n$ associated equations. Putting these equations in matrix form gives us the shown homogeneous linear system. 
 
-Since this is a **homogeneous linear system**, we can use the pseudo-inverse or even better, the singular value decomposition to get `the least squares solution`.
+Since this is a **homogeneous linear system**, we can use the pseudo-inverse or even better, the `Singular Value Decomposition(SVD)` to get the least squares solution`.
 
 **Camera Calibration: Linear Methods**
 
@@ -392,16 +392,16 @@ Our simple linear calibration approach has several advantages.
 *Can you think of some disadvantages of a simple linear system?*
 
 - One disadvantage of solving for $P$ , is that we do not directly get the intrinsic and extrinsic camera parameters. 
-- Furthermore, our linear model does not take into account complex phenomena, such as radial and tangential distortion. 
+- Furthermore, our linear model does not take into account complex phenomena, such as `radial` and `tangential distortion`. 
 - Finally, since we are solving via the linear least squares method, we cannot impose constraints on our solution, such as requiring the focal length to be non-negative. 
 
-The camera projection matrix $P$ by itself, is useful for projecting 3D points into 2D, but it has several drawbacks: 
+The camera projection matrix $P$ by itself, is useful for projecting 3D points into 2D, but it has several `drawbacks`: 
 - It doesn't tell you the cameras pose 
 - it doesn't tell you about the camera's internal geometry
 
 **Factoring the P matrix**
 
-Fortunately, we can factorize $P$ into intrinsic parameter matrix K and extrinsic rotation parameters R and translation parameters t, using a linear algebra operation known as the `RQ factorization`.
+Fortunately, we can factorize $P$ into intrinsic parameter matrix $K$ and extrinsic rotation parameters $R$ and translation parameters $t$ , using a linear algebra operation known as the `RQ factorization`.
 
 *How we perform this factorization?* 
 
@@ -713,7 +713,7 @@ Stereo matching is a very well-studied problem in computer vision.
 
 *Why we would use image filtering?*
 
-**The image formation process**: is susceptible to lots of different noise sources`
+**The image formation process**: is susceptible to lots of different noise sources
 
 - In the image below you can see the camera man, a very famous photo created at MIT that is used for testing computer vision algorithms. 
 
