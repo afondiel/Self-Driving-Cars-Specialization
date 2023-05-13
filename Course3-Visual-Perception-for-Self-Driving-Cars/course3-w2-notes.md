@@ -55,14 +55,13 @@ This definition is pretty vague, as it poses the following question.
 
 <img src="./resources/w2/img/l1-img-feat-det31.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Points of interest should be distinctive, and identifiable, and different from its immediate neighborhood. 
-- Features should also be repeatable. That means that we should be able to extract the same features from two independent images of the same scene. 
-- Third, features should be local. That means the features should not change if an image region far away from the immediate neighborhood changes. 
-- Forth, our features should be abundant in an image. 
-- This is because many applications such as calibration and localization require a minimum number of distinctive points to perform effectively.
-- Finally, generating features should not require a large amount of computation, as it is usually used as a pre-processing step for the applications that we've described. 
+- Points of interest should be `distinctive`, and identifiable, and different from its immediate neighborhood. 
+- Features should also be `repeatable`. That means that we should be able to extract the same features from two independent images of the same scene. 
+- Third, features should be `local`. That means the features should not change if an image region far away from the immediate neighborhood changes. 
+- Forth, our features should be `abundant` in an image. This is because many applications such as calibration and localization require a minimum number of distinctive points to perform effectively.
+- Finally, generating features `should not require a large amount of computation`, as it is usually used as a pre-processing step for the applications that we've described. 
 
-**Point of interest**
+**Point Of Interest (POI)**
 
 Take a look at the following images. *Can you think of pixels that abide by the above characteristics?*
 
@@ -679,6 +678,8 @@ Tesla AI Day :
 
 - [Harris Affine Region Detector](https://en.wikipedia.org/wiki/Harris_affine_region_detector)
 - [15 Best Open-Source Autonomous Driving Datasets](https://medium.com/analytics-vidhya/15-best-open-source-autonomous-driving-datasets-34324676c8d7)
-
+- [Vector Calculus](https://en.wikipedia.org/wiki/Vector_calculus)
+- [Analyse Vectorielle - fr](https://fr.wikipedia.org/wiki/Analyse_vectorielle)
+- [Differential operator](https://en.wikipedia.org/wiki/Differential_operator)
 
 
