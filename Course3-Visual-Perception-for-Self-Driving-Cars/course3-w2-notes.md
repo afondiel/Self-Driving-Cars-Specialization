@@ -152,11 +152,11 @@ The second important characteristic of a feature descriptor is `distinctiveness`
 
 **Designing Invariant Descriptors: SIFT**
 
-<img src="./resources/w2/img/l2-sift0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
-
 We will describe how to compute the shift features descriptors specifically designed by `David Lowe` in 1999. 
 
-The procedure for computing shift feature descriptors is as follows.
+- The procedure for computing shift feature descriptors is as follows:
+
+<img src="./resources/w2/img/l2-sift0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Given a feature in the image, the shift descriptor takes a 16 by 16 window of pixels around it, we call this window the features local neighborhood.
 - We then separate this window in to four, 4 by 4 cells such that each cell contains 16 pixels. 
@@ -177,12 +177,12 @@ Some additional post processing is done as well in that it helps the 128 dimensi
 
 **Other Descriptors** 
 
-<img src="./resources/w2/img/l2-other-descriptors.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
-
 - It is worth mentioning that there is huge literature out there for feature detectors and descriptors. 
 - The surf descriptive for example uses similar concepts to **SIFT** while being significantly faster to compute. 
 
 Many other variants exist in the literature including : 
+
+<img src="./resources/w2/img/l2-other-descriptors.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - The Gradient Location-Orientation Histogram or GLOH descriptor. 
 - The Binary Robust Independent Elementary Features descriptor (BRIEF)
@@ -546,6 +546,7 @@ Using the model, we compute how many features and image one translate to their m
 **Visual Odometry** 
 
 ```Visual odometry (VO) can be defined as the process of incrementally estimating the pose of the vehicle by examining the changes that motion induces on the images of its onboard cameras.```
+
 <img src="./resources/w2/img/l5-vo-0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - It is similar to the concept of wheel odometry you learned in the second course, but with `cameras` instead of `encoders`.
