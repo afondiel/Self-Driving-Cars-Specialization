@@ -230,7 +230,7 @@ Afterwards, we can use the matched features for a variety of applications includ
 
 **Feature Matching**
 
-Here's an example of a feature matching problem. Given a feature and it's descriptor in image one, we want to try to find the best match for the feature in image two. 
+Here's an example of a feature matching problem. Given a feature and it's descriptor in image one, we want to try to find the best match for the feature in image 2 . 
 
 <img src="./resources/w2/img/l3-feat-match2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -243,8 +243,8 @@ The simplest solution to the matching problem is referred to as brute force feat
 <img src="./resources/w2/img/l3-feat-match3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - First, define a distance function d that compares the descriptors of two features $fi$ and $fj$ , and defines the distance between them. The more similar the two descriptors are to each other, the smaller the distance between them. 
-- Second, for every feature $fi$ in image one, we apply the distance function $d$ to compute the distance with every feature $fj$ in image two. 
-- Finally, we will return the feature which we'll call $fc$ from image two with the minimum distance to the feature $fi$ in image one as our match. 
+- Second, for every feature $fi$ in image one, we apply the distance function $d$ to compute the distance with every feature $fj$ in image 2 . 
+- Finally, we will return the feature which we'll call $fc$ from image 2  with the minimum distance to the feature $fi$ in image 1 as our match. 
 
 This feature is known as `the nearest neighbor`, and it is the closest feature to the original one in the descriptor space. 
 
@@ -270,21 +270,21 @@ Our matching technique and distance choices are really quite simple.
 <img src="./resources/w2/img/l3-feat-match5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - For simplicity, this feature has a four-dimensional descriptor, which we'll call $f1$ . 
-- Let's compute the distance between $f1$ and the first feature in the image two, which we'll label $f2$ . We get a sum of squared difference or SSD value of nine. 
-- We then compute the distance between $f1$ and the second feature in image two, which we'll label $f3$ . 
+- Let's compute the distance between $f1$ and the first feature in the image 2 , which we'll label $f2$ . We get a sum of squared difference or SSD value of nine. 
+- We then compute the distance between $f1$ and the second feature in image 2 , which we'll label $f3$ . 
 - Here, we get an SSD of 652. We can now repeat this process for every other feature in the second image and find out that all the other distances are similarly large relative to the first one. 
 
 <img src="./resources/w2/img/l3-feat-match6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - We therefore choose feature $f2$ to be our match as it has the lowest distance to $f1$ . 
-- Visually, our brute force approach appears to be working. As humans, we can immediately see that feature $f1$ in the image is indeed the same point of interest as feature $f2$ in image two. 
+- Visually, our brute force approach appears to be working. As humans, we can immediately see that feature $f1$ in the image is indeed the same point of interest as feature $f2$ in image 2 . 
 
-Now, let us consider a second case where our feature detector tries to match a feature from image one, for which there is no corresponding feature in image two. 
+Now, let us consider a second case where our feature detector tries to match a feature from image one, for which there is no corresponding feature in image 2 . 
 
 <img src="./resources/w2/img/l3-feat-match7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Let's take a look at what the brute force approach will do when our feature detector encounters this situation. 
-- Following the same procedure as before, we compute the $SSD$ between the descriptors of a feature $f1$ in image one, and all the features in image two.
+- Following the same procedure as before, we compute the $SSD$ between the descriptors of a feature $f1$ in image one, and all the features in image 2 .
 - Assume that $f2$ and $f3$ are the nearest neighbors of $f1$ and with $f2$ having the lowest score. 
 - Although at 441, it is still rather dissimilar to the $f1$ feature descriptor from the original image. 
 
@@ -297,7 +297,7 @@ As a result, $f2$ will be returned as our best match. Clearly, this is not corre
 
 <img src="./resources/w2/img/l3-feat-match9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- This means that any feature in image two with a distance greater than Delta to $f1$ , is not considered a match even if it has the minimum distance to $f1$ among all the features in image two.
+- This means that any feature in image 2  with a distance greater than Delta to $f1$ , is not considered a match even if it has the minimum distance to $f1$ among all the features in image 2 .
 
 **Brute Force Feature Matching - Algorithm update**
 
@@ -309,7 +309,7 @@ Now, let's update our brute force matcher algorithm with our threshold.
 
 - Once again, we define our distance function to quantify the similarity of two feature descriptors. We also fix a maximum distance threshold Delta for acceptable matches. 
 
-- Then, for every feature in image one, we compute the distance to each feature in image two and store the shortest distance or nearest neighbor as the most likely match. 
+- Then, for every feature in image one, we compute the distance to each feature in image 2  and store the shortest distance or nearest neighbor as the most likely match. 
 
 **Feature Matching**
 
@@ -344,24 +344,24 @@ But first, let's review the two feature matching cases we discussed in the last 
 <img src="./resources/w2/img/l3-feat-match6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - In this case we can successfully identify the correct match to the feature f1 and image one.
-- Our brute force matching algorithm works well with this descriptor and as seamlessly capable of finding the right match in image two. 
+- Our brute force matching algorithm works well with this descriptor and as seamlessly capable of finding the right match in image 2 . 
 
 **Brute Force Feature Matching: Case 2**
 
-In the second case, the feature $f1$ in image one does not have a match at all in image two. 
+In the second case, the feature $f1$ in image 1 does not have a match at all in image 2 . 
 
 <img src="./resources/w2/img/l3-feat-match9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - We modified our brute force matching algorithm with a threshold delta to eliminate incorrect matches in this case. 
-- Since both features and image two have a distance greater than the distance threshold Delta, the brute force matcher rejects both the features $f2$ and $f3$ as potential matches and no match is returned. 
+- Since both features and image 2  have a distance greater than the distance threshold Delta, the brute force matcher rejects both the features $f2$ and $f3$ as potential matches and no match is returned. 
 
 **Brute Force Feature Matching: Case 3**
 
-But, let us consider a third case, once again we are trying to match feature $f1$ in image one to a corresponding feature in image two. 
+But, let us consider a third case, once again we are trying to match feature $f1$ in image 1 to a corresponding feature in image 2 . 
 
 <img src="./resources/w2/img/l3-feat-match5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- With the feature vectors presented here, feature $f1$ gets an SSD value of nine with feature two in image two. We test another feature $f3$ , and we also get an SSD of nine. 
+- With the feature vectors presented here, feature $f1$ gets an SSD value of nine with feature two in image 2 . We test another feature $f3$ , and we also get an SSD of nine. 
 - Both of these features have an SSD less than Delta which was 20 in this case, and as such are valid matches. 
 
 *So what should we do?*
@@ -375,14 +375,14 @@ The solution goes as follows.
 
 <img src="./resources/w2/img/l31-feat-match0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- First, we compute the distance between feature $fi$ in image one and all the features $fj$ in image two, similar to our previous algorithm, we choose the feature $fc$ in image two with the minimum distance to feature $fi$ in image of one as our closest match. 
-- We then proceed to get feature $fs$ the feature in image two with the second closest distance to the feature $fi$ . 
+- First, we compute the distance between feature $fi$ in image 1 and all the features $fj$ in image 2 , similar to our previous algorithm, we choose the feature $fc$ in image 2  with the minimum distance to feature $fi$ in image of one as our closest match. 
+- We then proceed to get feature $fs$ the feature in image 2  with the second closest distance to the feature $fi$ . 
 - Finally, we find how much nearer our closest match $fc$ is over our second closest match $fs$. 
-- This can be done through the distance ratio. The distance ratio can be defined as the distance computed between feature $fi$ in image one and $fc$ the closest match in image two. 
-- Over the distance computed between feature $fi$ and $fs$ , the second closest match in image two. 
+- This can be done through the distance ratio. The distance ratio can be defined as the distance computed between feature $fi$ in image 1 and $fc$ the closest match in image 2 . 
+- Over the distance computed between feature $fi$ and $fs$ , the second closest match in image 2 . 
 - If the distance ratio is close to one, it means that according to our descriptor and distance function, $fi$ matches both fs and $fc$.
 
-- In this case, we don't want to use this match in our processing later on, as it clearly is not known to our matcher which location in image two corresponds to the feature in image one. 
+- In this case, we don't want to use this match in our processing later on, as it clearly is not known to our matcher which location in image 2  corresponds to the feature in image one. 
 
 **Brute Force Feature Matching: Updated**
 
@@ -423,20 +423,20 @@ Our **localization problem** is defined as follows: given any two images of the 
 
 <img src="./resources/w2/img/l4-img-feat-loc0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-In practice, we'd also want to solve for the scale and skew due to different viewpoints. But we'll keep this example simple to stay focused on the current topic. 
+In practice, we'd also want to solve for the `scale` and `skew` due to different viewpoints. But we'll keep this example simple to stay focused on the current topic. 
 
 <img src="./resources/w2/img/l4-img-feat-loc1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 To solve this localization problem, we need to perform the following steps : 
 
-- First, we need to find the displacement of image one on the u image axis of image two. We call this displacement $t_{u}$ . 
-- Second, we need to find the displacement of image one on the $v$ axis of image two, and we'll call this displacement $t_{v}$ .
+- First, we need to find the displacement of image 1 on the u image axis of image 2 . We call this displacement $t_{u}$ . 
+- Second, we need to find the displacement of image 1 on the $v$ axis of image 2 , and we'll call this displacement $t_{v}$ .
 
 <img src="./resources/w2/img/l4-img-feat-loc2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - We will find $t_{u}$ and $t_{v}$ by matching features between the images, and then solving for the displacements that best align these matched features. 
 
-We begin by computing features and their descriptors in image one and image two. 
+We begin by computing features and their descriptors in image 1 and image 2 . 
 
 <img src="./resources/w2/img/l4-img-feat-loc3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -453,8 +453,8 @@ We begin by computing features and their descriptors in image one and image two.
 
 - Where $i$ ranges between $0$ ... $n$, the total number of feature pairs returned by our matching algorithm. 
 - Each feature in the feature pair is represented by its pixel coordinates $ui$ and $vi$. 
-- Note that every pixel in the image ones should coincide with its corresponding pixel in image two after application of the translation $t_{q}$ and $t_{v}$ . 
-- We can then use our feature pairs to model the translation as follows: the location of a feature in image one is translated to a corresponding location in image two through model parameters $t_{u}$ and $t_{v}$. 
+- Note that every pixel in the image ones should coincide with its corresponding pixel in image 2  after application of the translation $t_{q}$ and $t_{v}$ . 
+- We can then use our feature pairs to model the translation as follows: the location of a feature in image 1is translated to a corresponding location in image 2  through model parameters $t_{u}$ and $t_{v}$. 
 - Here the translations on the $u$ image axis $t_{u}$ , and the $v$ image axis $t_{v}$ , are the same for all feature pairs. Since we assume a rigid body motion. 
 
 <img src="./resources/w2/img/l4-img-feat-loc5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -513,7 +513,7 @@ As a reminder, our model parameters $t_{u}$ and $t_{v}$, shift each feature pair
 <img src="./resources/w2/img/l4-ransac3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Unfortunately, our first iteration chose a poor feature match to compute the model parameters.
-- When using this model to compute how many features in image one translate to their matched location in image two, we notice that none of them do. 
+- When using this model to compute how many features in image 1 translate to their matched location in image 2 , we notice that none of them do. 
 
 **RansaC - Iteration 2**
 
@@ -525,7 +525,7 @@ Once again, we compute $t_{u}$ and $t_{v}$, using a new randomly sampled feature
 
 <img src="./resources/w2/img/l4-ransac5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-Using the model, we compute how many features and image one translate to their match in image two. This time we can see that most of the features actually fit this model. 
+Using the model, we compute how many features and image 1 translate to their match in image 2 . This time we can see that most of the features actually fit this model. 
 
 <img src="./resources/w2/img/l4-ransac6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
