@@ -682,5 +682,7 @@ Tesla AI Day :
 - [Vector Calculus](https://en.wikipedia.org/wiki/Vector_calculus)
 - [Analyse Vectorielle - fr](https://fr.wikipedia.org/wiki/Analyse_vectorielle)
 - [Differential operator](https://en.wikipedia.org/wiki/Differential_operator)
+- [Geometry in Computer Vision](https://en.wikipedia.org/wiki/Category:Geometry_in_computer_vision)
+  - [Wikipedia: Determining R and t from Essential Matrix(E)](https://en.wikipedia.org/wiki/Essential_matrix)
 
 
