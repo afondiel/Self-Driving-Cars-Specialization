@@ -589,31 +589,32 @@ Now we'll describe the general process of visual odometry.
 **Motion estimation** 
 
 - The way we perform the motion estimation step depends on what type of feature representation we have. 
-- In 2D-2D motion estimation, feature matches in both frames are described purely in image coordinates. 
 
 <img src="./resources/w2/img/l5-vo-3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- In `2D-2D` motion estimation, feature matches in both frames are described purely in image coordinates. 
 - This form of visual odometry is great for tracking objects in the image frame. This is extremely useful for visual tracking and image stabilization in videography, for example. 
-- In 3D-3D motion estimation, feature matches are described in the world 3D coordinate frame. This approach requires the ability to locate new image features in 3D space, and is therefore used with depth cameras, stereo cameras, and other multi-camera configurations that can provide depth information. 
+- In `3D-3D` motion estimation, feature matches are described in the world 3D coordinate frame. This approach requires the ability to locate new image features in 3D space, and is therefore used with depth cameras, stereo cameras, and other multi-camera configurations that can provide depth information. 
 - These two cases are important and follow the same general visual odometry framework that we'll use for the rest of this lesson. 
 
 **3D-2D motion estimation**
 
-- Let's take a closer look at 3D-2D motion estimation, where the features from frame k minus one are specified in the 3D world coordinates while their matches in frame k are specified in image coordinates. 
+- Let's take a closer look at 3D-2D motion estimation, where the features from frame $k - 1$ are specified in the 3D world coordinates while their matches in frame $k$ are specified in image coordinates. 
 
 <img src="./resources/w2/img/l5-vo-4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Here's how 3D-2D motion estimation is performed. 
-- We are given the set of features in frame k minus one and estimates of their 3D world coordinates. Furthermore, through feature matching, we also have the 2D image coordinates of the same features in the new frame k.
--  Note that since we cannot recover the scale for a monocular visual odometry directly, we include a scaling parameter S when forming the homogeneous feature vector from the image coordinates. 
--  We want to use this information to estimate the rotation matrix R and a translation vector t between the two camera frames.
+Here's how 3D-2D motion estimation is performed :  
+
+- We are given the set of features in frame $k - 1$ and estimates of their 3D world coordinates. 
+- Furthermore, through feature matching, we also have the 2D image coordinates of the same features in the new frame k.
+-  Note that since we cannot recover the scale for a monocular visual odometry directly, we include a scaling parameter $S$ when forming the homogeneous feature vector from the image coordinates. 
+-  We want to use this information to estimate the rotation matrix $R$ and a translation vector t between the two camera frames.
    
 *Does this figure remind you of something that we've learned about previously?* 
 - If you're thinking of camera calibration, you're correct. 
 -  In fact, we use the same projective geometry equations we used for calibration in visual odometry as well. 
--  A simplifying distinction to note between calibration and VO is that the camera intrinsic calibration matrix k is already known.So we don't have to solve for it again. 
-
--  Our problem now reduces to the estimation of the transformation components $R$ and $t$ from the system of equations constructed using all of our matched features. 
+-  A simplifying distinction to note between calibration and VO is that the camera intrinsic calibration matrix $K$ is already known. So we don't have to solve for it again. 
+-  Our problem now reduces to the `estimation` of the transformation components $R$ and $t$ from the system of equations constructed using all of our `matched features`. 
 
 **Perspective N Point algorithm(PNP)**
 
