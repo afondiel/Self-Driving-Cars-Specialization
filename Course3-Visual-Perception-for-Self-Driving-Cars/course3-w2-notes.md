@@ -572,7 +572,8 @@ Let's define the visual odometry problem mathematically.
 
 - Given two consecutive image frames, I_k minus one and I_k, we want to estimate a transformation matrix T_k defined by the translation T and a rotation R between the two frames.
 -  Concatenating the sequence of transformations estimated at each time step k from k naught to capital K will provide us with the full trajectory of the camera over the sequence of images. 
-- Since the camera is rigidly attached to the autonomous vehicle, this also represents an estimate of the vehicle's trajectory. 
+
+`Since the camera is rigidly attached to the autonomous vehicle, this also represents an estimate of the vehicle's trajectory.` 
 
 **Visual Odometry - Model**
 
@@ -598,9 +599,10 @@ Now we'll describe the general process of visual odometry.
 
 **3D-2D motion estimation**
 
+- Let's take a closer look at 3D-2D motion estimation, where the features from frame k minus one are specified in the 3D world coordinates while their matches in frame k are specified in image coordinates. 
+
 <img src="./resources/w2/img/l5-vo-4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Let's take a closer look at 3D-2D motion estimation, where the features from frame k minus one are specified in the 3D world coordinates while their matches in frame k are specified in image coordinates. 
 - Here's how 3D-2D motion estimation is performed. 
 - We are given the set of features in frame k minus one and estimates of their 3D world coordinates. Furthermore, through feature matching, we also have the 2D image coordinates of the same features in the new frame k.
 -  Note that since we cannot recover the scale for a monocular visual odometry directly, we include a scaling parameter S when forming the homogeneous feature vector from the image coordinates. 
