@@ -687,5 +687,8 @@ Tesla AI Day :
 - [Differential operator](https://en.wikipedia.org/wiki/Differential_operator)
 - [Geometry in Computer Vision](https://en.wikipedia.org/wiki/Category:Geometry_in_computer_vision)
   - [Wikipedia: Determining R and t from Essential Matrix(E)](https://en.wikipedia.org/wiki/Essential_matrix)
+  - [Structure from Motion - SfM](https://en.wikipedia.org/wiki/Structure_from_motion)
+  - [Essential Matrix](https://en.wikipedia.org/wiki/Essential_matrix)
+  - [Perspective n Point - PnP](https://en.wikipedia.org/wiki/Perspective-n-Point)
 
 
