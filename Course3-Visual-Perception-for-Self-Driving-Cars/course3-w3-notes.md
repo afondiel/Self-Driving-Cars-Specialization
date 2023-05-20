@@ -71,11 +71,11 @@ Now let us go back to the network definition and check out how our visual repres
 
 Now before we delve deeper into these fascinating function approximators, let's look at a few examples of how we can use them for autonomous driving.   
 
-`Remember, this course is on visual perception, so we'll restrict our input x to always be an **image**.` 
+`Remember, this course is on visual perception, so we'll restrict our input x to always be an *image*.` 
 
 **FNN - Classification & Detection Example**
 
-- The most basic perception task is that of `classification`. Here we require the neural network to tell us what is in the image via a label. 
+- The most basic perception task is that of `classification`. Here we require the neural network to tell us what is in the image via a `label`. 
 - We can make this task more complicated by trying to estimate a location as well as a label for objects in the scene.This is called `object detection`
 
 <img src="./resources/w3/img/l1-fnn4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -116,7 +116,7 @@ So let us define more clearly the hidden layer structure.
 
 <img src="./resources/w3/img/l1-fnn8.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- This non-linear function is called the activation function. The input to the nth hidden layer is $h_{n-1}$ , the output from the previous hidden layer. 
+- This non-linear function is called the activation function. The input to the n-th hidden layer is $h_{n-1}$, the output from the previous hidden layer. 
 - In the case where the layer is the first hidden layer, its input is simply the input image $x$. The affine transformation is comprised of a multiplicative weight matrix W, and an additive bias Matrix $B$ . 
 - These weights and biases are the learn parameters theta in the definition of the neural network. 
 - Finally, the transformed input is passed through the activation function $g$. Most of the time, $g$ does not contain parameters to be learned by the network. 
@@ -172,7 +172,7 @@ Generally, supervised machine learning models including neural networks have two
 - **training**. 
 
 Recall are basic neural network formulation. 
-- Given a set of parameters data, the input $x$ is passed through the model $f(x:theta)$ to get an output $y$. 
+- Given a set of parameters data, the input $x$ is passed through the model $f(x: \theta )$ to get an output $y$. 
 
 <img src="./resources/w3/img/l2-ml-design0-0.png" width="300" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -432,7 +432,7 @@ Unfortunately, the batch gradient descent algorithm suffers from severe `drawbac
 
 - To be able to compute the gradient we use `backpropogation`. 
 
-<img src="./resources/w3/img/l3-nn-gradient-desc6.png" width="00" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w3/img/l3-nn-gradient-desc6.png" width="500" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - **Backpropogation** involves computing the output of the network for the example on which we would like to evaluate the gradient. 
 - **And batch gradient descent evaluates the gradient over the whole training set**. Making it very slow to perform a single update step. 
@@ -938,5 +938,7 @@ Tesla AI Day :
 - [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
 
 # Appendices
+
+- [Deep Learning Book .Org Lecture - Ian Goodfellow, Yoshua Bengio and Aaron Courville](https://www.deeplearningbook.org/lecture_slides.html)
 
 
