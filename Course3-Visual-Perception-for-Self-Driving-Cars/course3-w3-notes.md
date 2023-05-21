@@ -538,10 +538,10 @@ We want to train our neural network to perform traffic sign classification.
 - The only use of the test set should be to evaluate the performance of the final architecture and hyperparameter set before it is deployed on a self-driving vehicle. 
 
 Let us now determine what percentage of data goes into each split. 
-- Before the big data era, it was common to have datasets on the order of thousands of examples. 
 
 <img src="./resources/w3/img/l4-nn-eval-data-split2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
+- Before the big data era, it was common to have datasets on the order of thousands of examples. 
 - In that case, the default percentage of data that goes into each split was approximately 60 % for training, 20% for validation, and 20% held in reserve for testing. 
 - However, nowadays, it is not uncommon to have datasets on the order of millions of examples having 20 % of the data in the validation and test sets is unnecessary as the validation and test would contain far more samples than are needed for the purpose. 
 - In such cases, we would find that a training set of 98% of the data with a validation and test set of 1% of the data each is not uncommon. 
@@ -571,7 +571,8 @@ Let's consider a second scenario where the training loss is now 1.9 around ten t
 
 - As we discussed in the previous lesson, we expect any reasonably sized neural network to be able to almost perfectly fit the data given enough training time. 
 - But in this case, the network was not able to do so. We call this scenario where the neural network fails to bring the training loss down underfitting. 
-- One other scenario we might face is when we have a low training set loss but a high validation and testing set loss. 
+
+One other scenario we might face is when we have a low training set loss but a high validation and testing set loss. 
 
 - For example, we might arrive at the case where the validation loss is around ten times that of the training loss. 
 - This case is referred to as overfitting and is caused by the neural network optimizing its parameters to precisely reproduce the training data output. 
