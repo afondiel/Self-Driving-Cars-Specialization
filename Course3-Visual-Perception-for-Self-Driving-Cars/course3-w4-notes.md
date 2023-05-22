@@ -605,6 +605,8 @@ Let's assume that we have sorted the bounding box list in decreasing order.
 
 *So, why would we choose to extend 2D detections to 3D rather than detecting objects directly in 3D?* 
 
+<img src="./resources/w4/img/l4-3D-ObjDet-pros-cons0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
 **Pros :**
 - First, 2D object detectors are much more well-established than 3D object detectors. 
   - We are usually able to get a very high precision and recall from a mature 2D object detector. Something that is still not available when working in the 3D object detection literature. 
@@ -634,6 +636,7 @@ Another very important application of 2D to 3D object detection is object tracki
 - For example, we assume that our camera and the tracked objects cannot teleport to different locations within a very short time. 
 - Also, we assume that the scene changes smoothly and gradually. 
 - All of these assumptions are logically valid in roads scenes. 
+
 
 Let's visually see what object tracking looks like. 
 
