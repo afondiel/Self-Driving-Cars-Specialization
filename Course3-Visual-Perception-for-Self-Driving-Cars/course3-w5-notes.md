@@ -21,7 +21,7 @@
 
 ### Lesson 1: The Semantic Segmentation Problem
 
-Let's begin by defining the semantic segmentation problem. Given an input image, we want **to classify each pixel** into a** set of preset categories**. 
+Let's begin by defining the semantic segmentation problem. Given an input image, we want **to classify each pixel** into a **set of preset categories**. 
 
 <img src="./resources/w5/img/l1-seg0.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -33,7 +33,7 @@ Also, we always have a background class that encompasses any category we do not 
 
 **Mathematical Problem Formulation**
 
-As with object detection, we realize the semantic segmentation through a **function estimator**. 
+As with object detection, we realize the semantic segmentation through a `function estimator`. 
 
 <img src="./resources/w5/img/l1-seg2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -202,8 +202,8 @@ You'll start by analyzing the feature extractor.
 
 <img src="./resources/w5/img/l2-seg-cnn3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- We want to use the nearest neighbor upsampling on a two-by-two image patch. The color of the pixels of the image patch represent different values of every pixel.
-- We want to upsample our patch to double its original size. So have an upsampling multiplier S of two. 
+- We want to use the nearest neighbor upsampling on a 2x2 image patch. The color of the pixels of the image patch represent different values of every pixel.
+- We want to upsample our patch to double its original size. So have an upsampling multiplier S of $2$ . 
 - Nearest neighbor upsampling generates an empty initial upsampled grid by multiplying Win an Hin by the upsampling multiplier. 
 - Each pixel in the upsampled grid is then filled with the value of the nearest pixel in the original image patch. 
 - This process is repeated until all the pixels in the upsampled grid are filled with values from the image patch. 
@@ -225,11 +225,11 @@ You'll start by analyzing the feature extractor.
 
 **Learning Same resolution Feature Maps**
 
-- To remedy these problems, researchers have formulated what is commonly referred to as a feature decoder. 
+- To remedy these problems, researchers have formulated what is commonly referred to as a `feature decoder`. 
 
 <img src="./resources/w5/img/l2-seg-cnn5.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- The feature decoder can be thought of as a mirror image of the feature extractor. Instead of using the convolution pooling paradigm to downsample the resolution, it uses upsampling layers followed by a convolutional layer to upsample the resolution of the feature map. 
+- The feature decoder can be thought of as a mirror image of the *feature extractor*. Instead of using the convolution pooling paradigm to downsample the resolution, it uses upsampling layers followed by a convolutional layer to upsample the resolution of the feature map. 
 - The upsampling usually using nearest neighbor methods achieves the opposite effect to pooling, but results in an inaccurate feature map.
 - The following convolutional layers are then used to correct the features in the upsampled feature map with learnable filter banks. 
 - This correction usually provides the required smooth boundaries as we go forward through the feature decoder. 
@@ -241,7 +241,7 @@ Let's now go through an analysis of the dimensions of the feature map as it trav
 <img src="./resources/w5/img/l2-seg-cnn6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - As a reminder, the input feature map is downsampled 16 times with a depth of 512. 
-- Similar to the feature extractor, each upsampling convolution block is referred to as a deconvolution. 
+- Similar to the feature extractor, each upsampling convolution block is referred to as a `deconvolution`. 
 - There is of course a debate among current researchers on whether this terminology is accurate. 
 - But we will use it here to refer to the reverse of the convolutional pooling block. 
 - As we go through the first deconvolution block, our input feature map is upsampled to twice the input resolution. 
@@ -309,8 +309,6 @@ Let's now go through an analysis of the dimensions of the feature map as it trav
 <img src="./resources/w5/img/l2-seg-cnn13.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Ideas such as propagating the indices from pooling layers in the extractor to upsampling layers in the decoder have shown to provide a boost in performance as well as computational speed for semantic segmentation models. 
-
-<img src="./resources/w5/img/l2-seg-cnn14.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - We've included a list of recent manuscripts describing architecture used for semantic segmentation in the supplementary material. 
 
@@ -485,4 +483,7 @@ Tesla AI Day :
 - [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
 - [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
 - [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
+
 # Appendices
+
+- [Very Deep Convolutional Networks for Large-Scale Visual Recognition by Karen Simonyan and Andrew Zisserman](https://www.robots.ox.ac.uk/~vgg/research/very_deep/)
