@@ -549,7 +549,7 @@ Let's assume that we have sorted the bounding box list in decreasing order.
 - This is essential for tracking objects as cars move differently from pedestrians, for example, so better predictions are possible if the object class is known. 
 - In addition, we want to estimate the position of the objects centroid in 3D, the extent in 3D, and the orientation in 3D. 
 - In each case, this detailed state information improves motion prediction, and collision avoidance, and improves the cars ability to move in traffic.
-- This object's state can be expressed as a 3D vector for centroid position expressed as the x, y, y position of the object. 
+- This object's state can be expressed as a 3D vector for centroid position expressed as the x, y, z position of the object. 
 
 <img src="./resources/w4/img/l4-3D-ObjDet1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
@@ -604,11 +604,6 @@ Let's assume that we have sorted the bounding box list in decreasing order.
 - Keep in mind that the procedure discussed above is only one way of performing 3D object detection. 
 
 *So, why would we choose to extend 2D detections to 3D rather than detecting objects directly in 3D?* 
-<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
-<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
-<img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
-
-<img src="./resources/w4/img/l4-3D-ObjDet-pros-cons0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
 **Pros :**
 - First, 2D object detectors are much more well-established than 3D object detectors. 
@@ -639,7 +634,6 @@ Another very important application of 2D to 3D object detection is object tracki
 - For example, we assume that our camera and the tracked objects cannot teleport to different locations within a very short time. 
 - Also, we assume that the scene changes smoothly and gradually. 
 - All of these assumptions are logically valid in roads scenes. 
-
 
 Let's visually see what object tracking looks like. 
 
