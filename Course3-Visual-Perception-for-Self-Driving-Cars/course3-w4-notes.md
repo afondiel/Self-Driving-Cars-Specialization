@@ -243,7 +243,7 @@ Let's see how these layers affect our output volume shape.
 
 <img src="./resources/w4/img/l2-2D-objDet-cnn3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
-- For the VGG feature extractor, all convolutions are of size three by 3xK, with a stride of one and zero padding of one.
+- For the VGG feature extractor, all convolutions are of size 3x3xK, with a stride of one and zero padding of one.
  
 <img src="./resources/w4/img/l2-2D-objDet-cnn4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
