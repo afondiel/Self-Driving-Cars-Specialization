@@ -3,7 +3,7 @@
 ## Overview 
 - The two most prevalent applications of deep neural networks to self-driving are object detection, including pedestrian, cyclists and vehicles, and semantic segmentation, which associates image pixels with useful labels such as sign, light, curb, road, vehicle etc. 
 - This module presents baseline techniques for object detection and the following module introduce semantic segmentation, both of which can be used to create a complete self-driving car perception pipeline.
-- 
+  
 **Course Objectives**
 - Define the object detection problem for autonomous driving as an extension of object classification
 - Identify quality datasets and their characteristics for training deep network detectors
@@ -82,7 +82,7 @@ Object detection can be defined as a `function estimation problem`.
 
 **Evaluation Metrics**
 
-Given the output of a 2D object detector in red, we want to be able to compare how well it fits the true output, usually labeled by humans. 
+Given the output of a 2D object detector in red, we want to be able to compare how well it fits the true output, usually `labeled by humans`. 
 
 We call the true output our `ground truth bounding box`. 
 
@@ -146,7 +146,7 @@ Let's now evaluate the performance of our confinet using average precision.
 <img src="./resources/w4/img/l1-obj-det-ex3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
  
 - To compute the recall, we divide the number of true positives by the number of ground truth bounding boxes, which is equal to the number of false positives summed with the number of false negatives. The recall in this case is 2 over 4. 
-- The detector in this case is a **high precision low recall detector**. This means that the detector misses some objects in the scene, but when it does detect an object, it makes very few mistakes in category classification and bounding box location. 
+- The detector in this case is a **high precision - low recall detector**. This means that the detector misses some objects in the scene, but when it does detect an object, it makes very few mistakes in category classification and bounding box location. 
  
 Let's see how the performance of our detector changes when we decrease the score threshold from 0.9 to 0.7. 
 
@@ -173,7 +173,7 @@ Let's see how the performance of our detector changes when we decrease the score
 
 <img src="./resources/w4/img/l1-obj-det-ex7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
-- Computing this average produces an AP of 0.75 for a car detector. 
+- Computing this average produces an $AP$ of $0.75$ for a car detector. 
 - The value of the average precision of the detector can be thought of as an average of performance over all score thresholds allowing objective comparison of the performance of detectors without having to consider the exact score threshold that generated those detections. 
 
 **Summary**
@@ -222,7 +222,7 @@ The architecture takes as an input an image and a set of manually crafted prior 
 - However, its depth is usually two to three orders of magnitude greater than that of the input image.
 - The design of feature extractors is a very active area of research with new extractors emerging on a regular basis. 
 
-```The most common feature extractors used are VGG, ResNet, and Inception```.
+```The most common feature extractors used are : VGG, ResNet, and Inception```.
  
 **VGG Feature Extractor**
 
@@ -233,8 +233,8 @@ We will be focusing on the VGG feature extractor as our running example througho
 - **The VGG feature extractor** is based on the convolutional layers of the VGG 16 classification network proposed by the Visual Geometry Group at Oxford University. 
 - It is one of the first feature extractors to be proposed for detection and is quite simple to build. 
 - As with most ConvNets, the VGG feature extractor is built by alternating convolutional layers and pooling layers. 
-- All convolutional layers are of size three by 3xK , with a stride of one and a zero-padding of one, by which we mean that the padding of size one is filled with zeros. 
-- All max-pooling layers are of size two by two with stride two and no padding. These particular hyper parameters were arrived at through intensive experimentation and have performed extremely well in a wide range of problems making VGG and extremely popular extractor. 
+- All convolutional layers are of size 3x3xK , with a stride of 1 and a zero-padding of 1, by which we mean that the padding of size one is filled with zeros. 
+- All max-pooling layers are of size 2x2 with stride 2 and no padding. These particular hyper parameters were arrived at through intensive experimentation and have performed extremely well in a wide range of problems making VGG and extremely popular extractor. 
 
 
 Let's see how these layers affect our output volume shape. 
@@ -248,7 +248,7 @@ Let's see how these layers affect our output volume shape.
 <img src="./resources/w4/img/l2-2D-objDet-cnn4.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
 - That means the passing an input volume through any of the convolutional layers only changes its depth to $K$ . 
-- On the other hand, the pooling layers of the VGG extractor are two by two with stride two and no padding. 
+- On the other hand, the pooling layers of the VGG extractor are 2x2 with stride 2 and no padding. 
 - Repeating the same analysis using the equations for the pooling layer, we noticed that the max-pooling layers of VGG extractors reduce the width and height of the input volume by two, while maintaining the depth constant. 
 
 Let's now see how the VGG extractor processes an input image.
@@ -262,13 +262,13 @@ Let's now see how the VGG extractor processes an input image.
 - The first subsection is called the Conv1 subsection of the VGG extractor. 
 - We then proceed to pass the output volume through the rest of the five subsections to arrive at our final output volume of shape M over 32, N over 32, and 512. 
 
-As an example, if we have a 1,240 by 960 by 3 image as our input, our final output volume shape will be 40 by 30 by 512. 
+As an example, if we have a 1,240x960x3 image as our input, our final output volume shape will be 40x30x512. 
 
 <img src="./resources/w4/img/l2-2D-objDet-cnn6.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
 - We will be using this output volume to generate our final detections. 
 
-**Prior/Anchor Bounding Boxes**
+**Prior/Anchor Bounding Boxes** 
 
 - The next step to describe in our neural network architecture is the concept of prior boxes. Also called `anchor boxes`. 
 
@@ -677,7 +677,7 @@ The final step consists of using a Kalman filter to fuse the measurement and pre
 
 <img src="./resources/w4/img/l4-3D-ObjDet-2D-tracking-update.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
 
-- We recommend reviewing the Kalman filter equations presented in course two to remember how this step is performed. 
+- We recommend reviewing the Kalman filter equations presented in course 2 to remember how this step is performed. 
 - The Kalman filter updates the whole object state including both the position and the velocity, and we can use that in our subsequent prediction step. 
 - Note that, we do not need to track the object sizes but can rely on the detector instead. We usually assign an object the size of its last known measurement. 
 
@@ -771,6 +771,8 @@ Tesla AI Day :
 - [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
 
 # Appendices
+
+- [Jaccard index](https://en.wikipedia.org/wiki/Jaccard_index)
 
 
   
