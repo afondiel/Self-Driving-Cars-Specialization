@@ -94,7 +94,6 @@
 - As discussed in the first course of this specialization, this task can be decomposed into a hierarchy of optimization problems. Each of which will have different constraints and objectives. 
 - By the end of this module, you should have an understanding of the types of subproblems that need to be solved when performing motion planning for autonomous driving. In this video, we will discuss the autonomous driving mission. 
 
-
 ### Lesson 1: Driving Missions, Scenarios, and Behaviour
 
 **The Autonomous Driving Mission** 
@@ -115,13 +114,14 @@
 Some common scenarios related to the road structure : 
 - By road structure, we mean the lane boundaries and the regulatory elements that are relevant to the driver. 
    
+The simplest scenario when driving is simply driving in a lane and this is often called `lane maintenance`. 
+
 <img src="./resources/w1/img/l1-road-struc00.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- The simplest scenario when driving is simply driving in a lane and this is often called `lane maintenance`. 
 - In the nominal case, this is when the car follows the central line of it's current lane. 
 - In this scenario, our goal is to minimize our deviation from the center line of the path as well as reaching our reference speed which is often the speed limit to ensure efficient travel to our destination. 
 
-A more complex scenario would be when the car has to perform a lane change maneuver. 
+A more `complex scenario` would be when the car has to perform a `lane change maneuver`. 
 
 <img src="./resources/w1/img/l1-road-struc0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -129,7 +129,7 @@ A more complex scenario would be when the car has to perform a lane change maneu
 - The speed limit of the road, and the time horizon for execution of the maneuver. 
 - Clearly, all of these parameters will affect the shape of the trajectory, resulting in either slow passive lane changes, or more aggressive less comfortable lane changes. 
 
-The third common scenario, is when the car needs to perform a left or right turn. This is often required when the autonomous car has **to handle intersections**. 
+The third common scenario, is when the car needs to perform a `left or right turn`. This is often required when the autonomous car has **to handle intersections**. 
 
 <img src="./resources/w1/img/l1-road-struc1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
