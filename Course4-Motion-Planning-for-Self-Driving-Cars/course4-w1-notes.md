@@ -92,7 +92,8 @@
 - In this module, you will learn about `the motion planning` problem in autonomous driving.
 - `The motion planning problem` is the task of navigating the ego vehicle to its destination in a safe and comfortable manner while following the rules of the road. 
 - As discussed in the first course of this specialization, this task can be decomposed into a hierarchy of optimization problems. Each of which will have different constraints and objectives. 
-- By the end of this module, you should have an understanding of the types of subproblems that need to be solved when performing motion planning for autonomous driving. In this video, we will discuss the autonomous driving mission. 
+- By the end of this module, you should have an understanding of the types of subproblems that need to be solved when performing motion planning for autonomous driving. 
+- In this lesson, we will discuss *the autonomous driving mission*. 
 
 ### Lesson 1: Driving Missions, Scenarios, and Behaviour
 
@@ -137,7 +138,7 @@ The third common scenario, is when the car needs to perform a `left or right tur
 - In addition, the feasibility of actions and autonomous vehicle can take is affected by the state of the surrounding environment. 
 - For example, the autonomous vehicle cannot perform a left turn at a red light even if the intersection is clear. 
 
-As a final example, we have a U-turn. Which is important for navigating certain scenarios where the car needs to change direction efficiently. 
+As a final example, we have a `U-turn`. Which is important for navigating certain scenarios where the car needs to change direction efficiently. 
 
 <img src="./resources/w1/img/l1-road-struc2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -193,29 +194,29 @@ Despite this complexity, the majority of behaviors for these scenarios can be th
 
 Let's dig into what each of these high-level actions really mean. 
 
-- Speed tracking is the nominal driving behavior. 
+- `Speed tracking` is the nominal driving behavior. 
 
 <img src="./resources/w1/img/l1-behaviours0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - We have a reference speed or speed limit and we maintain that speed while moving forward in our lane.
 
-Decelerating to stop is pretty self-explanatory. 
+`Decelerating` to stop is pretty self-explanatory. 
 
 - If we have a stop sign ahead, we need to smoothly slow down to a stop to maintain comfort.
   
 <img src="./resources/w1/img/l1-behaviours1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Staying stopped is required for certain regulatory elements.
+- `Staying stopped` is required for certain regulatory elements.
 - If we were at a red light, then we need to remain stopped until the light turns green. 
 
 
-Yielding is also required for some regulatory elements.
+`Yielding` is also required for some regulatory elements.
 
 <img src="./resources/w1/img/l1-behaviours2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - Most notably, if we're at a yield sign and there's traffic that has higher precedence than us, we need to slow down and wait until it is clear for us to proceed. 
 
-Finally, emergency stops occur when an issue is detected by the autonomous car and the vehicle needs to stop immediately and pull over. 
+`Emergency stops` occur when an issue is detected by the autonomous car and the vehicle needs to stop immediately and pull over. 
 
 <img src="./resources/w1/img/l1-behaviours3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -240,7 +241,7 @@ Finally, emergency stops occur when an issue is detected by the autonomous car a
 
 **Hierarchical Planning Introduction**
 
-As you can see, solving the motion planning problem is a complex task. 
+As you can see, solving the motion planning problem is a `complex task`. 
 
 <img src="./resources/w1/img/l1-challenges2.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -269,7 +270,7 @@ As you can see, solving the motion planning problem is a complex task.
 
 **Learning Objectives**
 
-- In this video, we'll discuss some of the most important constraints involved in motion planning.
+- In this lesson, we'll discuss some of the most important constraints involved in motion planning.
 - These constraints are often crucial for maintaining stability and comfort within the vehicle, as well as maintaining the safety of all agents in a given driving scenario.
 - Specifically, you will learn about how the vehicle kinematic and dynamic models constrain our motion planning for the vehicle.
 - You will learn about how static and dynamic obstacles impact our vehicle motion planning.
@@ -435,14 +436,14 @@ Another example which we discussed in the previous lesson was when a leading veh
 
 **Summary**
 
-- In this video, we first reviewed our bicycle model, and looked at how the models kinematics and dynamics, as well as the path curvature constrain our motion planning problem.
+- In this lesson, we first reviewed our bicycle model, and looked at how the models kinematics and dynamics, as well as the path curvature constrain our motion planning problem.
 - Next, we looked at how static obstacles limit the locations our car can safely occupy, which restricts our feasible motion planning workspace, as well as how dynamic obstacles impact the maneuvers available to the ego vehicle and its velocity profile.
 - Finally, we discussed the role of regulatory elements and how they affect our driving behaviors.
 - Hopefully, this lesson has given you some insight into some of the constraints of the motion planning problem for autonomous driving.
 
 ### Lesson 3: Objective Functions for Autonomous Driving
 
-- In this video, we will explore some of the objective functions most commonly used in the autonomous driving motion planning problem formulation.
+- In this lesson, we will explore some of the objective functions most commonly used in the autonomous driving motion planning problem formulation.
 - In this context, the objective function of our motion planning problem `gives us a way of scoring our current motion plan`, and allows us to optimize the motion plans such that it has desirable characteristics.
 - After completing this lesson, you'll be able to list some useful objective functions that can be used in motion planning for autonomous driving.
 - You will also understand the benefits that each objective function offers to the motion planning process.
@@ -488,7 +489,7 @@ Now, in path planning for autonomous driving, we may be given a reference path w
 <img src="./resources/w1/img/l3-ref-tracking0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - In many cases, this will be given to us by our mapping module as the center line of a length, or the required path for a turn in an intersection.
-- To ensure that we follow the reference path as closely as possible, we include what is known as an integral of difference term, or IOD for short.
+- To ensure that we follow the reference path as closely as possible, we include what is known as an integral of difference term (IOD).
 - Essentially, it penalizes deviations from the input reference path Xref, as we traverse are calculated path as shown in the first equation.
 - Similarly, when performing velocity profile optimization, we often want to minimize the difference between our velocity profiles speed throughout the path with some reference speed Vref, whether it will be the speed limit or determined otherwise.
 - This is shown in the second equation.
@@ -505,14 +506,15 @@ Now, in path planning for autonomous driving, we may be given a reference path w
 
 - Recall from the previous lesson that in order to maintain stability and comfort, we constrained our maximum acceleration magnitude.
 - When optimizing comfort in the objective function of our velocity profile, we instead turn our focus to minimizing the jerk along our trajectory.
-- *What is jerk?* We're not referring to that of noxious driver that you just cut off.
+
+*What is jerk?* (We're not referring to that of noxious driver that you just cut off).
+
 - `Jerk`is the rate of change of acceleration with respect to time, or the third derivative of position.
 - The jerk along the car's trajectory greatly impacts the user's comfort while in the car.
 - So when planning our velocity profile, we would like to keep the accumulated absolute value of jerk as small as possible, shown here by this integral.
 - Let's look at an example of two different velocity profiles.
 - On the left is a linear ramp profile which maximizes jerk at the start and end of the profile.
-- This is shown in the large spikes in the jerk at the start and end of our plot.
-- For passengers, this can be quite uncomfortable.
+- This is shown in the large spikes in the jerk at the start and end of our plot. For passengers, this can be quite uncomfortable.
 - If we compare this with a bi quadratic profile as seen on the right, We can see that there are no jerk spikes which will result in a much smoother ride for the passengers.
 - Because of this difference in comfort, it is important to choose profiles that reduce jerk that passengers feel when possible
 
@@ -549,13 +551,13 @@ Now, when planning paths, we have to be mindful that the structure of our path w
 **Learning Objectives**
 - So far in this module, we've described the planning problem in general, we've described a hierarchy for solving the complex planning problem, and we described the constraints and objectives that make planning so hard.
 - In this lesson, we'll discuss the hierarchy for decomposing, the overall planning problem into smaller sub-problems in more detail.
-- By the end of this video, you will understand the scope of mission planning, behavioral planning, and local planning sub-problems.
+- By the end of this lesson, you will understand the scope of mission planning, behavioral planning, and local planning sub-problems.
 - You'll be able to list some methods for solving each of the problems, you'll also understand why this hierarchy is used in many self-driving car systems progressively refining the plans for motion through the environment.
 - Let's begin by reviewing our planning hierarchy.
 
 **Recall: Hierarchical Planner**
 
-- If you recall from lesson one of this module, we introduced the hierarchical structure we will use for motion planning and it's autonomous driving.
+- If you recall from lesson 1 of this module, we introduced the hierarchical structure we will use for motion planning and it's autonomous driving.
 
 <img src="./resources/w1/img/l4-recall-planner0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -740,7 +742,7 @@ The goal of the local planner is to generate kinematically feasible and collisio
 
 <img src="./resources/w1/img/l4-velocity-profile-generation0.png" width="700" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- We also discussed some important constraints in lesson two. One of which was the rectangle of comfortable accelerations.
+- We also discussed some important constraints in lesson 2. One of which was the rectangle of comfortable accelerations.
 - This is in no way an exhaustive list of objectives or constraints.
 - You will encounter many more in your time as an autonomy engineer.
 - Once the objectives and constraints are formalized, it becomes a matter of solving the problem efficiently.
