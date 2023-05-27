@@ -683,10 +683,14 @@ Tesla AI Day :
 - [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
 - [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
 
+MathWorks : 
+- [Robotics System Toolbox - Design, simulate, test, and deploy robotics applications on MATLAB](https://www.mathworks.com/help/robotics/)
+
 # Appendices
 
 - [Motion Planning - path planning](https://en.wikipedia.org/wiki/Motion_planning)
 - [Robot Navigation](https://en.wikipedia.org/wiki/Robot_navigation)
 - [Occupancy Grid Mapping](https://en.wikipedia.org/wiki/Occupancy_grid_mapping)
+- [](https://www.mathworks.com/help/robotics/ug/occupancy-grids.html)
 - [Lattice Graph](https://en.wikipedia.org/wiki/Lattice_graph)
 - [Sertac Karaman (MIT) on Motion Planning in a Complex World - MIT Self-Driving Cars](https://www.youtube.com/watch?v=0fLSf3NO0-s&t=42s)
