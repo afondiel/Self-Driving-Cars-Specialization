@@ -63,7 +63,7 @@ We will now look at the set of assumptions that are made in order to create an a
 
 <img src="./resources/w2/img/l1-occup-grid3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- ```As a quick reminder, the LIDAR sensor uses pulses of light to measure the distance to all objects surrounding the car, and returns a point cloud of measurements throughout its field of view.``` 
+`As a quick reminder`: the LIDAR sensor uses pulses of light to measure the distance to all objects surrounding the car, and returns a point cloud of measurements throughout its field of view. 
 
 **LIDAR Data Filtering**
 
@@ -677,4 +677,14 @@ The creation of such a map can be done in three ways:
 
 # References
 
+Tesla AI Day : 
+- [Tesla Autonomy Day - 2019](https://www.youtube.com/watch?v=Ucp0TTmvqOE)
+- [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
+- [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
+- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
+
 # Appendices
+
+- [Motion Planning](https://en.wikipedia.org/wiki/Motion_planning)
+- [Lattice Graph](https://en.wikipedia.org/wiki/Lattice_graph)
+- [Sertac Karaman (MIT) on Motion Planning in a Complex World - MIT Self-Driving Cars](https://www.youtube.com/watch?v=0fLSf3NO0-s&t=42s)

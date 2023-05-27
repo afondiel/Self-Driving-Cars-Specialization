@@ -781,4 +781,14 @@ The goal of the local planner is to generate kinematically feasible and collisio
 
 # References
 
+Tesla AI Day : 
+- [Tesla Autonomy Day - 2019](https://www.youtube.com/watch?v=Ucp0TTmvqOE)
+- [Tesla Battery Day - 2020 - during covid](https://www.youtube.com/watch?v=l6T9xIeZTds)
+- [Tesla AI Day - 2021](https://www.youtube.com/watch?v=j0z4FweCy4M&t=37s)
+- [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
+
 # Appendices
+
+- [Tesla Planning and Autolabeling in FSD ](https://www.youtube.com/watch?v=WuWpR3HAvWA)
+- [Motion Planning - Wikipedia](https://en.wikipedia.org/wiki/Motion_planning)
+- [Modern Robotics, Chapter 10.1: Overview of Motion Planning](https://www.youtube.com/watch?v=aC4LQuB4Cic)
