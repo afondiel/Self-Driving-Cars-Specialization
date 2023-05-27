@@ -685,6 +685,8 @@ Tesla AI Day :
 
 # Appendices
 
-- [Motion Planning](https://en.wikipedia.org/wiki/Motion_planning)
+- [Motion Planning - path planning](https://en.wikipedia.org/wiki/Motion_planning)
+- [Robot Navigation](https://en.wikipedia.org/wiki/Robot_navigation)
+- [Occupancy Grid Mapping](https://en.wikipedia.org/wiki/Occupancy_grid_mapping)
 - [Lattice Graph](https://en.wikipedia.org/wiki/Lattice_graph)
 - [Sertac Karaman (MIT) on Motion Planning in a Complex World - MIT Self-Driving Cars](https://www.youtube.com/watch?v=0fLSf3NO0-s&t=42s)
