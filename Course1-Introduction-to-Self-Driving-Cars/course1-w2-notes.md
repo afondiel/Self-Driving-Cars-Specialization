@@ -261,7 +261,7 @@ Occupancy Grid Map :
   - LIDAR data (used to construct the occupancy grid map)
     - after a filtering are applied in the input data to make it usable by the output
 - outputs : 
-  - Occupancy Grid Map : sets of cells of probability repensenting occupancy state (references : postural monitoring project)
+  - Occupancy Grid Map : sets of cells of probability representing occupancy state (references : postural monitoring project)
 
 Localization Map : used by the localization module in order to improve ego* state estimation
 - inputs: 
