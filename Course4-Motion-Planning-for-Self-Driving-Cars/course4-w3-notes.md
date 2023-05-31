@@ -26,7 +26,7 @@
 
 **Recall: Mission Planning.**
 
-The objective of the autonomous driving mission is to find the optimal path for the eagle vehicle from its current position to a given destination by navigating the road network while abstracting away the lower-level details like the rules of the road and other agents present in the driving scenario.
+The objective of the autonomous driving mission is to find the optimal path for the ego vehicle from its current position to a given destination by navigating the road network while abstracting away the lower-level details like the rules of the road and other agents present in the driving scenario.
 
 <img src="./resources/w3/img/l1-motion-planning0.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -63,7 +63,7 @@ One thing to note about the road network is that it is highly structured which i
 
 *Now that we have are directed graph, how do we find an optimal path to our destination?* 
 
-- First, we locate the vertices in the graph that correspond to our current eagle vehicle position which we will denote as $S$ and our desired destination which we will denote as $t$ .
+- First, we locate the vertices in the graph that correspond to our current ego vehicle position which we will denote as $S$ and our desired destination which we will denote as $t$ .
 - These two vertices are shown on the graph here.
 - Once we have these two vertices, we can use an efficient graph search algorithm to find the optimal or shortest path to our destination.
 - Since our graph formulation is currently unweighted, a good candidate algorithm is the Breadth-First Search (BFS).
