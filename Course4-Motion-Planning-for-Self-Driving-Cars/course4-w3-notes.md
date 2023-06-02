@@ -20,7 +20,7 @@
 
 - In this module, we'll be discussing the mission planning problem in autonomous driving and how to solve it.
 - If you recall from Module 1, the autonomous driving mission is the highest level portion of our motion planning task and it's crucial for navigating the autonomous car to its destination.
-- In this video, we'll introduce the mathematical concept of a graph and how it can be used in our mission planner.
+- In this lesson, we'll introduce the mathematical concept of a graph and how it can be used in our mission planner.
 - In addition, we will discuss how a graph can be used to represent the road network that we are required to navigate through.
 - Finally, we'll discuss the Breadth-First Search algorithm and how it can be applied to mission planning.
 
@@ -134,7 +134,7 @@ Suppose our mission planner needs to find the optimal path from point $s$ to our
 
 **Summary**
 
-- From this video, you should have an understanding of the mission planning problem and how we construct and use graphs as a map level representation of our planning domain.
+- From this lesson, you should have an understanding of the mission planning problem and how we construct and use graphs as a map level representation of our planning domain.
 - In addition, you should now be comfortable with using Breadth-First Search to navigate an unweighted graph to find the shortest path to a given destination.
 
 
@@ -143,7 +143,7 @@ Suppose our mission planner needs to find the optimal path from point $s$ to our
 - In this lesson we'll modify our unweighted graph, from the previous lesson to contain edge weights.
 - To give a more applicable representation for our mission planning problem.
 - We'll then discuss how it impacts our algorithm, and how we can overcome this challenge while still planning efficiently.
-- In particular by the end of this video, you should be able to understand the difference between weighted and unweighted graphs, and why weighted graphs are more useful for mission planning.
+- In particular by the end of this lesson, you should be able to understand the difference between weighted and unweighted graphs, and why weighted graphs are more useful for mission planning.
 - You should have a firm grasp of the Dijkstra's algorithm.
 - A graph search algorithm that is useful for weighted graphs.
 
@@ -153,7 +153,7 @@ As a refresher, recall that for our mission planning problem, the goal is to fin
 
 <img src="./resources/w3/img/l2-unweighted-graph.png" width="400" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- In the last video we presented the breadth-first search algorithm to solve this problem.
+- In the last lesson we presented the breadth-first search algorithm to solve this problem.
 - However, in the process we assume that all road segments have equal length, which is an overly simplistic assumption.
 - Depending on factors such as road lengths, traffic, speed limits, and weather, different road segments can vary wildly in their traversal costs.
 - For simplicity, we will initially focus purely on distance in our search graph.
@@ -292,7 +292,7 @@ Next, let's take a look at how this mission planning problem looks on a real map
 
 - In this lesson, we will build on Dijkstra's algorithm by introducing a new potentially faster approach that we can use for our mission planning problem.
 - To do this, we'll leverage heuristics in our search, which will help us refine the search process to make it more efficient.
-- By the end of this video, you should understand the role of heuristics in graph search and identify which heuristics are valid for our mission planning problem and which are not.
+- By the end of this lesson, you should understand the role of heuristics in graph search and identify which heuristics are valid for our mission planning problem and which are not.
 - You should also be able to leverage heuristics in our graph search problem, by using the A* search algorithm, and recognize how to apply A* search to variance of the mission planning problem we've discussed so far.
 
 **Recall: Dijkistra's for Weighted Graph**
@@ -449,7 +449,7 @@ After computing our heuristic value of a 101.8 seconds, we can see that it is mu
 - Poor lower bounds can degrade the ability of our heuristic to guide our search to the goal for more complex problems, as compared to problem instances that were strictly focused on minimizing distance.
 - More advanced methods are available which pre-compute additional values and consider modified heuristic definitions that allow large networks with time-based travel estimates to be searched efficiently.
 - We've included some links in the supplemental material, if you're interested in learning more.
-- In this video, we introduced the concept of the Euclidean heuristic and showed that it was an admissible heuristic for our motion planning problem.
+- In this lesson, we introduced the concept of the Euclidean heuristic and showed that it was an admissible heuristic for our motion planning problem.
 - We then used it in our implementation of A* search for a motion planning problem.
 - We also discussed how to modify the mission planning problem we've discussed so far, to include travel times instead of road lengths, and also how to modify our search heuristic to be admissible in this situation.
 
