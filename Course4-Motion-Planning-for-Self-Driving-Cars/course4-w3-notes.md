@@ -187,9 +187,11 @@ The overall flow of Dijkstra's algorithm is quite similar to BFS.
   
 <img src="./resources/w3/img/l2-dijkstra-algo0.png" width="520" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- As before, we keep track of the vertices we have already processed in the closed set, and the vertices we've discovered but not yet processed in the open set.
+- As before, we keep track of the vertices we have already processed in the `closed set`, and the vertices we've discovered but not yet processed in the `open set`.
 - The key difference is that instead of using a `queue` for the open set, we'll be using a `min heap`.
-- ```A min heap is a data structure that stores keys and values, and sorts the keys in terms of their associated values from smallest to largest```.
+
+A `min heap` is a data structure that stores keys and values, and sorts the keys in terms of their associated values from smallest to largest.
+
 - In our case, the values of each key vertex in the graph will correspond to the distance it takes to reach that vertex, along the shortest path to that vertex we've found so far.
 - In this sense, Dijkstra's algorithm processes vertices with a lower accumulated cost before other ones.
 - Thus unlike BFS, a vertex that was added later in the search can be processed before when that was added earlier, so long as it's accumulated cost is lower.
