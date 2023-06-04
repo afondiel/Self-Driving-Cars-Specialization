@@ -483,4 +483,8 @@ Tesla AI Day :
 # Appendices
 
 - [Motion planning - Wikipedia](https://en.wikipedia.org/wiki/Motion_planning)
-
+- [Heuristic](https://en.wikipedia.org/wiki/Heuristic)
+- [Problem Solving](https://en.wikipedia.org/wiki/Problem_solving)
+- [Heuristic - Computer Science](https://en.wikipedia.org/wiki/Heuristic_(computer_science))
+- [Heuristics From Amit’s Thoughts on Pathfinding - Stanford](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
+- [Cost Estimation Models In Software Engineering](https://www.geeksforgeeks.org/cost-estimation-models-in-software-engineering/)
