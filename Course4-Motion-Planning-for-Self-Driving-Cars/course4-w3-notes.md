@@ -72,9 +72,12 @@ One thing to note about the road network is that it is highly structured which i
 
 - At a high level, BFS can be thought of as iterating through all of the vertices in the graph but doing so in a manner such that all adjacent vertices are evaluated first before proceeding deeper into the graph.
 - In this sense, the graph search proceeds like a moving wavefront through the graph or breadth-first.
-- We construct 3 data structures to aid in our search and `open queue of vertices` still to be assessed, a `closed set of vertices` that have been assessed by the search algorithm and a `dictionary` of predecessors which store the results of the search.
-  - **A queue** is a first-in-first-out (FIFO) data structure, such that the first vertex pushed or added to the queue is the first one popped off or returned from the queue.
-  - **A dictionary** is an unordered set of `key-value pairs` and for each node in the closed set, stores a predecessor vertex that will identify momentarily.
+- We construct 3 data structures to aid in our search : 
+  - an `open queue` of vertices still to be assessed 
+  - a `closed set` of vertices that have been assessed by the search algorithm and 
+  - a `dictionary` of predecessors which store the results of the search.
+- **A queue** is a first-in-first-out (FIFO) data structure, such that the first vertex pushed or added to the queue is the first one popped off or returned from the queue.
+- **A dictionary** is an unordered set of `key-value` pairs and for each node in the closed set, stores a predecessor vertex that will identify momentarily.
 
 <img src="./resources/w3/img/l1-bfs0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
