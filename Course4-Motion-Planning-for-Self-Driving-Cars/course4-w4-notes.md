@@ -71,13 +71,13 @@ Although the complexities of the task of motion prediction are quite large, ther
   - In this case, we assume that vehicles which are on the road will stay on the road and follow the driving rules.
   - For example, they will most likely stay in their lane unless indicating otherwise and stop at regulatory elements requiring stops.
   - They are unlikely to drive over sidewalks or lawns or through obstacles.
-  - We refer to this type of assumption as maneuver-based.
-- Finally, the `third class` makes the same assumptions as `the maneuver-based assumptions`.
+  - We refer to this type of assumption as `maneuver-based assumption`.
+- Finally, the `third class` makes the same assumptions as the maneuver-based assumptions.
   
 - However, instead of only evaluating each vehicle independently, we can also incorporate the assumption that the dynamic objects will react and interact with each other.
 - An example of this type of prediction, is during a merge by a vehicle into an adjacent lane.
 - Often, the vehicle in the destination lane will slow down to make more room for the incoming vehicle to maintain a safe following distance.
-- These types of assumptions are referred to as interaction-aware assumptions.
+- These types of assumptions are referred to as `interaction-aware assumptions`.
 
 **Complexities of Motion Prediction - Pedestrians**
 
