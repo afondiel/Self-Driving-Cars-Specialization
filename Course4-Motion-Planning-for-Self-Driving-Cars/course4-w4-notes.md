@@ -32,12 +32,11 @@
 
 **Requirements for Motion Prediction Models**
 
-In order to be able to predict the motion of moving objects, we must have access to some information about the environment around us.
+In order to be able to predict the motion of moving objects, we must have access to some information about the environment around us. Especially as it relates to dynamic objects.
 
 <img src="./resources/w4/img/l1-motion-pred-reqs.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Especially as it relates to dynamic objects.
-- For all dynamic objects, we must first know the class of the object.
+- For all dynamic objects, we must first know the *class of the object*.
 - This information is vitally important as most prediction models have different algorithmic approaches to vehicles as opposed to pedestrians.
 - Next, we need to have information regarding the dynamic objects current state, its position, and velocity in the environment.
 - Represented here by a red vector with the vector origin equal to the vehicle position, the vector magnitude equal to its speed, and the vector's direction equal to its current heading or direction of travel.
@@ -65,7 +64,7 @@ Although the complexities of the task of motion prediction are quite large, ther
 - We will start by looking at simplifications for vehicles and then move on to pedestrians.
 - These are the two main categories we'll discuss, but you can imagine similar approaches needed for cyclists and animals such as dear, rodents, or even kangaroos.
 - The `first class` of assumptions we rely on, is that vehicles must follow a set of physical constraints governing their movement.
-  - As we saw in course one when we were discussing Vehicle Kinematics and Dynamics.
+  - As we saw in course 1 when we were discussing Vehicle Kinematics and Dynamics.
   - These very same vehicle dynamics can be applied to other vehicles in the environment to predict their motion.
   - We refer to this type of prediction as a `physics-based prediction`.
 - The `second class` of assumptions that can be used are that almost all motions by a vehicle on the road, are made up of a finite set of maneuvers in a restricted domain in the environment.
@@ -113,7 +112,7 @@ Now that we have a better understanding of motion prediction, let's have a look 
 <img src="./resources/w4/img/l1-motion-pred-velocity-model-algo.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - This algorithm iterates from the current time zero until the end of the horizon t in increments of dt.
-- As we saw in the trajectory rollout algorithm in the previous videos, updating the path with constant velocity model.
+- As we saw in the trajectory rollout algorithm in the previous lessons, updating the path with constant velocity model.
 - The output of this algorithm is a list of predicted objects states, positions, and velocities for every time step in the prediction horizon.
 
 **Constant Velocity Prediction Model - Example**
@@ -122,7 +121,7 @@ To see how well these predictions perform, let's look at a quick example.
 
 <img src="./resources/w4/img/l1-motion-pred-velocity-model-ex.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- We'll use a three second horizon with a one second update step and the current vehicles state as indicated by the red arrow in this figure.
+- We'll use a three second horizon with a 1 second update step and the current vehicles state as indicated by the red arrow in this figure.
 - As expected, the predicted locations of the vehicle move in a constant direction with a fixed step size which corresponds very nicely with this straight line segment, with a constant speed limit.
 - Simply put, this is because the constant velocity assumption is valid for this segment of roadway.
 
@@ -162,7 +161,7 @@ Where the constant velocity estimate fails, however, is everywhere else.
 
 **Assumption to Improve Prediction**
 
-In the previous video, we explored constant velocity motion prediction, which worked well only in a very limited number of scenarios.
+In the previous lesson, we explored constant velocity motion prediction, which worked well only in a very limited number of scenarios.
 - Map-aware algorithms make two broad categories of assumptions to improve the motion predictions particularly for vehicles.
 
 <img src="./resources/w4/img/l2-pred-assumpt0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
@@ -253,7 +252,7 @@ Now that we understand how a road map can be used to improve the positional comp
 
 - The first improvement in this area is based on the known road geometry or curvature, and the prediction of how other vehicles will react to it.
 - All vehicles no matter their making model, will reduce their velocity as they enter sharp curves or execute turns.
-- We can use an expected maximum lateral acceleration, usually in the range of 0.5 to one meter per second squared, to improve velocity estimation along curves.
+- We can use an expected maximum lateral acceleration, usually in the range of 0.5 to 1 meter per second squared, to improve velocity estimation along curves.
 
 - The second and more significant improvement is to incorporate regulatory elements to improve velocity estimation.
 
@@ -292,8 +291,8 @@ There is also a limit to how much we can rely on assumptions about expected dyna
 ### Lesson 3: Time to Collision
 
 Welcome to the third and final lesson this week.
-- In this video, we will be looking at the concept of time to collision between two dynamic objects.
-- In this video we will present two alternatives for calculating the time to collision: simulation-based approaches and estimation-based approaches.
+- In this lesson, we will be looking at the concept of time to collision between two dynamic objects.
+- In this lesson we will present two alternatives for calculating the time to collision: simulation-based approaches and estimation-based approaches.
 - Compare the strengths and weaknesses of both approaches and highlight where each is most readily used, and explore the simulation-based approach in more detail and calculate the time to collision between any two vehicles.
 
 
@@ -377,7 +376,7 @@ Let's look at a simple simulation-based approach to calculating both the collisi
 
 <img src="./resources/w4/img/l3-time-to-collision7.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Estimation-based approaches are outside the scope of this video, but we've included an extensive set of links to estimation-based methods in the supplemental materials.
+- Estimation-based approaches are outside the scope of this lesson, but we've included an extensive set of links to estimation-based methods in the supplemental materials.
 - The algorithm for the simulation-based approach takes as input a list of dynamic objects D, with their predicted paths including the planned path for the ego vehicle.
 - The time between simulation prediction steps DT if sim, and any parameters needed to define the collision checking approach to be used.
 - Be it polygon intersection requiring the object footprints, or circle checking requiring the number of circles, and their spacing relative to the object position.
@@ -434,12 +433,12 @@ As is often the case, there exists a trade-off between the accuracy of the time 
 - As we increase the fidelity of the collision check, we also increase the number of computations required.
 - Likewise as can be seen in this example, if we reduce the number of circles considered to one, the number of computations goes down, but the accuracy of the exact collision points suffers significantly.
 - You should now have a strong handle on the time to collision computation, and the implications of approximations in terms of accuracy of the predicted solution.
-- To summarize in this video, we defined the time to collision for pairs of dynamic objects.
-- We discussed the strengths and weaknesses of two types of time to collision algorithms, simulation-based and estimation based.
-- We presented the simulation-based approach to time to collision prediction, in more detail.
 
 **Summary**
 
+- To summarize in this lesson, we defined the time to collision for pairs of dynamic objects.
+- We discussed the strengths and weaknesses of two types of time to collision algorithms, simulation-based and estimation based.
+- We presented the simulation-based approach to time to collision prediction, in more detail.
 - You've made it through the dynamic object interactions module.
 - In this module, you learned how to predict a dynamic objects motion, using the constant velocity model, you refined your motion predictions to incorporate HD road map information, and you apply your motion predictions to the task of estimating the time to collision between dynamic objects.
 - We'll see you in the next module, where we will study the behavior planner, the key decision-maker for selecting appropriate maneuvers to execute, for every driving scenario encountered.
