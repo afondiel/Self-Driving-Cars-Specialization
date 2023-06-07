@@ -231,7 +231,7 @@ Again, we have two options:
 
 In the case of multi-hypothesis prediction approaches, each nominal behavior of a vehicle based on the full range of possibilities available to it at its current location in the HD road map is considered.
 
-<img src="./resources/w4/img/l2-multi-hyp-approach0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+<img src="./resources/w4/img/l2-multi-hyp-Approach0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
 - For the three-way intersection example, we can include three possibilities: turn left, turn right, or stay stationary.
 - Based on corroborating evidence such as indicators signals, position to the left or right of the center line, and the state of the vehicle at the intersection.
