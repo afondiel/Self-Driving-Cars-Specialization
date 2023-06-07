@@ -20,8 +20,8 @@ Welcome to the sixth module of our `Motion Planning` course.
 - A reactive motion planner is one that takes in local information from the robot's surroundings in order to generate a trajectory that is collision-free and makes progress towards some goal location.
 - We'll stick to static environments in this module as a first step on our way to planning behaviors and paths for self-driving cars.
 - We'll also introduce the concepts of path prediction and collision checking as we go along.
-- In this video, we'll be discussing how to generate trajectories in a discrete setting for a sequence of control inputs to our robot model.
-- By the end of this video, you should understand the difference between a kinematic and dynamic motion model and you should have a firm grasp of the bicycle model that we introduced in course one.
+- In this lesson, we'll be discussing how to generate trajectories in a discrete setting for a sequence of control inputs to our robot model.
+- By the end of this lesson, you should understand the difference between a kinematic and dynamic motion model and you should have a firm grasp of the bicycle model that we introduced in course one.
 - In addition, you should be able to generate trajectories from control inputs for our bicycle model.
 
 **Kinematic vs Dynamic Model**
@@ -95,18 +95,18 @@ One thing to take away from this is that we often do not have direct access to t
 
 **Summary**
 
-- In this video, we reviewed the difference between kinematic and dynamic models as well as the bicycle model that we introduced in course one.
+- In this lesson, we reviewed the difference between kinematic and dynamic models as well as the bicycle model that we introduced in course one.
 - From there, we discussed how to compute trajectories for a given model and set of control inputs using our trajectory propagation algorithm.
 - This algorithm will come in handy when we develop the rest of our motion planner in this module.
-- Hopefully, this video has given you some insight on how to take a robot's kinematic model and generate a trajectory for it given arbitrary inputs.
+- Hopefully, this lesson has given you some insight on how to take a robot's kinematic model and generate a trajectory for it given arbitrary inputs.
 
 ### Lesson 2: Collision Checking
 
 **Learning Objectives**
 
-- In this video, we'll discuss the methods that we can use to ensure our motion plans don't collide with obstacles in the environment while we're making progress towards our goal.
+- In this lesson, we'll discuss the methods that we can use to ensure our motion plans don't collide with obstacles in the environment while we're making progress towards our goal.
 - This step is clearly crucial in maintaining the safety of our autonomous car while it's driving.
-- Specifically by the end of this video, you should understand some of the challenges of online collision checking.
+- Specifically by the end of this lesson, you should understand some of the challenges of online collision checking.
 - You should also understand to collision checking methods, swath-based collision checking, and circle-based collision checking.
 - Finally, you should understand some of the hazards posed by imperfect information and discretization errors, and understand how we can mitigate these issues with conservative approximations.
 
@@ -240,12 +240,12 @@ One thing to take away from this is that we often do not have direct access to t
 
 **Summary**
 
-- To summarize in this video, we discussed how we can use the occupancy grid developed in module two to solve the collision checking problem using swath-based collision checking.
+- To summarize in this lesson, we discussed how we can use the occupancy grid developed in module two to solve the collision checking problem using swath-based collision checking.
 - As well that we described the circle based collision checking method.
 - We went over some examples to illustrate these algorithms and discussed in what situations each type of collision checking should be used.
-- Hopefully, this video has given you some insight into how collision checking is done in an autonomous driving context.
+- Hopefully, this lesson has given you some insight into how collision checking is done in an autonomous driving context.
 - Performing quick and efficient collision checking especially with dynamic obstacles is currently an area of active research, and we hope that you too will help contribute to solving these challenging and interesting problems.
-- In the next video, we will introduce a reactive planning algorithm for this module which is called the Trajectory Rollout algorithm.
+- In the next lesson, we will introduce a reactive planning algorithm for this module which is called the Trajectory Rollout algorithm.
 - It will combine the collision checking approach we've developed here with the concepts covered in the trajectory propagation lesson.
 
 
@@ -253,9 +253,9 @@ One thing to take away from this is that we often do not have direct access to t
 
 **Learning Objectives**
 
-- In this video, we'll combine some of the knowledge we acquired from the two previous lessons, to develop a reactive motion planning algorithm known as the trajectory roll-out planner.
+- In this lesson, we'll combine some of the knowledge we acquired from the two previous lessons, to develop a reactive motion planning algorithm known as the trajectory roll-out planner.
 - This will introduce us to the task of trajectory planning, which will lay the groundwork for us to progress to more advanced planning methods presented later in module seven.
-- By the end of this video, you should be able to implement the trajectory roll-out algorithm.
+- By the end of this lesson, you should be able to implement the trajectory roll-out algorithm.
 - This includes the trajectory propagation step, the collision checking step, and the path selection step in order to achieve the desired goal state.
 - You should also understand how to apply the receding horizon concept to planning and the main drawbacks associated with this type of planner.
 
@@ -354,7 +354,7 @@ One thing to take away from this is that we often do not have direct access to t
 
 <img src="./resources/w6/img/l3-rollout9.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Now that we have a candidate set of trajectories, we need to check each one to see if they are collision-free using the collision checking algorithm we outlined in the last video, and reviewed earlier in this one.
+- Now that we have a candidate set of trajectories, we need to check each one to see if they are collision-free using the collision checking algorithm we outlined in the last lesson, and reviewed earlier in this one.
 
 <img src="./resources/w6/img/l3-rollout10.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
@@ -413,9 +413,9 @@ At this point, we now have a trajectory for the vehicle to execute.
 
 **Learning Objectives**
 
-- In this video, we'll discuss how to augment the trajectory rollout algorithm we developed in the previous lesson with a technique known as dynamic windowing.
+- In this lesson, we'll discuss how to augment the trajectory rollout algorithm we developed in the previous lesson with a technique known as dynamic windowing.
 - Dynamic windowing will allow us to place linear and angular acceleration constraints on the vehicle's trajectory, in order to promote comfort as the vehicle progresses between planning cycles.
-- Specifically, by the end of this video, you should be able to add acceleration constraints to the bicycle model derived in course one, and you should be able to modify the trajectory rollout algorithm to accommodate these new constraints using dynamic windowing.
+- Specifically, by the end of this lesson, you should be able to add acceleration constraints to the bicycle model derived in course one, and you should be able to modify the trajectory rollout algorithm to accommodate these new constraints using dynamic windowing.
 
 
 **Recall: Kinematic Bicycle Model**
@@ -508,3 +508,5 @@ Tesla AI Day :
 
 
 # Appendices
+
+- [Swath calculation - ESA](https://eop-cfi.esa.int/Repo/PUBLIC/DOCUMENTATION/CFI/EOCFI/BRANCH_4X/latest/CPP-Docs/SUM/Usage_Guide/page_sub14.html)
