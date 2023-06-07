@@ -113,11 +113,12 @@ In order for the behavior planner to be able to produce the required output, it 
 
 One approach traditionally used to represent the set of rules required to solve behavior selection is a finite state machine.
 
-<img src="./resources/w5/img/l1-FSM0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
-
 - Throughout this module, we will go through a step-by-step process of constructing a finite state machine-based behavior planner.
 - We'll discuss some of the limitations of this approach.
 - To better understand the finite state machine approach, let's walk through a simple example of a finite-state machine for a single scenario, handling a stop sign intersection with no traffic.
+
+<img src="./resources/w5/img/l1-FSM0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
 - The first set of components of a finite state machine, is the set of states.
 - For behavior planning system, the states will represent each of the possible driving maneuvers, which can be encountered.
 - In our example, we will only need two possible maneuvers or states, track speed and decelerate to stop.
@@ -722,5 +723,8 @@ Tesla AI Day :
 - [Tesla AI Day - 2022](https://www.youtube.com/watch?v=ODSJsviD_SU&t=3480s)
 
 
-
 # Appendices
+
+- [Fuzzy Logic](https://en.wikipedia.org/wiki/Fuzzy_logic)
+- [Behavior Planning at Urban Intersections through Hierarchical Reinforcement Learning - paper](https://arxiv.org/abs/2011.04697)
+
