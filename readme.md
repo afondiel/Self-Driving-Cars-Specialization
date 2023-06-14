@@ -1,6 +1,6 @@
 # Self-Driving Cars Specialization - Notes
 
-Notes and assignements of `Self-Driving Cars Specialization` course offered by Faculty of Appied Science and Engineering of [University of Toronto](https://www.utoronto.ca/) on [Coursera](coursera.org). 
+Notes and assignements of `Self-Driving Cars Specialization` course offered by Faculty of Appied Science and Engineering of [University of Toronto](https://www.autodrive.utoronto.ca/) on [Coursera](https://www.coursera.org/specializations/self-driving-cars). 
 
 ![Autonomy solutions](https://www.rd.com/wp-content/uploads/2022/08/self-driving-cars-GettyImages-1292394282-JVedit.jpg?resize=768,512) 
 
