@@ -913,3 +913,10 @@ Geometry
 - [Stereometry or Solid Geometry - 3D (Objects) Geometry](https://en.wikipedia.org/wiki/Solid_geometry)
 - [Geometry Processing](https://en.wikipedia.org/wiki/Geometry_processing)
 - [3D space](https://en.wikipedia.org/wiki/Three-dimensional_space)
+
+University of Toronto: 
+
+- CSC2541:Visual Perception for Autonomous Driving - Winter 2016 : http://www.cs.toronto.edu/~urtasun/courses/CSC2541/CSC2541_Winter16.html
+
+
+
