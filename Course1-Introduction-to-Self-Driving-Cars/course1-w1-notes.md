@@ -308,18 +308,16 @@ This module introduces the language and structure of the problem definition, def
 - OK 
   
 #### **Lesson 2**: Requirements for Perception
-- Any task can be broken down into two components : 
-  
-```mermaid
-graph LR;
-    I-->|Input|B[Analyse ego motion & environment <br> **perception**]
-    B-->C[Decide on and plan a maneuver <br> **planning**]
-    C-->|Drive|D
-```
-- Understand the environment 
-- make a driving decision
-  
+
+Any task can be broken down into two components : 
+  - understand the environment 
+  - make a driving decision
+
+<img src="./resources/w1/img/l2-req-perception0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
+
+
 Any driving task requires some kind of OEDR : 
+
 - identify the objects around us
 - recognizes events happening near us
 - respond to it
