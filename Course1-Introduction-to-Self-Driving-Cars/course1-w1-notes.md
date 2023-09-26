@@ -432,7 +432,18 @@ What other types of planning are there ?
 ### Weekly Assignment
 - Quiz
 
-# References
+## References
 
-- [DARPA Grand Challenge](https://en.wikipedia.org/wiki/DARPA_Grand_Challenge)
-- [DARPA Grand Challenge - 2007 edition](https://en.wikipedia.org/wiki/DARPA_Grand_Challenge_(2007))
+DARPA Challenge
+
+- [DARPA Grand Challenge (2004) - 1st ed.](https://en.wikipedia.org/wiki/DARPA_Grand_Challenge)
+- [DARPA Grand Challenge (2005) - 2nd ed.](https://en.wikipedia.org/wiki/DARPA_Grand_Challenge_(2005))
+- [DARPA Urban Challenge (2007) - 3rd ed.](https://en.wikipedia.org/wiki/DARPA_Grand_Challenge_(2007))
+- [DARPA Robotics Challenge (2012)](https://en.wikipedia.org/wiki/DARPA_Robotics_Challenge)
+
+Autonomoose U of T - Waterloo
+- [Autonomoose Project - official website](https://www.autonomoose.net/)
+- [Autonomoose](https://uwaterloo.ca/autonomous-vehicle-research-intelligence-lab/autonomoose)
+- [TRAILab - U of T](https://www.trailab.utias.utoronto.ca/) - formely [WAVE Lab - UWateloo](http://wavelab.uwaterloo.ca/)
+- [WISE Lab (Waterloo Intelligent Systems Engineering Lab) - Projects](https://uwaterloo.ca/waterloo-intelligent-systems-engineering-lab/)
+- [STARS Lab - U of T](https://starslab.ca/)
