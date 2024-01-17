@@ -11,6 +11,10 @@ This course will introduce you to the different sensors and how we can use them 
 - Understand LIDAR scan matching and the Iterative Closest Point algorithm 
 - Apply these tools to fuse multiple sensor streams into a single state estimate for a self-driving car 
 
+## Final Project
+
 For the final project in this course, you will implement the Error-State Extended Kalman Filter (ES-EKF) to localize a vehicle using data from the CARLA simulator. 
+
+## Prerequisites
 
 This is an advanced course, intended for learners with a background in mechanical engineering, computer and electrical engineering, or robotics. To succeed in this course, you should have programming experience in Python 3.0, familiarity with Linear Algebra (matrices, vectors, matrix multiplication, rank, Eigenvalues and vectors and inverses), Statistics (Gaussian probability distributions), Calculus and Physics (forces, moments, inertia, Newton's Laws).
