@@ -121,10 +121,10 @@ Let's work through an example on how to assess the performance of a 2D object de
 
 <img src="./resources/w4/img/l1-obj-det-ex0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
  
-- We process our image with a confinet to get the detection output bounding boxes, shown in red. You can notice that the network mistakenly detects the front of a large truck as a car. 
-- Looking at the scores, we see that our confinet gave this miss detection quite a high score of being a car. 
+- We process our image with a ConvNet to get the detection output bounding boxes, shown in red. You can notice that the network mistakenly detects the front of a large truck as a car. 
+- Looking at the scores, we see that our ConvNet gave this miss detection quite a high score of being a car. 
 
-Let's now evaluate the performance of our confinet using average precision. 
+Let's now evaluate the performance of our ConvNet using average precision. 
 
 <img src="./resources/w4/img/l1-obj-det-ex1.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
  
@@ -180,7 +180,7 @@ Let's see how the performance of our detector changes when we decrease the score
 
 In this video, you learned how to **formulate the 2D object detection problem** and how **to evaluate a 2D object detectors performance** using **the average precision performance metric**.
  
-Next lesson, you will learn how to use confinet as 2D object detectors for self-driving cars. See you then.
+Next lesson, you will learn how to use ConvNet as 2D object detectors for self-driving cars. See you then.
 
 ### Supplementary Reading: The Object Detection Problem
 
