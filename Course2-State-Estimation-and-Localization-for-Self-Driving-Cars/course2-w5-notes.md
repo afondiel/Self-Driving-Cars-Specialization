@@ -5,7 +5,7 @@
 - Learners will build, using data from the CARLA simulator, an error-state extended Kalman filter-based estimator that incorporates GPS, IMU, and LIDAR measurements to determine the vehicle position and orientation on the road at a high update rate. 
 - There will be an opportunity to observe what happens to the quality of the state estimate when one or more of the sensors either 'drop out' or are disabled.
 
-**Course Objectives :**
+**Course Objectives:**
 - Apply filtering-based state estimation to determine the pose of a vehicle on the roadway
 - Use LIDAR scan registration (to an existing map) to improve state estimates
 - Test the effects of the loss of one or more sensors on the vehicle pose estimate
@@ -18,7 +18,7 @@
 
 <img src="./resources/w5/img/l1-real-self-driving-cars-autonomous.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- A real self-driving car like the autonomous will be equipped with many different kinds of sensors. For example, the autonomous is equipped with : `5 cameras`, a `3D LiDAR`, an `IMU`, `four radar units`, a `GPS` or `GNSS receiver`, and `a wheel encoder`. 
+- A real self-driving car like the [autonomoose](https://uwaterloo.ca/centre-automotive-research/about-autonomoose) will be equipped with many different kinds of sensors. For example, the autonomoose is equipped with : `5 cameras`, a `3D LiDAR`, an `IMU`, `4 radar units`, a `GPS` or `GNSS receiver`, and `a wheel encoder`. 
 
 - All of these sensors give us different types of data at different rates. For example, the IMU might report accelerations and angular velocities 200 times per second, while the LiDAR completes a full scan only 20 times per second
 
@@ -39,7 +39,7 @@
 
 <img src="./resources/w5/img/l1-sensor-fusion0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px">
 
-- Starting with `sensor fusion`. If we have a car like the autonomous that's equipped with a number of different sensors, what we would like to do is figure out how to combine all of this different information to get the best possible estimate of the vehicle state.
+- Starting with `sensor fusion`. If we have a car like the autonomoose that's equipped with a number of different sensors, what we would like to do is figure out how to combine all of this different information to get the best possible estimate of the vehicle state.
   
 - It might seem like a daunting task to fuse all of this data, but in fact, we already have the tools to do this. 
 
