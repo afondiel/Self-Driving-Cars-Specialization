@@ -44,8 +44,10 @@ You’ll learn from a highly realistic driving environment that features 3D pede
 
 ## References
 
-
 - [Link to enroll the Specialization from Coursera](https://www.coursera.org/specializations/self-driving-cars)
+- I wrote a blog review, you can check it out [here](https://medium.com/@muntudiela/the-top-5-skills-i-learned-from-the-university-of-toronto-self-driving-cars-specialization-2023-6470b36fe7ed).
+- I curated a spreadsheet summarizing all the prerequisites lists for this course, you can check it out [here](https://docs.google.com/spreadsheets/d/128Yq635qKJYq85_ljYZqE2YJ2H8wKj7j/edit?usp=sharing&ouid=102816985973898927169&rtpof=true&sd=true) as well.
+- All projects [here](https://github.com/diesimo-ai/self-driving-car-projects)! 
 - [My Certificate :) - You can do it too!](https://www.coursera.org/account/accomplishments/specialization/SVJ5YGT8AW88?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=pdf_header_button&utm_product=s12n)
 
 
