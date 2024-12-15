@@ -736,12 +736,16 @@ But first, let us see how image filtering helps reduce salt and pepper noise as 
 
 - If we look at the image array, we noticed that salt and pepper noise usually results in outlier pixels, low-value pixels in a high-value neighborhood or high-value pixels in a low-value neighborhood. 
 
-<img src="./resources/w1/img/l4-img-filtering3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
-
 - One idea to reduce this noise is to compute the `mean` of the whole neighborhood, and replace the outlier pixel with this mean value. 
 
-- Let us define $G$ as the output of our filter operation. The equation of the mean can be described in terms of $k$, $u$ and $v$ . Here, $2k + 1$ one is the filter size. 
-- In this case, the size of our neighborhood which is three leads to a $k$ that's equal to one. $u$ and $v$ are the center pixel image coordinates. 
+<img src="./resources/w1/img/l4-img-filtering3_0.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
+- Let us define $G$ as the output of our filter operation. The equation of the mean can be described in terms of $k$, $u$ and $v$ .
+
+- Here, $2k + 1$ one is the filter size. In this case, the size of our neighborhood which is three leads to a $k$ that's equal to one. $u$ and $v$ are the center pixel image coordinates. 
+
+<img src="./resources/w1/img/l4-img-filtering3.png" width="600" style="border:0px solid #FFFFFF; padding:1px; margin:1px"> 
+
 - Computing the mean results in $80$ for the top neighborhood and $10$ for the bottom one. 
 - The final step is to replace the center pixel of each of those neighborhoods by the corresponding mean. 
   
@@ -856,7 +860,7 @@ Another important application that can be performed using convolutions, is `imag
 ### Lab : Applying Stereo Depth to a Driving Scenario 
 ### Grade 
 
-# References
+## References
 
 Tesla Vision vs Lidar : 
 - [Tesla autonomy neural networks How AI neural networks function in Tesla - By Andrej Karpathy](https://www.youtube.com/watch?v=eZOHA6Uy52k)
@@ -884,7 +888,7 @@ Camera Sensor :
 - [Understanding The Digital Image Sensor](https://thinklucid.com/tech-briefs/understanding-digital-image-sensors/)
 - [Image Sensor](https://en.wikipedia.org/wiki/Image_sensor)
 
-# Appendices
+## Appendices
 
 CV : 
 - [Computer Vision](https://en.wikipedia.org/wiki/Computer_vision)
